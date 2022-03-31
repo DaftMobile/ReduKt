@@ -11,3 +11,5 @@ fun interface Middleware<State> {
         Consumed, Passed
     }
 }
+
+internal fun <State> Middleware<State>.processWith(scope: DispatchScope<State>, action: Action) = scope.process(action)
