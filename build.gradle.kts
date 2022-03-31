@@ -1,0 +1,7 @@
+setupReduKtPackage()
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
