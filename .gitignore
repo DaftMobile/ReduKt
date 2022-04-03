@@ -6,3 +6,4 @@
 /core/build/classes/kotlin/jvm/main/
 /core/build/classes/kotlin/jvm/test/
 /.idea/
+/thunk/build/
