@@ -6,7 +6,13 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 fun KotlinMultiplatformExtension.allSupportedTargets() {
     jvm()
     js(BOTH) {
-        browser()
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                }
+            }
+        }
         nodejs()
     }
     mingwX64()
