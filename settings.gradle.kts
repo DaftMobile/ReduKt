@@ -1,4 +1,4 @@
 rootProject.name = "ReduKt"
 
-include(":core")
-include(":thunk")
+include(":redukt-core")
+include(":redukt-thunk")

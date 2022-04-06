@@ -2,9 +2,7 @@
 /.gradle/
 /buildSrc/.gradle/
 /buildSrc/build/
-/core/build/
-/core/build/classes/kotlin/jvm/main/
-/core/build/classes/kotlin/jvm/test/
+/redukt-core/build/
 /.idea/
-/thunk/build/
+/redukt-thunk/build/
 /build/
