@@ -32,7 +32,7 @@ internal class TranslucentMiddlewareTest : TestsWithMocks() {
     }
 
     @Test
-    fun `should call its block on any action`() {
+    fun shouldCallPassedBlockOnAnyAction() {
         middleware.processWith(scope, UnknownAction)
         middleware.processWith(scope, KnownAction.A)
         middleware.processWith(scope, KnownAction.B)
@@ -44,7 +44,7 @@ internal class TranslucentMiddlewareTest : TestsWithMocks() {
     }
 
     @Test
-    fun `should pass on every action`() {
+    fun shouldPassOnAnyAction() {
         assertEquals(Passed, middleware.processWith(scope, UnknownAction))
         assertEquals(Passed, middleware.processWith(scope, KnownAction.A))
         assertEquals(Passed, middleware.processWith(scope, KnownAction.B))

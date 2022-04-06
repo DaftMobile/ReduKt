@@ -28,25 +28,25 @@ internal class ConsumingMiddlewareTest : TestsWithMocks() {
     }
 
     @Test
-    fun `should pass on unknown type`() {
+    fun shouldPassOnUnknownType() {
         val actual = middleware.processWith(scope, UnknownAction)
         assertEquals(actual, Middleware.Status.Passed)
     }
 
     @Test
-    fun `should consume on consumable type`() {
+    fun shouldConsumeOnConsumableType() {
         val actual = middleware.processWith(scope, KnownAction.A)
         assertEquals(actual, Middleware.Status.Consumed)
     }
 
     @Test
-    fun `should call block with consumed action and proper scope`() {
+    fun shouldCallBlockWithConsumedActionAndProperScope() {
         middleware.processWith(scope, KnownAction.B)
         verify { consumer.consume(isAny(), isEqual(KnownAction.B)) }
     }
 
     @Test
-    fun `should not call block when action is unknown`() {
+    fun shouldNotCallBlockWithUnknownAction() {
         middleware.processWith(scope, UnknownAction)
         verify { }
     }

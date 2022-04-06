@@ -9,24 +9,24 @@ import kotlin.test.assertNull
 internal class EmptyDispatchContextTest {
 
     @Test
-    fun `should return null on find`() {
+    fun findShouldReturnNull() {
         assertNull(EmptyDispatchContext.find(TestDispatchContext))
     }
 
     @Test
-    fun `should return throw MissingContextElementException on get`() {
+    fun getShouldReturnThrowMissingContextElementException() {
         assertFailsWith<MissingContextElementException> {
             EmptyDispatchContext[TestDispatchContext]
         }
     }
 
     @Test
-    fun `should split into empty list`() {
+    fun splitShouldReturnEmptyList() {
         assertEquals(emptyList(), EmptyDispatchContext.split())
     }
 
     @Test
-    fun `should return right side on plus operator`() {
+    fun plusOperatorShouldReturnRightSide() {
         val rightSide = TestDispatchContext()
         assertEquals(rightSide, EmptyDispatchContext + rightSide)
     }

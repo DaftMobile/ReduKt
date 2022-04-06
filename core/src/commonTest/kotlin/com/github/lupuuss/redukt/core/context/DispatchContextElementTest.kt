@@ -12,29 +12,29 @@ class DispatchContextElementTest {
 
 
     @Test
-    fun `should find itself on its key`() {
+    fun findShouldReturnThisWhenCompanionIsPassed() {
         assertEquals(dispatchContextElement, dispatchContextElement.find(TestDispatchContext))
     }
 
     @Test
-    fun `should get itself on its key`() {
+    fun getShouldReturnThisWhenCompanionIsPassed() {
         assertEquals(dispatchContextElement, dispatchContextElement[TestDispatchContext])
     }
 
     @Test
-    fun `should find null on any other key`() {
+    fun findShouldReturnNullWhenOtherKeyIsPassed() {
         assertNull(dispatchContextElement.find(ContextElementB))
     }
 
     @Test
-    fun `should fail getting any other key`() {
+    fun getShouldThrowMissingContextElementExceptionWhenAnyOtherKeyIsPassed() {
         assertFailsWith<MissingContextElementException> {
             dispatchContextElement[ContextElementB]
         }
     }
 
     @Test
-    fun `should split into list containing itself`() {
+    fun splitShouldReturnListWithOnlyThis() {
         assertEquals(listOf(dispatchContextElement), dispatchContextElement.split())
     }
 }

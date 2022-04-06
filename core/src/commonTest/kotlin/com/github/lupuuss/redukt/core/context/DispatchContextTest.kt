@@ -18,14 +18,14 @@ private class ControlDispatchContext(
 internal class DispatchContextTest {
 
     @Test
-    fun `should use find result to get an element`() {
+    fun getShouldUseFind() {
         val findResult = TestDispatchContext()
         val context = ControlDispatchContext(findResult = findResult)
         assertEquals(findResult, context[TestDispatchContext])
     }
 
     @Test
-    fun `should throw MissingContextElementException when element cannot be found`() {
+    fun getShouldThrowMissingContextElementWhenItIsNotPresent() {
         val context = ControlDispatchContext(findResult = null)
         assertFailsWith<MissingContextElementException> {
             context[TestDispatchContext]
@@ -33,7 +33,7 @@ internal class DispatchContextTest {
     }
 
     @Test
-    fun `plus result should allow to find each element of origin contexts`() {
+    fun plusResultContextShouldBeAbleToFindAllProducts() {
         val elementA = ContextElementA()
         val context1 = ControlDispatchContext(splitResult = listOf(elementA))
         val elementB = ContextElementB()
@@ -44,7 +44,7 @@ internal class DispatchContextTest {
     }
 
     @Test
-    fun `plus result should return elements of origin contexts on split`() {
+    fun plusResultContextShouldBeAbleToSplitIntoItsProducts() {
         val elementA = ContextElementA()
         val context1 = ControlDispatchContext(splitResult = listOf(elementA))
         val elementB = ContextElementB()
@@ -54,7 +54,7 @@ internal class DispatchContextTest {
     }
 
     @Test
-    fun `plus result should be right side biased, when overriding context elements`() {
+    fun plusShouldBeRightSideBiasedWhenSameKeyElementsOverwriteEachOther() {
         val elementA = ContextElementA()
         val anotherElementA = ContextElementA()
         val resultContext = elementA + anotherElementA
@@ -62,7 +62,7 @@ internal class DispatchContextTest {
     }
 
     @Test
-    fun `repeated plus should result in flat elements list`() {
+    fun repeatedPlusShouldResultInFlatElementsListWhenSplitted() {
         val elements = listOf(ContextElementA(), ContextElementB(), TestDispatchContext())
         val result = elements[0] + elements[1] + elements[2]
         assertEquals(elements, result.split())

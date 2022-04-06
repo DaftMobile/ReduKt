@@ -9,28 +9,28 @@ import kotlin.test.assertNull
 internal class CombinedDispatchContextTest {
 
     @Test
-    fun `should find element with a given key from passed elements `() {
+    fun findShouldReturnElementFromPassedElements() {
         val elements = listOf(ContextElementA(), ContextElementB())
         val context = CombinedDispatchContext(elements)
         assertEquals(elements[1] as ContextElementB, context.find(ContextElementB))
     }
 
     @Test
-    fun `should find null when element with given key is absent`() {
+    fun findShouldReturnNullWhenElementWithPassedKeyIsMissing() {
         val elements = listOf(ContextElementA(), ContextElementB())
         val context = CombinedDispatchContext(elements)
         assertNull(context.find(TestDispatchContext))
     }
 
     @Test
-    fun `should split into elements passed through constructor`() {
+    fun splitShouldReturnElementsPassedToConstructor() {
         val elements = listOf(ContextElementA(), ContextElementB())
         val context = CombinedDispatchContext(elements)
         assertEquals(elements, context.split())
     }
 
     @Test
-    fun `should fail when no elements passed on creation`() {
+    fun constructorShouldFailWhenEmptyListPassed() {
         assertFails {
             CombinedDispatchContext(emptyList())
         }

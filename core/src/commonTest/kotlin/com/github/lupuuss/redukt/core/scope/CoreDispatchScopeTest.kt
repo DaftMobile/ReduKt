@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 internal class CoreDispatchScopeTest {
 
     @Test
-    fun `should call getState on state getter`() {
+    fun stateGetterShouldReturnGetStateResult() {
         var state = 7312
         val scope = CoreDispatchScope(
             dispatchContext = EmptyDispatchContext,
@@ -23,7 +23,7 @@ internal class CoreDispatchScopeTest {
     }
 
     @Test
-    fun `should call dispatchFunction on dispatch`() {
+    fun dispatchShouldCallDispatchFunction() {
         var calledWithAction: Action? = null
         val scope = CoreDispatchScope(
             dispatchContext = EmptyDispatchContext,
@@ -35,7 +35,7 @@ internal class CoreDispatchScopeTest {
     }
 
     @Test
-    fun `should return passed dispatchContext on dispatchContext getter`() {
+    fun dispatchContextGetterShouldReturnPassedContext() {
         val context = TestDispatchContext()
         val scope = CoreDispatchScope(
             dispatchContext = context,
