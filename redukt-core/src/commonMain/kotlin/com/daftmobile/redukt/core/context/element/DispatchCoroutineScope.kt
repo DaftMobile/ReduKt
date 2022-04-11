@@ -5,7 +5,7 @@ import com.daftmobile.redukt.core.scope.DispatchScope
 import kotlinx.coroutines.CoroutineScope
 
 class DispatchCoroutineScope(scope: CoroutineScope) : DispatchContext.Element, CoroutineScope by scope {
-    override val key get() = DispatchCoroutineScope
+    override val key get() = Key
 
     companion object Key : DispatchContext.Key<DispatchCoroutineScope>
 }
