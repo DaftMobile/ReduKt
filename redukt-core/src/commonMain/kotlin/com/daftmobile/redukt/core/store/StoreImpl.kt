@@ -13,11 +13,11 @@ internal class StoreImpl<State>(
     initialState: State,
     private val reducer: Reducer<State>,
     private val middlewares: List<Middleware<State>> = emptyList(),
-    context: DispatchContext = EmptyDispatchContext
+    override val dispatchContext: DispatchContext = EmptyDispatchContext
 ) : Store<State> {
     override val state = MutableStateFlow(initialState)
 
-    private val scope = CoreDispatchScope(context, this::dispatch, this.state::value)
+    private val scope = CoreDispatchScope(dispatchContext, this::dispatch, this.state::value)
 
     override fun dispatch(action: Action) {
         var status = Middleware.Status.Passed
