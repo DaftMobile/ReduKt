@@ -16,6 +16,7 @@ fun KotlinMultiplatformExtension.allSupportedTargets() {
         nodejs()
     }
     mingwX64()
+    ios()
 }
 
 fun Project.setupReduKtPackage() {
