@@ -7,4 +7,10 @@ object Libs {
             const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
         }
     }
+    object kotest {
+        const val version = "5.2.3"
+        object assertions {
+            const val core = "io.kotest:kotest-assertions-core:$version"
+        }
+    }
 }
