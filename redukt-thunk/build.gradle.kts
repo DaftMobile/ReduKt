@@ -16,13 +16,13 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":redukt-core"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${ReduKt.vCoroutines}")
+                implementation(Libs.kotlinx.coroutines.core)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${ReduKt.vCoroutines}")
+                implementation(Libs.kotlinx.coroutines.test)
             }
         }
     }

@@ -2,8 +2,6 @@ plugins {
     `kotlin-dsl`
 }
 
-val kotlinVersion: String by project
-
 repositories {
     mavenCentral()
     gradlePluginPortal()
