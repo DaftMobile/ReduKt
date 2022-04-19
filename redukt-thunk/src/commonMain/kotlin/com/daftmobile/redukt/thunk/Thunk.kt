@@ -2,7 +2,6 @@ package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.scope.DispatchScope
-import kotlinx.coroutines.CoroutineStart
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -14,7 +13,7 @@ sealed interface Thunk : Action {
 
     abstract class Suspendable<State>(
         val coroutineContext: CoroutineContext = EmptyCoroutineContext,
-        val coroutineStart: CoroutineStart = CoroutineStart.DEFAULT,
+        val alwaysDispatch: Boolean = false,
     ) : Thunk {
         abstract suspend fun DispatchScope<State>.executeSuspendable()
     }
@@ -26,8 +25,8 @@ sealed interface Thunk : Action {
     open class Suspend<State>(
         private val block: suspend  DispatchScope<State>.() -> Unit,
         coroutineContext: CoroutineContext = EmptyCoroutineContext,
-        coroutineStart: CoroutineStart = CoroutineStart.DEFAULT,
-    ) : Suspendable<State>(coroutineContext, coroutineStart) {
+        alwaysDispatch: Boolean = false,
+    ) : Suspendable<State>(coroutineContext, alwaysDispatch) {
         override suspend fun DispatchScope<State>.executeSuspendable() = block()
     }
 }
