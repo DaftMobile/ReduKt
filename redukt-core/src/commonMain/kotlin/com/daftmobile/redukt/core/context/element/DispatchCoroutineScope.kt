@@ -1,7 +1,7 @@
 package com.daftmobile.redukt.core.context.element
 
+import com.daftmobile.redukt.core.ActionDispatcher
 import com.daftmobile.redukt.core.context.DispatchContext
-import com.daftmobile.redukt.core.scope.DispatchScope
 import kotlinx.coroutines.CoroutineScope
 
 class DispatchCoroutineScope(scope: CoroutineScope) : DispatchContext.Element, CoroutineScope by scope {
@@ -10,4 +10,4 @@ class DispatchCoroutineScope(scope: CoroutineScope) : DispatchContext.Element, C
     companion object Key : DispatchContext.Key<DispatchCoroutineScope>
 }
 
-val DispatchScope<*>.coroutineScope get() = dispatchContext[DispatchCoroutineScope]
+inline val ActionDispatcher.coroutineScope get() = dispatchContext[DispatchCoroutineScope]
