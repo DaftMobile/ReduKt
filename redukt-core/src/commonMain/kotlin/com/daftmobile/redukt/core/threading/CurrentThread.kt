@@ -1,3 +1,3 @@
 package com.daftmobile.redukt.core.threading
 
-expect fun Thread.Companion.current(): Thread
+expect fun KtThread.Companion.current(): KtThread

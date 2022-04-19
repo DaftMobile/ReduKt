@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.core.threading
 
-sealed interface Thread {
+sealed interface KtThread {
     val rawName: String?
     val name: String
     companion object {
@@ -8,17 +8,17 @@ sealed interface Thread {
     }
 }
 
-fun Thread(rawName: String?): Thread = ThreadImpl(rawName)
+fun KtThread(rawName: String?): KtThread = KtThreadImpl(rawName)
 
-private class ThreadImpl(override val rawName: String?) : Thread {
+private class KtThreadImpl(override val rawName: String?) : KtThread {
 
-    override val name: String = rawName?.substringBeforeLast(" @") ?: Thread.UNSPECIFIED
+    override val name: String = rawName?.substringBeforeLast(" @") ?: KtThread.UNSPECIFIED
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as ThreadImpl
+        other as KtThreadImpl
 
         if (name != other.name) return false
 
