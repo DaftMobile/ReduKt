@@ -13,4 +13,9 @@ object Libs {
             const val core = "io.kotest:kotest-assertions-core:$version"
         }
     }
+
+    object kodein {
+        const val version = "7.11.0"
+        const val core = "org.kodein.di:kodein-di:$version"
+    }
 }
