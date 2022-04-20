@@ -1,13 +1,8 @@
 plugins {
     kotlin("multiplatform")
-    id("org.kodein.mock.mockmp") version "1.4.0"
 }
 
 setupReduKtPackage()
-
-mockmp {
-    usesHelper = true
-}
 
 kotlin {
     allSupportedTargets()
