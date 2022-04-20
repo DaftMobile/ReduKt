@@ -1,15 +1,17 @@
 package com.daftmobile.redukt.core.middleware
 
-import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.KnownAction
+import com.daftmobile.redukt.core.TestActionConsumer
 import com.daftmobile.redukt.core.TestDispatchScope
 import com.daftmobile.redukt.core.UnknownAction
+import com.daftmobile.redukt.core.middleware.Middleware.Status.Consumed
+import com.daftmobile.redukt.core.middleware.Middleware.Status.Passed
+import io.kotest.matchers.shouldBe
 import org.kodein.mock.Mock
 import org.kodein.mock.UsesMocks
 import org.kodein.mock.tests.TestsWithMocks
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 @UsesMocks(TestDispatchScope::class, TestActionConsumer::class)
 internal class ConsumingMiddlewareTest : TestsWithMocks() {
@@ -29,14 +31,12 @@ internal class ConsumingMiddlewareTest : TestsWithMocks() {
 
     @Test
     fun shouldPassOnUnknownType() {
-        val actual = middleware.processWith(scope, UnknownAction)
-        assertEquals(actual, Middleware.Status.Passed)
+        middleware.processWith(scope, UnknownAction) shouldBe Passed
     }
 
     @Test
     fun shouldConsumeOnConsumableType() {
-        val actual = middleware.processWith(scope, KnownAction.A)
-        assertEquals(actual, Middleware.Status.Consumed)
+        middleware.processWith(scope, KnownAction.A) shouldBe Consumed
     }
 
     @Test

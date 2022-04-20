@@ -1,40 +1,43 @@
 package com.daftmobile.redukt.core.context
 
 import com.daftmobile.redukt.core.TestDispatchContext
+import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrowUnit
+import io.kotest.matchers.collections.shouldHaveSingleElement
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.shouldBe
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertNull
 
 class DispatchContextElementTest {
 
     private val dispatchContextElement = TestDispatchContext()
 
-
     @Test
     fun findShouldReturnThisWhenCompanionIsPassed() {
-        assertEquals(dispatchContextElement, dispatchContextElement.find(TestDispatchContext))
+        dispatchContextElement.find(TestDispatchContext) shouldBe dispatchContextElement
     }
 
     @Test
     fun getShouldReturnThisWhenCompanionIsPassed() {
-        assertEquals(dispatchContextElement, dispatchContextElement[TestDispatchContext])
+        shouldNotThrowAny {
+            dispatchContextElement[TestDispatchContext] shouldBe dispatchContextElement
+        }
     }
 
     @Test
     fun findShouldReturnNullWhenOtherKeyIsPassed() {
-        assertNull(dispatchContextElement.find(ContextElementB))
+        dispatchContextElement.find(ContextElementB).shouldBeNull()
     }
 
     @Test
     fun getShouldThrowMissingContextElementExceptionWhenAnyOtherKeyIsPassed() {
-        assertFailsWith<MissingContextElementException> {
+        shouldThrowUnit<MissingContextElementException> {
             dispatchContextElement[ContextElementB]
         }
     }
 
     @Test
     fun splitShouldReturnListWithOnlyThis() {
-        assertEquals(listOf(dispatchContextElement), dispatchContextElement.split())
+        dispatchContextElement.split() shouldHaveSingleElement dispatchContextElement
     }
 }

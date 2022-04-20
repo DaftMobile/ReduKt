@@ -1,10 +1,10 @@
 package com.daftmobile.redukt.core.context
 
 import com.daftmobile.redukt.core.TestDispatchContext
+import io.kotest.assertions.throwables.shouldThrowAny
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.shouldBe
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFails
-import kotlin.test.assertNull
 
 internal class CombinedDispatchContextTest {
 
@@ -12,26 +12,26 @@ internal class CombinedDispatchContextTest {
     fun findShouldReturnElementFromPassedElements() {
         val elements = listOf(ContextElementA(), ContextElementB())
         val context = CombinedDispatchContext(elements)
-        assertEquals(elements[1] as ContextElementB, context.find(ContextElementB))
+        context.find(ContextElementB) shouldBe elements[1]
     }
 
     @Test
     fun findShouldReturnNullWhenElementWithPassedKeyIsMissing() {
         val elements = listOf(ContextElementA(), ContextElementB())
         val context = CombinedDispatchContext(elements)
-        assertNull(context.find(TestDispatchContext))
+        context.find(TestDispatchContext).shouldBeNull()
     }
 
     @Test
     fun splitShouldReturnElementsPassedToConstructor() {
         val elements = listOf(ContextElementA(), ContextElementB())
         val context = CombinedDispatchContext(elements)
-        assertEquals(elements, context.split())
+        context.split() shouldBe elements
     }
 
     @Test
     fun constructorShouldFailWhenEmptyListPassed() {
-        assertFails {
+        shouldThrowAny {
             CombinedDispatchContext(emptyList())
         }
     }

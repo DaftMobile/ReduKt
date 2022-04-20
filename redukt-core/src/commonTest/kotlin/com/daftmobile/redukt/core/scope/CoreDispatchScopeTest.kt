@@ -4,8 +4,9 @@ import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.KnownAction
 import com.daftmobile.redukt.core.TestDispatchContext
 import com.daftmobile.redukt.core.context.EmptyDispatchContext
+import io.kotest.matchers.ints.shouldBeExactly
+import io.kotest.matchers.shouldBe
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 internal class CoreDispatchScopeTest {
 
@@ -17,21 +18,21 @@ internal class CoreDispatchScopeTest {
             dispatchFunction = {},
             getState = { state }
         )
-        assertEquals(7312, scope.state)
+        scope.state shouldBeExactly 7312
         state = 1234
-        assertEquals(1234, scope.state)
+        scope.state shouldBeExactly 1234
     }
 
     @Test
     fun dispatchShouldCallDispatchFunction() {
-        var calledWithAction: Action? = null
+        var calledAction: Action? = null
         val scope = CoreDispatchScope(
             dispatchContext = EmptyDispatchContext,
-            dispatchFunction = { calledWithAction = it },
+            dispatchFunction = { calledAction = it },
             getState = {}
         )
         scope.dispatch(KnownAction.A)
-        assertEquals(KnownAction.A, calledWithAction)
+        calledAction shouldBe KnownAction.A
     }
 
     @Test
@@ -42,6 +43,6 @@ internal class CoreDispatchScopeTest {
             dispatchFunction = {},
             getState = {}
         )
-        assertEquals(context, scope.dispatchContext)
+        scope.dispatchContext shouldBe context
     }
 }

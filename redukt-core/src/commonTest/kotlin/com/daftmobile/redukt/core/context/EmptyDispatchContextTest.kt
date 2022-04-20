@@ -1,33 +1,36 @@
 package com.daftmobile.redukt.core.context
 
 import com.daftmobile.redukt.core.TestDispatchContext
+import io.kotest.assertions.throwables.shouldThrowUnit
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.shouldBe
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertNull
 
 internal class EmptyDispatchContextTest {
 
     @Test
     fun findShouldReturnNull() {
-        assertNull(EmptyDispatchContext.find(TestDispatchContext))
+        EmptyDispatchContext
+            .find(TestDispatchContext)
+            .shouldBeNull()
     }
 
     @Test
     fun getShouldReturnThrowMissingContextElementException() {
-        assertFailsWith<MissingContextElementException> {
+        shouldThrowUnit<MissingContextElementException> {
             EmptyDispatchContext[TestDispatchContext]
         }
     }
 
     @Test
     fun splitShouldReturnEmptyList() {
-        assertEquals(emptyList(), EmptyDispatchContext.split())
+        EmptyDispatchContext.split().shouldBeEmpty()
     }
 
     @Test
     fun plusOperatorShouldReturnRightSide() {
         val rightSide = TestDispatchContext()
-        assertEquals(rightSide, EmptyDispatchContext + rightSide)
+        (EmptyDispatchContext + rightSide) shouldBe rightSide
     }
 }

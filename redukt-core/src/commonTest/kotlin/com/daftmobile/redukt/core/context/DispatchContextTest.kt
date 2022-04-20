@@ -1,10 +1,10 @@
 package com.daftmobile.redukt.core.context
 
 import com.daftmobile.redukt.core.TestDispatchContext
+import io.kotest.assertions.throwables.shouldThrowUnit
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertSame
 
 private class ControlDispatchContext(
     private val findResult: Any? = null,
@@ -21,13 +21,13 @@ internal class DispatchContextTest {
     fun getShouldUseFind() {
         val findResult = TestDispatchContext()
         val context = ControlDispatchContext(findResult = findResult)
-        assertEquals(findResult, context[TestDispatchContext])
+        context[TestDispatchContext] shouldBe findResult
     }
 
     @Test
     fun getShouldThrowMissingContextElementWhenItIsNotPresent() {
         val context = ControlDispatchContext(findResult = null)
-        assertFailsWith<MissingContextElementException> {
+        shouldThrowUnit<MissingContextElementException> {
             context[TestDispatchContext]
         }
     }
@@ -39,8 +39,8 @@ internal class DispatchContextTest {
         val elementB = ContextElementB()
         val context2 = ControlDispatchContext(splitResult = listOf(elementB))
         val resultContext = context1 + context2
-        assertEquals(elementA, resultContext.find(ContextElementA))
-        assertEquals(elementB, resultContext.find(ContextElementB))
+        resultContext.find(ContextElementA) shouldBe elementA
+        resultContext.find(ContextElementB) shouldBe elementB
     }
 
     @Test
@@ -50,7 +50,7 @@ internal class DispatchContextTest {
         val elementB = ContextElementB()
         val context2 = ControlDispatchContext(splitResult = listOf(elementB))
         val resultContext = context1 + context2
-        assertEquals(listOf(elementA, elementB), resultContext.split())
+        resultContext.split() shouldBe listOf(elementA, elementB)
     }
 
     @Test
@@ -58,13 +58,13 @@ internal class DispatchContextTest {
         val elementA = ContextElementA()
         val anotherElementA = ContextElementA()
         val resultContext = elementA + anotherElementA
-        assertSame(anotherElementA, resultContext.find(ContextElementA))
+        resultContext.find(ContextElementA) shouldBeSameInstanceAs anotherElementA
     }
 
     @Test
     fun repeatedPlusShouldResultInFlatElementsListWhenSplitted() {
         val elements = listOf(ContextElementA(), ContextElementB(), TestDispatchContext())
         val result = elements[0] + elements[1] + elements[2]
-        assertEquals(elements, result.split())
+        result.split() shouldBe elements
     }
 }

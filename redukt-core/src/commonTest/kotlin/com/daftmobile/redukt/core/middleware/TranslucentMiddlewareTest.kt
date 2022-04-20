@@ -5,12 +5,12 @@ import com.daftmobile.redukt.core.TestActionConsumer
 import com.daftmobile.redukt.core.TestDispatchScope
 import com.daftmobile.redukt.core.UnknownAction
 import com.daftmobile.redukt.core.middleware.Middleware.Status.Passed
+import io.kotest.matchers.shouldBe
 import org.kodein.mock.Mock
 import org.kodein.mock.UsesMocks
 import org.kodein.mock.tests.TestsWithMocks
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 @UsesMocks(TestDispatchScope::class, TestActionConsumer::class)
 internal class TranslucentMiddlewareTest : TestsWithMocks() {
@@ -45,9 +45,9 @@ internal class TranslucentMiddlewareTest : TestsWithMocks() {
 
     @Test
     fun shouldPassOnAnyAction() {
-        assertEquals(Passed, middleware.processWith(scope, UnknownAction))
-        assertEquals(Passed, middleware.processWith(scope, KnownAction.A))
-        assertEquals(Passed, middleware.processWith(scope, KnownAction.B))
+        middleware.processWith(scope, UnknownAction) shouldBe Passed
+        middleware.processWith(scope, KnownAction.A) shouldBe Passed
+        middleware.processWith(scope, KnownAction.B) shouldBe Passed
     }
 
 }
