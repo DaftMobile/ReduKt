@@ -8,16 +8,16 @@ val KotlinDependencyHandler.ReduKtProject get() = ReduKtProjectHelper(this)
 
 class ReduKtProjectHelper(handler: KotlinDependencyHandler) : KotlinDependencyHandler by handler {
 
-    val core by subproject()
-    val thunk by subproject()
-    val combine by subproject()
-    val kodein by subproject()
+    val core by project()
+    val thunk by project()
+    val combine by project()
+    val kodein by project()
 
 }
 
-private fun subproject() = SubprojectDelegate()
+private fun project() = ProjectDelegate()
 
-private class SubprojectDelegate {
+private class ProjectDelegate {
     operator fun getValue(
         thisRef: ReduKtProjectHelper,
         property: KProperty<*>
