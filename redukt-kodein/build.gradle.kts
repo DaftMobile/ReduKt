@@ -10,7 +10,7 @@ kotlin {
         commonOptIns()
         val commonMain by getting {
             dependencies {
-                api(project(":redukt-core"))
+                api(ReduKtProject.core)
                 implementation(Libs.kodein.core)
                 implementation(Libs.kotlinx.coroutines.core)
             }
