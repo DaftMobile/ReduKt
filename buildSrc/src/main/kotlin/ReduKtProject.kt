@@ -9,8 +9,9 @@ val KotlinDependencyHandler.ReduKtProject get() = ReduKtProjectHelper(this)
 class ReduKtProjectHelper(handler: KotlinDependencyHandler) : KotlinDependencyHandler by handler {
 
     val core by project()
-    val thunk by project()
     val kodein by project()
+    val log by project()
+    val thunk by project()
 
 }
 

@@ -4,4 +4,5 @@ include(
     ":redukt-core",
     ":redukt-thunk",
     ":redukt-kodein",
+    ":redukt-log",
 )
