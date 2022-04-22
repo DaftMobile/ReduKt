@@ -2,7 +2,6 @@
 /.gradle/
 /buildSrc/.gradle/
 /buildSrc/build/
-/redukt-core/build/
 /.idea/
-/redukt-thunk/build/
 /build/
+/redukt-*/build/
