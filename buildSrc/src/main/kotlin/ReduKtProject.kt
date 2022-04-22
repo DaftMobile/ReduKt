@@ -10,7 +10,6 @@ class ReduKtProjectHelper(handler: KotlinDependencyHandler) : KotlinDependencyHa
 
     val core by project()
     val thunk by project()
-    val combine by project()
     val kodein by project()
 
 }
