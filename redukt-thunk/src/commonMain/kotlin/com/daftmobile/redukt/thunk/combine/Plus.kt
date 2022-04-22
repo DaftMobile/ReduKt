@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.combine
+package com.daftmobile.redukt.thunk.combine
 
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.scope.DispatchScope
