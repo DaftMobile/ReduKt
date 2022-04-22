@@ -12,13 +12,6 @@ kotlin {
             dependencies {
                 api(ReduKtProject.core)
                 implementation(Libs.kodein.core)
-                implementation(Libs.kotlinx.coroutines.core)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(Libs.kotlinx.coroutines.test)
             }
         }
     }
