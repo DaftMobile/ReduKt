@@ -6,7 +6,7 @@ import com.daftmobile.redukt.core.scope.DispatchScope
 import com.daftmobile.redukt.thunk.Thunk
 
 
-abstract class ResultThunk<State, T>(private val callbacks: Callbacks<T>) : Thunk.Suspendable<State>() {
+abstract class ResultThunk<State, T>(private val callbacks: Callbacks<T>) : Thunk.Launchable<State>() {
 
     data class Callbacks<T>(
         val onSuccess: (result: T) -> Action?,
@@ -15,7 +15,7 @@ abstract class ResultThunk<State, T>(private val callbacks: Callbacks<T>) : Thun
         val onFinish: () -> Action? = { null },
     )
 
-    final override suspend fun DispatchScope<State>.executeSuspendable() {
+    final override suspend fun DispatchScope<State>.launch() {
         dispatchIfPresent(callbacks.onStart())
         runCatching { getResult() }
             .onSuccess { dispatchIfPresent(callbacks.onSuccess(it)) }

@@ -1,6 +1,7 @@
 package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.scope.DispatchScope
+import kotlinx.coroutines.CoroutineStart
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -10,9 +11,9 @@ fun <State> thunkExec(block: DispatchScope<State>.() -> Unit) = object : Thunk.E
 }
 
 fun <State> thunkSuspend(
-    coroutineContext: CoroutineContext = EmptyCoroutineContext,
-    alwaysDispatch: Boolean = false,
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend DispatchScope<State>.() -> Unit
-) = object : Thunk.Suspendable<State>(coroutineContext, alwaysDispatch) {
-    override suspend fun DispatchScope<State>.executeSuspendable() = block()
+) = object : Thunk.Launchable<State>(context, start) {
+    override suspend fun DispatchScope<State>.launch() = block()
 }
