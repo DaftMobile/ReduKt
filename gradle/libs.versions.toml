@@ -1,21 +1,26 @@
 [versions]
 kotlin = "1.6.10"
+plugin-android = "7.0.4"
 kotlinx-coroutines = "1.6.1"
 kotest = "5.2.3"
 kodein = "7.11.0"
-androidPlugin = "7.0.0"
+androidx-lifecycle = "2.4.1"
 
 [libraries]
 
 # plugins
 
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-plugin-android = { module = "com.android.tools.build:gradle", version.ref = "androidPlugin" }
+plugin-android = { module = "com.android.tools.build:gradle", version.ref = "plugin-android" }
 
 # kotlinx
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+
+# androidx
+
+androix-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle"}
 
 # others
 

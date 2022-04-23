@@ -22,4 +22,5 @@ include(
     ":redukt-thunk",
     ":redukt-kodein",
     ":redukt-log",
+    ":redukt-mvvm"
 )
