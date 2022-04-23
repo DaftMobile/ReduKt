@@ -16,7 +16,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
+includeBuild("build-redukt")
 include(
     ":redukt-core",
     ":redukt-thunk",

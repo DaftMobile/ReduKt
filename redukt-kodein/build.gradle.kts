@@ -1,16 +1,8 @@
 plugins {
-    reduKtPlugins()
+    id("redukt-lib")
 }
 
-kotlin {
-    reduKtSupportedTargets()
-    sourceSets {
-        reduKtOptIns()
-        val commonMain by getting {
-            dependencies {
-                api(ReduKtProject.core)
-                implementation(libs.kodein)
-            }
-        }
-    }
+dependencies {
+    commonMainApi(project(":redukt-core"))
+    commonMainImplementation(libs.kodein)
 }

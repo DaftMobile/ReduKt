@@ -5,3 +5,5 @@
 /.idea/
 /build/
 /redukt-*/build/
+/build-redukt/.gradle/
+/build-redukt/build/

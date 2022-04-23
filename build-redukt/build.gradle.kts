@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.plugin.kotlin)
+    api(libs.plugin.kotlin)
 }
