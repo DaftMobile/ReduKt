@@ -1,5 +1,4 @@
 import org.gradle.api.DomainObjectCollection
-import org.gradle.api.Project
 import org.gradle.kotlin.dsl.kotlin
 import org.gradle.plugin.use.PluginDependenciesSpec
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -23,11 +22,6 @@ fun KotlinMultiplatformExtension.reduKtSupportedTargets() {
     }
     mingwX64()
     ios()
-}
-
-fun Project.reduKtPackage() {
-    group = ReduKt.group
-    version = ReduKt.version
 }
 
 fun DomainObjectCollection<KotlinSourceSet>.reduKtOptIns() {

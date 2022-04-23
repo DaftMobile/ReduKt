@@ -2,8 +2,6 @@ plugins {
     reduKtPlugins()
 }
 
-reduKtPackage()
-
 kotlin {
     reduKtSupportedTargets()
     sourceSets {

@@ -3,8 +3,6 @@ plugins {
     id("org.kodein.mock.mockmp") version "1.4.0"
 }
 
-reduKtPackage()
-
 mockmp {
     usesHelper = true
 }
