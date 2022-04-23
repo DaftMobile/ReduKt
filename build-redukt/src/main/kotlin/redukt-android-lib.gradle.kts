@@ -14,7 +14,6 @@ kotlin {
                 }
             }
         }
-        nodejs()
     }
     mingwX64()
     ios()
