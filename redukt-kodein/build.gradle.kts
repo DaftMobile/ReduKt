@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    commonMainApi(project(":redukt-core"))
+    commonMainApi(ReduKt.core)
     commonMainImplementation(libs.kodein)
 }
