@@ -8,7 +8,7 @@ kodein = "7.11.0"
 
 # plugins
 
-plugin-kotlinGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 # kotlinx
 
