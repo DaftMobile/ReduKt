@@ -15,14 +15,14 @@ kotlin {
         commonOptIns()
         val commonMain by getting {
             dependencies {
-                implementation(Libs.kotlinx.coroutines.core)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(Libs.kotest.assertions.core)
-                implementation(Libs.kotlinx.coroutines.test)
+                implementation(libs.kotest.assertions.core)
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
     }

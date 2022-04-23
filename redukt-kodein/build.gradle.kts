@@ -11,7 +11,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(ReduKtProject.core)
-                implementation(Libs.kodein.core)
+                implementation(libs.kodein)
             }
         }
     }

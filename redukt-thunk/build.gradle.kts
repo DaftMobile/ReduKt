@@ -11,13 +11,13 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(ReduKtProject.core)
-                implementation(Libs.kotlinx.coroutines.core)
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(Libs.kotlinx.coroutines.test)
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
     }
