@@ -3,16 +3,16 @@ plugins {
     id("org.kodein.mock.mockmp") version "1.4.0"
 }
 
-setupReduKtPackage()
+reduKtPackage()
 
 mockmp {
     usesHelper = true
 }
 
 kotlin {
-    allSupportedTargets()
+    reduKtSupportedTargets()
     sourceSets {
-        commonOptIns()
+        reduKtOptIns()
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)

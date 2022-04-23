@@ -3,7 +3,7 @@ import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
-fun KotlinMultiplatformExtension.allSupportedTargets() {
+fun KotlinMultiplatformExtension.reduKtSupportedTargets() {
     jvm()
     js(BOTH) {
         browser {
@@ -19,12 +19,12 @@ fun KotlinMultiplatformExtension.allSupportedTargets() {
     ios()
 }
 
-fun Project.setupReduKtPackage() {
+fun Project.reduKtPackage() {
     group = ReduKt.group
     version = ReduKt.version
 }
 
-fun DomainObjectCollection<KotlinSourceSet>.commonOptIns() {
+fun DomainObjectCollection<KotlinSourceSet>.reduKtOptIns() {
     all {
         languageSettings.optIn("kotlin.experimental.ExperimentalTypeInference")
     }

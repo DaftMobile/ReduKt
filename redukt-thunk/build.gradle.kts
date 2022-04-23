@@ -2,12 +2,12 @@ plugins {
     kotlin("multiplatform")
 }
 
-setupReduKtPackage()
+reduKtPackage()
 
 kotlin {
-    allSupportedTargets()
+    reduKtSupportedTargets()
     sourceSets {
-        commonOptIns()
+        reduKtOptIns()
         val commonMain by getting {
             dependencies {
                 api(ReduKtProject.core)
