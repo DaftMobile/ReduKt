@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform")
+    reduKtPlugins()
 }
 
 reduKtPackage()
