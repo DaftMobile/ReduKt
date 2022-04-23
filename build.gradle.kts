@@ -5,8 +5,4 @@ plugins {
 allprojects {
     group = "com.daftmobile.redukt"
     version = "1.0"
-
-    repositories {
-        mavenCentral()
-    }
 }

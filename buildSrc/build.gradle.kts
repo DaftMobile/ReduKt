@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.plugin.kotlinGradle)
+    implementation(libs.plugin.kotlin)
 }
