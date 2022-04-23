@@ -2,11 +2,6 @@ plugins {
     `kotlin-dsl`
 }
 
-repositories {
-    mavenCentral()
-    gradlePluginPortal()
-}
-
 dependencies {
-    implementation(kotlin("gradle-plugin", "1.6.10"))
+    implementation(libs.plugin.kotlinGradle)
 }
