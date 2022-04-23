@@ -3,12 +3,14 @@ kotlin = "1.6.10"
 kotlinx-coroutines = "1.6.1"
 kotest = "5.2.3"
 kodein = "7.11.0"
+androidPlugin = "7.0.0"
 
 [libraries]
 
 # plugins
 
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+plugin-android = { module = "com.android.tools.build:gradle", version.ref = "androidPlugin" }
 
 # kotlinx
 
