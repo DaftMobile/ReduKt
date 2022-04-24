@@ -1,11 +1,15 @@
 plugins {
     kotlin("multiplatform")
+    id("maven-publish")
     id("com.android.library")
 }
 
 kotlin {
     jvm()
-    android()
+    android {
+        publishAllLibraryVariants()
+        publishLibraryVariantsGroupedByFlavor = false
+    }
     js(BOTH) {
         browser {
             testTask {
