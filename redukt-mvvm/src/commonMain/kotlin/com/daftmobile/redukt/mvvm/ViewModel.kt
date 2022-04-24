@@ -9,8 +9,8 @@ abstract class ViewModel<State>(
 ) : CoreViewModel() {
 
     protected fun <T> select(
-        selector: (State) -> T,
-        started: SharingStarted = defaultStarted
+        started: SharingStarted = defaultStarted,
+        selector: (State) -> T
     ): StateFlow<T> = store.state.mapState(started = started, selector)
 
     protected fun <T, R> StateFlow<T>.mapState(
