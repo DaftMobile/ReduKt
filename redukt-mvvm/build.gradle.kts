@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
     commonMainApi(ReduKt.core)
+    androidMainApi(libs.androix.viewmodel)
     commonMainImplementation(libs.kotlinx.coroutines.core)
-    androidMainImplementation(libs.androix.viewmodel)
 }
