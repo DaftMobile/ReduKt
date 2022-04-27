@@ -2,19 +2,24 @@ package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.context.element.coroutineScope
 import com.daftmobile.redukt.core.middleware.consumingMiddleware
+import com.daftmobile.redukt.core.scope.DispatchScope
 import kotlinx.coroutines.*
 
-fun <State> thunkMiddleware() = consumingMiddleware<State, Thunk> { thunk ->
+fun <State> thunkMiddleware() = consumingMiddleware<State, Thunk<*>> { thunk ->
     when (thunk) {
-        is Thunk.Executable<*> -> thunk.cast<State>().run { execute() }
-        is Thunk.Launchable<*> -> coroutineScope.launch(thunk.context, thunk.start) {
-            thunk.cast<State>().run { launch() }
+        is ExecuteThunk<*, *> -> thunk.cast<State>().executeWithContinuation(this)
+        is SuspendThunk<*, *> -> coroutineScope.launch(thunk.context, thunk.start) {
+            thunk.cast<State>().executeWithContinuation(this@consumingMiddleware)
         }
     }
 }
 
-@Suppress("UNCHECKED_CAST")
-internal fun <State> Thunk.Executable<*>.cast() = this as Thunk.Executable<State>
+private suspend fun <State> SuspendThunk<State, Any?>.executeWithContinuation(dispatchScope: DispatchScope<State>) {
+    val result = runCatching { executeWith(dispatchScope) }
+    continuation?.resumeWith(result) ?: result.onFailure { throw it }
+}
 
-@Suppress("UNCHECKED_CAST")
-internal fun <State> Thunk.Launchable<*>.cast() = this as Thunk.Launchable<State>
+private fun <State> ExecuteThunk<State, Any?>.executeWithContinuation(dispatchScope: DispatchScope<State>) {
+    val result = runCatching { executeWith(dispatchScope) }
+    continuation?.resumeWith(result) ?: result.onFailure { throw it }
+}
