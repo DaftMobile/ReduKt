@@ -26,7 +26,9 @@ class Then<T> @PublishedApi internal constructor(val actions: List<Action>) : Su
                 awaitDispatch(action, last)
             } catch (e: Throwable) {
                 val catcher = iterator.skipUntilIs<ThenCatchingStatement<*>>() ?: throw e
-                awaitDispatch(catcher.catch(action, e), last)
+                val catchAction = catcher.catch(Cause(action, e))
+                if (catchAction != null) awaitDispatch(catchAction, last)
+                else Unit
             }
             last = result.takeUnless { it === SKIP } ?: continue
         }
@@ -37,6 +39,7 @@ class Then<T> @PublishedApi internal constructor(val actions: List<Action>) : Su
         return when (action) {
             is ThenStatement<*> -> when (action) {
                 is ThenProduceStatement<*> -> awaitDispatch(action.produce(last), last)
+                is ThenFinallyStatement<*> -> awaitDispatch(action.produce(Result.success(last)), last)
                 is ThenCatchingStatement<*> -> SKIP
             }
             is Thunk<*> -> suspendCancellableCoroutine {
@@ -55,11 +58,12 @@ class Then<T> @PublishedApi internal constructor(val actions: List<Action>) : Su
         return null
     }
 
-    override fun toString(): String = "Then >>\n" + actions.joinToString("\n\tthen") { it.toStringPretty() } + "\n <<"
+    override fun toString(): String = actions.joinToString("then") { it.toStringPretty() }
 
     private fun Action.toStringPretty(): String = when (this) {
         is ThenProduceStatement<*> -> " { ${description()} }"
         is ThenCatchingStatement<*> -> "Catching { ${description()} }"
+        is ThenFinallyStatement<*> -> "Finally { ${description()} }"
         else -> " $this"
     }
 }

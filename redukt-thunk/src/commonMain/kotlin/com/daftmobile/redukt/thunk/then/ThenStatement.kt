@@ -17,9 +17,20 @@ internal class ThenProduceStatement<R>(
 }
 
 @PublishedApi
-internal class ThenCatchingStatement<R>(
-    val catch: (action: Action, Throwable) -> Action,
+internal open class ThenCatchingStatement<R>(
+    val catch: (Cause) -> Action?,
     val description: () -> String
 ): ThenStatement<R>() {
+    override fun toString(): String = "CatchingStatement(${description()})"
+}
+
+@PublishedApi
+internal class ThenFinallyStatement<R>(
+    val produce: (Result<Any?>) -> Action,
+    description: () -> String
+): ThenCatchingStatement<R>(
+    catch = { (_, e) -> produce(Result.failure(e)) },
+    description = description,
+) {
     override fun toString(): String = "CatchingStatement(${description()})"
 }
