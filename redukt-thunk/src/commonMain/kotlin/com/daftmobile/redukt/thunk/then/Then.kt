@@ -58,7 +58,7 @@ class Then<T> @PublishedApi internal constructor(val actions: List<Action>) : Su
         return null
     }
 
-    override fun toString(): String = actions.joinToString("then") { it.toStringPretty() }
+    override fun toString(): String = "#Then "  + actions.joinToString(" then") { it.toStringPretty() }
 
     private fun Action.toStringPretty(): String = when (this) {
         is ThenProduceStatement<*> -> " { ${description()} }"
