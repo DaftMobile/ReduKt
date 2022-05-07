@@ -7,6 +7,10 @@ fun interface LogBusAdapter {
     fun log(action: Action)
 
     companion object {
-        fun systemOut(tag: String? = null) = LogBusAdapter { println("${tag.orEmpty()}$it") }
+        fun systemOut(tag: String? = null) = LogBusAdapter { action ->
+            action.toString().split("\n").forEach {
+                println("${tag.orEmpty()}$it")
+            }
+        }
     }
 }
