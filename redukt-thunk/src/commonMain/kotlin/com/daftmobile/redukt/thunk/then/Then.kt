@@ -19,25 +19,39 @@ internal class ThenImpl<T>(override val actions: List<Action>) : Then<T>() {
 
     private object SKIP
 
-    private suspend fun DispatchScope<Nothing>.processActions(
-        actions: List<Action>,
-        lastValue: Any? = null
-    ): T {
-        var last: Any? = lastValue
+    private suspend fun DispatchScope<Nothing>.processActions(actions: List<Action>): T {
+        var last: Any? = null
         val iterator = actions.listIterator()
         while (iterator.hasNext()) {
             val action = iterator.next()
             val result = try {
                 awaitDispatch(action, last)
             } catch (e: Throwable) {
-                val catcher = iterator.skipUntilIs<ThenCatchingStatement<*>>() ?: throw e
-                val catchAction = catcher.catch(Cause(action, e))
-                if (catchAction != null) awaitDispatch(catchAction, last)
-                else Unit
+                processException(iterator, e, action, last)
             }
             last = result.takeUnless { it === SKIP } ?: continue
         }
         return last as T
+    }
+
+    private tailrec suspend fun DispatchScope<Nothing>.processException(
+        iterator: Iterator<Action>,
+        exception: Throwable,
+        action: Action,
+        last: Any?
+    ): Any? {
+        val catcher = iterator.skipUntilIs<ThenCatchingStatement<*>>() ?: throw exception
+        val result = runCatching {
+            val catchAction = catcher.catch(Cause(action, exception))
+            if (catchAction != null) awaitDispatch(catchAction, last)
+            else Unit
+        }
+        val nextException = result.exceptionOrNull()
+        return if (nextException != null) {
+            processException(iterator, nextException, action, last)
+        } else {
+            result.getOrNull()
+        }
     }
 
     private tailrec suspend fun DispatchScope<Nothing>.awaitDispatch(action: Action, last: Any?): Any? {
@@ -63,7 +77,7 @@ internal class ThenImpl<T>(override val actions: List<Action>) : Then<T>() {
         return null
     }
 
-    override fun toString(): String = "#Then "  + actions.joinToString(" then") { it.toStringPretty() }
+    override fun toString(): String = "#Then " + actions.joinToString(" then") { it.toStringPretty() }
 
     private fun Action.toStringPretty(): String = when (this) {
         is ThenProduceStatement<*> -> " { ${description()} }"
