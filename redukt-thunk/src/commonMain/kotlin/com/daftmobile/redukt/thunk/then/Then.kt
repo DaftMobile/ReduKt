@@ -77,7 +77,7 @@ internal class ThenImpl<T>(override val actions: List<Action>) : Then<T>() {
         return null
     }
 
-    override fun toString(): String = "#Then " + actions.joinToString(" then") { it.toStringPretty() }
+    override fun toString(): String = "Then >>" + actions.joinToString("\n\t then") { it.toStringPretty() }
 
     private fun Action.toStringPretty(): String = when (this) {
         is ThenProduceStatement<*> -> " { ${description()} }"
