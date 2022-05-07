@@ -22,7 +22,7 @@ inline infix fun <T, R, reified O : Thunk<R>> Thunk<T>.thenCatching(noinline cat
 }
 
 inline infix fun <reified T, R, reified O : Thunk<R>> Thunk<T>.thenFinally(
-    noinline produce: (Result<T>) -> Thunk<R>
+    noinline produce: (Result<T>) -> O
 ): Then<R> {
     val statement = ThenFinallyStatement<R>(produce = produce as ((Result<*>) -> Action)) {
         "Result<${T::class.simpleName}> => ${O::class.simpleName}"

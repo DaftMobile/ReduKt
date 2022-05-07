@@ -10,5 +10,5 @@ open class NamedThen<T>(val then: Then<T>) : Then<T>() {
 
     final override suspend fun DispatchScope<Nothing>.execute(): T = then.executeWith(this)
 
-    override fun toString(): String = then.toString()
+    override fun toString(): String = super.toString() + " " + then.toString()
 }
