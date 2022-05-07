@@ -8,7 +8,12 @@ import com.daftmobile.redukt.thunk.SuspendThunk
 import com.daftmobile.redukt.thunk.Thunk
 import kotlinx.coroutines.suspendCancellableCoroutine
 
-class Then<T> @PublishedApi internal constructor(val actions: List<Action>) : SuspendThunk<Nothing, T>() {
+abstract class Then<T> : SuspendThunk<Nothing, T>() {
+    internal abstract val actions: List<Action>
+}
+
+@PublishedApi
+internal class ThenImpl<T>(override val actions: List<Action>) : Then<T>() {
 
     override suspend fun DispatchScope<Nothing>.execute(): T = processActions(actions)
 
