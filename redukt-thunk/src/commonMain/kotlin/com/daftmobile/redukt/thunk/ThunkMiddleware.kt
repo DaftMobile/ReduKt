@@ -8,18 +8,22 @@ import kotlinx.coroutines.*
 fun <State> thunkMiddleware() = consumingMiddleware<State, Thunk<*>> { thunk ->
     when (thunk) {
         is ExecuteThunk<*, *> -> thunk.cast<State>().executeWithContinuation(this)
-        is SuspendThunk<*, *> -> coroutineScope.launch(thunk.context, thunk.start) {
-            thunk.cast<State>().executeWithContinuation(this@consumingMiddleware)
-        }
+        is SuspendThunk<*, *> -> thunk.cast<State>().executeWithContinuation(this@consumingMiddleware)
     }
 }
 
-private suspend fun <State> SuspendThunk<State, Any?>.executeWithContinuation(dispatchScope: DispatchScope<State>) {
+private fun <State> SuspendThunk<State, Any?>.executeWithContinuation(dispatchScope: DispatchScope<State>) {
+    val continuation = consumeContinuation()
+    dispatchScope.coroutineScope.launch(context, start) {
+        val result = runCatching { executeWith(dispatchScope) }
+        continuation?.resumeWith(result) ?: result.onFailure { throw it }
+    }
+}
+
+private fun <State> ExecuteThunk<State, Any?>.executeWithContinuation(dispatchScope: DispatchScope<State>) {
+    val continuation = consumeContinuation()
     val result = runCatching { executeWith(dispatchScope) }
     continuation?.resumeWith(result) ?: result.onFailure { throw it }
 }
 
-private fun <State> ExecuteThunk<State, Any?>.executeWithContinuation(dispatchScope: DispatchScope<State>) {
-    val result = runCatching { executeWith(dispatchScope) }
-    continuation?.resumeWith(result) ?: result.onFailure { throw it }
-}
+private fun Thunk<Any?>.consumeContinuation() = continuation.also { continuation = null }
