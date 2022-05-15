@@ -16,13 +16,6 @@ class MiddlewareTester<State>(
     fun test(block: MiddlewareTesterScope<State>.() -> Unit) {
         block(DefaultMiddlewareTesterScope(middleware, initialState, initialContext))
     }
-
-    fun testStrict(block: MiddlewareTesterScope<State>.() -> Unit) {
-        DefaultMiddlewareTesterScope(middleware, initialState, initialContext).apply {
-            block()
-            expectNoMoreActions()
-        }
-    }
 }
 
 class DefaultMiddlewareTesterScope<State>(
