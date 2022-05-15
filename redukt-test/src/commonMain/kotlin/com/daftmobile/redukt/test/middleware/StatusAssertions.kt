@@ -10,7 +10,7 @@ fun Middleware.Status.expectToBeConsumed() = assertEquals(
 )
 
 fun Middleware.Status.expectToBePassed() = assertEquals(
-    Middleware.Status.Consumed,
+    Middleware.Status.Passed,
     this,
     "Action expected to be passed!"
 )

@@ -41,6 +41,12 @@ fun ActionsAssertScope.expectEvery(message: String? = null, actionCheck: (Action
     }
 }
 
+fun ActionsAssertScope.expectAllActionsCount(count: Int) = assertEquals(
+    count,
+    history.size,
+    "Expected all dispatched actions count to be equal $count!"
+)
+
 fun ActionsAssertScope.expectNoActions() = assertTrue(
     history.isEmpty(),
     "Expected no actions! $stackDescription"
