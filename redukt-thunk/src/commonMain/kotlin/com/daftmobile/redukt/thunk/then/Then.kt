@@ -8,18 +8,18 @@ import com.daftmobile.redukt.thunk.SuspendThunk
 import com.daftmobile.redukt.thunk.Thunk
 import kotlinx.coroutines.suspendCancellableCoroutine
 
-abstract class Then<T> : SuspendThunk<Nothing, T>() {
+abstract class Then<T> : SuspendThunk<Nothing?, T>() {
     internal abstract val actions: List<Action>
 }
 
 @PublishedApi
 internal class ThenImpl<T>(override val actions: List<Action>) : Then<T>() {
 
-    override suspend fun DispatchScope<Nothing>.execute(): T = processActions(actions)
+    override suspend fun DispatchScope<Nothing?>.execute(): T = processActions(actions)
 
     private object SKIP
 
-    private suspend fun DispatchScope<Nothing>.processActions(actions: List<Action>): T {
+    private suspend fun DispatchScope<*>.processActions(actions: List<Action>): T {
         var last: Any? = null
         val iterator = actions.listIterator()
         while (iterator.hasNext()) {
@@ -34,7 +34,7 @@ internal class ThenImpl<T>(override val actions: List<Action>) : Then<T>() {
         return last as T
     }
 
-    private tailrec suspend fun DispatchScope<Nothing>.processException(
+    private tailrec suspend fun DispatchScope<*>.processException(
         iterator: Iterator<Action>,
         exception: Throwable,
         action: Action,
@@ -54,7 +54,7 @@ internal class ThenImpl<T>(override val actions: List<Action>) : Then<T>() {
         }
     }
 
-    private tailrec suspend fun DispatchScope<Nothing>.awaitDispatch(action: Action, last: Any?): Any? {
+    private tailrec suspend fun DispatchScope<*>.awaitDispatch(action: Action, last: Any?): Any? {
         return when (action) {
             is ThenStatement<*> -> when (action) {
                 is ThenProduceStatement<*> -> awaitDispatch(action.produce(last), last)
