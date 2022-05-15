@@ -6,6 +6,7 @@ val DependencyHandler.ReduKt get() = ReduKtSubprojects(this)
 
 class ReduKtSubprojects(handler: DependencyHandler): DependencyHandler by handler {
     val core by subproject()
+    val test by subproject()
 }
 
 fun subproject() = ReduKtSubprojectDelegate()

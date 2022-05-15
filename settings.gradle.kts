@@ -23,5 +23,6 @@ include(
     ":redukt-thunk",
     ":redukt-kodein",
     ":redukt-log",
-    ":redukt-mvvm"
+    ":redukt-mvvm",
+    ":redukt-test"
 )
