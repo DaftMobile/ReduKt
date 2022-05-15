@@ -1,53 +1,41 @@
 package com.daftmobile.redukt.core.middleware
 
+import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.KnownAction
-import com.daftmobile.redukt.core.TestActionConsumer
-import com.daftmobile.redukt.core.TestDispatchScope
 import com.daftmobile.redukt.core.UnknownAction
-import com.daftmobile.redukt.core.middleware.Middleware.Status.Consumed
-import com.daftmobile.redukt.core.middleware.Middleware.Status.Passed
-import io.kotest.matchers.shouldBe
-import org.kodein.mock.Mock
-import org.kodein.mock.UsesMocks
-import org.kodein.mock.tests.TestsWithMocks
-import kotlin.test.BeforeTest
+import com.daftmobile.redukt.test.assertions.expectActionEquals
+import com.daftmobile.redukt.test.assertions.expectNoActions
+import com.daftmobile.redukt.test.middleware.expectToBeConsumed
+import com.daftmobile.redukt.test.middleware.expectToBePassed
+import com.daftmobile.redukt.test.middleware.tester
 import kotlin.test.Test
 
-@UsesMocks(TestDispatchScope::class, TestActionConsumer::class)
-internal class ConsumingMiddlewareTest : TestsWithMocks() {
+internal class ConsumingMiddlewareTest {
 
-    override fun setUpMocks() = injectMocks(mocker)
+    private object TestAction : Action
 
-    @Mock lateinit var scope: TestDispatchScope
-    @Mock lateinit var consumer: TestActionConsumer
+    private val middleware = consumingMiddleware<Unit, KnownAction> { dispatch(TestAction) }
+    private val tester = middleware.tester(Unit)
 
-    private val middleware = consumingMiddleware<Unit, KnownAction> { consumer.consume(this, it) }
-
-    @BeforeTest
-    fun setup() {
-        every { scope.dispatch(isAny()) } returns Unit
-        every { consumer.consume(isAny(), isAny()) } returns Unit
+    @Test
+    fun shouldPassOnUnknownType() = tester.test {
+        onAction(UnknownAction).expectToBePassed()
     }
 
     @Test
-    fun shouldPassOnUnknownType() {
-        middleware.processWith(scope, UnknownAction) shouldBe Passed
+    fun shouldConsumeOnConsumableType() = tester.test {
+        onAction(KnownAction.A).expectToBeConsumed()
     }
 
     @Test
-    fun shouldConsumeOnConsumableType() {
-        middleware.processWith(scope, KnownAction.A) shouldBe Consumed
+    fun shouldCallBlockWithConsumedAction() = tester.test {
+        onAction(KnownAction.A)
+        expectActionEquals(TestAction)
     }
 
     @Test
-    fun shouldCallBlockWithConsumedActionAndProperScope() {
-        middleware.processWith(scope, KnownAction.B)
-        verify { consumer.consume(isAny(), isEqual(KnownAction.B)) }
-    }
-
-    @Test
-    fun shouldNotCallBlockWithUnknownAction() {
-        middleware.processWith(scope, UnknownAction)
-        verify { }
+    fun shouldNotCallBlockWithUnknownAction() = tester.test {
+        onAction(UnknownAction)
+        expectNoActions()
     }
 }
