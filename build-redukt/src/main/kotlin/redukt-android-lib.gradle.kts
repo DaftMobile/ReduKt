@@ -21,6 +21,7 @@ kotlin {
     }
     mingwX64()
     ios()
+    iosSimulatorArm64()
     sourceSets {
         all {
             languageSettings.optIn("kotlin.experimental.ExperimentalTypeInference")
@@ -32,7 +33,8 @@ kotlin {
         val jsMain by getting
         val mingwX64Main by getting
         val iosMain by getting
-
+        val iosSimulatorArm64Main by sourceSets.getting
+        iosSimulatorArm64Main.dependsOn(iosMain)
         val defaultMain by creating {
             dependsOn(commonMain)
         }

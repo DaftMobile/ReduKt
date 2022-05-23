@@ -16,6 +16,7 @@ kotlin {
     }
     mingwX64()
     ios()
+    iosSimulatorArm64()
     sourceSets {
         all {
             languageSettings.optIn("kotlin.experimental.ExperimentalTypeInference")
