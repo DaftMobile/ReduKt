@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.6.10"
+kotlin = "1.6.20"
 plugin-android = "7.0.4"
 kotlinx-coroutines = "1.6.1"
 kotest = "5.2.3"
