@@ -26,6 +26,13 @@ kotlin {
         val jsMain by getting
         val mingwX64Main by getting
         val iosMain by getting
+        val iosTest by getting
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
+        }
 
         val allMainSets = listOf(jvmMain, jsMain, mingwX64Main, iosMain)
 

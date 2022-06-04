@@ -33,8 +33,14 @@ kotlin {
         val jsMain by getting
         val mingwX64Main by getting
         val iosMain by getting
-        val iosSimulatorArm64Main by sourceSets.getting
-        iosSimulatorArm64Main.dependsOn(iosMain)
+        val iosTest by getting
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
+        }
+
         val defaultMain by creating {
             dependsOn(commonMain)
         }
