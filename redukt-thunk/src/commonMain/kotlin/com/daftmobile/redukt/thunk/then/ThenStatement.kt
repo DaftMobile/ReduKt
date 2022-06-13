@@ -9,28 +9,12 @@ internal sealed class ThenStatement<Tail> : ExecuteThunk<Any?, Tail>() {
 }
 
 @PublishedApi
-internal class ThenProduceStatement<R>(
-    val produce: (Any?) -> Action,
-    val description: () -> String
-): ThenStatement<R>() {
-    override fun toString(): String = "ProduceStatement(${description()})"
-}
+internal class ThenProduceStatement<R>(val produce: (Any?) -> Action): ThenStatement<R>()
 
 @PublishedApi
-internal open class ThenCatchingStatement<R>(
-    val catch: (Cause) -> Action?,
-    val description: () -> String
-): ThenStatement<R>() {
-    override fun toString(): String = "CatchingStatement(${description()})"
-}
+internal open class ThenCatchingStatement<R>(val catch: (Cause) -> Action?): ThenStatement<R>()
 
 @PublishedApi
 internal class ThenFinallyStatement<R>(
     val produce: (Result<Any?>) -> Action,
-    description: () -> String
-): ThenCatchingStatement<R>(
-    catch = { (_, e) -> produce(Result.failure(e)) },
-    description = description,
-) {
-    override fun toString(): String = "CatchingStatement(${description()})"
-}
+): ThenCatchingStatement<R>(catch = { (_, e) -> produce(Result.failure(e)) })

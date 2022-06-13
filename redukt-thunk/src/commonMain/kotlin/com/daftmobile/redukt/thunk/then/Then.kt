@@ -76,13 +76,4 @@ internal class ThenImpl<T>(override val actions: List<Action>) : Then<T>() {
         }
         return null
     }
-
-    override fun toString(): String = "ThenStart >>\n" + actions.joinToString("\n\t then") { it.toStringPretty() } + "\n<< ThenEnd"
-
-    private fun Action.toStringPretty(): String = when (this) {
-        is ThenProduceStatement<*> -> " { ${description()} }"
-        is ThenFinallyStatement<*> -> "Finally { ${description()} }"
-        is ThenCatchingStatement<*> -> "Catching { ${description()} }"
-        else -> " $this"
-    }
 }
