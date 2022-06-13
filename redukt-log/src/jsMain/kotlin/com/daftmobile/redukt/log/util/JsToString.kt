@@ -8,7 +8,7 @@ internal var refCounter: UInt = 0u
 
 internal fun nextRef() = refCounter++.toString(16)
 
-actual fun Any.jsToString(identifyObjects: Boolean): String {
+internal actual fun Any.jsToString(identifyObjects: Boolean): String {
     val str = toString()
     val id: String = if (identifyObjects) objectRefs.getOrPut(this, ::nextRef) else "instance"
     return when (str) {
