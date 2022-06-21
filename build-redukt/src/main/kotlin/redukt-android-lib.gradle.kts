@@ -6,10 +6,7 @@ plugins {
 
 kotlin {
     jvm()
-    android {
-        publishAllLibraryVariants()
-        publishLibraryVariantsGroupedByFlavor = false
-    }
+    android()
     js(BOTH) {
         browser {
             testTask {
