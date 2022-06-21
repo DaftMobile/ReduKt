@@ -5,7 +5,7 @@ plugins {
 
 kotlin {
     jvm()
-    js(BOTH) {
+    js(IR) {
         browser {
             testTask {
                 useKarma {
