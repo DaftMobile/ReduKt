@@ -11,6 +11,6 @@ operator fun Action.plus(action: Action) = DispatchList(this.unwrapped() + actio
 
 private fun Action.unwrapped() = if (this is DispatchList) actions else listOf(this)
 
-fun thunkOf(action: Action): Thunk<Unit> = DispatchList(listOf(action))
+fun dispatchListOf(action: Action): Thunk<Unit> = DispatchList(listOf(action))
 
-fun thunkOf(vararg actions: Action): Thunk<Unit> = DispatchList(actions.toList())
+fun dispatchListOf(vararg actions: Action): Thunk<Unit> = DispatchList(actions.toList())

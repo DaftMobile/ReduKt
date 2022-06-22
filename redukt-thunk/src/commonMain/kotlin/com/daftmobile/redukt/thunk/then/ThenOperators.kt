@@ -5,7 +5,7 @@ package com.daftmobile.redukt.thunk.then
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.thunk.Thunk
 
-fun <T, R> Thunk<T>.then(other: Thunk<R>): Then<R> = ThenImpl(unwrapped() + other.unwrapped())
+fun <R> Action.then(other: Thunk<R>): Then<R> = ThenImpl(unwrapped() + other.unwrapped())
 
 fun <T, R, O : Thunk<R>> Thunk<T>.then(producer: (T) -> O): Then<R> {
     val statement = ThenProduceStatement<R>(producer as (Any?) -> Action)
@@ -47,4 +47,8 @@ fun <T, O : Action> Thunk<T>.thenActionFinally(produce: (Result<T>) -> O): Then<
     return ThenImpl(unwrapped() + statement)
 }
 
-internal fun Action.unwrapped() = if (this is Then<*>) actions else listOf(this)
+internal fun Action.unwrapped() = when (this) {
+    is NamedThen<*> -> listOf(this)
+    is Then<*> -> actions
+    else -> listOf(this)
+}
