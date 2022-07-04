@@ -1,8 +1,15 @@
 package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.Action
-import kotlinx.coroutines.CancellableContinuation
+import com.daftmobile.redukt.core.middleware.consumingMiddleware
+import com.daftmobile.redukt.core.scope.DispatchScope
 
-sealed class Thunk<T> : Action {
-    internal var continuation: CancellableContinuation<T>? = null
+interface CoreThunk<State> : Action {
+    suspend fun DispatchScope<State>.execute()
 }
+
+open class Thunk<State>(val block: suspend DispatchScope<State>.() -> Unit) : CoreThunk<State> {
+    override suspend fun DispatchScope<State>.execute() = block()
+}
+
+fun <State> thunkMiddleware() = consumingMiddleware<State, Thunk<State>> { it.run { execute() } }
