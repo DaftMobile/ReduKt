@@ -3,28 +3,28 @@ package com.daftmobile.redukt.core.middleware
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.scope.DispatchScope
 
-inline fun <State, reified T : Action,> consumingMiddleware(
-    crossinline block: DispatchScope<State>.(T) -> Unit
-) = Middleware<State> {
-    if (it !is T) pass() else {
-        block(it)
+inline fun <State, reified T : Action> consumingMiddleware(
+    crossinline block: suspend DispatchScope<State>.(T) -> Unit
+): Middleware<State> = { action ->
+    if (action !is T) next(action) else {
+        block(action)
         consume()
     }
 }
 
 inline fun <State> translucentMiddleware(
-    crossinline block: DispatchScope<State>.(Action) -> Unit
-) = Middleware<State> {
-    block(it)
-    pass()
+    crossinline block: suspend DispatchScope<State>.(Action) -> Unit
+): Middleware<State> = { action ->
+    block(action)
+    next(action)
 }
 
-fun <State> middlewareClosure(@BuilderInference block: DispatchScope<State>.() -> Middleware<State>): Middleware<State> {
+fun <State> middlewareClosure(@BuilderInference block: suspend DispatchScope<State>.() -> Middleware<State>): Middleware<State> {
     var currentMiddleware: Middleware<State>
-    val initMiddleware = translucentMiddleware<State> {
+    val initMiddleware = translucentMiddleware { action ->
         currentMiddleware = block()
-        currentMiddleware.apply { process(it) }
+        currentMiddleware(this, action)
     }
     currentMiddleware = initMiddleware
-    return Middleware { currentMiddleware.run { process(it) } }
+    return { action -> currentMiddleware(this, action) }
 }

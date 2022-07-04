@@ -25,14 +25,14 @@ internal class MiddlewareClosureTest {
     private val tester = middleware.tester(Unit)
 
     @Test
-    fun shouldDispatchInitActionOnAnyFirstAction() = tester.test {
+    fun shouldDispatchInitActionOnAnyFirstAction() = tester.runTest {
         onAction(UnknownAction)
         expectActionEquals(InitAction)
         expectNoMoreActions()
     }
 
     @Test
-    fun shouldProperlyPassActionToWrappedMiddleware() = tester.test {
+    fun shouldProperlyPassActionToWrappedMiddleware() = tester.runTest {
         onAction(KnownAction.A)
         skipOneAction()
         expectActionEquals(InternalStateAction(0))
@@ -40,7 +40,7 @@ internal class MiddlewareClosureTest {
     }
 
     @Test
-    fun shouldAllowWrappedMiddlewareToUseClosureVariablesProperly() = tester.test {
+    fun shouldAllowWrappedMiddlewareToUseClosureVariablesProperly() = tester.runTest {
         onAllActions(KnownAction.A, KnownAction.A, KnownAction.A)
         skipOneAction()
         expectActionEquals(InternalStateAction(0))

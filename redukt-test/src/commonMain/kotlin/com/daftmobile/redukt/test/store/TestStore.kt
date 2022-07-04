@@ -17,7 +17,7 @@ class TestStore<State>(
 
     private val scope = SpyingDispatchScope(state::value, ::dispatchContext)
 
-    override fun dispatch(action: Action) = scope.dispatch(action)
+    override suspend fun dispatch(action: Action) = scope.dispatch(action)
 
     fun test(block: ActionsAssertScope.() -> Unit) = scope.block()
 }

@@ -3,13 +3,11 @@ package com.daftmobile.redukt.core.middleware
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.scope.DispatchScope
 
-fun interface Middleware<State> {
 
-    fun DispatchScope<State>.process(action: Action): Status
+typealias Middleware<State> = suspend DispatchScope<State>.(action: Action) -> MiddlewareStatus
 
-    enum class Status {
-        Consumed, Passed
-    }
+sealed class MiddlewareStatus {
+    object Consumed : MiddlewareStatus()
+
+    data class Next(val action: Action) : MiddlewareStatus()
 }
-
-internal fun <State> Middleware<State>.processWith(scope: DispatchScope<State>, action: Action) = scope.process(action)

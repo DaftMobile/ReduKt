@@ -16,7 +16,7 @@ class SpyingDispatchScope<State>(
     override val history = mutableListOf<Action>()
     override val pipeline = emptyQueue<Action>()
 
-    override fun dispatch(action: Action) {
+    override suspend fun dispatch(action: Action) {
         history.add(action)
         pipeline.push(action)
     }

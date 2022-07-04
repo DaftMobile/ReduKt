@@ -6,6 +6,7 @@ import com.daftmobile.redukt.core.TestDispatchContext
 import com.daftmobile.redukt.core.context.EmptyDispatchContext
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
+import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
 internal class CoreDispatchScopeTest {
@@ -24,7 +25,7 @@ internal class CoreDispatchScopeTest {
     }
 
     @Test
-    fun dispatchShouldCallDispatchFunction() {
+    fun dispatchShouldCallDispatchFunction() = runTest {
         var calledAction: Action? = null
         val scope = CoreDispatchScope(
             dispatchContext = EmptyDispatchContext,

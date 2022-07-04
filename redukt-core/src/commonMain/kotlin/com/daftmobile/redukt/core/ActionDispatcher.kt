@@ -6,7 +6,5 @@ interface ActionDispatcher {
 
     val dispatchContext: DispatchContext
 
-    fun dispatch(action: Action)
+    suspend fun dispatch(action: Action)
 }
-
-fun ActionDispatcher.dispatchIfPresent(action: Action?) = action?.let(::dispatch)
