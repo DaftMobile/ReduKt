@@ -25,4 +25,5 @@ include(
     ":redukt-log",
     ":redukt-mvvm",
     ":redukt-test",
+    ":redukt-data-source"
 )
