@@ -4,7 +4,7 @@ import com.daftmobile.redukt.core.Action
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
-data class MultiDispatch(val actions: List<Action>, val concurrent: Boolean = false): Thunk<Nothing?>({
+data class MultiDispatch(val actions: List<Action>, val concurrent: Boolean = false): Thunk<Unit>({
     if (concurrent) coroutineScope { actions.forEach { launch { dispatch(it) } } }
     else actions.forEach { dispatch(it) }
 })

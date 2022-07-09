@@ -8,6 +8,7 @@ class ReduKtSubprojects(handler: DependencyHandler): DependencyHandler by handle
     val core by subproject()
     val test by subproject()
     val thunk by subproject()
+    val `test-thunk` by subproject()
 }
 
 fun subproject() = ReduKtSubprojectDelegate()

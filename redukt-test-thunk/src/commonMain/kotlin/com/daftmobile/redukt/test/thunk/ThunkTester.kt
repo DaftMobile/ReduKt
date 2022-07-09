@@ -11,7 +11,7 @@ import kotlinx.coroutines.test.runTest
 suspend fun <State> Thunk<State>.testExecute(
     state: State,
     context: DispatchContext = EmptyDispatchContext,
-    testBlock: ActionsAssertScope.() -> Unit
+    testBlock: suspend ActionsAssertScope.() -> Unit
 ) {
     SpyingDispatchScope(stateProvider = { state }, contextProvider = { context }).run {
         execute()
@@ -22,5 +22,5 @@ suspend fun <State> Thunk<State>.testExecute(
 fun <State> Thunk<State>.runTestExecute(
     state: State,
     context: DispatchContext = EmptyDispatchContext,
-    testBlock: ActionsAssertScope.() -> Unit
+    testBlock: suspend ActionsAssertScope.() -> Unit
 ) = runTest { testExecute(state, context, testBlock) }
