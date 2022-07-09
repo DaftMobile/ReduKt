@@ -12,4 +12,4 @@ open class Thunk<State>(val block: suspend DispatchScope<State>.() -> Unit) : Co
     override suspend fun DispatchScope<State>.execute() = block()
 }
 
-fun <State> thunkMiddleware() = consumingMiddleware<State, Thunk<State>> { it.run { execute() } }
+fun <State> thunkMiddleware() = consumingMiddleware<State, CoreThunk<State>> { it.run { execute() } }
