@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.data.source
+package com.daftmobile.redukt.data
 
 import com.daftmobile.redukt.core.Reducer
 

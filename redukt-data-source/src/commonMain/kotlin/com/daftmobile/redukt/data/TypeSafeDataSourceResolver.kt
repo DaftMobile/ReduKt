@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.data.source
+package com.daftmobile.redukt.data
 
 public open class TypeSafeDataSourceResolver(resolveConfig: TypeSafeResolveScope.() -> Unit) : DataSourceResolver {
 

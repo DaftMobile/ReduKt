@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.data.source
+package com.daftmobile.redukt.data
 
 public fun <Request, OriginRequest, Response> DataSource<OriginRequest, Response>.adaptRequest(
     transform: suspend (Request) -> OriginRequest
