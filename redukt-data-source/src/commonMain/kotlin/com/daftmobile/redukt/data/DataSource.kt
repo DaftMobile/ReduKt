@@ -11,4 +11,4 @@ public interface DataSourceKey<Request, Response>
 public suspend fun <State, Request, Response> DispatchScope<State>.callDataSource(
     key: DataSourceKey<Request, Response>,
     request: Request
-): Response = dispatchContext[DataSourcesConfig].resolver.resolve(key).get(request)
+): Response = dataSourceResolver.resolve(key).get(request)
