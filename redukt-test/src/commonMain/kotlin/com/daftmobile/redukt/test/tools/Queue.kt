@@ -1,17 +1,17 @@
 package com.daftmobile.redukt.test.tools
 
-fun <T> emptyQueue(): Queue<T> = ListBasedQueue()
+public fun <T> emptyQueue(): Queue<T> = ListBasedQueue()
 
-fun <T> queueOf(vararg items: T): Queue<T> = ListBasedQueue(items.toMutableList())
+public fun <T> queueOf(vararg items: T): Queue<T> = ListBasedQueue(items.toMutableList())
 
-interface Queue<T> : Collection<T> {
+public interface Queue<T> : Collection<T> {
 
-    fun push(item: T)
+    public fun push(item: T)
 
-    fun pull(): T
+    public fun pull(): T
 }
 
-fun <T> Queue<T>.pullOrNull() = firstOrNull()?.let { pull() }
+public fun <T> Queue<T>.pullOrNull(): T? = firstOrNull()?.let { pull() }
 
 private class ListBasedQueue<T>(private val list: MutableList<T> = mutableListOf()) : Queue<T> {
 

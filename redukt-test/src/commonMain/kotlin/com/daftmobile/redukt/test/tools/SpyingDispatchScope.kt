@@ -5,7 +5,7 @@ import com.daftmobile.redukt.core.context.DispatchContext
 import com.daftmobile.redukt.core.scope.DispatchScope
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 
-class SpyingDispatchScope<State>(
+public class SpyingDispatchScope<State>(
     private val stateProvider: () -> State,
     private val contextProvider: () -> DispatchContext,
 ) : DispatchScope<State>, ActionsAssertScope {
@@ -13,11 +13,13 @@ class SpyingDispatchScope<State>(
     override val dispatchContext: DispatchContext get() = contextProvider()
     override val state: State get() = stateProvider()
 
-    override val history = mutableListOf<Action>()
-    override val pipeline = emptyQueue<Action>()
+    private val _history = mutableListOf<Action>()
+    override val history: List<Action> = _history
+
+    override val pipeline: Queue<Action> = emptyQueue()
 
     override suspend fun dispatch(action: Action) {
-        history.add(action)
+        _history.add(action)
         pipeline.push(action)
     }
 }

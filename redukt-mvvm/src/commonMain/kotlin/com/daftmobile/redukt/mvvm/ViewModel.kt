@@ -3,7 +3,7 @@ package com.daftmobile.redukt.mvvm
 import com.daftmobile.redukt.core.store.Store
 import kotlinx.coroutines.flow.*
 
-abstract class ViewModel<State>(
+public abstract class ViewModel<State>(
     protected val store: Store<State>,
     private val defaultStarted: SharingStarted = SharingStarted.WhileSubscribed()
 ) : CoreViewModel() {

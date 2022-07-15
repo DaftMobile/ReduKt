@@ -3,6 +3,6 @@ package com.daftmobile.redukt.core.middleware
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.scope.DispatchScope
 
-fun DispatchScope<*>.consume() = MiddlewareStatus.Consumed
+public fun DispatchScope<*>.consume(): MiddlewareStatus.Consumed = MiddlewareStatus.Consumed
 
-fun DispatchScope<*>.next(action: Action) = MiddlewareStatus.Next(action)
+public fun DispatchScope<*>.next(action: Action): MiddlewareStatus.Next = MiddlewareStatus.Next(action)

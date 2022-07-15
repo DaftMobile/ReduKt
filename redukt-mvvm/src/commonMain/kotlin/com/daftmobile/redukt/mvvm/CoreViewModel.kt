@@ -2,9 +2,9 @@ package com.daftmobile.redukt.mvvm
 
 import kotlinx.coroutines.CoroutineScope
 
-expect abstract class CoreViewModel() {
+public expect abstract class CoreViewModel() {
 
-    val viewModelScope: CoroutineScope
+    public val viewModelScope: CoroutineScope
 
     protected open fun onCleared()
 }

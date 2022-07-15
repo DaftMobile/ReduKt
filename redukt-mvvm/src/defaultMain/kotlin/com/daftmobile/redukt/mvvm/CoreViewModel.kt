@@ -4,13 +4,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 
-actual abstract class CoreViewModel actual constructor() {
+public actual abstract class CoreViewModel actual constructor() {
 
-    actual val viewModelScope: CoroutineScope = MainScope()
+    public actual val viewModelScope: CoroutineScope = MainScope()
 
-    protected actual open fun onCleared() = Unit
+    protected actual open fun onCleared() {}
 
-    fun clear() {
+    public fun clear() {
         onCleared()
         viewModelScope.cancel()
     }

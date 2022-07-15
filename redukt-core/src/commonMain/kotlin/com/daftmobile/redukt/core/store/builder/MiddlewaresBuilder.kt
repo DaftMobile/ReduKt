@@ -2,8 +2,8 @@ package com.daftmobile.redukt.core.store.builder
 
 import com.daftmobile.redukt.core.middleware.Middleware
 
-interface MiddlewaresBuilderScope<State> {
-    operator fun Middleware<State>.unaryPlus()
+public interface MiddlewaresBuilderScope<State> {
+    public operator fun Middleware<State>.unaryPlus()
 }
 
 internal class MiddlewaresBuilder<State> : MiddlewaresBuilderScope<State> {

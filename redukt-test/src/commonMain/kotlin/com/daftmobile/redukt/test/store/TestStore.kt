@@ -7,17 +7,18 @@ import com.daftmobile.redukt.core.store.Store
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 import com.daftmobile.redukt.test.tools.SpyingDispatchScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
-class TestStore<State>(
+public class TestStore<State>(
     initialState: State,
     override var dispatchContext: DispatchContext = EmptyDispatchContext
 ) : Store<State> {
 
-    override val state = MutableStateFlow(initialState)
+    override val state: StateFlow<State> = MutableStateFlow(initialState)
 
     private val scope = SpyingDispatchScope(state::value, ::dispatchContext)
 
-    override suspend fun dispatch(action: Action) = scope.dispatch(action)
+    override suspend fun dispatch(action: Action): Unit = scope.dispatch(action)
 
-    fun test(block: ActionsAssertScope.() -> Unit) = scope.block()
+    public fun test(block: ActionsAssertScope.() -> Unit): Unit = scope.block()
 }

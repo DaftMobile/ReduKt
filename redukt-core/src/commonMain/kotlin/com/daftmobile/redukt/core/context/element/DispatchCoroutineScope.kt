@@ -5,10 +5,10 @@ import com.daftmobile.redukt.core.context.DispatchContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 
-class DispatchCoroutineScope(scope: CoroutineScope = MainScope()) : DispatchContext.Element, CoroutineScope by scope {
-    override val key get() = Key
+public class DispatchCoroutineScope(scope: CoroutineScope = MainScope()) : DispatchContext.Element, CoroutineScope by scope {
+    public override val key: Key = Key
 
-    companion object Key : DispatchContext.Key<DispatchCoroutineScope>
+    public companion object Key : DispatchContext.Key<DispatchCoroutineScope>
 }
 
-inline val ActionDispatcher.coroutineScope get() = dispatchContext[DispatchCoroutineScope]
+public inline val ActionDispatcher.coroutineScope: CoroutineScope get() = dispatchContext[DispatchCoroutineScope]

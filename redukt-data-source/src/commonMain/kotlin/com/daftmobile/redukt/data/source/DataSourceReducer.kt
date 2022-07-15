@@ -4,7 +4,7 @@ import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.Reducer
 
 @Suppress("UNCHECKED_CAST")
-fun <Request, Response, State> dataSourceReducer(
+public fun <Request, Response, State> dataSourceReducer(
     key: DataSourceKey<Request, Response>,
     state: State,
     action: Action,
@@ -21,7 +21,7 @@ fun <Request, Response, State> dataSourceReducer(
 }
 
 @Suppress("UNCHECKED_CAST")
-fun <State> dataSourceReducer(
+public fun <State> dataSourceReducer(
     state: State,
     action: Action,
     reducerLogic: MultiDataSourceReducerScope<State>.() -> Unit
@@ -39,44 +39,44 @@ fun <State> dataSourceReducer(
     }
 }
 
-typealias TypedReducer<State, Action> = (state: State, action: Action) -> State
+public typealias TypedReducer<State, Action> = (state: State, action: Action) -> State
 
 @DslMarker
-annotation class DataSourceReducerDslMarker
+public annotation class DataSourceReducerDslMarker
 
-interface SingleDataSourceReducerScope<Request, Response, State> {
-
-    @DataSourceReducerDslMarker
-    fun onStart(reducer: TypedReducer<State, DataSourcePayload.Started<Request, Response>>)
+public interface SingleDataSourceReducerScope<Request, Response, State> {
 
     @DataSourceReducerDslMarker
-    fun onSuccess(reducer: TypedReducer<State, DataSourcePayload.Success<Request, Response>>)
+    public fun onStart(reducer: TypedReducer<State, DataSourcePayload.Started<Request, Response>>)
 
     @DataSourceReducerDslMarker
-    fun onFailure(reducer: TypedReducer<State, DataSourcePayload.Failure<Request, Response>>)
+    public fun onSuccess(reducer: TypedReducer<State, DataSourcePayload.Success<Request, Response>>)
 
     @DataSourceReducerDslMarker
-    fun onElse(reducer: Reducer<State>)
+    public fun onFailure(reducer: TypedReducer<State, DataSourcePayload.Failure<Request, Response>>)
+
+    @DataSourceReducerDslMarker
+    public fun onElse(reducer: Reducer<State>)
 }
 
-interface MultiDataSourceReducerScope<State> {
+public interface MultiDataSourceReducerScope<State> {
     @DataSourceReducerDslMarker
-    infix fun <Request, Response> DataSourceKey<Request, Response>.onStart(
+    public infix fun <Request, Response> DataSourceKey<Request, Response>.onStart(
         reducer: TypedReducer<State, DataSourcePayload.Started<Request, Response>>
     )
 
     @DataSourceReducerDslMarker
-    infix fun <Request, Response> DataSourceKey<Request, Response>.onSuccess(
+    public infix fun <Request, Response> DataSourceKey<Request, Response>.onSuccess(
         reducer: TypedReducer<State, DataSourcePayload.Success<Request, Response>>
     )
 
     @DataSourceReducerDslMarker
-    infix fun <Request, Response> DataSourceKey<Request, Response>.onFailure(
+    public infix fun <Request, Response> DataSourceKey<Request, Response>.onFailure(
         reducer: TypedReducer<State, DataSourcePayload.Failure<Request, Response>>
     )
 
     @DataSourceReducerDslMarker
-    fun onElse(reducer: Reducer<State>)
+    public fun onElse(reducer: Reducer<State>)
 }
 
 internal class SingleDataSourceReducerScopeImpl<Request, Response, State> :

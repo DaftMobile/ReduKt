@@ -1,15 +1,16 @@
 package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.Action
+import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.core.middleware.consumingMiddleware
 import com.daftmobile.redukt.core.scope.DispatchScope
 
-interface CoreThunk<State> : Action {
-    suspend fun DispatchScope<State>.execute()
+public interface CoreThunk<State> : Action {
+    public suspend fun DispatchScope<State>.execute()
 }
 
-open class Thunk<State>(val block: suspend DispatchScope<State>.() -> Unit) : CoreThunk<State> {
-    override suspend fun DispatchScope<State>.execute() = block()
+public open class Thunk<State>(public val block: suspend DispatchScope<State>.() -> Unit) : CoreThunk<State> {
+    override suspend fun DispatchScope<State>.execute(): Unit = block()
 }
 
-fun <State> thunkMiddleware() = consumingMiddleware<State, CoreThunk<State>> { it.run { execute() } }
+public fun <State> thunkMiddleware(): Middleware<State> = consumingMiddleware<_, CoreThunk<State>> { it.run { execute() } }

@@ -4,16 +4,16 @@ import com.daftmobile.redukt.core.ActionDispatcher
 import com.daftmobile.redukt.core.context.DispatchContext
 import org.kodein.di.DI
 
-class KodeinDI(di: DI): DI by di, DispatchContext.Element {
+public class KodeinDI(di: DI): DI by di, DispatchContext.Element {
 
-    constructor(
+    public constructor(
         allowSilentOverride: Boolean = false,
         init: DI.MainBuilder.() -> Unit
     ) : this(DI(allowSilentOverride = allowSilentOverride, init = init))
 
-    override val key = Key
+    override val key: Key = Key
 
-    companion object Key : DispatchContext.Key<KodeinDI>
+    public companion object Key : DispatchContext.Key<KodeinDI>
 }
 
-inline val ActionDispatcher.di get(): DI = dispatchContext[KodeinDI]
+public inline val ActionDispatcher.di: DI get() = dispatchContext[KodeinDI]

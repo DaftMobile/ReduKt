@@ -1,3 +1,3 @@
 package com.daftmobile.redukt.core
 
-interface Action
+public interface Action

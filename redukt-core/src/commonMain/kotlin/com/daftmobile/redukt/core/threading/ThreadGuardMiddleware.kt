@@ -1,9 +1,10 @@
 package com.daftmobile.redukt.core.threading
 
+import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.core.middleware.middlewareClosure
 import com.daftmobile.redukt.core.middleware.translucentMiddleware
 
-fun <State> threadGuardMiddleware() = middlewareClosure<State> {
+public fun <State> threadGuardMiddleware(): Middleware<State> = middlewareClosure {
     val initialThread = KtThread.current()
     translucentMiddleware {
         val currentThread = KtThread.current()

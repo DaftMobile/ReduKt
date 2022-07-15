@@ -8,15 +8,15 @@ import com.daftmobile.redukt.core.middleware.MiddlewareStatus
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 import com.daftmobile.redukt.test.tools.SpyingDispatchScope
 
-interface MiddlewareTestScope<State> : ActionsAssertScope {
+public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
-    var state: State
+    public var state: State
 
-    var dispatchContext: DispatchContext
+    public var dispatchContext: DispatchContext
 
-    suspend fun onAction(action: Action): MiddlewareStatus
+    public suspend fun onAction(action: Action): MiddlewareStatus
 
-    suspend fun onAllActions(vararg actions: Action): List<MiddlewareStatus>
+    public suspend fun onAllActions(vararg actions: Action): List<MiddlewareStatus>
 }
 
 internal class DefaultMiddlewareTestScope<State>(

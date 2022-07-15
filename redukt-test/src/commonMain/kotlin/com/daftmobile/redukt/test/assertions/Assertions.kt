@@ -6,31 +6,31 @@ import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
-fun ActionsAssertScope.expectActionEquals(action: Action) {
+public fun ActionsAssertScope.expectActionEquals(action: Action) {
     requiresAtLeasOneAction()
     assertEquals(pipeline.pull(), action, "Expect current action to be equal to $action. $stackDescription")
 }
 
-inline fun <reified T : Action> ActionsAssertScope.expectActionOfType(checks: (T) -> Unit = {}) {
+public inline fun <reified T : Action> ActionsAssertScope.expectActionOfType(checks: (T) -> Unit = {}) {
     requiresAtLeasOneAction()
     val action = pipeline.pull()
     assertIs<T>(action, "Expected action is not an instance of type ${T::class.simpleName}!").apply(checks)
 }
 
-inline fun <reified T : Action> ActionsAssertScope.expectSingleActionOfType(checks: (T) -> Unit = {}) {
+public inline fun <reified T : Action> ActionsAssertScope.expectSingleActionOfType(checks: (T) -> Unit = {}) {
     requiresAtLeasOneAction()
     val action = pipeline.pull()
     assertIs<T>(action, "Expected action is not an instance of type ${T::class.simpleName}!").apply(checks)
     requiresSingle()
 }
 
-fun ActionsAssertScope.expectSingleActionEquals(action: Action) {
+public fun ActionsAssertScope.expectSingleActionEquals(action: Action) {
     requiresAtLeasOneAction()
     assertEquals(pipeline.pull(), action, "Expect single action to be equal to $action. $stackDescription")
     requiresSingle()
 }
 
-fun ActionsAssertScope.expectEvery(message: String? = null, actionCheck: (Action) -> Boolean) {
+public fun ActionsAssertScope.expectEvery(message: String? = null, actionCheck: (Action) -> Boolean) {
     while (true) {
         val action = pipeline.pullOrNull() ?: return
         assertTrue(
@@ -41,18 +41,18 @@ fun ActionsAssertScope.expectEvery(message: String? = null, actionCheck: (Action
     }
 }
 
-fun ActionsAssertScope.expectAllActionsCount(count: Int) = assertEquals(
+public fun ActionsAssertScope.expectAllActionsCount(count: Int): Unit = assertEquals(
     count,
     history.size,
     "Expected all dispatched actions count to be equal $count!"
 )
 
-fun ActionsAssertScope.expectNoActions() = assertTrue(
+public fun ActionsAssertScope.expectNoActions(): Unit = assertTrue(
     history.isEmpty(),
     "Expected no actions! $stackDescription"
 )
 
-fun ActionsAssertScope.expectNoMoreActions() {
+public fun ActionsAssertScope.expectNoMoreActions() {
     assertTrue(pipeline.isEmpty(), "Expected all actions to be processed! $stackDescription")
 }
 

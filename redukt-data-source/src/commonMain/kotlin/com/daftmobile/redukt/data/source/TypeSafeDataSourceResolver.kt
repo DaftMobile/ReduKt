@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.data.source
 
-open class TypeSafeDataSourceResolver(resolveConfig: TypeSafeResolveScope.() -> Unit) : DataSourceResolver {
+public open class TypeSafeDataSourceResolver(resolveConfig: TypeSafeResolveScope.() -> Unit) : DataSourceResolver {
 
     private val typeSafeResolve = TypeSafeResolveScopeImpl().apply(resolveConfig)
 
@@ -11,11 +11,11 @@ open class TypeSafeDataSourceResolver(resolveConfig: TypeSafeResolveScope.() -> 
 }
 
 @DslMarker
-annotation class TypeSafeDataSourceResolverMarker
+public annotation class TypeSafeDataSourceResolverMarker
 
-interface TypeSafeResolveScope {
+public interface TypeSafeResolveScope {
     @TypeSafeDataSourceResolverMarker
-    infix fun <Request, Response> DataSourceKey<Request, Response>.resolveBy(provider: () -> DataSource<Request, Response>)
+    public infix fun <Request, Response> DataSourceKey<Request, Response>.resolveBy(provider: () -> DataSource<Request, Response>)
 }
 
 internal class TypeSafeResolveScopeImpl(

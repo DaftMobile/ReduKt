@@ -4,10 +4,10 @@ import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.scope.DispatchScope
 
 
-typealias Middleware<State> = suspend DispatchScope<State>.(action: Action) -> MiddlewareStatus
+public typealias Middleware<State> = suspend DispatchScope<State>.(action: Action) -> MiddlewareStatus
 
-sealed class MiddlewareStatus {
-    object Consumed : MiddlewareStatus()
+public sealed class MiddlewareStatus {
+    public object Consumed : MiddlewareStatus()
 
-    data class Next(val action: Action) : MiddlewareStatus()
+    public data class Next(val action: Action) : MiddlewareStatus()
 }

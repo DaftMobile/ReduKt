@@ -4,31 +4,31 @@ import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.middleware.MiddlewareStatus
 import kotlin.test.assertEquals
 
-fun MiddlewareStatus.expectToBeConsumed() = assertEquals(
+public fun MiddlewareStatus.expectToBeConsumed(): Unit = assertEquals(
     MiddlewareStatus.Consumed,
     this,
     "Action expected to be consumed!"
 )
 
-fun MiddlewareStatus.expectToBeNext(action: Action) = assertEquals(
+public fun MiddlewareStatus.expectToBeNext(action: Action): Unit = assertEquals(
     MiddlewareStatus.Next(action),
     this,
     "Action expected to be passed!"
 )
 
-fun List<MiddlewareStatus>.expectAllToBeConsumed() = assertEquals(
+public fun List<MiddlewareStatus>.expectAllToBeConsumed(): Unit = assertEquals(
     map { MiddlewareStatus.Consumed },
     this,
     "All actions expected to be consumed!"
 )
 
-fun List<MiddlewareStatus>.expectAllToBeNext(vararg actions: Action) = assertEquals(
+public fun List<MiddlewareStatus>.expectAllToBeNext(vararg actions: Action): Unit = assertEquals(
     actions.map(MiddlewareStatus::Next),
     this,
     "All actions expected to be passed!"
 )
 
-fun List<MiddlewareStatus>.expectAllEquals(vararg status: MiddlewareStatus) = assertEquals(
+public fun List<MiddlewareStatus>.expectAllEquals(vararg status: MiddlewareStatus): Unit = assertEquals(
     status.toList(),
     this,
     "Middleware statuses not match!"

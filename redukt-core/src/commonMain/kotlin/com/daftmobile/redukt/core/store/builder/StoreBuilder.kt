@@ -5,24 +5,24 @@ import com.daftmobile.redukt.core.store.Store
 import com.daftmobile.redukt.core.store.StoreImpl
 
 @DslMarker
-annotation class StoreBuilderDsl
+public annotation class StoreBuilderDsl
 
-fun <State> buildStore(@BuilderInference block: StoreBuilderScope<State>.() -> Unit): Store<State> {
+public fun <State> buildStore(@BuilderInference block: StoreBuilderScope<State>.() -> Unit): Store<State> {
     val builder = StoreBuilder<State>()
     builder.block()
     return builder.build()
 }
 
-interface StoreBuilderScope<State> {
+public interface StoreBuilderScope<State> {
 
     @StoreBuilderDsl
-    fun middlewares(block: MiddlewaresBuilderScope<State>.() -> Unit)
+    public fun middlewares(block: MiddlewaresBuilderScope<State>.() -> Unit)
 
     @StoreBuilderDsl
-    fun context(block: ContextBuilderScope.() -> Unit)
+    public fun context(block: ContextBuilderScope.() -> Unit)
 
     @StoreBuilderDsl
-    infix fun State.reducedBy(reducer: Reducer<State>)
+    public infix fun State.reducedBy(reducer: Reducer<State>)
 }
 
 internal class StoreBuilder<State> : StoreBuilderScope<State> {

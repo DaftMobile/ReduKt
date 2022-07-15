@@ -1,21 +1,21 @@
 package com.daftmobile.redukt.core.context
 
-interface DispatchContext {
+public interface DispatchContext {
 
-    fun <T : Element> find(key: Key<T>): T?
+    public fun <T : Element> find(key: Key<T>): T?
 
-    operator fun <T : Element> get(key: Key<T>): T = find(key) ?: throw MissingContextElementException(key)
+    public operator fun <T : Element> get(key: Key<T>): T = find(key) ?: throw MissingContextElementException(key)
 
-    operator fun plus(context: DispatchContext): DispatchContext {
+    public operator fun plus(context: DispatchContext): DispatchContext {
         val incomingElements = context.split()
         val incomingKeys = incomingElements.map(Element::key)
         return CombinedDispatchContext(split().filter { it.key !in incomingKeys } + incomingElements)
     }
 
-    fun split(): List<Element>
+    public fun split(): List<Element>
 
-    interface Element : DispatchContext {
-        val key: Key<*>
+    public interface Element : DispatchContext {
+        public val key: Key<*>
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : Element> find(key: Key<T>): T? = if (this.key == key) this as T else null
@@ -25,7 +25,7 @@ interface DispatchContext {
         override fun split(): List<Element> = listOf(this)
     }
 
-    interface Key<T : Element>
+    public interface Key<T : Element>
 }
 
 internal class MissingContextElementException(

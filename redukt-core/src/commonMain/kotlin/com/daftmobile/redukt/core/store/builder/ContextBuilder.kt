@@ -3,8 +3,8 @@ package com.daftmobile.redukt.core.store.builder
 import com.daftmobile.redukt.core.context.DispatchContext
 import com.daftmobile.redukt.core.context.EmptyDispatchContext
 
-interface ContextBuilderScope {
-    operator fun DispatchContext.unaryPlus()
+public interface ContextBuilderScope {
+    public operator fun DispatchContext.unaryPlus()
 }
 
 internal class ContextBuilder : ContextBuilderScope {

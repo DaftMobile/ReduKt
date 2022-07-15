@@ -1,14 +1,14 @@
 package com.daftmobile.redukt.core.threading
 
-sealed interface KtThread {
-    val rawName: String?
-    val name: String
-    companion object {
-        const val UNSPECIFIED = "UNSPECIFIED"
+public sealed interface KtThread {
+    public val rawName: String?
+    public val name: String
+    public companion object {
+        public const val UNSPECIFIED: String = "UNSPECIFIED"
     }
 }
 
-fun KtThread(rawName: String?): KtThread = KtThreadImpl(rawName)
+public fun KtThread(rawName: String?): KtThread = KtThreadImpl(rawName)
 
 private class KtThreadImpl(override val rawName: String?) : KtThread {
 
