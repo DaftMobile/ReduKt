@@ -13,4 +13,3 @@ public interface DataSourceResolver : DispatchContext.Element {
 }
 
 public val <State> DispatchScope<State>.dataSourceResolver: DataSourceResolver get() = dispatchContext[DataSourceResolver]
-

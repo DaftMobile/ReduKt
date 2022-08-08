@@ -4,7 +4,6 @@ import com.daftmobile.redukt.core.Reducer
 
 public typealias PayloadReducer<State, Payload> = (state: State, payload: Payload) -> State
 
-@Suppress("UNCHECKED_CAST")
 public inline fun <Request, Response, State> createDataSourceReducer(
     key: DataSourceKey<Request, Response>,
     crossinline onStart: PayloadReducer<State, DataSourcePayload.Started<Request, Response>> = { s, _ -> s },

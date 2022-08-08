@@ -1,8 +1,6 @@
 package com.daftmobile.redukt.core.context
 
-internal class CombinedDispatchContext(
-    private val elements: List<DispatchContext.Element>
-) : DispatchContext {
+internal class CombinedDispatchContext(private val elements: List<DispatchContext.Element>) : DispatchContext {
 
     init {
         require(elements.isNotEmpty()) { "Combined context cannot be empty!" }
