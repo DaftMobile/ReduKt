@@ -1,11 +1,12 @@
 package com.daftmobile.redukt.core.scope
 
 import com.daftmobile.redukt.core.Action
+import com.daftmobile.redukt.core.DispatchFunction
 import com.daftmobile.redukt.core.context.DispatchContext
 
 internal class CoreDispatchScope<State>(
     override val dispatchContext: DispatchContext,
-    private val dispatchFunction: suspend (Action) -> Unit,
+    private val dispatchFunction: DispatchFunction,
     private val getState: () -> State,
 ) : DispatchScope<State> {
 

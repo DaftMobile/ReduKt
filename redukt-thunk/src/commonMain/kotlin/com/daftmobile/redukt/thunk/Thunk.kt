@@ -1,7 +1,7 @@
 package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.middleware.Middleware
+import com.daftmobile.redukt.core.Middleware
 import com.daftmobile.redukt.core.middleware.consumingMiddleware
 import com.daftmobile.redukt.core.scope.DispatchScope
 

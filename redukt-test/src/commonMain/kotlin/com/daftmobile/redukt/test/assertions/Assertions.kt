@@ -56,6 +56,11 @@ public fun ActionsAssertScope.expectNoMoreActions() {
     assertTrue(pipeline.isEmpty(), "Expected all actions to be processed! $stackDescription")
 }
 
+public inline fun ActionsAssertScope.expectActionsSequence(vararg actions: Action): Unit {
+    actions.forEach { expectActionEquals(it) }
+    expectNoMoreActions()
+}
+
 @PublishedApi
 internal fun ActionsAssertScope.requiresAtLeasOneAction() {
     assertTrue(

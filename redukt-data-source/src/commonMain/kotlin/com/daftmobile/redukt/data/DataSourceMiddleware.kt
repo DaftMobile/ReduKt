@@ -1,12 +1,13 @@
 package com.daftmobile.redukt.data
 
-import com.daftmobile.redukt.core.middleware.Middleware
-import com.daftmobile.redukt.core.middleware.consumingMiddleware
-import com.daftmobile.redukt.core.middleware.middlewareClosure
+import com.daftmobile.redukt.core.Middleware
+import com.daftmobile.redukt.core.middleware.dispatchFunction
 
-public fun <State> dataSourceMiddleware(): Middleware<State> = middlewareClosure {
+public fun <State> dataSourceMiddleware(): Middleware<State> = {
     val resolver = dataSourceResolver
-    consumingMiddleware<_, DataSourceCall<Any?, Any?>> { action ->
+    dispatchFunction { it ->
+        if (it !is DataSourceAction<*, *>) return@dispatchFunction next(it)
+        val action = it.cast<DataSourceCall<Any?, Any?>>()
         dispatch(DataSourceAction(action.key, DataSourcePayload.Started(action.request)))
         runCatching { resolver.resolve(action.key).get(action.request) }
             .onSuccess { dispatch(DataSourceAction(action.key, DataSourcePayload.Success(action.request, it))) }

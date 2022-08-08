@@ -10,7 +10,7 @@ internal class ThunkMiddlewareTest {
     @Test
     fun shouldExecuteThunk() = tester.runTest {
         var executed = false
-        onAction(Thunk<Unit> { executed = true })
+        testAction(Thunk<Unit> { executed = true })
         executed shouldBe true
     }
 }
