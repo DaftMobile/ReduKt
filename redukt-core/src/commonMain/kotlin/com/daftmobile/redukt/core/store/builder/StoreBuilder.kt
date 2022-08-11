@@ -19,7 +19,7 @@ public interface StoreBuilderScope<State> {
     public fun middlewares(block: MiddlewaresBuilderScope<State>.() -> Unit)
 
     @StoreBuilderDsl
-    public fun context(block: ContextBuilderScope.() -> Unit)
+    public fun closure(block: ClosureBuilderScope.() -> Unit)
 
     @StoreBuilderDsl
     public infix fun State.reducedBy(reducer: Reducer<State>)
@@ -28,7 +28,7 @@ public interface StoreBuilderScope<State> {
 internal class StoreBuilder<State> : StoreBuilderScope<State> {
 
     private val middlewareBuilder = MiddlewaresBuilder<State>()
-    private val contextBuilder = ContextBuilder()
+    private val closureBuilder = ClosureBuilder()
     private var state: State? = null
     private var stateReducer: Reducer<State>? = null
 
@@ -41,15 +41,15 @@ internal class StoreBuilder<State> : StoreBuilderScope<State> {
         middlewareBuilder.apply(block)
     }
 
-    override fun context(block: ContextBuilderScope.() -> Unit) {
-        contextBuilder.apply(block)
+    override fun closure(block: ClosureBuilderScope.() -> Unit) {
+        closureBuilder.apply(block)
     }
 
     fun build() = StoreImpl(
         requireNotNull(state) { stateAndReducerMissingMsg() },
         requireNotNull(stateReducer) { stateAndReducerMissingMsg() },
         middlewareBuilder.middlewares,
-        contextBuilder.context
+        closureBuilder.closure
     )
 
     private fun stateAndReducerMissingMsg() = "Main state and reducer are missing! Use `AppState() reducedBy ::appReducer` to initialize it!"

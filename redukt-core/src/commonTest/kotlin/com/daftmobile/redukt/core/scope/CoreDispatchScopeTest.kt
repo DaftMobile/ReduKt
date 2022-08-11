@@ -3,20 +3,22 @@ package com.daftmobile.redukt.core.scope
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.CoreDispatchScope
 import com.daftmobile.redukt.core.KnownAction
-import com.daftmobile.redukt.core.TestDispatchContext
-import com.daftmobile.redukt.core.context.EmptyDispatchContext
+import com.daftmobile.redukt.core.TestDispatchClosure
+import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class CoreDispatchScopeTest {
 
     @Test
     fun stateGetterShouldReturnGetStateResult() {
         var state = 7312
         val scope = CoreDispatchScope(
-            dispatchContext = EmptyDispatchContext,
+            closure = EmptyDispatchClosure,
             dispatchFunction = {},
             getState = { state }
         )
@@ -29,7 +31,7 @@ internal class CoreDispatchScopeTest {
     fun dispatchShouldCallDispatchFunction() = runTest {
         var calledAction: Action? = null
         val scope = CoreDispatchScope(
-            dispatchContext = EmptyDispatchContext,
+            closure = EmptyDispatchClosure,
             dispatchFunction = { calledAction = it },
             getState = {}
         )
@@ -38,13 +40,13 @@ internal class CoreDispatchScopeTest {
     }
 
     @Test
-    fun dispatchContextGetterShouldReturnPassedContext() {
-        val context = TestDispatchContext()
+    fun dispatchClosureGetterShouldReturnPassedClosure() {
+        val closure = TestDispatchClosure()
         val scope = CoreDispatchScope(
-            dispatchContext = context,
+            closure = closure,
             dispatchFunction = {},
             getState = {}
         )
-        scope.dispatchContext shouldBe context
+        scope.closure shouldBe closure
     }
 }

@@ -1,10 +1,10 @@
 package com.daftmobile.redukt.core
 
-import com.daftmobile.redukt.core.context.DispatchContext
+import com.daftmobile.redukt.core.closure.DispatchClosure
 
 public interface ActionDispatcher {
 
-    public val dispatchContext: DispatchContext
+    public val closure: DispatchClosure
 
     public suspend fun dispatch(action: Action)
 }

@@ -1,7 +1,7 @@
 package com.daftmobile.redukt.core.store
 
 import com.daftmobile.redukt.core.*
-import com.daftmobile.redukt.core.context.DispatchContext
+import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.middleware.MergedMiddlewareScope
 import com.daftmobile.redukt.core.middleware.Middleware
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,11 +18,11 @@ internal class StoreImpl<State>(
     initialState: State,
     private val reducer: Reducer<State>,
     middlewares: List<Middleware<State>>,
-    override val dispatchContext: DispatchContext
+    override val closure: DispatchClosure
 ) : Store<State> {
     override val state = MutableStateFlow(initialState)
 
-    private val coreScope = CoreDispatchScope(dispatchContext, this::dispatch, this.state::value)
+    private val coreScope = CoreDispatchScope(closure, this::dispatch, this.state::value)
 
     private val updateState: DispatchFunction = { action -> state.value = reducer(state.value, action) }
     private val dispatchPipeline: DispatchFunction = middlewares

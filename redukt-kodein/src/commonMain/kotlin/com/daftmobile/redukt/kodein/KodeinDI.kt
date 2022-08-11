@@ -1,10 +1,10 @@
 package com.daftmobile.redukt.kodein
 
 import com.daftmobile.redukt.core.ActionDispatcher
-import com.daftmobile.redukt.core.context.DispatchContext
+import com.daftmobile.redukt.core.closure.DispatchClosure
 import org.kodein.di.DI
 
-public class KodeinDI(di: DI): DI by di, DispatchContext.Element {
+public class KodeinDI(di: DI): DI by di, DispatchClosure.Element {
 
     public constructor(
         allowSilentOverride: Boolean = false,
@@ -13,7 +13,7 @@ public class KodeinDI(di: DI): DI by di, DispatchContext.Element {
 
     override val key: Key = Key
 
-    public companion object Key : DispatchContext.Key<KodeinDI>
+    public companion object Key : DispatchClosure.Key<KodeinDI>
 }
 
-public inline val ActionDispatcher.di: DI get() = dispatchContext[KodeinDI]
+public inline val ActionDispatcher.di: DI get() = closure[KodeinDI]

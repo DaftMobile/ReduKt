@@ -1,8 +1,8 @@
 package com.daftmobile.redukt.test.middleware
 
 import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.context.DispatchContext
-import com.daftmobile.redukt.core.context.EmptyDispatchContext
+import com.daftmobile.redukt.core.closure.DispatchClosure
+import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.middleware.MiddlewareScope
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.middleware.Middleware
@@ -14,7 +14,7 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
     public var state: State
 
-    public var dispatchContext: DispatchContext
+    public var dispatchClosure: DispatchClosure
 
     public suspend fun testAction(action: Action)
 
@@ -26,13 +26,13 @@ public suspend fun MiddlewareTestScope<*>.testAllActions(vararg actions: Action)
 internal class DefaultMiddlewareTestScope<State>(
     private val middleware: Middleware<State>,
     initialState: State,
-    initialContext: DispatchContext = EmptyDispatchContext,
+    initialClosure: DispatchClosure = EmptyDispatchClosure,
 ): MiddlewareTestScope<State> {
 
     override var state: State = initialState
-    override var dispatchContext: DispatchContext = initialContext
+    override var dispatchClosure: DispatchClosure = initialClosure
 
-    private val dispatchSpy = SpyingDispatchScope(::state, ::dispatchContext)
+    private val dispatchSpy = SpyingDispatchScope(::state, ::dispatchClosure)
     private val middlewareSpy = SpyingMiddlewareScope(dispatchSpy)
 
     override suspend fun testAction(action: Action) = middleware(middlewareSpy)(action)
@@ -48,7 +48,7 @@ private class SpyingMiddlewareScope<State>(
     private val dispatchScope: DispatchScope<State>
     ): MiddlewareScope<State>, ActionsAssertScope, DispatchScope<State> by dispatchScope {
 
-    private val nextSpy = SpyingDispatchScope(dispatchScope::state, dispatchScope::dispatchContext)
+    private val nextSpy = SpyingDispatchScope(dispatchScope::state, dispatchScope::closure)
     override suspend fun next(action: Action) = nextSpy.dispatch(action)
     override val history: List<Action> get() = nextSpy.history
     override val pipeline: Queue<Action> get() = nextSpy.pipeline

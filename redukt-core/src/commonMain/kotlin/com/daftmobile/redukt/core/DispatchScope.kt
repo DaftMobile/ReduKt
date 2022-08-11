@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.core
 
-import com.daftmobile.redukt.core.context.DispatchContext
+import com.daftmobile.redukt.core.closure.DispatchClosure
 
 public interface DispatchScope<State> : ActionDispatcher {
 
@@ -8,7 +8,7 @@ public interface DispatchScope<State> : ActionDispatcher {
 }
 
 internal class CoreDispatchScope<State>(
-    override val dispatchContext: DispatchContext,
+    override val closure: DispatchClosure,
     private val dispatchFunction: DispatchFunction,
     private val getState: () -> State,
 ) : DispatchScope<State> {
