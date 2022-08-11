@@ -1,7 +1,7 @@
 package com.daftmobile.redukt.data
 
 import com.daftmobile.redukt.core.context.DispatchContext
-import com.daftmobile.redukt.core.scope.DispatchScope
+import com.daftmobile.redukt.core.DispatchScope
 
 public interface DataSourceResolver : DispatchContext.Element {
 

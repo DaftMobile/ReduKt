@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.log
 
-import com.daftmobile.redukt.core.Middleware
+import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.core.middleware.translucentMiddleware
 
 public fun <State> logMiddleware(

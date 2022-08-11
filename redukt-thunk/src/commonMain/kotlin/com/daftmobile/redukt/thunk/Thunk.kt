@@ -1,9 +1,9 @@
 package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.Middleware
 import com.daftmobile.redukt.core.middleware.consumingMiddleware
-import com.daftmobile.redukt.core.scope.DispatchScope
+import com.daftmobile.redukt.core.DispatchScope
+import com.daftmobile.redukt.core.middleware.Middleware
 
 public interface CoreThunk<State> : Action {
     public suspend fun DispatchScope<State>.execute()

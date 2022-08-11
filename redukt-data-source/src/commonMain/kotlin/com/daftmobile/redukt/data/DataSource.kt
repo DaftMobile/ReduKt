@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.data
 
-import com.daftmobile.redukt.core.scope.DispatchScope
+import com.daftmobile.redukt.core.DispatchScope
 
 public interface DataSource<Request, Response> {
     public suspend fun get(request: Request): Response

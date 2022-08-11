@@ -1,11 +1,11 @@
 package com.daftmobile.redukt.test.middleware
 
 import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.Middleware
 import com.daftmobile.redukt.core.context.DispatchContext
 import com.daftmobile.redukt.core.context.EmptyDispatchContext
 import com.daftmobile.redukt.core.middleware.MiddlewareScope
-import com.daftmobile.redukt.core.scope.DispatchScope
+import com.daftmobile.redukt.core.DispatchScope
+import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 import com.daftmobile.redukt.test.tools.Queue
 import com.daftmobile.redukt.test.tools.SpyingDispatchScope

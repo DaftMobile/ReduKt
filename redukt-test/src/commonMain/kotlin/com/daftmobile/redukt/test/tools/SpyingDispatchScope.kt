@@ -2,7 +2,7 @@ package com.daftmobile.redukt.test.tools
 
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.context.DispatchContext
-import com.daftmobile.redukt.core.scope.DispatchScope
+import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 
 public class SpyingDispatchScope<State>(

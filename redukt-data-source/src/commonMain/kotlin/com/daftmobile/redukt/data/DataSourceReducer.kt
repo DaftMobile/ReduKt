@@ -18,6 +18,3 @@ public inline fun <Request, Response, State> createDataSourceReducer(
         is DataSourcePayload.Failure<*, *> -> onFailure(state, payload.cast())
     }
 }
-
-@PublishedApi
-internal inline fun <reified T> Any?.cast(): T = this as T

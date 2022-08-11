@@ -1,6 +1,7 @@
 package com.daftmobile.redukt.core.scope
 
 import com.daftmobile.redukt.core.Action
+import com.daftmobile.redukt.core.CoreDispatchScope
 import com.daftmobile.redukt.core.KnownAction
 import com.daftmobile.redukt.core.TestDispatchContext
 import com.daftmobile.redukt.core.context.EmptyDispatchContext
