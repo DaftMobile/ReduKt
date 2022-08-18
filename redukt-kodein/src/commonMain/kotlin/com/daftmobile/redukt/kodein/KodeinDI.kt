@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.kodein
 
-import com.daftmobile.redukt.core.ActionDispatcher
+import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import org.kodein.di.DI
 
@@ -16,4 +16,4 @@ public class KodeinDI(di: DI): DI by di, DispatchClosure.Element {
     public companion object Key : DispatchClosure.Key<KodeinDI>
 }
 
-public inline val ActionDispatcher.di: DI get() = closure[KodeinDI]
+public inline val DispatchScope<*>.di: DI get() = closure[KodeinDI]

@@ -48,7 +48,7 @@ private class SpyingMiddlewareScope<State>(
     private val dispatchScope: DispatchScope<State>
     ): MiddlewareScope<State>, ActionsAssertScope, DispatchScope<State> by dispatchScope {
 
-    private val nextSpy = SpyingDispatchScope(dispatchScope::state, dispatchScope::closure)
+    private val nextSpy = SpyingDispatchScope(dispatchScope::currentState, dispatchScope::closure)
     override suspend fun next(action: Action) = nextSpy.dispatch(action)
     override val history: List<Action> get() = nextSpy.history
     override val pipeline: Queue<Action> get() = nextSpy.pipeline

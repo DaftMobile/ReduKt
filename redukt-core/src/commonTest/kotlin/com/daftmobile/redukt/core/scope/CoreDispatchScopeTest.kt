@@ -22,9 +22,9 @@ internal class CoreDispatchScopeTest {
             dispatchFunction = {},
             getState = { state }
         )
-        scope.state shouldBeExactly 7312
+        scope.currentState shouldBeExactly 7312
         state = 1234
-        scope.state shouldBeExactly 1234
+        scope.currentState shouldBeExactly 1234
     }
 
     @Test

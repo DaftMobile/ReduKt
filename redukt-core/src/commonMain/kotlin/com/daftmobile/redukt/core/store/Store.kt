@@ -7,12 +7,10 @@ import com.daftmobile.redukt.core.middleware.Middleware
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-public interface Store<State> : ActionDispatcher {
+public interface Store<State> : DispatchScope<State> {
 
     public val state: StateFlow<State>
 }
-
-public inline val <State> Store<State>.currentState: State get() = state.value
 
 internal class StoreImpl<State>(
     initialState: State,
@@ -22,9 +20,12 @@ internal class StoreImpl<State>(
 ) : Store<State> {
     override val state = MutableStateFlow(initialState)
 
+    override val currentState: State get() = state.value
+
     private val coreScope = CoreDispatchScope(closure, this::dispatch, this.state::value)
 
     private val updateState: DispatchFunction = { action -> state.value = reducer(state.value, action) }
+
     private val dispatchPipeline: DispatchFunction = middlewares
         .reversed()
         .fold(updateState) { next, current ->

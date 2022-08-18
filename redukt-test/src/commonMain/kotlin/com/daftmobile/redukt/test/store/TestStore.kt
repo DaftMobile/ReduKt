@@ -20,5 +20,7 @@ public class TestStore<State>(
 
     override suspend fun dispatch(action: Action): Unit = scope.dispatch(action)
 
+    override val currentState: State get() = state.value
+
     public fun test(block: ActionsAssertScope.() -> Unit): Unit = scope.block()
 }

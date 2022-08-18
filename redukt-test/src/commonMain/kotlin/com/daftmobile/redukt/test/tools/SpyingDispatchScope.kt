@@ -11,7 +11,7 @@ public class SpyingDispatchScope<State>(
 ) : DispatchScope<State>, ActionsAssertScope {
 
     override val closure: DispatchClosure get() = closureProvider()
-    override val state: State get() = stateProvider()
+    override val currentState: State get() = stateProvider()
 
     private val _history = mutableListOf<Action>()
     override val history: List<Action> = _history
