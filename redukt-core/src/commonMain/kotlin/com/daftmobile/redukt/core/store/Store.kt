@@ -2,6 +2,7 @@ package com.daftmobile.redukt.core.store
 
 import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.closure.DispatchClosure
+import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
 import com.daftmobile.redukt.core.middleware.MergedMiddlewareScope
 import com.daftmobile.redukt.core.middleware.Middleware
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,8 +17,10 @@ internal class StoreImpl<State>(
     initialState: State,
     private val reducer: Reducer<State>,
     middlewares: List<Middleware<State>>,
-    override val closure: DispatchClosure
+    initialClosure: DispatchClosure,
 ) : Store<State> {
+
+    override val closure: DispatchClosure = EmptyForegroundJobRegistry() + initialClosure
     override val state = MutableStateFlow(initialState)
 
     override val currentState: State get() = state.value

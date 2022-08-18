@@ -33,7 +33,7 @@ public class EmptyForegroundJobRegistry : ForegroundJobRegistry {
 }
 
 @InternalReduKtApi
-public class DefaultForegroundJobRegistry(
+public class SingleForegroundJobRegistry(
     private var job: Job? = null
 ) : ForegroundJobRegistry {
 
