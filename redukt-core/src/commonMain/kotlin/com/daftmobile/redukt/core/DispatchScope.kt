@@ -16,8 +16,7 @@ public fun DispatchScope<*>.dispatchIfPresent(action: Action?) {
     action?.let { dispatch(it) }
 }
 
-@InternalReduKtApi
-public class CoreDispatchScope<State>(
+internal class CoreDispatchScope<State>(
     override val closure: DispatchClosure,
     private val dispatchFunction: DispatchFunction,
     private val getState: () -> State,

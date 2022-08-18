@@ -53,6 +53,11 @@ internal class DefaultMiddlewareTestScope<State>(
     override fun assertNext(block: ActionsAssertScope.() -> Unit) = middlewareSpy.block()
 }
 
+private inline fun DispatchClosure.asLocalScope(): LocalClosureScope = LocalClosureScopeImpl(this)
+
+private class LocalClosureScopeImpl(@DelicateReduKtApi override val closure: DispatchClosure) : LocalClosureScope
+
+
 private class SpyingMiddlewareScope<State>(
     private val dispatchScope: DispatchScope<State>
 ) : MiddlewareScope<State>, ActionsAssertScope, DispatchScope<State> by dispatchScope {
