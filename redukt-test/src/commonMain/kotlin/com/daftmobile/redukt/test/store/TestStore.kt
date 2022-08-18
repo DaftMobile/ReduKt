@@ -1,6 +1,7 @@
 package com.daftmobile.redukt.test.store
 
 import com.daftmobile.redukt.core.Action
+import com.daftmobile.redukt.core.DelicateReduKtApi
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.store.Store
@@ -18,7 +19,10 @@ public class TestStore<State>(
 
     private val scope = SpyingDispatchScope(state::value, ::closure)
 
-    override suspend fun dispatch(action: Action): Unit = scope.dispatch(action)
+    override fun dispatch(action: Action): Unit = scope.dispatch(action)
+
+    @DelicateReduKtApi
+    override fun dispatch(action: Action, closure: DispatchClosure): Unit = scope.dispatch(action)
 
     override val currentState: State get() = state.value
 

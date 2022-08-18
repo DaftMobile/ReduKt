@@ -16,24 +16,24 @@ internal class ConsumingMiddlewareTest {
     private val tester = middleware.tester(Unit)
 
     @Test
-    fun shouldPassOnUnknownType() = tester.runTest {
+    fun shouldPassOnUnknownType() = tester.test {
         testAction(UnknownAction)
         assertNext { expectActionEquals(UnknownAction) }
     }
 
     @Test
-    fun shouldConsumeOnConsumableType() = tester.runTest {
+    fun shouldConsumeOnConsumableType() = tester.test {
         assertNext { expectNoActions() }
     }
 
     @Test
-    fun shouldCallBlockWithConsumedAction() = tester.runTest {
+    fun shouldCallBlockWithConsumedAction() = tester.test {
         testAction(KnownAction.A)
         expectActionEquals(TestAction)
     }
 
     @Test
-    fun shouldNotCallBlockWithUnknownAction() = tester.runTest {
+    fun shouldNotCallBlockWithUnknownAction() = tester.test {
         testAction(UnknownAction)
         expectNoActions()
     }

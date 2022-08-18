@@ -1,14 +1,16 @@
 package com.daftmobile.redukt.test.middleware
 
-import com.daftmobile.redukt.core.Action
+import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.middleware.MiddlewareScope
-import com.daftmobile.redukt.core.DispatchScope
+import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
+import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
 import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 import com.daftmobile.redukt.test.tools.Queue
 import com.daftmobile.redukt.test.tools.SpyingDispatchScope
+import kotlinx.coroutines.coroutineScope
 
 public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
@@ -16,26 +18,33 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
     public var dispatchClosure: DispatchClosure
 
-    public suspend fun testAction(action: Action)
+    public fun testAction(action: Action)
+
+    public suspend fun awaitTestAction(action: SuspendAction)
 
     public fun assertNext(block: ActionsAssertScope.() -> Unit)
 }
 
-public suspend fun MiddlewareTestScope<*>.testAllActions(vararg actions: Action): Unit = actions.forEach { testAction(it) }
+public fun MiddlewareTestScope<*>.testAllActions(vararg actions: Action): Unit = actions.forEach { testAction(it) }
 
 internal class DefaultMiddlewareTestScope<State>(
     private val middleware: Middleware<State>,
     initialState: State,
     initialClosure: DispatchClosure = EmptyDispatchClosure,
-): MiddlewareTestScope<State> {
+) : MiddlewareTestScope<State> {
 
     override var state: State = initialState
-    override var dispatchClosure: DispatchClosure = initialClosure
+    override var dispatchClosure: DispatchClosure = EmptyForegroundJobRegistry() + initialClosure
 
     private val dispatchSpy = SpyingDispatchScope(::state, ::dispatchClosure)
     private val middlewareSpy = SpyingMiddlewareScope(dispatchSpy)
 
-    override suspend fun testAction(action: Action) = middleware(middlewareSpy)(action)
+    override fun testAction(action: Action) = middleware(middlewareSpy)(dispatchClosure.asLocalScope(), action)
+
+    override suspend fun awaitTestAction(action: SuspendAction) = coroutineScope {
+        val closure = dispatchClosure + DispatchCoroutineScope(this)
+        middleware(middlewareSpy)(closure.asLocalScope(), action)
+    }
 
     override val pipeline get() = dispatchSpy.pipeline
 
@@ -46,10 +55,14 @@ internal class DefaultMiddlewareTestScope<State>(
 
 private class SpyingMiddlewareScope<State>(
     private val dispatchScope: DispatchScope<State>
-    ): MiddlewareScope<State>, ActionsAssertScope, DispatchScope<State> by dispatchScope {
+) : MiddlewareScope<State>, ActionsAssertScope, DispatchScope<State> by dispatchScope {
 
     private val nextSpy = SpyingDispatchScope(dispatchScope::currentState, dispatchScope::closure)
-    override suspend fun next(action: Action) = nextSpy.dispatch(action)
+    override fun next(action: Action) = nextSpy.dispatch(action)
+
+    @DelicateReduKtApi
+    override fun next(action: Action, closure: DispatchClosure) = next(action)
+
     override val history: List<Action> get() = nextSpy.history
     override val pipeline: Queue<Action> get() = nextSpy.pipeline
 }

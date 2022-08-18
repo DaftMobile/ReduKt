@@ -19,8 +19,7 @@ public suspend fun <State> Thunk<State>.testExecute(
         testBlock()
     }
 }
-
-@OptIn(ExperimentalCoroutinesApi::class)
+@ExperimentalCoroutinesApi
 public fun <State> Thunk<State>.runTestExecute(
     state: State,
     closure: DispatchClosure = EmptyDispatchClosure,

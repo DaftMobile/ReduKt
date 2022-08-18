@@ -1,6 +1,7 @@
 package com.daftmobile.redukt.test.tools
 
 import com.daftmobile.redukt.core.Action
+import com.daftmobile.redukt.core.DelicateReduKtApi
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
@@ -18,8 +19,11 @@ public class SpyingDispatchScope<State>(
 
     override val pipeline: Queue<Action> = emptyQueue()
 
-    override suspend fun dispatch(action: Action) {
+    override fun dispatch(action: Action) {
         _history.add(action)
         pipeline.push(action)
     }
+
+    @DelicateReduKtApi
+    override fun dispatch(action: Action, closure: DispatchClosure): Unit = dispatch(action)
 }

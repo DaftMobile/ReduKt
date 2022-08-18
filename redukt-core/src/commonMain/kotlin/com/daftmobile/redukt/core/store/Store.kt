@@ -22,15 +22,19 @@ internal class StoreImpl<State>(
 
     override val currentState: State get() = state.value
 
-    private val coreScope = CoreDispatchScope(closure, this::dispatch, this.state::value)
+    private val dispatchPipeline: DispatchFunction by lazy {
+        middlewares
+            .reversed()
+            .fold(updateState) { next, current ->
+                current(MergedMiddlewareScope(coreScope, next))
+            }
+    }
+
+    private val coreScope = CoreDispatchScope(closure, dispatchPipeline, this.state::value)
 
     private val updateState: DispatchFunction = { action -> state.value = reducer(state.value, action) }
+    override fun dispatch(action: Action): Unit = coreScope.dispatch(action)
 
-    private val dispatchPipeline: DispatchFunction = middlewares
-        .reversed()
-        .fold(updateState) { next, current ->
-            current(MergedMiddlewareScope(coreScope, next))
-        }
-
-    override suspend fun dispatch(action: Action): Unit = dispatchPipeline(action)
+    @DelicateReduKtApi
+    override fun dispatch(action: Action, closure: DispatchClosure) = coreScope.dispatch(action, closure)
 }

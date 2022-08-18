@@ -1,13 +1,15 @@
 package com.daftmobile.redukt.core.middleware
 
-import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.DispatchFunction
-import com.daftmobile.redukt.core.DispatchScope
+import com.daftmobile.redukt.core.*
+import com.daftmobile.redukt.core.closure.DispatchClosure
 
 public typealias Middleware<State> = MiddlewareScope<State>.() -> DispatchFunction
 
 public interface MiddlewareScope<State> : DispatchScope<State> {
-    public suspend fun next(action: Action)
+    public fun next(action: Action)
+
+    @DelicateReduKtApi
+    public fun next(action: Action, closure: DispatchClosure)
 }
 
 @PublishedApi
@@ -16,5 +18,12 @@ internal class MergedMiddlewareScope<State>(
     private val nextFunction: DispatchFunction
 ): MiddlewareScope<State>, DispatchScope<State> by dispatchScope {
 
-    override suspend fun next(action: Action) = nextFunction(action)
+    private val defaultLocalScope = closure.asLocalScope()
+
+    override fun next(action: Action) = defaultLocalScope.nextFunction(action)
+
+    @DelicateReduKtApi
+    override fun next(action: Action, closure: DispatchClosure) = (this.closure + closure)
+        .asLocalScope()
+        .nextFunction(action)
 }

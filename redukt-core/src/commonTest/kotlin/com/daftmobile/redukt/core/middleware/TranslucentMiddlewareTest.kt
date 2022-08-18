@@ -18,14 +18,14 @@ internal class TranslucentMiddlewareTest {
     private val tester = middleware.tester(Unit)
 
     @Test
-    fun shouldCallPassedBlockOnAnyAction() = tester.runTest {
+    fun shouldCallPassedBlockOnAnyAction() = tester.test {
         testAllActions(KnownAction.A, UnknownAction, KnownAction.B)
         expectEvery { it == TestAction }
         expectAllActionsCount(3)
     }
 
     @Test
-    fun shouldNextOnAnyAction() = tester.runTest {
+    fun shouldNextOnAnyAction() = tester.test {
         testAllActions(KnownAction.A, UnknownAction, KnownAction.B)
         assertNext {
             expectActionsSequence(KnownAction.A, UnknownAction, KnownAction.B)

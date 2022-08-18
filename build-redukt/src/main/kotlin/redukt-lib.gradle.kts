@@ -21,7 +21,11 @@ kotlin {
     iosSimulatorArm64()
     sourceSets {
         all {
-            languageSettings.optIn("kotlin.experimental.ExperimentalTypeInference")
+            languageSettings.apply {
+                optIn("kotlin.experimental.ExperimentalTypeInference")
+                optIn("com.daftmobile.redukt.core.DelicateReduKtApi")
+                optIn("com.daftmobile.redukt.core.InternalReduKtApi")
+            }
         }
         val commonMain by getting
         val jvmMain by getting
