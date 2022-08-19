@@ -1,6 +1,9 @@
 package com.daftmobile.redukt.mvvm
 
+import com.daftmobile.redukt.core.SuspendAction
+import com.daftmobile.redukt.core.coroutines.asyncDispatchIn
 import com.daftmobile.redukt.core.store.Store
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 
 public abstract class ViewModel<State>(
@@ -26,4 +29,6 @@ public abstract class ViewModel<State>(
         started: SharingStarted = defaultStarted,
         initialValue: T
     ): StateFlow<T> = stateIn(viewModelScope, started, initialValue)
+
+    protected fun Store<*>.asyncDispatchInHere(action: SuspendAction): Job = asyncDispatchIn(action, viewModelScope)
 }
