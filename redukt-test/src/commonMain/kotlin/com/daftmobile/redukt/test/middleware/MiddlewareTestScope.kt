@@ -66,7 +66,7 @@ private class SpyingMiddlewareScope<State>(
     override fun next(action: Action) = nextSpy.dispatch(action)
 
     @DelicateReduKtApi
-    override fun next(action: Action, closure: DispatchClosure) = next(action)
+    override fun next(action: Action, closure: DispatchClosure) = nextSpy.dispatch(action, closure)
 
     override val history: List<Action> get() = nextSpy.history
     override val pipeline: Queue<Action> get() = nextSpy.pipeline

@@ -22,7 +22,7 @@ public class TestStore<State>(
     override fun dispatch(action: Action): Unit = scope.dispatch(action)
 
     @DelicateReduKtApi
-    override fun dispatch(action: Action, closure: DispatchClosure): Unit = scope.dispatch(action)
+    override fun dispatch(action: Action, closure: DispatchClosure): Unit = scope.dispatch(action, closure)
 
     override val currentState: State get() = state.value
 
