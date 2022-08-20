@@ -23,7 +23,7 @@ public fun DispatchScope<*>.asyncDispatch(action: SuspendAction): Job {
 
 public fun DispatchScope<*>.asyncDispatchIn(action: SuspendAction, scope: CoroutineScope): Job {
     val registry = SingleForegroundJobRegistry()
-    dispatch(action, registry + StoreCoroutineScope(scope))
+    dispatch(action, registry + DispatchCoroutineScope(scope))
     return registry.consume()
 }
 

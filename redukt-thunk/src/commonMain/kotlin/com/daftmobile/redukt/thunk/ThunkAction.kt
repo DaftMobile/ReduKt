@@ -4,7 +4,7 @@ import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.LocalDispatchScope
 import com.daftmobile.redukt.core.SuspendAction
-import com.daftmobile.redukt.core.coroutines.StoreCoroutineScope
+import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
 import com.daftmobile.redukt.core.coroutines.launchForeground
 import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.core.middleware.consumingMiddleware
@@ -32,7 +32,7 @@ public open class CoThunk<State>(public val block: suspend DispatchScope<State>.
 public fun <State> thunkMiddleware(): Middleware<State> = consumingMiddleware<_, ThunkAction<State>> { thunk ->
     when (thunk) {
         is CoThunkApi -> launchForeground {
-            withLocalScope(StoreCoroutineScope(this)) {
+            withLocalScope(DispatchCoroutineScope(this)) {
                 thunk.run { execute() }
             }
         }

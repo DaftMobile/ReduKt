@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.core
 
 import com.daftmobile.redukt.core.closure.DispatchClosure
-import com.daftmobile.redukt.core.coroutines.StoreCoroutineScope
+import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
 
-public fun defaultStoreClosure(): DispatchClosure = StoreCoroutineScope()
+public fun defaultStoreClosure(): DispatchClosure = DispatchCoroutineScope()
