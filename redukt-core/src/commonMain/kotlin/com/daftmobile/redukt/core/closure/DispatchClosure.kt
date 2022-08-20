@@ -1,8 +1,5 @@
 package com.daftmobile.redukt.core.closure
 
-import com.daftmobile.redukt.core.DelicateReduKtApi
-
-@DelicateReduKtApi
 public interface DispatchClosure {
 
     public fun <T : Element> find(key: Key<T>): T?

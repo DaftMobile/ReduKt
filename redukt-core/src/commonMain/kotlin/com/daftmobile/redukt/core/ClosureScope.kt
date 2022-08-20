@@ -1,6 +1,7 @@
 package com.daftmobile.redukt.core
 
 import com.daftmobile.redukt.core.closure.DispatchClosure
+import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 
 public interface ClosureScope {
     @DelicateReduKtApi
@@ -11,23 +12,23 @@ public interface LocalClosureScope : ClosureScope
 
 public interface LocalDispatchScope<State> : DispatchScope<State>, LocalClosureScope
 
-@PublishedApi
-internal inline fun DispatchClosure.asLocalScope(): LocalClosureScope = LocalClosureScopeImpl(this)
+@InternalReduKtApi
+public fun DispatchClosure.asLocalScope(): LocalClosureScope = LocalClosureScopeImpl(this)
 
-@PublishedApi
+@InternalReduKtApi
+public inline fun <State> DispatchScope<State>.withLocalScope(
+    closure: DispatchClosure = EmptyDispatchClosure,
+    block: LocalDispatchScope<State>.() -> Unit
+) {
+    LocalDispatchScopeImpl(this.closure + closure, this).run(block)
+}
+
+@InternalReduKtApi
+public fun <State> DispatchScope<State>.newLocalScope(closure: DispatchClosure = EmptyDispatchClosure): LocalDispatchScope<State> {
+    return LocalDispatchScopeImpl(this.closure + closure, this)
+}
+
 internal class LocalClosureScopeImpl(@DelicateReduKtApi override val closure: DispatchClosure) : LocalClosureScope
-
-@PublishedApi
-internal inline fun <State> DispatchScope<State>.asLocalScope(
-    closure: DispatchClosure
-): LocalDispatchScope<State> = LocalDispatchScopeImpl(this.closure + closure, this)
-
-@PublishedApi
-internal inline fun DispatchFunction.invokeWithMergedClosure(
-    originalClosure: DispatchClosure,
-    localClosure: DispatchClosure,
-    action: Action,
-): Unit = invoke(LocalClosureScopeImpl(originalClosure + localClosure), action)
 
 @PublishedApi
 internal class LocalDispatchScopeImpl<State>(

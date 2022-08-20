@@ -28,6 +28,5 @@ internal class CoreDispatchScope<State>(
 
     override fun dispatch(action: Action): Unit = defaultLocalScope.dispatchFunction(action)
 
-    override fun dispatch(action: Action, closure: DispatchClosure): Unit = dispatchFunction
-        .invokeWithMergedClosure(this.closure, closure, action)
+    override fun dispatch(action: Action, closure: DispatchClosure): Unit = withLocalScope(closure) { dispatchFunction(action) }
 }

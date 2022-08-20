@@ -23,8 +23,20 @@ public inline fun MiddlewareScope<*>.translucentDispatch(crossinline dispatch: D
 
 public inline fun <State, reified T : Action> consumingMiddleware(
     crossinline block: LocalDispatchScope<State>.(T) -> Unit
-): Middleware<State> = { consumingDispatch<T> { block(asLocalScope(closure), it) } }
+): Middleware<State> = {
+    consumingDispatch<T> {
+        withLocalScope(closure) {
+            block(it)
+        }
+    }
+}
 
 public inline fun <State> translucentMiddleware(
     crossinline block: LocalDispatchScope<State>.(Action) -> Unit
-): Middleware<State> = { translucentDispatch { block(asLocalScope(closure), it)  } }
+): Middleware<State> = {
+    translucentDispatch {
+        withLocalScope(closure) {
+            block(it)
+        }
+    }
+}
