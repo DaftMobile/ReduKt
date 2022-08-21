@@ -6,9 +6,6 @@ import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 import com.daftmobile.redukt.test.tools.SpyingDispatchScope
 import com.daftmobile.redukt.thunk.CoThunkApi
 import com.daftmobile.redukt.thunk.ThunkApi
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestResult
-import kotlinx.coroutines.test.runTest
 
 public fun <State> ThunkApi<State>.testExecute(
     state: State,
@@ -31,10 +28,3 @@ public suspend fun <State> CoThunkApi<State>.testExecute(
         testBlock()
     }
 }
-
-@ExperimentalCoroutinesApi
-public fun <State> CoThunkApi<State>.runTestExecute(
-    state: State,
-    closure: DispatchClosure = EmptyDispatchClosure,
-    testBlock: suspend ActionsAssertScope.() -> Unit
-): TestResult = runTest { testExecute(state, closure, testBlock) }

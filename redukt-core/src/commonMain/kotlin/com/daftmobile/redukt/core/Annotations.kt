@@ -1,13 +1,5 @@
 package com.daftmobile.redukt.core
 
-@RequiresOptIn(
-    message = "This is a delicate API and its use requires care.",
-    level = RequiresOptIn.Level.WARNING
-)
-@Retention(AnnotationRetention.BINARY)
-@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.TYPEALIAS, AnnotationTarget.PROPERTY)
-public annotation class DelicateReduKtApi
-
 @Retention(value = AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.TYPEALIAS, AnnotationTarget.PROPERTY)
 @RequiresOptIn(

@@ -3,7 +3,6 @@ package com.daftmobile.redukt.thunk
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.test.assertions.expectActionEquals
 import com.daftmobile.redukt.test.assertions.expectNoMoreActions
-import com.daftmobile.redukt.test.thunk.runTestExecute
 import com.daftmobile.redukt.test.thunk.testExecute
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -27,5 +26,13 @@ internal class MultiDispatchTest {
     @Test
     fun plusOperatorShouldCreateMultipleDispatchFromActions() {
         assertEquals(DispatchList(actionsList), ActionA + ActionB + ActionC)
+    }
+
+    @Test
+    fun withShouldCreateMultipleDispatchWithPassedSupport() {
+        assertEquals(
+            DispatchJobSupportList(actionsList, true),
+            ActionA + ActionB + ActionC with DispatchJobSupport(concurrent = true)
+        )
     }
 }

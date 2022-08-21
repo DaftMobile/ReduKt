@@ -14,7 +14,7 @@ public fun DispatchScope<*>.launchForeground(
     block: suspend CoroutineScope.() -> Unit
 ): Job = localClosure[DispatchCoroutineScope]
     .launch(context, start, block)
-    .also(localClosure.foregroundJobRegistry::register)
+    .also { localClosure[ForegroundJobRegistry].register(it) }
 
 public fun DispatchScope<*>.dispatchJob(action: JobAction): Job {
     val registry = SingleForegroundJobRegistry()

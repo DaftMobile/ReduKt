@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 
 public class DispatchCoroutineScope(
-    coroutineScope: CoroutineScope = MainScope(),
+    coroutineScope: CoroutineScope,
 ) : DispatchClosure.Element, CoroutineScope by coroutineScope {
     override val key: Key = Key
 

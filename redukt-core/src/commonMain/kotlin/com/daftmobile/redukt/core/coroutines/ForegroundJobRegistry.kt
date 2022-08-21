@@ -46,6 +46,3 @@ public class SingleForegroundJobRegistry(
 
     override fun consume(): Job = requireNotNull(consumeOrNull()) { "Foreground job not registered!" }
 }
-
-@InternalReduKtApi
-public val LocalClosure.foregroundJobRegistry: ForegroundJobRegistry get() = get(ForegroundJobRegistry)

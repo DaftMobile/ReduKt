@@ -4,7 +4,7 @@ import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.closure.LocalClosure
-import com.daftmobile.redukt.core.closure.localClosure
+import com.daftmobile.redukt.core.closure.withLocal
 import com.daftmobile.redukt.core.middleware.MiddlewareScope
 import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
 import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
@@ -18,17 +18,18 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
     public var state: State
 
-    public var dispatchClosure: DispatchClosure
+    public var closure: DispatchClosure
 
     public fun testAction(action: Action)
 
     public suspend fun awaitTestAction(action: JobAction)
 
-    public fun assertNext(block: ActionsAssertScope.() -> Unit)
+    public fun testNext(block: ActionsAssertScope.() -> Unit)
 }
 
 public fun MiddlewareTestScope<*>.testAllActions(vararg actions: Action): Unit = actions.forEach { testAction(it) }
 
+@PublishedApi
 internal class DefaultMiddlewareTestScope<State>(
     private val middleware: Middleware<State>,
     initialState: State,
@@ -36,24 +37,24 @@ internal class DefaultMiddlewareTestScope<State>(
 ) : MiddlewareTestScope<State> {
 
     override var state: State = initialState
-    override var dispatchClosure: DispatchClosure = LocalClosure { EmptyForegroundJobRegistry() } + initialClosure
+    override var closure: DispatchClosure = LocalClosure { EmptyForegroundJobRegistry() } + initialClosure
 
-    private val dispatchSpy = SpyingDispatchScope(::state, ::dispatchClosure)
+    private val dispatchSpy = SpyingDispatchScope(::state, ::closure)
     private val middlewareSpy = SpyingMiddlewareScope(dispatchSpy)
 
     override fun testAction(action: Action) = middleware(middlewareSpy)(action)
 
     override suspend fun awaitTestAction(action: JobAction) = coroutineScope {
-        val slot = middlewareSpy.localClosure.registerNewSlot(DispatchCoroutineScope(this))
-        middleware(middlewareSpy)(action)
-        middlewareSpy.localClosure.removeSlot(slot)
+        middlewareSpy.withLocal(DispatchCoroutineScope(this)) {
+            middleware(middlewareSpy)(action)
+        }
     }
 
     override val pipeline get() = dispatchSpy.pipeline
 
     override val history get() = dispatchSpy.history
 
-    override fun assertNext(block: ActionsAssertScope.() -> Unit) = middlewareSpy.block()
+    override fun testNext(block: ActionsAssertScope.() -> Unit) = middlewareSpy.block()
 }
 
 private class SpyingMiddlewareScope<State>(
