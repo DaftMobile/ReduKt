@@ -10,4 +10,6 @@ internal class CombinedDispatchClosure(private val elements: List<DispatchClosur
     override fun <T : DispatchClosure.Element> find(key: DispatchClosure.Key<T>): T? = elements.find { it.key == key } as? T
 
     override fun split(): List<DispatchClosure.Element> = elements
+
+    override fun toString(): String = elements.toString()
 }

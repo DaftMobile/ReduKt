@@ -2,6 +2,6 @@ package com.daftmobile.redukt.core
 
 public interface Action
 
-public interface SuspendAction : Action
+public interface JobAction : Action
 
-public typealias DispatchFunction = LocalClosureScope.(action: Action) -> Unit
+public typealias DispatchFunction = (action: Action) -> Unit

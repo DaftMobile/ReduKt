@@ -1,12 +1,12 @@
 package com.daftmobile.redukt.data
 
 import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.SuspendAction
+import com.daftmobile.redukt.core.JobAction
 
 public data class DataSourceCall<Request, Response>(
     val key: DataSourceKey<Request, Response>,
     val request: Request
-) : SuspendAction
+) : JobAction
 
 public data class DataSourceAction<Request, Response>(
     val key: DataSourceKey<Request, Response>,

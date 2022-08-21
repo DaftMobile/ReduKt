@@ -1,32 +1,33 @@
 package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.DispatchScope
-import com.daftmobile.redukt.core.LocalClosureScope
-import com.daftmobile.redukt.core.SuspendAction
+import com.daftmobile.redukt.core.JobAction
+import com.daftmobile.redukt.core.closure.dispatchWithLocal
+import com.daftmobile.redukt.core.closure.localClosure
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-public fun LocalClosureScope.launchForeground(
+public fun DispatchScope<*>.launchForeground(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit
-): Job = coroutineScope
+): Job = localClosure[DispatchCoroutineScope]
     .launch(context, start, block)
-    .also(foregroundJobRegistry::register)
+    .also(localClosure.foregroundJobRegistry::register)
 
-public fun DispatchScope<*>.asyncDispatch(action: SuspendAction): Job {
+public fun DispatchScope<*>.dispatchJob(action: JobAction): Job {
     val registry = SingleForegroundJobRegistry()
-    dispatch(action, registry)
+    dispatchWithLocal(registry, action)
     return registry.consume()
 }
 
-public fun DispatchScope<*>.asyncDispatchIn(action: SuspendAction, scope: CoroutineScope): Job {
+public fun DispatchScope<*>.dispatchJobIn(action: JobAction, scope: CoroutineScope): Job {
     val registry = SingleForegroundJobRegistry()
-    dispatch(action, registry + DispatchCoroutineScope(scope))
+    dispatchWithLocal(registry + DispatchCoroutineScope(scope), action)
     return registry.consume()
 }
 
-public suspend inline fun DispatchScope<*>.awaitDispatch(action: SuspendAction): Unit = coroutineScope {
-    asyncDispatchIn(action, this)
+public suspend inline fun DispatchScope<*>.awaitDispatchJob(action: JobAction): Unit = coroutineScope {
+    dispatchJobIn(action, this)
 }

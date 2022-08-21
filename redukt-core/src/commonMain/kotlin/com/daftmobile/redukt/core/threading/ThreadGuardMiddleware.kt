@@ -3,7 +3,6 @@ package com.daftmobile.redukt.core.threading
 import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.core.middleware.translucentDispatch
 
-
 public fun <State> threadGuardMiddleware(): Middleware<State> = {
     val initialThread = KtThread.current()
     translucentDispatch {

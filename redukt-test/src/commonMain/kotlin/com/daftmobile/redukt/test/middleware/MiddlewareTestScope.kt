@@ -3,6 +3,8 @@ package com.daftmobile.redukt.test.middleware
 import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
+import com.daftmobile.redukt.core.closure.LocalClosure
+import com.daftmobile.redukt.core.closure.localClosure
 import com.daftmobile.redukt.core.middleware.MiddlewareScope
 import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
 import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
@@ -20,7 +22,7 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
     public fun testAction(action: Action)
 
-    public suspend fun awaitTestAction(action: SuspendAction)
+    public suspend fun awaitTestAction(action: JobAction)
 
     public fun assertNext(block: ActionsAssertScope.() -> Unit)
 }
@@ -34,16 +36,17 @@ internal class DefaultMiddlewareTestScope<State>(
 ) : MiddlewareTestScope<State> {
 
     override var state: State = initialState
-    override var dispatchClosure: DispatchClosure = EmptyForegroundJobRegistry() + initialClosure
+    override var dispatchClosure: DispatchClosure = LocalClosure { EmptyForegroundJobRegistry() } + initialClosure
 
     private val dispatchSpy = SpyingDispatchScope(::state, ::dispatchClosure)
     private val middlewareSpy = SpyingMiddlewareScope(dispatchSpy)
 
-    override fun testAction(action: Action) = middleware(middlewareSpy)(dispatchClosure.asLocalScope(), action)
+    override fun testAction(action: Action) = middleware(middlewareSpy)(action)
 
-    override suspend fun awaitTestAction(action: SuspendAction) = coroutineScope {
-        val closure = dispatchClosure + DispatchCoroutineScope(this)
-        middleware(middlewareSpy)(closure.asLocalScope(), action)
+    override suspend fun awaitTestAction(action: JobAction) = coroutineScope {
+        val slot = middlewareSpy.localClosure.registerNewSlot(DispatchCoroutineScope(this))
+        middleware(middlewareSpy)(action)
+        middlewareSpy.localClosure.removeSlot(slot)
     }
 
     override val pipeline get() = dispatchSpy.pipeline
@@ -59,10 +62,6 @@ private class SpyingMiddlewareScope<State>(
 
     private val nextSpy = SpyingDispatchScope(dispatchScope::currentState, dispatchScope::closure)
     override fun next(action: Action) = nextSpy.dispatch(action)
-
-    @DelicateReduKtApi
-    override fun next(action: Action, closure: DispatchClosure) = nextSpy.dispatch(action, closure)
-
     override val history: List<Action> get() = nextSpy.history
     override val pipeline: Queue<Action> get() = nextSpy.pipeline
 }

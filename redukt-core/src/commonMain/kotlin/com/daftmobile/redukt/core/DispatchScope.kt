@@ -2,14 +2,13 @@ package com.daftmobile.redukt.core
 
 import com.daftmobile.redukt.core.closure.DispatchClosure
 
-public interface DispatchScope<State> : ClosureScope {
+public interface DispatchScope<State> {
+
+    public val closure: DispatchClosure
 
     public val currentState: State
 
     public fun dispatch(action: Action)
-
-    @DelicateReduKtApi
-    public fun dispatch(action: Action, closure: DispatchClosure)
 }
 
 public fun DispatchScope<*>.dispatchIfPresent(action: Action?) {
@@ -24,9 +23,5 @@ internal class CoreDispatchScope<State>(
 
     override val currentState: State get() = getState()
 
-    private val defaultLocalScope = closure.asLocalScope()
-
-    override fun dispatch(action: Action): Unit = defaultLocalScope.dispatchFunction(action)
-
-    override fun dispatch(action: Action, closure: DispatchClosure): Unit = withLocalScope(closure) { dispatchFunction(action) }
+    override fun dispatch(action: Action): Unit = dispatchFunction(action)
 }

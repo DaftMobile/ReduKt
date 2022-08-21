@@ -1,31 +1,33 @@
 package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.SuspendAction
-import com.daftmobile.redukt.core.coroutines.asyncDispatchIn
-import com.daftmobile.redukt.core.coroutines.awaitDispatch
+import com.daftmobile.redukt.core.JobAction
+import com.daftmobile.redukt.core.coroutines.dispatchJobIn
+import com.daftmobile.redukt.core.coroutines.awaitDispatchJob
 import kotlinx.coroutines.coroutineScope
 
 public data class DispatchList(val actions: List<Action>): Thunk<Unit>({ actions.forEach(::dispatch) })
 
 public operator fun Action.plus(other: Action): DispatchList = DispatchList(unwrapped() + other.unwrapped())
 
-public data class SuspendingDispatchList(val actions: List<Action>, val concurrent: Boolean): CoThunk<Unit>({
+public data class DispatchJobSupportList(val actions: List<Action>, val concurrent: Boolean): CoThunk<Unit>({
     if (concurrent) coroutineScope {
         actions.forEach {
-            if (it is SuspendAction) asyncDispatchIn(it, this)
+            if (it is JobAction) dispatchJobIn(it, this)
             else dispatch(it)
         }
     } else {
         actions.forEach {
-            if (it is SuspendAction) awaitDispatch(it)
+            if (it is JobAction) awaitDispatchJob(it)
             else dispatch(it)
         }
     }
 })
 
-public fun suspensionSupport(dispatchList: DispatchList, concurrent: Boolean = false): SuspendingDispatchList {
-    return SuspendingDispatchList(dispatchList.actions, concurrent)
+public data class DispatchJobSupport(val concurrent: Boolean = false)
+
+public infix fun DispatchList.with(support: DispatchJobSupport): DispatchJobSupportList {
+    return DispatchJobSupportList(actions, support.concurrent)
 }
 
 private fun Action.unwrapped(): List<Action> = if (this is DispatchList) actions else listOf(this)

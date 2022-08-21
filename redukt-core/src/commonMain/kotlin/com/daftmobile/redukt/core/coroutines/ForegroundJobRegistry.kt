@@ -1,8 +1,8 @@
 package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.InternalReduKtApi
-import com.daftmobile.redukt.core.LocalClosureScope
 import com.daftmobile.redukt.core.closure.DispatchClosure
+import com.daftmobile.redukt.core.closure.LocalClosure
 import kotlinx.coroutines.Job
 
 @InternalReduKtApi
@@ -48,4 +48,4 @@ public class SingleForegroundJobRegistry(
 }
 
 @InternalReduKtApi
-public val LocalClosureScope.foregroundJobRegistry: ForegroundJobRegistry get() = closure[ForegroundJobRegistry]
+public val LocalClosure.foregroundJobRegistry: ForegroundJobRegistry get() = get(ForegroundJobRegistry)

@@ -28,6 +28,8 @@ public interface DispatchClosure {
     public interface Key<T : Element>
 }
 
+public fun <T : DispatchClosure.Element> DispatchClosure.findOrElse(key: DispatchClosure.Key<T>, value: T): T = find(key) ?: value
+
 internal class MissingClosureElementException(
     key: DispatchClosure.Key<*>
 ) : IllegalStateException("Element with a key=${key} is not part of a dispatch closure!")

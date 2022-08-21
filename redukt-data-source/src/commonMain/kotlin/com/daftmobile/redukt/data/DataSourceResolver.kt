@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.data
 
-import com.daftmobile.redukt.core.ClosureScope
+import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.closure.DispatchClosure
 
 public interface DataSourceResolver : DispatchClosure.Element {
@@ -12,4 +12,4 @@ public interface DataSourceResolver : DispatchClosure.Element {
     public companion object Key : DispatchClosure.Key<DataSourceResolver>
 }
 
-public val ClosureScope.dataSourceResolver: DataSourceResolver get() = closure[DataSourceResolver]
+public val DispatchScope<*>.dataSourceResolver: DataSourceResolver get() = closure[DataSourceResolver]

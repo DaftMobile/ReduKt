@@ -23,7 +23,4 @@ public class SpyingDispatchScope<State>(
         _history.add(action)
         pipeline.push(action)
     }
-
-    @DelicateReduKtApi
-    override fun dispatch(action: Action, closure: DispatchClosure): Unit = dispatch(action)
 }
