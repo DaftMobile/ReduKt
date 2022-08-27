@@ -37,12 +37,12 @@ public class LocalSlot
 public val DispatchScope<*>.localClosure: LocalClosure get() = closure[LocalClosure]
 
 @InternalReduKtApi
-public fun <T> DispatchScope<*>.withLocal(closure: DispatchClosure, block: () -> T): T {
+public fun <T> DispatchScope<*>.withLocalClosure(closure: DispatchClosure, block: () -> T): T {
     val slot = localClosure.registerNewSlot(closure)
     return block().also { localClosure.removeSlot(slot) }
 }
 
 @InternalReduKtApi
-public fun DispatchScope<*>.dispatchWithLocal(closure: DispatchClosure, action: Action) {
-    withLocal(closure) { dispatch(action) }
+public fun DispatchScope<*>.dispatchWithLocalClosure(closure: DispatchClosure, action: Action) {
+    withLocalClosure(closure) { dispatch(action) }
 }

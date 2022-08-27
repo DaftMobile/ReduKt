@@ -6,7 +6,14 @@ public inline fun <State> middleware(
     crossinline block: MiddlewareScope<State>.(action: Action) -> Unit
 ): Middleware<State> = { { block(it) } }
 
-@Suppress("unused")
+public inline fun <State, reified T : Action> consumingMiddleware(
+    crossinline block: DispatchScope<State>.(T) -> Unit
+): Middleware<State> = { consumingDispatch<T> { block(it) } }
+
+public inline fun <State> translucentMiddleware(
+    crossinline block: DispatchScope<State>.(Action) -> Unit
+): Middleware<State> = { translucentDispatch { block(it) } }
+
 public inline fun MiddlewareScope<*>.dispatchFunction(noinline dispatch: DispatchFunction): DispatchFunction = dispatch
 
 public inline fun <reified T : Action> MiddlewareScope<*>.consumingDispatch(
@@ -20,11 +27,3 @@ public inline fun MiddlewareScope<*>.translucentDispatch(crossinline dispatch: D
     dispatch(it)
     next(it)
 }
-
-public inline fun <State, reified T : Action> consumingMiddleware(
-    crossinline block: DispatchScope<State>.(T) -> Unit
-): Middleware<State> = { consumingDispatch<T> { block(it) } }
-
-public inline fun <State> translucentMiddleware(
-    crossinline block: DispatchScope<State>.(Action) -> Unit
-): Middleware<State> = { translucentDispatch { block(it) } }

@@ -4,7 +4,7 @@ import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.closure.LocalClosure
-import com.daftmobile.redukt.core.closure.withLocal
+import com.daftmobile.redukt.core.closure.withLocalClosure
 import com.daftmobile.redukt.core.middleware.MiddlewareScope
 import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
 import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
@@ -45,7 +45,7 @@ internal class DefaultMiddlewareTestScope<State>(
     override fun testAction(action: Action) = middleware(middlewareSpy)(action)
 
     override suspend fun awaitTestAction(action: JobAction) = coroutineScope {
-        middlewareSpy.withLocal(DispatchCoroutineScope(this)) {
+        middlewareSpy.withLocalClosure(DispatchCoroutineScope(this)) {
             middleware(middlewareSpy)(action)
         }
     }

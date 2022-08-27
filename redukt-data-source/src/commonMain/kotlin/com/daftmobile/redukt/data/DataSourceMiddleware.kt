@@ -9,7 +9,7 @@ public fun <State> dataSourceMiddleware(): Middleware<State> = {
     consumingDispatch<DataSourceCall<Any?, Any?>> { action ->
         dispatch(DataSourceAction(action.key, DataSourcePayload.Started(action.request)))
         launchForeground {
-            runCatching { resolver.resolve(action.key).get(action.request) }
+            runCatching { resolver.call(action.key, action.request) }
                 .onSuccess { dispatch(DataSourceAction(action.key, DataSourcePayload.Success(action.request, it))) }
                 .onFailure { dispatch(DataSourceAction(action.key, DataSourcePayload.Failure(action.request, it))) }
         }
