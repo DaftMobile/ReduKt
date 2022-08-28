@@ -1,15 +1,14 @@
 package com.daftmobile.redukt.test.middleware
 
 import com.daftmobile.redukt.core.*
-import com.daftmobile.redukt.core.closure.DispatchClosure
-import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
-import com.daftmobile.redukt.core.closure.LocalClosure
-import com.daftmobile.redukt.core.closure.withLocalClosure
+import com.daftmobile.redukt.core.closure.*
 import com.daftmobile.redukt.core.middleware.MiddlewareScope
 import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
 import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
 import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
+import com.daftmobile.redukt.test.tools.ImmutableLocalClosure
+import com.daftmobile.redukt.test.tools.MockForegroundJobRegistry
 import com.daftmobile.redukt.test.tools.Queue
 import com.daftmobile.redukt.test.tools.SpyingDispatchScope
 import kotlinx.coroutines.coroutineScope
@@ -37,7 +36,7 @@ internal class DefaultMiddlewareTestScope<State>(
 ) : MiddlewareTestScope<State> {
 
     override var state: State = initialState
-    override var closure: DispatchClosure = LocalClosure { EmptyForegroundJobRegistry() } + initialClosure
+    override var closure: DispatchClosure = ImmutableLocalClosure(MockForegroundJobRegistry()) + initialClosure
 
     private val dispatchSpy = SpyingDispatchScope(::state, ::closure)
     private val middlewareSpy = SpyingMiddlewareScope(dispatchSpy)

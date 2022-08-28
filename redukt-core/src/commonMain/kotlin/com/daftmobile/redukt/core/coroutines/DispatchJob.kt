@@ -2,8 +2,8 @@ package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.JobAction
-import com.daftmobile.redukt.core.closure.dispatchWithLocalClosure
 import com.daftmobile.redukt.core.closure.localClosure
+import com.daftmobile.redukt.core.closure.withLocalClosure
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -17,15 +17,17 @@ public fun DispatchScope<*>.launchForeground(
     .also { localClosure[ForegroundJobRegistry].register(it) }
 
 public fun DispatchScope<*>.dispatchJob(action: JobAction): Job {
-    val registry = SingleForegroundJobRegistry()
-    dispatchWithLocalClosure(registry, action)
-    return registry.consume()
+    return withLocalClosure(SingleForegroundJobRegistry()) {
+        dispatch(action)
+        localClosure[ForegroundJobRegistry].consume()
+    }
 }
 
 public fun DispatchScope<*>.dispatchJobIn(action: JobAction, scope: CoroutineScope): Job {
-    val registry = SingleForegroundJobRegistry()
-    dispatchWithLocalClosure(registry + DispatchCoroutineScope(scope), action)
-    return registry.consume()
+    return withLocalClosure(SingleForegroundJobRegistry() + DispatchCoroutineScope(scope)) {
+        dispatch(action)
+        localClosure[ForegroundJobRegistry].consume()
+    }
 }
 
 public suspend inline fun DispatchScope<*>.awaitDispatchJob(action: JobAction): Unit = coroutineScope {

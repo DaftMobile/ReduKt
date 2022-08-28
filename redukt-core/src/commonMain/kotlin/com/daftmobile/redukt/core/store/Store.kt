@@ -1,6 +1,7 @@
 package com.daftmobile.redukt.core.store
 
 import com.daftmobile.redukt.core.*
+import com.daftmobile.redukt.core.closure.CoreLocalClosure
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.LocalClosure
 import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
@@ -21,7 +22,7 @@ internal class StoreImpl<State>(
     initialClosure: DispatchClosure,
 ) : Store<State> {
 
-    override val closure: DispatchClosure = EmptyForegroundJobRegistry() + LocalClosure(::closure::get) + initialClosure
+    override val closure: DispatchClosure = EmptyForegroundJobRegistry() + CoreLocalClosure(::closure::get) + initialClosure
     override val state = MutableStateFlow(initialState)
 
     override val currentState: State get() = state.value
