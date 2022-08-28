@@ -14,7 +14,7 @@ public inline fun <State> translucentMiddleware(
     crossinline block: DispatchScope<State>.(Action) -> Unit
 ): Middleware<State> = { translucentDispatch { block(it) } }
 
-public inline fun MiddlewareScope<*>.dispatchFunction(noinline dispatch: DispatchFunction): DispatchFunction = dispatch
+public fun MiddlewareScope<*>.dispatchFunction(dispatch: DispatchFunction): DispatchFunction = dispatch
 
 public inline fun <reified T : Action> MiddlewareScope<*>.consumingDispatch(
     crossinline block: (T) -> Unit
