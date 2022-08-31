@@ -1,10 +1,9 @@
 package com.daftmobile.redukt.core.scope
 
-import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.CoreDispatchScope
+import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.KnownAction
-import com.daftmobile.redukt.core.TestDispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -48,5 +47,21 @@ internal class CoreDispatchScopeTest {
             getState = {}
         )
         scope.closure shouldBe closure
+    }
+
+    @Test
+    fun dispatchIfPresentShouldAcceptNullWithoutFail() {
+        shouldNotThrowAny {
+            var dispatchedAction: Action? = null
+            CoreDispatchScope(TestDispatchClosure(), { dispatchedAction = it }, { }).dispatchIfPresent(null)
+            dispatchedAction shouldBe null
+        }
+    }
+
+    @Test
+    fun dispatchIfPresentShouldDispatchWhenActionIsNotNull() {
+        var dispatchedAction: Action? = null
+        CoreDispatchScope(TestDispatchClosure(), { dispatchedAction = it }, { }).dispatchIfPresent(KnownAction.A)
+        dispatchedAction shouldBe KnownAction.A
     }
 }

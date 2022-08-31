@@ -25,6 +25,21 @@ internal class DispatchClosureTest {
     }
 
     @Test
+    fun findOrElseShouldReturnFindResultWhenPresent() {
+        val findClosure = TestDispatchClosure()
+        val elseClosure = TestDispatchClosure()
+        val closure = ControlDispatchClosure(findResult = findClosure)
+        closure.findOrElse(TestDispatchClosure, elseClosure) shouldBe findClosure
+    }
+
+    @Test
+    fun findOrElseShouldReturnElseValueWhenFindReturnsNull() {
+        val elseClosure = TestDispatchClosure()
+        val closure = ControlDispatchClosure(findResult = null)
+        closure.findOrElse(TestDispatchClosure, elseClosure) shouldBe elseClosure
+    }
+
+    @Test
     fun getShouldThrowMissingClosureElementWhenItIsNotPresent() {
         val closure = ControlDispatchClosure(findResult = null)
         shouldThrowUnit<MissingClosureElementException> {
