@@ -4,6 +4,7 @@ import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.InternalReduKtApi
 
 @InternalReduKtApi
+@Suppress("UNCHECKED_CAST")
 public interface LocalClosure : DispatchClosure.Element {
 
     override val key: Key get() = Key
@@ -14,9 +15,13 @@ public interface LocalClosure : DispatchClosure.Element {
 
     public fun removeSlot(slot: LocalSlot)
 
-    override fun <T : DispatchClosure.Element> get(key: DispatchClosure.Key<T>): T = current[key]
+    override fun <T : DispatchClosure.Element> get(key: DispatchClosure.Key<T>): T {
+        return if (key == LocalClosure) this as T else current[key]
+    }
 
-    override fun <T : DispatchClosure.Element> find(key: DispatchClosure.Key<T>): T? = current.find(key)
+    override fun <T : DispatchClosure.Element> find(key: DispatchClosure.Key<T>): T? {
+        return if (key == LocalClosure) this as T else current.find(key)
+    }
 
     public companion object Key : DispatchClosure.Key<LocalClosure>
 }
@@ -48,7 +53,7 @@ public class LocalSlot
 public val DispatchScope<*>.localClosure: LocalClosure get() = closure[LocalClosure]
 
 @InternalReduKtApi
-public fun <T> DispatchScope<*>.withLocalClosure(closure: DispatchClosure, block: () -> T): T {
+public fun <T> DispatchScope<*>.withLocalClosure(closure: DispatchClosure, block: DispatchScope<*>.() -> T): T {
     val slot = localClosure.registerNewSlot(closure)
     return block().also { localClosure.removeSlot(slot) }
 }
