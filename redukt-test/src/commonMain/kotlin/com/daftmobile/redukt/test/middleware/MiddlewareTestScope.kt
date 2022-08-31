@@ -4,13 +4,15 @@ import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.closure.*
 import com.daftmobile.redukt.core.middleware.MiddlewareScope
 import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
-import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
+import com.daftmobile.redukt.core.coroutines.SingleForegroundJobRegistry
 import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 import com.daftmobile.redukt.test.tools.ImmutableLocalClosure
 import com.daftmobile.redukt.test.tools.MockForegroundJobRegistry
 import com.daftmobile.redukt.test.tools.Queue
 import com.daftmobile.redukt.test.tools.SpyingDispatchScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 
 public interface MiddlewareTestScope<State> : ActionsAssertScope {
@@ -21,7 +23,9 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
     public fun testAction(action: Action)
 
-    public suspend fun awaitTestAction(action: JobAction)
+    public suspend fun testJobAction(action: JobAction)
+
+    public fun testJobActionIn(scope: CoroutineScope, action: Action): Job
 
     public fun testNext(block: ActionsAssertScope.() -> Unit)
 }
@@ -36,17 +40,23 @@ internal class DefaultMiddlewareTestScope<State>(
 ) : MiddlewareTestScope<State> {
 
     override var state: State = initialState
-    override var closure: DispatchClosure = ImmutableLocalClosure(MockForegroundJobRegistry()) + initialClosure
+    override var closure: DispatchClosure =
+        ImmutableLocalClosure(::closure) + MockForegroundJobRegistry() + initialClosure
 
     private val dispatchSpy = SpyingDispatchScope(::state, ::closure)
     private val middlewareSpy = SpyingMiddlewareScope(dispatchSpy)
 
     override fun testAction(action: Action) = middleware(middlewareSpy)(action)
 
-    override suspend fun awaitTestAction(action: JobAction) = coroutineScope {
-        middlewareSpy.withLocalClosure(DispatchCoroutineScope(this)) {
-            middleware(middlewareSpy)(action)
-        }
+    override suspend fun testJobAction(action: JobAction) = coroutineScope<Unit> {
+        testJobActionIn(this, action)
+    }
+
+    override fun testJobActionIn(scope: CoroutineScope, action: Action): Job {
+        val registry = SingleForegroundJobRegistry()
+        closure += registry + DispatchCoroutineScope(scope)
+        middleware(middlewareSpy)(action)
+        return registry.consume()
     }
 
     override val pipeline get() = dispatchSpy.pipeline

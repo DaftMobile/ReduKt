@@ -6,7 +6,9 @@ import com.daftmobile.redukt.core.closure.LocalClosure
 import com.daftmobile.redukt.core.closure.LocalSlot
 
 @InternalReduKtApi
-public class ImmutableLocalClosure(override val current: DispatchClosure) : LocalClosure {
+public class ImmutableLocalClosure(private val closureProvider: () -> DispatchClosure) : LocalClosure {
+
+    override val current: DispatchClosure get() = closureProvider()
 
     override fun registerNewSlot(closure: DispatchClosure): LocalSlot = LocalSlot()
 

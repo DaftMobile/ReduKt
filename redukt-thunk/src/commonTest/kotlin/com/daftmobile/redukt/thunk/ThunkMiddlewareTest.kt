@@ -1,13 +1,14 @@
 package com.daftmobile.redukt.thunk
 
-import com.daftmobile.redukt.core.closure.LocalClosure
 import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
 import com.daftmobile.redukt.core.coroutines.SingleForegroundJobRegistry
 import com.daftmobile.redukt.test.middleware.tester
+import io.kotest.matchers.sequences.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.job
+import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -26,7 +27,7 @@ internal class ThunkMiddlewareTest {
     fun shouldExecuteCoThunk() = runTest {
         tester.test {
             var executed = false
-            awaitTestAction(CoThunk<Unit> { executed = true })
+            testJobAction(CoThunk<Unit> { executed = true })
             executed shouldBe true
         }
     }
@@ -35,10 +36,10 @@ internal class ThunkMiddlewareTest {
     fun shouldLaunchForegroundJobWithCoThunk() = runTest {
         tester.test {
             val registry = SingleForegroundJobRegistry()
-            val slot = closure[LocalClosure].registerNewSlot(registry + DispatchCoroutineScope(this@runTest))
+            closure += registry + DispatchCoroutineScope(this@runTest)
             testAction(CoThunk<Unit> { })
-            closure[LocalClosure].removeSlot(slot)
             registry.consumeOrNull() shouldNotBe null
+            coroutineContext.job.children shouldHaveSize 1
         }
     }
 }

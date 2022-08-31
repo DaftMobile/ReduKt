@@ -14,9 +14,10 @@ public fun <State> ThunkApi<State>.testExecute(
     closure: DispatchClosure = EmptyDispatchClosure,
     testBlock: ActionsAssertScope.() -> Unit
 ) {
+    val resultingClosure = MockForegroundJobRegistry() + closure
     SpyingDispatchScope(
         stateProvider = { state },
-        closureProvider = { ImmutableLocalClosure(MockForegroundJobRegistry()) + closure }
+        closureProvider = { ImmutableLocalClosure { resultingClosure } + resultingClosure }
     ).run {
         execute()
         testBlock()
@@ -28,9 +29,10 @@ public suspend fun <State> CoThunkApi<State>.testExecute(
     closure: DispatchClosure = EmptyDispatchClosure,
     testBlock: suspend ActionsAssertScope.() -> Unit
 ) {
+    val initialClosure = MockForegroundJobRegistry() + closure
     SpyingDispatchScope(
         stateProvider = { state },
-        closureProvider = { ImmutableLocalClosure(MockForegroundJobRegistry()) + closure }
+        closureProvider = { ImmutableLocalClosure { initialClosure } + initialClosure }
     ).run {
         execute()
         testBlock()

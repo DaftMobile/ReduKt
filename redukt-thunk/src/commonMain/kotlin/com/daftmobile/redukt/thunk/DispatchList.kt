@@ -3,7 +3,7 @@ package com.daftmobile.redukt.thunk
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.JobAction
 import com.daftmobile.redukt.core.coroutines.dispatchJobIn
-import com.daftmobile.redukt.core.coroutines.awaitDispatchJob
+import com.daftmobile.redukt.core.coroutines.joinDispatchJob
 import kotlinx.coroutines.coroutineScope
 
 public data class DispatchList(val actions: List<Action>): Thunk<Unit>({ actions.forEach(::dispatch) })
@@ -18,7 +18,7 @@ public data class DispatchJobSupportList(val actions: List<Action>, val concurre
         }
     } else {
         actions.forEach {
-            if (it is JobAction) awaitDispatchJob(it)
+            if (it is JobAction) joinDispatchJob(it)
             else dispatch(it)
         }
     }
