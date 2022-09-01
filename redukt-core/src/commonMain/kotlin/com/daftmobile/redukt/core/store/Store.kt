@@ -27,14 +27,63 @@ internal class StoreImpl<State>(
     override val closure: DispatchClosure = EmptyForegroundJobRegistry() + CoreLocalClosure(::closure::get) + initialClosure
     override val state = MutableStateFlow(initialState)
 
-    override val currentState: State get() = state.value
+    private val updateState: DispatchFunction = { action ->
+        guard.stateChange {
+            state.value = reducer(state.value, action)
+        }
+    }
 
-    private val updateState: DispatchFunction = { action -> state.value = reducer(state.value, action) }
-
-    private val dispatchPipeline: DispatchFunction = middlewares
+    private val guard = StoreGuard(
+        stateAccessor = state::value,
+        dispatchPipelineProvider = {
+            middlewares
                 .reversed()
                 .fold(updateState) { next, current ->
                     current(MergedMiddlewareScope(this, next))
                 }
-    override fun dispatch(action: Action): Unit = dispatchPipeline(action)
+        }
+    )
+
+    init {
+        guard.inflate()
+    }
+
+    override val currentState: State get() = guard.getState()
+    override fun dispatch(action: Action): Unit = guard.dispatchFunction(action)
 }
+
+private class StoreGuard<State>(
+    private val stateAccessor: () -> State,
+    dispatchPipelineProvider: () -> DispatchFunction,
+) {
+
+    var dispatchFunction: DispatchFunction = UninitializedDispatch
+        private set
+    var getState: () -> State = stateAccessor
+        private set
+
+    private val dispatchPipeline by lazy(dispatchPipelineProvider)
+
+    fun inflate() {
+        dispatchFunction = dispatchPipeline
+    }
+
+    inline fun stateChange(stateChange: () -> Unit) {
+        getState = UnsafeStateAccess
+        dispatchFunction = UnsafeDispatch
+        stateChange()
+        getState = stateAccessor
+        dispatchFunction = dispatchPipeline
+    }
+}
+
+private val UninitializedDispatch: DispatchFunction = { throw UninitializedDispatchException() }
+private val UnsafeDispatch: DispatchFunction = { throw UnsafeDispatchException() }
+private val UnsafeStateAccess: () -> Nothing = { throw UnsafeStateAccessException() }
+
+internal class UninitializedDispatchException :
+    IllegalStateException("Calling dispatch during middleware creation is illegal!")
+
+internal class UnsafeDispatchException : IllegalStateException("Calling dispatch during state update is illegal!")
+
+internal class UnsafeStateAccessException : IllegalStateException("Accessing state during state update is illegal!")

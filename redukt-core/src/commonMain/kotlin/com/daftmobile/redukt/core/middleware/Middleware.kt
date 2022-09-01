@@ -1,7 +1,8 @@
 package com.daftmobile.redukt.core.middleware
 
-import com.daftmobile.redukt.core.*
-import com.daftmobile.redukt.core.closure.DispatchClosure
+import com.daftmobile.redukt.core.Action
+import com.daftmobile.redukt.core.DispatchFunction
+import com.daftmobile.redukt.core.DispatchScope
 
 public typealias Middleware<State> = MiddlewareScope<State>.() -> DispatchFunction
 
@@ -15,5 +16,5 @@ internal class MergedMiddlewareScope<State>(
     private val nextFunction: DispatchFunction
 ): MiddlewareScope<State>, DispatchScope<State> by dispatchScope {
 
-    override fun next(action: Action) =  nextFunction(action)
+    override fun next(action: Action) = nextFunction(action)
 }
