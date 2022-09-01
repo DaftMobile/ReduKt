@@ -14,14 +14,3 @@ public interface DispatchScope<State> {
 public fun DispatchScope<*>.dispatchIfPresent(action: Action?) {
     action?.let { dispatch(it) }
 }
-
-internal class CoreDispatchScope<State>(
-    override val closure: DispatchClosure,
-    private val dispatchFunction: DispatchFunction,
-    private val getState: () -> State,
-) : DispatchScope<State> {
-
-    override val currentState: State get() = getState()
-
-    override fun dispatch(action: Action): Unit = dispatchFunction(action)
-}

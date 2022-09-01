@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.core.closure
 
-import com.daftmobile.redukt.core.CoreDispatchScope
+import com.daftmobile.redukt.core.dispatchScope
 import com.daftmobile.redukt.core.TestDispatchClosure
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -56,7 +56,7 @@ class LocalClosureTest {
 
     @Test
     fun withLocalClosureShouldProvideLocalClosureProperly() {
-        val scope = CoreDispatchScope(CoreLocalClosure { EmptyDispatchClosure }, {}, {})
+        val scope = dispatchScope(CoreLocalClosure { EmptyDispatchClosure }, {}, {})
         val localClosure = TestDispatchClosure()
         scope.withLocalClosure(localClosure) {
             closure[TestDispatchClosure] shouldBe localClosure
@@ -65,7 +65,7 @@ class LocalClosureTest {
 
     @Test
     fun withLocalClosureShouldRevertLocalClosureProperly() {
-        val scope = CoreDispatchScope(CoreLocalClosure { EmptyDispatchClosure }, {}, {})
+        val scope = dispatchScope(CoreLocalClosure { EmptyDispatchClosure }, {}, {})
         scope.withLocalClosure(TestDispatchClosure()) { }
         scope.closure.find(TestDispatchClosure) shouldBe null
     }

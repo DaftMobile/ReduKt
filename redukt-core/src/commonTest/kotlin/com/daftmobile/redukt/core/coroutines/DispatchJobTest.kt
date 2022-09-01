@@ -1,8 +1,6 @@
 package com.daftmobile.redukt.core.coroutines
 
-import com.daftmobile.redukt.core.CoreDispatchScope
-import com.daftmobile.redukt.core.DispatchFunction
-import com.daftmobile.redukt.core.JobAction
+import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.closure.CoreLocalClosure
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
@@ -33,13 +31,7 @@ class DispatchJobTest {
     private var dispatchFunction: DispatchFunction = { }
     private var closure: DispatchClosure = CoreLocalClosure { EmptyDispatchClosure }
 
-    private val scope by lazy {
-        CoreDispatchScope(
-            closure = closure,
-            dispatchFunction = dispatchFunction,
-            getState = { }
-        )
-    }
+    private val scope by lazy { dispatchScope(closure,dispatchFunction) { } }
 
     @Test
     fun launchForegroundShouldRegisterJobInLocalJobRegistry() {

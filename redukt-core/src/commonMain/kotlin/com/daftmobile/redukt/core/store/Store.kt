@@ -1,9 +1,11 @@
 package com.daftmobile.redukt.core.store
 
-import com.daftmobile.redukt.core.*
+import com.daftmobile.redukt.core.Action
+import com.daftmobile.redukt.core.DispatchFunction
+import com.daftmobile.redukt.core.DispatchScope
+import com.daftmobile.redukt.core.Reducer
 import com.daftmobile.redukt.core.closure.CoreLocalClosure
 import com.daftmobile.redukt.core.closure.DispatchClosure
-import com.daftmobile.redukt.core.closure.LocalClosure
 import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
 import com.daftmobile.redukt.core.middleware.MergedMiddlewareScope
 import com.daftmobile.redukt.core.middleware.Middleware
@@ -27,19 +29,12 @@ internal class StoreImpl<State>(
 
     override val currentState: State get() = state.value
 
-    private val bridgeDispatch: DispatchFunction = { dispatchPipeline(it) }
-
-    private val coreScope = CoreDispatchScope(closure, bridgeDispatch, this.state::value)
-
-    private val dispatchPipeline: DispatchFunction by lazy {
-        middlewares
-                .reversed()
-                .fold(updateState) { next, current ->
-                    current(MergedMiddlewareScope(coreScope, next))
-                }
-    }
-
     private val updateState: DispatchFunction = { action -> state.value = reducer(state.value, action) }
 
-    override fun dispatch(action: Action): Unit = coreScope.dispatch(action)
+    private val dispatchPipeline: DispatchFunction = middlewares
+                .reversed()
+                .fold(updateState) { next, current ->
+                    current(MergedMiddlewareScope(this, next))
+                }
+    override fun dispatch(action: Action): Unit = dispatchPipeline(action)
 }

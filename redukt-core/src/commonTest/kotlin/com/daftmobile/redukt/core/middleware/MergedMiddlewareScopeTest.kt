@@ -10,9 +10,9 @@ class MergedMiddlewareScopeTest {
     private var dispatchFunction: DispatchFunction = { }
     private var nextDispatchFunction: DispatchFunction = { }
     private val dispatchScope by lazy {
-        CoreDispatchScope(
+        dispatchScope(
             closure = closure,
-            dispatchFunction = dispatchFunction,
+            dispatch = dispatchFunction,
             getState = { 1 }
         )
     }
