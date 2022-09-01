@@ -1,7 +1,10 @@
 package com.daftmobile.redukt.core.scope
 
-import com.daftmobile.redukt.core.*
+import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.KnownAction
+import com.daftmobile.redukt.core.TestDispatchClosure
+import com.daftmobile.redukt.core.dispatchScope
+import com.daftmobile.redukt.core.dispatchIfPresent
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
