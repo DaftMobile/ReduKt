@@ -4,5 +4,6 @@ plugins {
 
 dependencies {
     commonMainApi(ReduKt.core)
+
     commonTestImplementation(kotlin("test"))
 }

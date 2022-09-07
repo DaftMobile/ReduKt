@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     commonMainApi(ReduKt.core)
-    commonMainImplementation(libs.kodein)
+    commonMainApi(libs.kodein)
 }

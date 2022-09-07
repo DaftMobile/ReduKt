@@ -4,7 +4,6 @@ plugins {
 
 dependencies {
     commonMainApi(ReduKt.core)
-    commonMainImplementation(libs.kotlinx.coroutines.core)
 
     commonTestImplementation(ReduKt.`test-thunk`)
     commonTestImplementation(kotlin("test"))
