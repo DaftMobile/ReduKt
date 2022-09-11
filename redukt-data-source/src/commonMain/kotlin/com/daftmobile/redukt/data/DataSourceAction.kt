@@ -29,3 +29,8 @@ public sealed interface DataSourcePayload<Request, Response> {
         val error: Throwable
     ) : DataSourcePayload<Request, Response>
 }
+
+public data class DataSourceResultPayload<Request, Response>(
+    public val request: Request,
+    public val result: Result<Response>
+)

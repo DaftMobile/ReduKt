@@ -18,3 +18,20 @@ public inline fun <Request, Response, State> createDataSourceReducer(
         is DataSourcePayload.Failure<*, *> -> onFailure(state, payload.cast())
     }
 }
+
+public inline fun <Request, Response, State> createDataSourceReducer(
+    key: DataSourceKey<Request, Response>,
+    crossinline onStart: PayloadReducer<State, DataSourcePayload.Started<Request, Response>> = { s, _ -> s },
+    crossinline onResult: PayloadReducer<State, DataSourceResultPayload<Request, Response>> = { s, _ -> s },
+    crossinline onElse: Reducer<State> = { s, _ -> s },
+): Reducer<State> = createDataSourceReducer(
+    key = key,
+    onStart = onStart,
+    onSuccess = { state, payload ->
+        onResult(state, DataSourceResultPayload(payload.request, Result.success(payload.response)))
+    },
+    onFailure = { state, payload ->
+        onResult(state, DataSourceResultPayload(payload.request, Result.failure(payload.error)))
+    },
+    onElse = onElse
+)
