@@ -23,7 +23,14 @@ public inline fun <reified T : Action> MiddlewareScope<*>.consumingDispatch(
     else next(it)
 }
 
-public inline fun MiddlewareScope<*>.translucentDispatch(crossinline dispatch: DispatchFunction): DispatchFunction = {
-    dispatch(it)
+public inline fun MiddlewareScope<*>.translucentDispatch(crossinline block: DispatchFunction): DispatchFunction = {
+    block(it)
+    next(it)
+}
+
+public inline fun <reified T : Action>  MiddlewareScope<*>.translucentDispatchOf(
+    crossinline block: (T) -> Unit
+): DispatchFunction = {
+    if (it is T) block(it)
     next(it)
 }
