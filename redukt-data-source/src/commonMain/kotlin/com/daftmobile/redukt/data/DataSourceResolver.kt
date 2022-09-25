@@ -5,7 +5,7 @@ import com.daftmobile.redukt.core.closure.DispatchClosure
 
 public interface DataSourceResolver : DispatchClosure.Element {
 
-    public suspend fun <Request, Response> resolve(key: DataSourceKey<Request, Response>): DataSource<Request, Response>
+    public suspend fun <T : DataSource<*, *>> resolve(key: DataSourceKey<T>): T
 
     override val key: Key get() = Key
 

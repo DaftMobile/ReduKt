@@ -5,7 +5,7 @@ import com.daftmobile.redukt.core.Reducer
 public typealias PayloadReducer<State, Payload> = (state: State, payload: Payload) -> State
 
 public inline fun <Request, Response, State> createDataSourceReducer(
-    key: DataSourceKey<Request, Response>,
+    key: DataSourceKey<DataSource<Request, Response>>,
     crossinline onStart: PayloadReducer<State, DataSourcePayload.Started<Request, Response>> = { s, _ -> s },
     crossinline onSuccess: PayloadReducer<State, DataSourcePayload.Success<Request, Response>> = { s, _ -> s },
     crossinline onFailure: PayloadReducer<State, DataSourcePayload.Failure<Request, Response>> = { s, _ -> s },
@@ -20,7 +20,7 @@ public inline fun <Request, Response, State> createDataSourceReducer(
 }
 
 public inline fun <Request, Response, State> createDataSourceReducer(
-    key: DataSourceKey<Request, Response>,
+    key: DataSourceKey<DataSource<Request, Response>>,
     crossinline onStart: PayloadReducer<State, DataSourcePayload.Started<Request, Response>> = { s, _ -> s },
     crossinline onResult: PayloadReducer<State, DataSourceResultPayload<Request, Response>> = { s, _ -> s },
     crossinline onElse: Reducer<State> = { s, _ -> s },

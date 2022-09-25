@@ -4,12 +4,12 @@ import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.JobAction
 
 public data class DataSourceCall<Request, Response>(
-    val key: DataSourceKey<Request, Response>,
+    val key: DataSourceKey<DataSource<Request, Response>>,
     val request: Request
 ) : JobAction
 
 public data class DataSourceAction<Request, Response>(
-    val key: DataSourceKey<Request, Response>,
+    val key: DataSourceKey<DataSource<Request, Response>>,
     val payload: DataSourcePayload<Request, Response>,
 ) : Action
 

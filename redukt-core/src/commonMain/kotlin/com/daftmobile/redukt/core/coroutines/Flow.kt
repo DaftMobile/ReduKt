@@ -15,24 +15,27 @@ import kotlinx.coroutines.launch
 
 public fun MiddlewareScope<*>.translucentDispatchFlow(block: (Flow<Action>) -> Flow<Any>): DispatchFunction {
     val sharedFlow = MutableSharedFlow<Action>()
-    sharedFlow.let(block).launchIn(coroutineScope)
-    return translucentDispatch { sharedFlow.emit(it, coroutineScope) }
+    val scope = coroutineScope
+    sharedFlow.let(block).launchIn(scope)
+    return translucentDispatch { sharedFlow.emit(it, scope) }
 }
 
 public inline fun <reified T : Action> MiddlewareScope<*>.consumingDispatchFlow(
     crossinline block: (Flow<T>) -> Flow<Any>
 ): DispatchFunction {
     val sharedFlow = MutableSharedFlow<T>()
-    sharedFlow.let(block).launchIn(coroutineScope)
-    return consumingDispatch<T> { sharedFlow.emit(it, coroutineScope) }
+    val scope = coroutineScope
+    sharedFlow.let(block).launchIn(scope)
+    return consumingDispatch<T> { sharedFlow.emit(it, scope) }
 }
 
 public inline fun <reified T : Action> MiddlewareScope<*>.translucentDispatchFlowOf(
     crossinline block: (Flow<T>) -> Flow<Any>
 ): DispatchFunction {
     val sharedFlow = MutableSharedFlow<T>()
-    sharedFlow.let(block).launchIn(coroutineScope)
-    return translucentDispatchOf<T> { sharedFlow.emit(it, coroutineScope) }
+    val scope = coroutineScope
+    sharedFlow.let(block).launchIn(scope)
+    return translucentDispatchOf<T> { sharedFlow.emit(it, scope) }
 }
 
 @PublishedApi

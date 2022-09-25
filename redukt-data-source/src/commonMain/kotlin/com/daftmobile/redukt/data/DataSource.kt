@@ -6,14 +6,14 @@ public interface DataSource<in Request, out Response> {
     public suspend fun call(request: Request): Response
 }
 
-public interface DataSourceKey<Request, Response>
+public interface DataSourceKey<T : DataSource<*, *>>
 
-public suspend fun <State, Request, Response> DispatchScope<State>.callDataSource(
-    key: DataSourceKey<Request, Response>,
+public suspend fun <Request, Response> DispatchScope<*>.callDataSource(
+    key: DataSourceKey<DataSource<Request, Response>>,
     request: Request
 ): Response = dataSourceResolver.call(key, request)
 
 public suspend fun <Request, Response> DataSourceResolver.call(
-    key: DataSourceKey<Request, Response>,
+    key: DataSourceKey<DataSource<Request, Response>>,
     request: Request
 ): Response = this.resolve(key).call(request)

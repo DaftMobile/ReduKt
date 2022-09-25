@@ -16,7 +16,7 @@ public fun DispatchScope<*>.launchForeground(
     block: suspend CoroutineScope.() -> Unit
 ): Job = localClosure[DispatchCoroutineScope]
     .launch(context, start, block)
-    .also { localForegroundJobRegistry.register(it) }
+    .also(localForegroundJobRegistry::register)
 
 public fun Flow<*>.launchInForeground(scope: DispatchScope<*>): Job = scope.launchForeground { collect() }
 

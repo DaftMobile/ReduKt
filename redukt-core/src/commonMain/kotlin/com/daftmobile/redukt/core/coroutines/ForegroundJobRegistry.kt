@@ -2,7 +2,6 @@ package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.InternalReduKtApi
 import com.daftmobile.redukt.core.closure.DispatchClosure
-import com.daftmobile.redukt.core.closure.LocalClosure
 import kotlinx.coroutines.Job
 
 @InternalReduKtApi
@@ -27,7 +26,7 @@ public class EmptyForegroundJobRegistry : ForegroundJobRegistry {
 
     override fun consume(): Job = error(
         "Foreground job could not be registered in EmptyForegroundJobRegistry! " +
-                "You are probably using launchForeground outside of DispatchFunction!"
+                "You are probably using launchForeground outside of dispatch function!"
     )
 
 }
