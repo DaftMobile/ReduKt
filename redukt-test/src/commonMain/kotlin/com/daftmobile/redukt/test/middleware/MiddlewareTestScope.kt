@@ -27,7 +27,7 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
     public fun testJobActionIn(scope: CoroutineScope, action: Action): Job
 
-    public fun testNext(block: ActionsAssertScope.() -> Unit)
+    public fun assertNext(block: ActionsAssertScope.() -> Unit)
 }
 
 public fun MiddlewareTestScope<*>.testAllActions(vararg actions: Action): Unit = actions.forEach { testAction(it) }
@@ -63,7 +63,7 @@ internal class DefaultMiddlewareTestScope<State>(
 
     override val history get() = dispatchSpy.history
 
-    override fun testNext(block: ActionsAssertScope.() -> Unit) = middlewareSpy.block()
+    override fun assertNext(block: ActionsAssertScope.() -> Unit) = middlewareSpy.block()
 }
 
 private class SpyingMiddlewareScope<State>(

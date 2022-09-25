@@ -27,7 +27,7 @@ internal class TranslucentMiddlewareTest {
     @Test
     fun shouldNextOnAnyAction() = tester.test {
         testAllActions(KnownAction.A, UnknownAction, KnownAction.B)
-        testNext {
+        assertNext {
             expectActionsSequence(KnownAction.A, UnknownAction, KnownAction.B)
         }
     }

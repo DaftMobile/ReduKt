@@ -18,12 +18,12 @@ internal class ConsumingMiddlewareTest {
     @Test
     fun shouldPassOnUnknownType() = tester.test {
         testAction(UnknownAction)
-        testNext { expectActionEquals(UnknownAction) }
+        assertNext { expectActionEquals(UnknownAction) }
     }
 
     @Test
     fun shouldConsumeOnConsumableType() = tester.test {
-        testNext { expectNoActions() }
+        assertNext { expectNoActions() }
     }
 
     @Test
