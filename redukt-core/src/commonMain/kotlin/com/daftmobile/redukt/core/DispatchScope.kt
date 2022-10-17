@@ -2,6 +2,9 @@ package com.daftmobile.redukt.core
 
 import com.daftmobile.redukt.core.closure.DispatchClosure
 
+/**
+ * The scope for accessing current state of the [com.daftmobile.redukt.core.store.Store] and dispatching actions.
+ */
 public interface DispatchScope<State> {
 
     public val closure: DispatchClosure
