@@ -6,7 +6,7 @@ package com.daftmobile.redukt.core
 public interface Action
 
 /**
- * Marker interface for every action that must have a single foreground coroutine ([kotlinx.coroutines.Job]) associated with it.
+ * Marker interface for every [Action] that must have a single foreground coroutine ([kotlinx.coroutines.Job]) associated with it.
  */
 public interface JobAction : Action
 
