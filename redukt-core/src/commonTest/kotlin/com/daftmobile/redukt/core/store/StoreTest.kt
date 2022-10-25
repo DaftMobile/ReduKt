@@ -19,7 +19,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlin.test.Test
 
-class StoreImplTest {
+class StoreTest {
 
     private val mockReducer = MockReducer<Int>(onReducerCall = { _, _ -> 2 })
     private var middlewares = listOf<Middleware<Int>>()
