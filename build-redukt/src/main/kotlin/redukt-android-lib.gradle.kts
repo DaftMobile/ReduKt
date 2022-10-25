@@ -29,7 +29,7 @@ kotlin {
         all {
             languageSettings.apply {
                 optIn("kotlin.experimental.ExperimentalTypeInference")
-                optIn("com.daftmobile.redukt.core.InternalReduKtApi")
+                optIn("com.daftmobile.redukt.core.DelicateReduKtApi")
             }
         }
 

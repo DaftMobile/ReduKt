@@ -1,9 +1,9 @@
 package com.daftmobile.redukt.core.closure
 
 import com.daftmobile.redukt.core.DispatchScope
-import com.daftmobile.redukt.core.InternalReduKtApi
+import com.daftmobile.redukt.core.DelicateReduKtApi
 
-@InternalReduKtApi
+@DelicateReduKtApi
 @Suppress("UNCHECKED_CAST")
 public interface LocalClosure : DispatchClosure.Element {
 
@@ -26,7 +26,7 @@ public interface LocalClosure : DispatchClosure.Element {
     public companion object Key : DispatchClosure.Key<LocalClosure>
 }
 
-@InternalReduKtApi
+@DelicateReduKtApi
 public class CoreLocalClosure(
     private val baseClosureProvider: () -> DispatchClosure
 ) : LocalClosure {
@@ -46,13 +46,13 @@ public class CoreLocalClosure(
     public companion object Key : DispatchClosure.Key<LocalClosure>
 }
 
-@InternalReduKtApi
+@DelicateReduKtApi
 public class LocalSlot
 
-@InternalReduKtApi
+@DelicateReduKtApi
 public val DispatchScope<*>.localClosure: LocalClosure get() = closure[LocalClosure]
 
-@InternalReduKtApi
+@DelicateReduKtApi
 public fun <T> DispatchScope<*>.withLocalClosure(closure: DispatchClosure, block: DispatchScope<*>.() -> T): T {
     val slot = localClosure.registerNewSlot(closure)
     return block().also { localClosure.removeSlot(slot) }

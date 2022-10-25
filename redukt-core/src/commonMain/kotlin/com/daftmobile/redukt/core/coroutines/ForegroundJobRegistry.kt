@@ -1,10 +1,10 @@
 package com.daftmobile.redukt.core.coroutines
 
-import com.daftmobile.redukt.core.InternalReduKtApi
+import com.daftmobile.redukt.core.DelicateReduKtApi
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import kotlinx.coroutines.Job
 
-@InternalReduKtApi
+@DelicateReduKtApi
 public interface ForegroundJobRegistry : DispatchClosure.Element {
 
     override val key: Key get() = Key
@@ -18,7 +18,7 @@ public interface ForegroundJobRegistry : DispatchClosure.Element {
     public companion object Key : DispatchClosure.Key<ForegroundJobRegistry>
 }
 
-@InternalReduKtApi
+@DelicateReduKtApi
 public class EmptyForegroundJobRegistry : ForegroundJobRegistry {
     override fun register(job: Job): Unit = Unit
 
@@ -31,7 +31,7 @@ public class EmptyForegroundJobRegistry : ForegroundJobRegistry {
 
 }
 
-@InternalReduKtApi
+@DelicateReduKtApi
 public class SingleForegroundJobRegistry(
     private var job: Job? = null
 ) : ForegroundJobRegistry {
