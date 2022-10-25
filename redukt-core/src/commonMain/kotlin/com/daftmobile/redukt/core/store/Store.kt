@@ -14,10 +14,30 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
+/**
+ * Equivalent of [Redux store](https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store).
+ * However, there are few differences:
+ * * Instead of [getState](https://redux.js.org/api/store#getState), there is a [currentState] property that returns current state.
+ * * State changes are received by collecting [state].
+ * * Contains [closure] field that provides a mechanism to introduce external APIs to the store (especially to middlewares).
+ *
+ * To create an instance use [buildStore] (recommended) or Store() function.
+ */
 public interface Store<out State> : DispatchScope<State> {
 
     public val state: StateFlow<State>
 }
+
+/**
+ * Creates a [Store]. This is an alternative to [buildStore], which is a recommended way of creating a [Store].
+ * Use case for this function is for example a custom builder or custom [Store] implementation that delegates to this one.
+ */
+public fun <State> Store(
+    initialState: State,
+    reducer: Reducer<State>,
+    middlewares: List<Middleware<State>>,
+    initialClosure: DispatchClosure,
+): Store<State> = StoreImpl(initialState, reducer, middlewares, initialClosure)
 
 internal class StoreImpl<State>(
     initialState: State,

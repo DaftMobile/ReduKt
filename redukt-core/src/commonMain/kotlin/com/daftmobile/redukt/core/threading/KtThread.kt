@@ -48,5 +48,4 @@ private class KtThreadImpl(override val rawName: String?) : KtThread {
     override fun toString(): String {
         return "Thread($name)"
     }
-
 }
