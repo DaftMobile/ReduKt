@@ -24,7 +24,7 @@ class StoreTest {
     private val mockReducer = MockReducer<Int>(onReducerCall = { _, _ -> 2 })
     private var middlewares = listOf<Middleware<Int>>()
     private var initialClosure: DispatchClosure = EmptyDispatchClosure
-    private val store by lazy { StoreImpl(1, mockReducer::call, middlewares, initialClosure) }
+    private val store by lazy { Store(1, mockReducer::call, middlewares, initialClosure) }
 
     @Test
     fun shouldHaveProperInitialState() {
