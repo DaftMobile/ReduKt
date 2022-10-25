@@ -3,9 +3,9 @@ package com.daftmobile.redukt.log
 import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.core.middleware.translucentMiddleware
 
-public fun <State> logMiddleware(
+public fun logMiddleware(
     filter: LogFilter = LogFilter.all(),
     adapter: LogBusAdapter = LogBusAdapter.systemOut(tag = "ReduKt-Log >> "),
-): Middleware<State> = translucentMiddleware { action ->
+): Middleware<*> = translucentMiddleware { action ->
     if (filter.filter(action)) adapter.log(action)
 }

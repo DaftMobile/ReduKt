@@ -4,7 +4,7 @@ import com.daftmobile.redukt.core.coroutines.launchForeground
 import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.core.middleware.consumingDispatch
 
-public fun <State> dataSourceMiddleware(): Middleware<State> = {
+public val dataSourceMiddleware: Middleware<*> = {
     val resolver = dataSourceResolver
     consumingDispatch<DataSourceCall<Any?, Any?>> { action ->
         dispatch(DataSourceAction(action.key, DataSourcePayload.Started(action.request)))

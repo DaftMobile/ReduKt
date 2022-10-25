@@ -14,7 +14,7 @@ import kotlin.test.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class ThunkMiddlewareTest {
 
-    private val tester = thunkMiddleware<Unit>().tester(Unit)
+    private val tester = thunkMiddleware.tester(Unit)
 
     @Test
     fun shouldExecuteThunk() = tester.test {
