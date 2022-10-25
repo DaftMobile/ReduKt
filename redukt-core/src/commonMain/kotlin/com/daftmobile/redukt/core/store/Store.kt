@@ -14,7 +14,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-public interface Store<State> : DispatchScope<State> {
+public interface Store<out State> : DispatchScope<State> {
 
     public val state: StateFlow<State>
 }

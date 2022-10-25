@@ -7,7 +7,7 @@ import com.daftmobile.redukt.core.middleware.translucentDispatch
  * Creates a middleware that ensures single-threaded usage of the dispatch.
  * Actions should be dispatched with thread that created this middleware (main thread preferably).
  */
-public fun <State> threadGuardMiddleware(): Middleware<State> = {
+public val threadGuardMiddleware: Middleware<*> = {
     val initialThread = KtThread.current()
     translucentDispatch {
         val currentThread = KtThread.current()

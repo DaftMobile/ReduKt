@@ -5,7 +5,7 @@ import com.daftmobile.redukt.core.closure.DispatchClosure
 /**
  * The scope for accessing current state of the Redux store and dispatching actions.
  */
-public interface DispatchScope<State> {
+public interface DispatchScope<out State> {
 
     public val closure: DispatchClosure
 

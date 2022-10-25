@@ -5,7 +5,7 @@ import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 
-public class SpyingDispatchScope<State>(
+public class SpyingDispatchScope<out State>(
     private val stateProvider: () -> State,
     private val closureProvider: () -> DispatchClosure,
 ) : DispatchScope<State>, ActionsAssertScope {

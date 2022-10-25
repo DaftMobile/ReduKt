@@ -6,7 +6,7 @@ import com.daftmobile.redukt.core.DispatchScope
 
 public typealias Middleware<State> = MiddlewareScope<State>.() -> DispatchFunction
 
-public interface MiddlewareScope<State> : DispatchScope<State> {
+public interface MiddlewareScope<out State> : DispatchScope<State> {
     public fun next(action: Action)
 }
 
