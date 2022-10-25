@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * Equivalent of [Redux store](https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store).
- * However, there are few differences:
+ * This is an equivalent of [Redux store](https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store).
+ * However, there are a few differences:
  * * Instead of [getState](https://redux.js.org/api/store#getState), there is a [currentState] property that returns current state.
  * * State changes are received by collecting [state].
  * * Contains [closure] field that provides a mechanism to introduce external APIs to the store (especially to middlewares).

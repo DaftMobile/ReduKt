@@ -12,5 +12,6 @@ public interface JobAction : Action
 
 /**
  * Type alias for [Redux dispatch function](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#dispatch).
+ * In contrast to Redux dispatch, it returns no value.
  */
 public typealias DispatchFunction = (action: Action) -> Unit

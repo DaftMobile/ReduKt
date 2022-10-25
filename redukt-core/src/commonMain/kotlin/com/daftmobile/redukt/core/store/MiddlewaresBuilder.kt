@@ -3,12 +3,12 @@ package com.daftmobile.redukt.core.store
 import com.daftmobile.redukt.core.middleware.Middleware
 
 /**
- * The scope for building a middlewares list.
+ * The scope for building a middlewares pipeline.
  */
 public interface MiddlewaresBuilderScope<State> {
 
     /**
-     * Adds [this] middleware to a resulting middlewares list.
+     * Adds [this] middleware to a resulting middlewares pipeline.
      */
     public operator fun Middleware<State>.unaryPlus()
 }
