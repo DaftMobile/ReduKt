@@ -27,16 +27,17 @@ kotlin {
     tvos()
     tvosSimulatorArm64()
 
-    watchosArm32()
-    watchosArm64()
+    watchos()
     watchosX86()
-    watchosSimulatorArm64()
 
     macosArm64()
     macosX64()
 
-    // Other native
+    // Windows
     mingwX64()
+
+    // Linux
+    linuxX64()
 
     sourceSets {
         all {
@@ -46,12 +47,15 @@ kotlin {
             }
         }
         val commonMain by getting
+        val commonTest by getting
         val jvmMain by getting
         val jsMain by getting
         val mingwX64Main by getting
+        val linuxX64Main by getting
 
-        val darwinMain by creating
-        val darwinTest by creating { dependsOn(darwinMain) }
+        val darwinMain by creating {
+            dependsOn(commonMain)
+        }
 
         val iosMain by getting { dependsOn(darwinMain) }
         val iosTest by getting
@@ -62,10 +66,8 @@ kotlin {
             dependsOn(iosTest)
         }
 
-        val watchosX86Main by getting { dependsOn(darwinMain) }
-        val watchosArm32Main by getting { dependsOn(darwinMain) }
-        val watchosArm64Main by getting { dependsOn(darwinMain) }
-        val watchosSimulatorArm64Main by getting { dependsOn(darwinMain) }
+        val watchosMain by getting { dependsOn(darwinMain) }
+        val watchosX86Main by getting { dependsOn(watchosMain) }
 
         val tvosMain by getting { dependsOn(darwinMain) }
         val tvosSimulatorArm64Main by getting { dependsOn(darwinMain) }
@@ -73,7 +75,7 @@ kotlin {
         val macosX64Main by getting { dependsOn(darwinMain) }
         val macosArm64Main by getting { dependsOn(darwinMain) }
 
-        val allMainSets = listOf(jvmMain, jsMain, mingwX64Main, darwinMain)
+        val allMainSets = listOf(jvmMain, jsMain, mingwX64Main, linuxX64Main, darwinMain)
 
         val nonJsMain by creating {
             dependsOn(commonMain)
