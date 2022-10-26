@@ -34,7 +34,7 @@ public fun MiddlewareTestScope<*>.testAllActions(vararg actions: Action): Unit =
 
 @PublishedApi
 internal class DefaultMiddlewareTestScope<State>(
-    private val middleware: Middleware<State>,
+    middleware: Middleware<State>,
     initialState: State,
     initialClosure: DispatchClosure = EmptyDispatchClosure,
 ) : MiddlewareTestScope<State> {
@@ -45,8 +45,9 @@ internal class DefaultMiddlewareTestScope<State>(
 
     private val dispatchSpy = SpyingDispatchScope(::state, ::closure)
     private val middlewareSpy = SpyingMiddlewareScope(dispatchSpy)
+    private val middlewareDispatch = middleware(middlewareSpy)
 
-    override fun testAction(action: Action) = middleware(middlewareSpy)(action)
+    override fun testAction(action: Action) = middlewareDispatch(action)
 
     override suspend fun testJobAction(action: JobAction) = coroutineScope<Unit> {
         testJobActionIn(this, action)
@@ -55,7 +56,7 @@ internal class DefaultMiddlewareTestScope<State>(
     override fun testJobActionIn(scope: CoroutineScope, action: Action): Job {
         val registry = SingleForegroundJobRegistry()
         closure += registry + DispatchCoroutineScope(scope)
-        middleware(middlewareSpy)(action)
+        middlewareDispatch(action)
         return registry.consume()
     }
 
