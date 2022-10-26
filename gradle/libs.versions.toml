@@ -3,7 +3,7 @@ kotlin = "1.7.20"
 plugin-android = "7.2.1"
 kotlinx-coroutines = "1.6.3"
 kotest = "5.2.3"
-kodein = "7.13.0"
+kodein = "7.14.0"
 koin = "3.2.0"
 androidx-lifecycle = "2.4.1"
 
