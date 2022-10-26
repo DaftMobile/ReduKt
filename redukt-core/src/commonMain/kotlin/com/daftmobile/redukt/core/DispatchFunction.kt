@@ -8,7 +8,7 @@ public interface Action
 /**
  * Marker interface for every [Action] that must have a single foreground coroutine ([kotlinx.coroutines.Job]) associated with it.
  */
-public interface JobAction : Action
+public interface ForegroundJobAction : Action
 
 /**
  * Type alias for [Redux dispatch function](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#dispatch).

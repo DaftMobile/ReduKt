@@ -1,7 +1,7 @@
 package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.DispatchScope
-import com.daftmobile.redukt.core.JobAction
+import com.daftmobile.redukt.core.ForegroundJobAction
 import com.daftmobile.redukt.core.closure.localClosure
 import com.daftmobile.redukt.core.closure.withLocalClosure
 import kotlinx.coroutines.*
@@ -20,21 +20,21 @@ public fun DispatchScope<*>.launchForeground(
 
 public fun Flow<*>.launchInForeground(scope: DispatchScope<*>): Job = scope.launchForeground { collect() }
 
-public fun DispatchScope<*>.dispatchJob(action: JobAction): Job {
+public fun DispatchScope<*>.dispatchJob(action: ForegroundJobAction): Job {
     return withLocalClosure(SingleForegroundJobRegistry()) {
         dispatch(action)
         localForegroundJobRegistry.consume()
     }
 }
 
-public fun DispatchScope<*>.dispatchJobIn(action: JobAction, scope: CoroutineScope): Job {
+public fun DispatchScope<*>.dispatchJobIn(action: ForegroundJobAction, scope: CoroutineScope): Job {
     return withLocalClosure(SingleForegroundJobRegistry() + DispatchCoroutineScope(scope)) {
         dispatch(action)
         localForegroundJobRegistry.consume()
     }
 }
 
-public suspend fun DispatchScope<*>.joinDispatchJob(action: JobAction): Unit = coroutineScope {
+public suspend fun DispatchScope<*>.joinDispatchJob(action: ForegroundJobAction): Unit = coroutineScope {
     dispatchJobIn(action, this)
 }
 

@@ -20,7 +20,7 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
-private object TestJobAction : JobAction
+private object TestForegroundJobAction : ForegroundJobAction
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class DispatchJobTest {
@@ -69,14 +69,14 @@ class DispatchJobTest {
     fun dispatchJobShouldNotFailOnLaunchForeground() {
         closure = CoreLocalClosure { dispatchCoroutineScope }
         dispatchFunction = { scope.launchForeground { } }
-        shouldNotThrowAny { scope.dispatchJob(TestJobAction) }
+        shouldNotThrowAny { scope.dispatchJob(TestForegroundJobAction) }
     }
 
     @Test
     fun dispatchJobShouldThrowIllegalArgumentExceptionWhenForegroundJobNotRegistered() {
         closure = CoreLocalClosure { dispatchCoroutineScope }
         dispatchFunction = { }
-        shouldThrow<IllegalArgumentException> { scope.dispatchJob(TestJobAction) }
+        shouldThrow<IllegalArgumentException> { scope.dispatchJob(TestForegroundJobAction) }
     }
 
     @Test
@@ -84,19 +84,19 @@ class DispatchJobTest {
         closure = CoreLocalClosure { dispatchCoroutineScope }
         var registeredJob: Job? = null
         dispatchFunction = { registeredJob = scope.launchForeground { } }
-        scope.dispatchJob(TestJobAction) shouldBe registeredJob
+        scope.dispatchJob(TestForegroundJobAction) shouldBe registeredJob
     }
 
     @Test
     fun dispatchJobInShouldNotFailOnLaunchForeground() {
         dispatchFunction = { scope.launchForeground { } }
-        shouldNotThrowAny { scope.dispatchJobIn(TestJobAction, dispatchCoroutineScope) }
+        shouldNotThrowAny { scope.dispatchJobIn(TestForegroundJobAction, dispatchCoroutineScope) }
     }
 
     @Test
     fun dispatchJobInShouldThrowIllegalArgumentExceptionWhenForegroundJobNotRegistered() {
         dispatchFunction = { }
-        shouldThrow<IllegalArgumentException> { scope.dispatchJobIn(TestJobAction, dispatchCoroutineScope) }
+        shouldThrow<IllegalArgumentException> { scope.dispatchJobIn(TestForegroundJobAction, dispatchCoroutineScope) }
     }
 
     @Test
@@ -105,7 +105,7 @@ class DispatchJobTest {
             scope.launchForeground {  }
             scope.localClosure.find(DispatchCoroutineScope) shouldNotBe null
         }
-        scope.dispatchJobIn(TestJobAction, TestScope())
+        scope.dispatchJobIn(TestForegroundJobAction, TestScope())
     }
 
     @Test
@@ -117,7 +117,7 @@ class DispatchJobTest {
                 joined = true
             }
         }
-        scope.joinDispatchJob(TestJobAction)
+        scope.joinDispatchJob(TestForegroundJobAction)
         joined shouldBe true
     }
 }

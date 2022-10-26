@@ -23,7 +23,7 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
     public fun testAction(action: Action)
 
-    public suspend fun testJobAction(action: JobAction)
+    public suspend fun testJobAction(action: ForegroundJobAction)
 
     public fun testJobActionIn(scope: CoroutineScope, action: Action): Job
 
@@ -49,7 +49,7 @@ internal class DefaultMiddlewareTestScope<State>(
 
     override fun testAction(action: Action) = middlewareDispatch(action)
 
-    override suspend fun testJobAction(action: JobAction) = coroutineScope<Unit> {
+    override suspend fun testJobAction(action: ForegroundJobAction) = coroutineScope<Unit> {
         testJobActionIn(this, action)
     }
 

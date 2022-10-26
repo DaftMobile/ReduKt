@@ -1,7 +1,7 @@
 package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.JobAction
+import com.daftmobile.redukt.core.ForegroundJobAction
 import com.daftmobile.redukt.core.coroutines.dispatchJobIn
 import com.daftmobile.redukt.core.coroutines.joinDispatchJob
 import kotlinx.coroutines.coroutineScope
@@ -13,12 +13,12 @@ public operator fun Action.plus(other: Action): DispatchList = DispatchList(unwr
 public data class DispatchJobSupportList(val actions: List<Action>, val concurrent: Boolean): CoThunk<Unit>({
     if (concurrent) coroutineScope {
         actions.forEach {
-            if (it is JobAction) dispatchJobIn(it, this)
+            if (it is ForegroundJobAction) dispatchJobIn(it, this)
             else dispatch(it)
         }
     } else {
         actions.forEach {
-            if (it is JobAction) joinDispatchJob(it)
+            if (it is ForegroundJobAction) joinDispatchJob(it)
             else dispatch(it)
         }
     }

@@ -1,12 +1,12 @@
 package com.daftmobile.redukt.data
 
 import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.JobAction
+import com.daftmobile.redukt.core.ForegroundJobAction
 
 public data class DataSourceCall<Request, Response>(
     val key: DataSourceKey<DataSource<Request, Response>>,
     val request: Request
-) : JobAction
+) : ForegroundJobAction
 
 public data class DataSourceAction<Request, Response>(
     val key: DataSourceKey<DataSource<Request, Response>>,
