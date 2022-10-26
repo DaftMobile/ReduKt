@@ -1,5 +1,13 @@
 package com.daftmobile.redukt.core.threading
 
-private val MainThread = KtThread("JsMain")
+private val JsMainKtThread = KtThread("JsMain")
 
-public actual fun KtThread.Companion.current(): KtThread = MainThread
+/**
+ * [KtThread] representation of JS main thread.
+ */
+public val KtThread.Companion.JsMainThread: KtThread get() = JsMainKtThread
+
+/**
+ * Returns constant [JsMainThread].
+ */
+public actual fun KtThread.Companion.current(): KtThread = JsMainThread
