@@ -19,7 +19,7 @@ import com.daftmobile.redukt.core.DispatchScope
  *    }
  * }
  * ```
- * There is a lot of helper functions for defining middlewares e.g. [middleware], [consumingMiddleware], [translucentMiddleware].
+ * @see [middleware], [consumingMiddleware], [translucentMiddleware].
  */
 public typealias Middleware<State> = MiddlewareScope<State>.() -> DispatchFunction
 

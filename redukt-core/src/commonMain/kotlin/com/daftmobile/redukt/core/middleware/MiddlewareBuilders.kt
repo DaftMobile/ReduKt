@@ -22,9 +22,10 @@ public inline fun <State> middleware(
 ): Middleware<State> = { { block(it); } }
 
 /**
- * Creates a middleware with [consumingDispatch], that consumes actions with given supertype [T].
+ * Creates a middleware with [consumingDispatch] that consumes actions with given supertype [T].
  * Other actions are passed to the next middleware.
- * Example of usage:
+ *
+ *  Example of usage:
  * ```
  * sealed interface CustomAction : Action {
  *    object A : CustomAction
@@ -44,8 +45,9 @@ public inline fun <State, reified T : Action> consumingMiddleware(
 ): Middleware<State> = { consumingDispatch<T> { block(it) } }
 
 /**
- * Creates a middleware with [translucentDispatch], that executes a given [block] and passes every action to the next middleware.
- * Example of usage:
+ * Creates a middleware with [translucentDispatch] that executes a given [block] and passes every action to the next middleware.
+ *
+ *  Example of usage:
  * ```
  * fun debugMiddleware() = translucentMiddleware<AppState> { action -> println(action) }
  * ```

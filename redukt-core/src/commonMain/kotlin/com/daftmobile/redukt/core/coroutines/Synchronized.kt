@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 
 /**
  * Runs given [block] as a coroutine in [DispatchScope.coroutineScope].
- * Effectively it ensures that any operation on a [DispatchScope] inside a [block] is safe (runs on proper thread).
+ * Effectively it ensures that any operation on a [DispatchScope] inside a [block] runs on proper thread.
  */
 public fun DispatchScope<*>.synchronized(block: suspend DispatchScope<*>.() -> Unit): Job = coroutineScope.launch {
     block()

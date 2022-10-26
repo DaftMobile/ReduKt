@@ -105,5 +105,5 @@ internal class StoreBuilder<State> : StoreBuilderScope<State> {
         closureBuilder.closure
     )
 
-    private fun stateAndReducerMissingMsg() = "Main state and reducer are missing! Use `AppState() reducedBy ::appReducer` to initialize it!"
+    private fun stateAndReducerMissingMsg() = "Initial state and reducer are missing! Use `AppState() reducedBy ::appReducer` to initialize it!"
 }

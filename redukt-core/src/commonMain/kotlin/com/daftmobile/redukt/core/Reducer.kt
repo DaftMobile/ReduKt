@@ -7,7 +7,7 @@ package com.daftmobile.redukt.core
 public typealias Reducer<T> = (T, Action) -> T
 
 /**
- * Combines reducers of the same type T into a single reducer. The first child reducer is invoked with the same
+ * Combines reducers of the same type [T] into a single reducer. The first child reducer is invoked with the same
  * action and state as the parent reducer. Every subsequent child is invoked with state returned by its predecessor.
  *
  * Example of usage:
