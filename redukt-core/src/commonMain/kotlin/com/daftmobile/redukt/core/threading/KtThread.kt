@@ -41,9 +41,7 @@ private class KtThreadImpl(override val rawName: String?) : KtThread {
         return true
     }
 
-    override fun hashCode(): Int {
-        return rawName?.hashCode() ?: 0
-    }
+    override fun hashCode(): Int = name.hashCode()
 
     override fun toString(): String {
         return "Thread($name)"
