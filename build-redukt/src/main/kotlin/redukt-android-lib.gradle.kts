@@ -3,6 +3,7 @@ plugins {
     kotlin("multiplatform")
     id("maven-publish")
     id("com.android.library")
+    id("org.jetbrains.dokka")
 }
 
 kotlin {

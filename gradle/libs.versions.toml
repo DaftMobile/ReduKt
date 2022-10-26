@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.7.0"
+kotlin = "1.7.20"
 plugin-android = "7.2.1"
 kotlinx-coroutines = "1.6.3"
 kotest = "5.2.3"
@@ -13,6 +13,7 @@ androidx-lifecycle = "2.4.1"
 
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 plugin-android = { module = "com.android.tools.build:gradle", version.ref = "plugin-android" }
+plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "kotlin" }
 
 # kotlinx
 
