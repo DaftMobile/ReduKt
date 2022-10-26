@@ -2,6 +2,11 @@ plugins {
     `kotlin-dsl`
 }
 
+java.apply {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 dependencies {
     api(libs.plugin.android)
     api(libs.plugin.kotlin)
