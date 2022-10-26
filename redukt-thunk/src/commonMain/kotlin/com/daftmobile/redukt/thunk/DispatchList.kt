@@ -1,7 +1,7 @@
 package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.ForegroundJobAction
+import com.daftmobile.redukt.core.coroutines.ForegroundJobAction
 import com.daftmobile.redukt.core.coroutines.dispatchJobIn
 import com.daftmobile.redukt.core.coroutines.joinDispatchJob
 import kotlinx.coroutines.coroutineScope

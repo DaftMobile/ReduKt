@@ -2,7 +2,7 @@ package com.daftmobile.redukt.thunk
 
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.DispatchScope
-import com.daftmobile.redukt.core.ForegroundJobAction
+import com.daftmobile.redukt.core.coroutines.ForegroundJobAction
 
 public sealed interface ThunkAction<out State> : Action
 

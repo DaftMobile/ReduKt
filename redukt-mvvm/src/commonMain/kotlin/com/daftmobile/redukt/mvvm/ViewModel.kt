@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.mvvm
 
-import com.daftmobile.redukt.core.ForegroundJobAction
+import com.daftmobile.redukt.core.coroutines.ForegroundJobAction
 import com.daftmobile.redukt.core.coroutines.dispatchJobIn
 import com.daftmobile.redukt.core.store.Store
 import kotlinx.coroutines.Job

@@ -4,6 +4,7 @@ import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.closure.*
 import com.daftmobile.redukt.core.middleware.MiddlewareScope
 import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
+import com.daftmobile.redukt.core.coroutines.ForegroundJobAction
 import com.daftmobile.redukt.core.coroutines.SingleForegroundJobRegistry
 import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
