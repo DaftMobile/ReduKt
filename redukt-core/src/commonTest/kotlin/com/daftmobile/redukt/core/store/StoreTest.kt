@@ -3,7 +3,6 @@ package com.daftmobile.redukt.core.store
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.KnownAction
 import com.daftmobile.redukt.core.TestDispatchClosure
-import com.daftmobile.redukt.core.closure.CoreLocalClosure
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.closure.LocalClosure
@@ -15,6 +14,7 @@ import com.daftmobile.redukt.core.middleware.dispatchFunction
 import com.daftmobile.redukt.core.middleware.middleware
 import com.daftmobile.redukt.test.tools.ImmutableLocalClosure
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlin.test.Test
@@ -54,7 +54,7 @@ class StoreTest {
         val replacedRegistry = SingleForegroundJobRegistry()
         initialClosure = replacedRegistry
         store.closure.find(ForegroundJobRegistry) shouldBe replacedRegistry
-        store.closure.find(LocalClosure).shouldBeInstanceOf<CoreLocalClosure>()
+        store.closure.find(LocalClosure).shouldNotBeNull()
     }
 
     @Test
@@ -191,7 +191,7 @@ class StoreTest {
 
     private fun storeShouldContainOriginalClosure() {
         store.closure.find(ForegroundJobRegistry).shouldBeInstanceOf<EmptyForegroundJobRegistry>()
-        store.closure.find(LocalClosure).shouldBeInstanceOf<CoreLocalClosure>()
+        store.closure.find(LocalClosure).shouldNotBeNull()
     }
 }
 

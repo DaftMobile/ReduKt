@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.stateIn
 public typealias Selector<T, R> = (T) -> R
 
 /**
- * Selects part of a state with [selector] and returns as a [StateFlow].
+ * Maps [Store.state] to a new [StateFlow] using given [selector].
  *
  * Underlying implementation uses [stateIn] operator with [coroutineScope], [started] and initial state mapped with [selector].
  *

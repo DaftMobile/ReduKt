@@ -1,10 +1,7 @@
 package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.*
-import com.daftmobile.redukt.core.closure.CoreLocalClosure
-import com.daftmobile.redukt.core.closure.DispatchClosure
-import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
-import com.daftmobile.redukt.core.closure.localClosure
+import com.daftmobile.redukt.core.closure.*
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.sequences.shouldContain
@@ -29,34 +26,34 @@ class DispatchJobTest {
     private val registry = SingleForegroundJobRegistry()
 
     private var dispatchFunction: DispatchFunction = { }
-    private var closure: DispatchClosure = CoreLocalClosure { EmptyDispatchClosure }
+    private var closure: DispatchClosure = LocalClosure { EmptyDispatchClosure }
 
     private val scope by lazy { dispatchScope(closure,dispatchFunction) { } }
 
     @Test
     fun launchForegroundShouldRegisterJobInLocalJobRegistry() {
-        closure = CoreLocalClosure { registry + dispatchCoroutineScope }
+        closure = LocalClosure { registry + dispatchCoroutineScope }
         val job = scope.launchForeground { }
         registry.consumeOrNull() shouldBe job
     }
 
     @Test
     fun launchForegroundShouldLaunchJobInLocalDispatchCoroutineScope() {
-        closure = CoreLocalClosure { registry + dispatchCoroutineScope }
+        closure = LocalClosure { registry + dispatchCoroutineScope }
         val job = scope.launchForeground { }
         dispatchCoroutineScope.coroutineContext.job.children shouldContain job
     }
 
     @Test
     fun launchInForegroundShouldLaunchForegroundJob() = runTest {
-        closure = CoreLocalClosure { registry + DispatchCoroutineScope(this) }
+        closure = LocalClosure { registry + DispatchCoroutineScope(this) }
         val job = flowOf(1, 2, 3).launchInForeground(scope)
         registry.consumeOrNull() shouldBe job
     }
 
     @Test
     fun launchInForegroundShouldCollectFlowUsingLaunchForeground() = runTest {
-        closure = CoreLocalClosure { registry + DispatchCoroutineScope(this) }
+        closure = LocalClosure { registry + DispatchCoroutineScope(this) }
         val elements = mutableListOf<Int>()
         val job = flowOf(1, 2, 3)
             .onEach(elements::add)
@@ -67,21 +64,21 @@ class DispatchJobTest {
 
     @Test
     fun dispatchJobShouldNotFailOnLaunchForeground() {
-        closure = CoreLocalClosure { dispatchCoroutineScope }
+        closure = LocalClosure { dispatchCoroutineScope }
         dispatchFunction = { scope.launchForeground { } }
         shouldNotThrowAny { scope.dispatchJob(TestForegroundJobAction) }
     }
 
     @Test
     fun dispatchJobShouldThrowIllegalArgumentExceptionWhenForegroundJobNotRegistered() {
-        closure = CoreLocalClosure { dispatchCoroutineScope }
+        closure = LocalClosure { dispatchCoroutineScope }
         dispatchFunction = { }
         shouldThrow<IllegalArgumentException> { scope.dispatchJob(TestForegroundJobAction) }
     }
 
     @Test
     fun dispatchJobShouldReturnRegisteredJob() {
-        closure = CoreLocalClosure { dispatchCoroutineScope }
+        closure = LocalClosure { dispatchCoroutineScope }
         var registeredJob: Job? = null
         dispatchFunction = { registeredJob = scope.launchForeground { } }
         scope.dispatchJob(TestForegroundJobAction) shouldBe registeredJob

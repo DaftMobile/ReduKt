@@ -4,8 +4,8 @@ import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.DispatchFunction
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.Reducer
-import com.daftmobile.redukt.core.closure.CoreLocalClosure
 import com.daftmobile.redukt.core.closure.DispatchClosure
+import com.daftmobile.redukt.core.closure.LocalClosure
 import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
 import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
 import com.daftmobile.redukt.core.middleware.MergedMiddlewareScope
@@ -39,7 +39,7 @@ public fun <State> Store(
     initialClosure: DispatchClosure,
 ): Store<State> = StoreImpl(initialState, reducer, middlewares, initialClosure)
 
-internal class StoreImpl<State>(
+private class StoreImpl<State>(
     initialState: State,
     private val reducer: Reducer<State>,
     middlewares: List<Middleware<State>>,
@@ -47,7 +47,7 @@ internal class StoreImpl<State>(
 ) : Store<State> {
 
     override val closure: DispatchClosure = EmptyForegroundJobRegistry()
-        .plus(CoreLocalClosure(::closure::get))
+        .plus(LocalClosure(::closure::get))
         .plus(DispatchCoroutineScope(MainScope()))
         .plus(initialClosure)
 

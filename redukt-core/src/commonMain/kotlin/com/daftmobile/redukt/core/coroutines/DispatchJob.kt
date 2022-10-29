@@ -10,8 +10,9 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 /**
- * Launches a *foreground job*. CoroutineScope for this coroutine depends on function used to dispatch it.
+ * Launches a *foreground job*.
  * By default, it's launched in a scope provided by [DispatchCoroutineScope]. This behaviour might be changed by [dispatchJobIn] or [joinDispatchJob].
+ * Because this function uses local closure, calling it outside dispatch should not be done, because it might result in unexpected behaviour.
  *
  * @see ForegroundJobAction
  */
