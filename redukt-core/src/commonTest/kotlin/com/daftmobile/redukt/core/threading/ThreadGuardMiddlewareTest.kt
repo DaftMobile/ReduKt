@@ -6,7 +6,6 @@ import com.daftmobile.redukt.test.middleware.tester
 import io.kotest.assertions.throwables.shouldThrow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.test.Ignore
 import kotlin.test.Test
 
 class ThreadGuardMiddlewareTest {
@@ -14,7 +13,6 @@ class ThreadGuardMiddlewareTest {
     private val tester = threadGuardMiddleware.tester(Unit)
 
     @Test
-    @Ignore
     fun shouldProperlyGuardThreadWhenMultipleThreadsInvolved() = tester.runCoroutineTest {
         val mainThread = KtThread.current()
         testAction(KnownAction.A)
