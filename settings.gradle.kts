@@ -22,7 +22,7 @@ include(
     ":redukt-core",
     ":redukt-thunk",
     ":redukt-koin",
-    ":redukt-log",
+    ":redukt-insight",
     ":redukt-mvvm",
     ":redukt-test",
     ":redukt-test-thunk",
