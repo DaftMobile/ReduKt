@@ -2,7 +2,7 @@ package com.daftmobile.redukt.core.closure
 
 import com.daftmobile.redukt.core.TestDispatchClosure
 import io.kotest.assertions.throwables.shouldThrowUnit
-import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.maps.shouldBeEmpty
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test

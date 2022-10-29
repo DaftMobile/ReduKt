@@ -8,11 +8,11 @@ import kotlin.test.Test
 
 private class ControlDispatchClosure(
     private val findResult: Any? = null,
-    private val splitResult: List<DispatchClosure.Element> = emptyList()
+    private val splitResult: Map<DispatchClosure.Key<*>, DispatchClosure.Element> = emptyMap()
 ) : DispatchClosure {
     @Suppress("UNCHECKED_CAST")
     override fun <T : DispatchClosure.Element> find(key: DispatchClosure.Key<T>): T? = findResult as? T
-    override fun split(): List<DispatchClosure.Element> = splitResult
+    override fun split(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = splitResult
 }
 
 internal class DispatchClosureTest {
@@ -50,9 +50,9 @@ internal class DispatchClosureTest {
     @Test
     fun plusResultClosureShouldBeAbleToFindAllProducts() {
         val elementA = ClosureElementA()
-        val closure1 = ControlDispatchClosure(splitResult = listOf(elementA))
+        val closure1 = ControlDispatchClosure(splitResult = mapOf(elementA.key to elementA))
         val elementB = ClosureElementB()
-        val closure2 = ControlDispatchClosure(splitResult = listOf(elementB))
+        val closure2 = ControlDispatchClosure(splitResult = mapOf(elementB.key to elementB))
         val resultClosure = closure1 + closure2
         resultClosure.find(ClosureElementA) shouldBe elementA
         resultClosure.find(ClosureElementB) shouldBe elementB
@@ -61,11 +61,11 @@ internal class DispatchClosureTest {
     @Test
     fun plusResultClosureShouldBeAbleToSplitIntoItsProducts() {
         val elementA = ClosureElementA()
-        val closure1 = ControlDispatchClosure(splitResult = listOf(elementA))
+        val closure1 = ControlDispatchClosure(splitResult = mapOf(elementA.key to elementA))
         val elementB = ClosureElementB()
-        val closure2 = ControlDispatchClosure(splitResult = listOf(elementB))
+        val closure2 = ControlDispatchClosure(splitResult = mapOf(elementB.key to elementB))
         val resultClosure = closure1 + closure2
-        resultClosure.split() shouldBe listOf(elementA, elementB)
+        resultClosure.split() shouldBe mapOf(elementA.key to elementA, elementB.key to elementB)
     }
 
     @Test
@@ -80,6 +80,6 @@ internal class DispatchClosureTest {
     fun repeatedPlusShouldResultInFlatElementsListWhenSplitted() {
         val elements = listOf(ClosureElementA(), ClosureElementB(), TestDispatchClosure())
         val result = elements[0] + elements[1] + elements[2]
-        result.split() shouldBe elements
+        result.split() shouldBe elements.associateBy { it.key }
     }
 }

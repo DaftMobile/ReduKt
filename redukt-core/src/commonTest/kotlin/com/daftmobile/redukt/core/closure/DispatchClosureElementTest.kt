@@ -3,7 +3,7 @@ package com.daftmobile.redukt.core.closure
 import com.daftmobile.redukt.core.TestDispatchClosure
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrowUnit
-import io.kotest.matchers.collections.shouldHaveSingleElement
+import io.kotest.matchers.maps.shouldContainExactly
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
@@ -38,6 +38,6 @@ class DispatchClosureElementTest {
 
     @Test
     fun splitShouldReturnListWithOnlyThis() {
-        dispatchClosureElement.split() shouldHaveSingleElement dispatchClosureElement
+        dispatchClosureElement.split() shouldContainExactly  mapOf(dispatchClosureElement.key to dispatchClosureElement)
     }
 }
