@@ -6,9 +6,9 @@ public interface DispatchClosure {
 
     public operator fun <T : Element> get(key: Key<T>): T = find(key) ?: throw MissingClosureElementException(key)
 
-    public operator fun plus(closure: DispatchClosure): DispatchClosure = CombinedDispatchClosure(split() + closure.split())
+    public operator fun plus(closure: DispatchClosure): DispatchClosure = CombinedDispatchClosure(scatter() + closure.scatter())
 
-    public fun split(): Map<Key<*>, Element>
+    public fun scatter(): Map<Key<*>, Element>
 
     public interface Element : DispatchClosure {
         public val key: Key<*>
@@ -18,7 +18,7 @@ public interface DispatchClosure {
 
         override fun <T : Element> get(key: Key<T>): T = find(key) ?: throw MissingClosureElementException(key)
 
-        override fun split(): Map<Key<*> ,Element> = mapOf(key to this)
+        override fun scatter(): Map<Key<*> ,Element> = mapOf(key to this)
     }
 
     public interface Key<T : Element>

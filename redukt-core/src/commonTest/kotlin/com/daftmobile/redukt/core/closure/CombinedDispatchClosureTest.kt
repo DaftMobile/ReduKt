@@ -26,7 +26,7 @@ internal class CombinedDispatchClosureTest {
     fun splitShouldReturnElementsPassedToConstructor() {
         val elements = mapOf(ClosureElementA.Key to ClosureElementA(), ClosureElementB.Key to ClosureElementB())
         val closure = CombinedDispatchClosure(elements)
-        closure.split() shouldBe elements
+        closure.scatter() shouldBe elements
     }
 
     @Test

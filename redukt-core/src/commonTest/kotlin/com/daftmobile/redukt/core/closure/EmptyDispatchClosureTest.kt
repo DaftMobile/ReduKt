@@ -25,7 +25,7 @@ internal class EmptyDispatchClosureTest {
 
     @Test
     fun splitShouldReturnEmptyList() {
-        EmptyDispatchClosure.split().shouldBeEmpty()
+        EmptyDispatchClosure.scatter().shouldBeEmpty()
     }
 
     @Test

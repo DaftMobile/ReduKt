@@ -11,7 +11,7 @@ internal class CombinedDispatchClosure(
     @Suppress("UNCHECKED_CAST")
     override fun <T : DispatchClosure.Element> find(key: DispatchClosure.Key<T>): T? = elements[key] as? T
 
-    override fun split(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = elements
+    override fun scatter(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = elements
 
     override fun toString(): String = elements.toString()
 }

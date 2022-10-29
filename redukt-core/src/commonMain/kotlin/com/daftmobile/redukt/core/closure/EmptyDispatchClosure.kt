@@ -8,5 +8,5 @@ public object EmptyDispatchClosure : DispatchClosure {
 
     override fun plus(closure: DispatchClosure): DispatchClosure = closure
 
-    override fun split(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = emptyMap()
+    override fun scatter(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = emptyMap()
 }

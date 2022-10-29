@@ -12,7 +12,7 @@ private class ControlDispatchClosure(
 ) : DispatchClosure {
     @Suppress("UNCHECKED_CAST")
     override fun <T : DispatchClosure.Element> find(key: DispatchClosure.Key<T>): T? = findResult as? T
-    override fun split(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = splitResult
+    override fun scatter(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = splitResult
 }
 
 internal class DispatchClosureTest {
@@ -65,7 +65,7 @@ internal class DispatchClosureTest {
         val elementB = ClosureElementB()
         val closure2 = ControlDispatchClosure(splitResult = mapOf(elementB.key to elementB))
         val resultClosure = closure1 + closure2
-        resultClosure.split() shouldBe mapOf(elementA.key to elementA, elementB.key to elementB)
+        resultClosure.scatter() shouldBe mapOf(elementA.key to elementA, elementB.key to elementB)
     }
 
     @Test
@@ -80,6 +80,6 @@ internal class DispatchClosureTest {
     fun repeatedPlusShouldResultInFlatElementsListWhenSplitted() {
         val elements = listOf(ClosureElementA(), ClosureElementB(), TestDispatchClosure())
         val result = elements[0] + elements[1] + elements[2]
-        result.split() shouldBe elements.associateBy { it.key }
+        result.scatter() shouldBe elements.associateBy { it.key }
     }
 }

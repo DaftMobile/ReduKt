@@ -38,6 +38,6 @@ class DispatchClosureElementTest {
 
     @Test
     fun splitShouldReturnListWithOnlyThis() {
-        dispatchClosureElement.split() shouldContainExactly  mapOf(dispatchClosureElement.key to dispatchClosureElement)
+        dispatchClosureElement.scatter() shouldContainExactly  mapOf(dispatchClosureElement.key to dispatchClosureElement)
     }
 }
