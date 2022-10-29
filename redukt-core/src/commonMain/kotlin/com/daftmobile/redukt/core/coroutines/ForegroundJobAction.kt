@@ -9,6 +9,5 @@ import com.daftmobile.redukt.core.Action
  * CoroutineScope depends on method used to dispatch it.
  *
  * Foreground job concept was introduced to await or cancel any asynchronous operations associated with an action.
- * ```
  */
 public interface ForegroundJobAction : Action

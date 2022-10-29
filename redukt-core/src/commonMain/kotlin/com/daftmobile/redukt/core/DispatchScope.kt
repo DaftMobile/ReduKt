@@ -11,6 +11,7 @@ public interface DispatchScope<out State> {
 
     /**
      * There is no equivalent to this in original Redux. It provides a current [DispatchClosure].
+     * It remains immutable. However, elements inside might mutate depending on their implementation.
      */
     public val closure: DispatchClosure
 

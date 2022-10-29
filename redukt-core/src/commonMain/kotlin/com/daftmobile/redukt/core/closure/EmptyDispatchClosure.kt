@@ -1,5 +1,8 @@
 package com.daftmobile.redukt.core.closure
 
+/**
+ * An empty [DispatchClosure].
+ */
 public object EmptyDispatchClosure : DispatchClosure {
 
     override fun <T : DispatchClosure.Element> find(key: DispatchClosure.Key<T>): T? = null

@@ -8,6 +8,12 @@ import kotlinx.coroutines.flow.stateIn
 
 public typealias Selector<T, R> = (T) -> R
 
+/**
+ * Selects part of a state with [selector] and returns as a [StateFlow].
+ *
+ * Underlying implementation uses [stateIn] operator with [coroutineScope], [started] and initial state mapped with [selector].
+ *
+ */
 public fun <State, SubState> Store<State>.select(
     started: SharingStarted = SharingStarted.WhileSubscribed(),
     selector: Selector<State, SubState>
