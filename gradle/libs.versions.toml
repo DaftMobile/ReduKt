@@ -6,6 +6,7 @@ kotest = "5.2.3"
 kodein = "7.14.0"
 koin = "3.2.0"
 androidx-lifecycle = "2.4.1"
+turbine = "0.12.0"
 
 [libraries]
 
@@ -29,3 +30,4 @@ androix-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", ver
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kodein = { module = "org.kodein.di:kodein-di", version.ref = "kodein"}
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
