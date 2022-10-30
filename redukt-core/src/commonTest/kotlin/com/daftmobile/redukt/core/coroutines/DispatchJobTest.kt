@@ -28,7 +28,7 @@ class DispatchJobTest {
     private var dispatchFunction: DispatchFunction = { }
     private var closure: DispatchClosure = LocalClosure { EmptyDispatchClosure }
 
-    private val scope by lazy { dispatchScope(closure,dispatchFunction) { } }
+    private val scope by lazy { dispatchScope(closure = closure, dispatch = dispatchFunction, getState = { }) }
 
     @Test
     fun launchForegroundShouldRegisterJobInLocalJobRegistry() {

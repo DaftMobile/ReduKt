@@ -1,8 +1,8 @@
 package com.daftmobile.redukt.core.store
 
 import com.daftmobile.redukt.core.Action
+import com.daftmobile.redukt.core.ClosureElementA
 import com.daftmobile.redukt.core.KnownAction
-import com.daftmobile.redukt.core.TestDispatchClosure
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.closure.LocalClosure
@@ -38,14 +38,14 @@ class StoreTest {
 
     @Test
     fun shouldAddInitialClosureToInternalClosure() {
-        val testClosure = TestDispatchClosure()
+        val testClosure = ClosureElementA()
         initialClosure = testClosure
-        store.closure.find(TestDispatchClosure) shouldBe testClosure
+        store.closure.find(ClosureElementA) shouldBe testClosure
     }
 
     @Test
     fun shouldNotOverwriteInternalClosureWithoutClientIntention() {
-        initialClosure = TestDispatchClosure()
+        initialClosure = ClosureElementA()
         storeShouldContainOriginalClosure()
     }
 

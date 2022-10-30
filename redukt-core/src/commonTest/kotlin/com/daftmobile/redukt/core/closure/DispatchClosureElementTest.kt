@@ -1,6 +1,7 @@
 package com.daftmobile.redukt.core.closure
 
-import com.daftmobile.redukt.core.TestDispatchClosure
+import com.daftmobile.redukt.core.ClosureElementA
+import com.daftmobile.redukt.core.ClosureElementB
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrowUnit
 import io.kotest.matchers.maps.shouldContainExactly
@@ -10,17 +11,17 @@ import kotlin.test.Test
 
 class DispatchClosureElementTest {
 
-    private val dispatchClosureElement = TestDispatchClosure()
+    private val dispatchClosureElement = ClosureElementA()
 
     @Test
     fun findShouldReturnThisWhenCompanionIsPassed() {
-        dispatchClosureElement.find(TestDispatchClosure) shouldBe dispatchClosureElement
+        dispatchClosureElement.find(ClosureElementA) shouldBe dispatchClosureElement
     }
 
     @Test
     fun getShouldReturnThisWhenCompanionIsPassed() {
         shouldNotThrowAny {
-            dispatchClosureElement[TestDispatchClosure] shouldBe dispatchClosureElement
+            dispatchClosureElement[ClosureElementA] shouldBe dispatchClosureElement
         }
     }
 
@@ -37,7 +38,7 @@ class DispatchClosureElementTest {
     }
 
     @Test
-    fun splitShouldReturnListWithOnlyThis() {
+    fun scatterShouldReturnListWithOnlyThis() {
         dispatchClosureElement.scatter() shouldContainExactly  mapOf(dispatchClosureElement.key to dispatchClosureElement)
     }
 }

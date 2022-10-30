@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.core.closure
 
-import com.daftmobile.redukt.core.TestDispatchClosure
+import com.daftmobile.redukt.core.ClosureElementA
 import io.kotest.assertions.throwables.shouldThrowUnit
 import io.kotest.matchers.maps.shouldBeEmpty
 import io.kotest.matchers.nulls.shouldBeNull
@@ -12,14 +12,14 @@ internal class EmptyDispatchClosureTest {
     @Test
     fun findShouldReturnNull() {
         EmptyDispatchClosure
-            .find(TestDispatchClosure)
+            .find(ClosureElementA)
             .shouldBeNull()
     }
 
     @Test
     fun getShouldReturnThrowMissingClosureElementException() {
         shouldThrowUnit<MissingClosureElementException> {
-            EmptyDispatchClosure[TestDispatchClosure]
+            EmptyDispatchClosure[ClosureElementA]
         }
     }
 
@@ -30,7 +30,7 @@ internal class EmptyDispatchClosureTest {
 
     @Test
     fun plusOperatorShouldReturnRightSide() {
-        val rightSide = TestDispatchClosure()
+        val rightSide = ClosureElementA()
         (EmptyDispatchClosure + rightSide) shouldBe rightSide
     }
 }

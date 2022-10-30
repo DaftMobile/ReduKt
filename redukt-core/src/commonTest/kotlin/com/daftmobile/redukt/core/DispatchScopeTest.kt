@@ -1,10 +1,5 @@
-package com.daftmobile.redukt.core.scope
+package com.daftmobile.redukt.core
 
-import com.daftmobile.redukt.core.Action
-import com.daftmobile.redukt.core.KnownAction
-import com.daftmobile.redukt.core.TestDispatchClosure
-import com.daftmobile.redukt.core.dispatchScope
-import com.daftmobile.redukt.core.dispatchIfPresent
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.matchers.shouldBe
 import kotlin.test.Test
@@ -15,7 +10,7 @@ internal class DispatchScopeTest {
     fun dispatchIfPresentShouldAcceptNullWithoutFail() {
         shouldNotThrowAny {
             var dispatchedAction: Action? = null
-            dispatchScope(TestDispatchClosure(), { dispatchedAction = it }, { }).dispatchIfPresent(null)
+            dispatchScope(dispatch = { dispatchedAction = it }, getState = { }).dispatchIfPresent(null)
             dispatchedAction shouldBe null
         }
     }
@@ -23,7 +18,7 @@ internal class DispatchScopeTest {
     @Test
     fun dispatchIfPresentShouldDispatchWhenActionIsNotNull() {
         var dispatchedAction: Action? = null
-        dispatchScope(TestDispatchClosure(), { dispatchedAction = it }, { }).dispatchIfPresent(KnownAction.A)
+        dispatchScope(dispatch = { dispatchedAction = it }, getState = { }).dispatchIfPresent(KnownAction.A)
         dispatchedAction shouldBe KnownAction.A
     }
 }

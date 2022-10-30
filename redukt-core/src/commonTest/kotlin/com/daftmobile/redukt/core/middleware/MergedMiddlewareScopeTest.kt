@@ -6,7 +6,7 @@ import kotlin.test.Test
 
 class MergedMiddlewareScopeTest {
 
-    private val closure = TestDispatchClosure()
+    private val closure = ClosureElementA()
     private var dispatchFunction: DispatchFunction = { }
     private var nextDispatchFunction: DispatchFunction = { }
     private val dispatchScope by lazy {

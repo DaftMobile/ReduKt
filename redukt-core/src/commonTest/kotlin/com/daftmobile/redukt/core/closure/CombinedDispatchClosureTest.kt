@@ -1,6 +1,8 @@
 package com.daftmobile.redukt.core.closure
 
-import com.daftmobile.redukt.core.TestDispatchClosure
+import com.daftmobile.redukt.core.ClosureElementA
+import com.daftmobile.redukt.core.ClosureElementB
+import com.daftmobile.redukt.core.ClosureElementC
 import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
@@ -12,6 +14,7 @@ internal class CombinedDispatchClosureTest {
     fun findShouldReturnElementFromPassedElements() {
         val elements = mapOf(ClosureElementA.Key to ClosureElementA(), ClosureElementB.Key to ClosureElementB())
         val closure = CombinedDispatchClosure(elements)
+        closure.find(ClosureElementA) shouldBe elements[ClosureElementA.Key]
         closure.find(ClosureElementB) shouldBe elements[ClosureElementB.Key]
     }
 
@@ -19,11 +22,11 @@ internal class CombinedDispatchClosureTest {
     fun findShouldReturnNullWhenElementWithPassedKeyIsMissing() {
         val elements = mapOf(ClosureElementA.Key to ClosureElementA(), ClosureElementB.Key to ClosureElementB())
         val closure = CombinedDispatchClosure(elements)
-        closure.find(TestDispatchClosure).shouldBeNull()
+        closure.find(ClosureElementC).shouldBeNull()
     }
 
     @Test
-    fun splitShouldReturnElementsPassedToConstructor() {
+    fun scatterShouldReturnElementsPassedToConstructor() {
         val elements = mapOf(ClosureElementA.Key to ClosureElementA(), ClosureElementB.Key to ClosureElementB())
         val closure = CombinedDispatchClosure(elements)
         closure.scatter() shouldBe elements

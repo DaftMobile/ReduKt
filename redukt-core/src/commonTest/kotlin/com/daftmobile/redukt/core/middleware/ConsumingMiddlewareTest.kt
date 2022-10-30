@@ -3,8 +3,8 @@ package com.daftmobile.redukt.core.middleware
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.KnownAction
 import com.daftmobile.redukt.core.UnknownAction
-import com.daftmobile.redukt.test.assertions.expectActionEquals
 import com.daftmobile.redukt.test.assertions.expectNoActions
+import com.daftmobile.redukt.test.assertions.expectSingleActionEquals
 import com.daftmobile.redukt.test.middleware.tester
 import kotlin.test.Test
 
@@ -18,7 +18,7 @@ internal class ConsumingMiddlewareTest {
     @Test
     fun shouldPassOnUnknownType() = tester.test {
         testAction(UnknownAction)
-        assertNext { expectActionEquals(UnknownAction) }
+        assertNext { expectSingleActionEquals(UnknownAction) }
     }
 
     @Test
@@ -29,7 +29,7 @@ internal class ConsumingMiddlewareTest {
     @Test
     fun shouldCallBlockWithConsumedAction() = tester.test {
         testAction(KnownAction.A)
-        expectActionEquals(TestAction)
+        expectSingleActionEquals(TestAction)
     }
 
     @Test
