@@ -30,7 +30,10 @@ public interface Store<out State> : DispatchScope<State> {
 
 /**
  * Creates a [Store]. This is an alternative to [buildStore], which is a recommended way of creating a [Store].
- * Use case for this function is for example a custom builder or custom [Store] implementation that delegates to this one.
+ *
+ *  Use cases for this function:
+ * * A custom builder
+ * * A custom [Store] implementation that delegates to this one
  */
 public fun <State> Store(
     initialState: State,

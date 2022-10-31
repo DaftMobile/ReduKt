@@ -61,7 +61,7 @@ public interface LocalClosure : DispatchClosure.Element {
     /**
      * Registers local change of a closure.
      *
-     * @param closure closure to apply local changes.
+     * @param closure to apply local changes.
      * @return [LocalSlot] to undo local change
      */
     public fun registerNewSlot(closure: DispatchClosure): LocalSlot
@@ -89,7 +89,7 @@ public interface LocalClosure : DispatchClosure.Element {
 }
 
 /**
- * Returns an instance of [LocalClosure] that refers to [baseClosureProvider] as a original closure.
+ * Returns an instance of [LocalClosure] that refers to [baseClosureProvider] as an original closure.
  * @see [LocalClosure]
  */
 @DelicateReduKtApi

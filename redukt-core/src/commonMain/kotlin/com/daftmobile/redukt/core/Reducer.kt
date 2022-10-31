@@ -1,7 +1,8 @@
 package com.daftmobile.redukt.core
 
 /**
- * Type alias for a [pure function](https://en.wikipedia.org/wiki/Pure_function) that accepts the current state of type [T] and an action and returns a new state.
+ * Type alias for a [pure function](https://en.wikipedia.org/wiki/Pure_function) that accepts the current state of type [T] and an action,
+ * decides how to update the state if necessary, and returns the new state.
  * This is equivalent to [Redux reducer](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#reducers).
  */
 public typealias Reducer<T> = (T, Action) -> T

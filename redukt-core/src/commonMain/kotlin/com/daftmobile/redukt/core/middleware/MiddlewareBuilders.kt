@@ -32,7 +32,7 @@ public inline fun <State> middleware(
  *    object B : CustomAction
  * }
  *
- * fun customMiddleware() = consumingMiddleware<AppState> {
+ * fun customMiddleware() = consumingMiddleware<AppState, CustomAction> { action ->
  *     when (action) { // this when is exhaustive!
  *        CustomAction.A -> TODO()
  *        CustomAction.B -> TODO()
@@ -60,11 +60,11 @@ public inline fun <State> translucentMiddleware(
  * This function only returns given [dispatch]. It has a few benefits over simple [DispatchFunction] lambda that are illustrated with this example:
  * ```
  * fun counterMiddleware1(): Middleware<AppState> = {
- *    var i = restorePreviousValue() // <-- comma is required here to compile
- *    { action -> // <-- label must be defined manually here
+ *    var i = restorePreviousValue() // comma is required here to compile
+ *    { action -> // label must be defined manually here
  *       if (action is ResetCounter) {
  *          i = 0
- *          return next(action) // <-- early exit requires a label to lambda
+ *          return next(action) // early exit requires a label to lambda
  *       }
  *       i++
  *       next(action)
@@ -72,11 +72,11 @@ public inline fun <State> translucentMiddleware(
  * }
  *
  * fun counterMiddleware2(): Middleware<AppState> = {
- *    var i = restorePreviousValue() // <-- comma is NOT required here to compile
+ *    var i = restorePreviousValue() // comma is NOT required here to compile
  *    dispatchFunction { action ->
  *       if (action is ResetCounter) {
  *          i = 0
- *          return@dispatchFunction next(action) // <-- default label can be referred here
+ *          return@dispatchFunction next(action) // default label can be referred here
  *       }
  *       i++
  *       next(action)

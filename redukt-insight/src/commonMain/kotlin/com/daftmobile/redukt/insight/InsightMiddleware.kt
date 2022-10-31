@@ -18,10 +18,10 @@ public fun <State> insightMiddleware(
 }
 
 private fun <T> Insight<T>.toInspector(): Inspector<InspectionScope<T>> {
-    var context: InspectionScope<T>? = null
-    val inspection = inspection { inspect(context!!) }.intercept()
+    var scope: InspectionScope<T>? = null
+    val inspection = inspection { inspect(scope!!) }.intercept()
     return Inspector {
-        context = it
+        scope = it
         inspection.inspect()
     }
 }

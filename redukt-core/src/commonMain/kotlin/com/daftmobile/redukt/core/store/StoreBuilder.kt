@@ -7,7 +7,6 @@ public annotation class StoreBuilderDsl
 
 /**
  * Provides a DSL for building a [Store].
- * To fully understand it you should be familiar with [com.daftmobile.redukt.core.closure.DispatchClosure] concept.
  *
  * Example of usage:
  * ```
@@ -60,13 +59,13 @@ public fun <State> buildStore(@BuilderInference block: StoreBuilderScope<State>.
 public interface StoreBuilderScope<State> {
 
     /**
-     * Provides a block to add middlewares pipeline to a [Store].
+     * Provides a block to configure middlewares pipeline to a [Store].
      */
     @StoreBuilderDsl
     public fun middlewares(block: MiddlewaresBuilderScope<State>.() -> Unit)
 
     /**
-     * Provides a block to build dispatch closure for a [Store].
+     * Provides a block to build DispatchClosure for a [Store].
      */
     @StoreBuilderDsl
     public fun closure(block: ClosureBuilderScope.() -> Unit)

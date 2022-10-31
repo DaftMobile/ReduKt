@@ -25,7 +25,7 @@ public interface DispatchClosure {
     public fun <T : Element> find(key: Key<T>): T?
 
     /**
-     * Returns [Element] associated with the [key] or throws.
+     * Returns [Element] associated with the [key] or throws [MissingClosureElementException].
      */
     public operator fun <T : Element> get(key: Key<T>): T = find(key) ?: throw MissingClosureElementException(key)
 
@@ -42,7 +42,7 @@ public interface DispatchClosure {
 
 
     /**
-     * A single element of a [DispatchClosure]. By default, it acts like a [DispatchClosure] that contains itself.
+     * A single element of a [DispatchClosure]. By default, it acts like a [DispatchClosure] that contains only itself.
      */
     public interface Element : DispatchClosure {
 

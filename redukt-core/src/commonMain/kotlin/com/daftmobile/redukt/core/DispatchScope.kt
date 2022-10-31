@@ -4,8 +4,7 @@ import com.daftmobile.redukt.core.closure.DispatchClosure
 
 /**
  * The scope for accessing current state of the Redux store and dispatching actions.
- * This is set of actions available from a middleware.
- * Additionally, it introduces a [DispatchClosure] mechanism.
+ * Beside standard Redux operations, it introduces a [DispatchClosure] mechanism.
  */
 public interface DispatchScope<out State> {
 

@@ -24,7 +24,7 @@ import com.daftmobile.redukt.core.DispatchScope
 public typealias Middleware<State> = MiddlewareScope<State>.() -> DispatchFunction
 
 /**
- * The scope for a middleware.
+ * The scope that provides necessary operations for a middleware.
  */
 public interface MiddlewareScope<out State> : DispatchScope<State> {
 
