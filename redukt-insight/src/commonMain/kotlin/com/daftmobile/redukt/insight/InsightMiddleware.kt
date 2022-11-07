@@ -5,7 +5,7 @@ import com.daftmobile.redukt.core.middleware.dispatchFunction
 
 public fun <State> insightMiddleware(
     before: Insight<State> = Insight.empty(),
-    after: Insight<State> = Insight.default(),
+    after: Insight<State> = Insight.debug(),
 ): Middleware<State> = {
     val beforeInspector = before.toInspector()
     val afterInspector = after.toInspector()
@@ -16,13 +16,3 @@ public fun <State> insightMiddleware(
         afterInspector.inspect(context)
     }
 }
-
-private fun <T> Insight<T>.toInspector(): Inspector<InspectionScope<T>> {
-    var scope: InspectionScope<T>? = null
-    val inspection = inspection { inspect(scope!!) }.intercept()
-    return Inspector {
-        scope = it
-        inspection.inspect()
-    }
-}
-

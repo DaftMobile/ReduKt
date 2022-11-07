@@ -8,5 +8,5 @@ import kotlin.time.measureTime
 @OptIn(ExperimentalTime::class)
 public fun insightTimeMiddleware(): Middleware<*> = middleware {
     val time = measureTime { next(it) }
-    insightContainer.processedActionTime = time
+    insightContainer[InsightValues.ProcessedActionTime] = time
 }
