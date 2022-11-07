@@ -3,7 +3,7 @@
 [![Kotlin](https://img.shields.io/badge/kotlin-1.7.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 ReduKt is a [Redux pattern](https://redux.js.org/understanding/thinking-in-redux/three-principles) implementation
-adapted to Kotlin, integrated with [coroutines](https://github.com/Kotlin/kotlinx.coroutines)! Besides
+adapted to Kotlin and integrated with [coroutines](https://github.com/Kotlin/kotlinx.coroutines)! Besides
 the core library, ReduKt comes with ready-to-use extension libraries, that provide solutions for common problems and 
 help you reduce the boilerplate.
 
