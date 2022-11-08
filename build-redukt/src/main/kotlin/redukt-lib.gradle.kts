@@ -74,16 +74,6 @@ kotlin {
 
         val macosX64Main by getting { dependsOn(darwinMain) }
         val macosArm64Main by getting { dependsOn(darwinMain) }
-
-        val allMainSets = listOf(jvmMain, jsMain, mingwX64Main, linuxX64Main, darwinMain)
-
-        val nonJsMain by creating {
-            dependsOn(commonMain)
-        }
-        (allMainSets - jsMain).forEach {
-            it.dependsOn(nonJsMain)
-        }
-
     }
 }
 
