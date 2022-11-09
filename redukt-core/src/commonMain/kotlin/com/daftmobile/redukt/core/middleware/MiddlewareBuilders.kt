@@ -60,7 +60,7 @@ public inline fun <State> translucentMiddleware(
  * This function only returns given [dispatch]. It has a few benefits over simple [DispatchFunction] lambda that are illustrated with this example:
  * ```
  * fun counterMiddleware1(): Middleware<AppState> = {
- *    var i = restorePreviousValue() // comma is required here to compile
+ *    var i = restorePreviousValue() // semicolon is required here to compile
  *    { action -> // label must be defined manually here
  *       if (action is ResetCounter) {
  *          i = 0
@@ -72,7 +72,7 @@ public inline fun <State> translucentMiddleware(
  * }
  *
  * fun counterMiddleware2(): Middleware<AppState> = {
- *    var i = restorePreviousValue() // comma is NOT required here to compile
+ *    var i = restorePreviousValue() // semicolon is NOT required here to compile
  *    dispatchFunction { action ->
  *       if (action is ResetCounter) {
  *          i = 0
