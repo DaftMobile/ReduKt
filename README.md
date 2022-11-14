@@ -12,25 +12,25 @@ help you reduce the boilerplate.
 Guides and examples are available for each library in their corresponding README files. They are easily accessible from
 [libraries section](#libraries).
 
-API reference is available [here](TOOD).
+API reference has not been published yet. It's only available from the source code.
 
 ## Libraries
 
-* [ReduKt Core](redukt-core/README.md)
+* [ReduKt Core](redukt-core)
     * Redux store implementation with middlewares support.
     * Wide range of middleware builders.
     * Tools to ensure single-threaded usage.
     * Coroutines support - easy launching/joining/cancelling coroutines logically associated with actions.
     * _Dispatch closure_ - simple & powerful dependency injection mechanism to share dependencies between middlewares.
-* [ReduKt Test](redukt-test/README.md)
+* [ReduKt Test](redukt-test)
     * Dispatch spying tools with wide range of assertions.
     * Middlewares testing tools.
     * TestStore implementation for verifying interactions with a store.
-* [ReduKt Thunk](redukt-test/README.md) + [ReduKt Thunk Test](redukt-test-thunk/README.md) - Redux Thunk adaptation
+* [ReduKt Thunk](redukt-test) + [ReduKt Thunk Test](redukt-test-thunk) - Redux Thunk adaptation
 * [ReduKt Data Source](redukt-data-source/README.md) - fetching data from external data sources with generic actions as
   a result.
-* [ReduKt Koin](redukt-koin/README.md) - integration with [Koin framework](https://github.com/InsertKoinIO/koin).
-* [ReduKt Insight](redukt-insight/README.md) - logging and time measuring tools.
+* [ReduKt Koin](redukt-koin) - integration with [Koin framework](https://github.com/InsertKoinIO/koin).
+* [ReduKt Insight](redukt-insight) - logging and time measuring tools.
 
 ## Multiplatform
 
