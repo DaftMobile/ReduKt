@@ -1,5 +1,6 @@
 plugins {
     id("redukt-lib")
+    id("kotlinx-atomicfu")
 }
 
 dependencies {

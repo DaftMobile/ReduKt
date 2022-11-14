@@ -2,6 +2,7 @@
 kotlin = "1.7.20"
 plugin-android = "7.2.1"
 kotlinx-coroutines = "1.6.3"
+kotlinx-atomicfu = "0.18.5"
 kotest = "5.2.3"
 kodein = "7.14.0"
 koin = "3.2.0"
@@ -13,6 +14,7 @@ turbine = "0.12.0"
 # plugins
 
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+plugin-kotlinx-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "kotlinx-atomicfu" }
 plugin-android = { module = "com.android.tools.build:gradle", version.ref = "plugin-android" }
 plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "kotlin" }
 

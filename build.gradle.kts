@@ -5,6 +5,7 @@ plugins {
 buildscript {
     dependencies {
         classpath(":build-redukt")
+        classpath(libs.plugin.kotlinx.atomicfu)
     }
 }
 
