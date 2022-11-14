@@ -6,50 +6,72 @@ import kotlinx.atomicfu.locks.synchronized
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.StateFlow
 
+/**
+ * Type alias for Redux selector equivalent
+ */
 public typealias Selector<T, R> = (T) -> R
+
+/**
+ * Associates [selector] with [stateIsEquivalent] and [selectedIsEquivalent].
+ * @param selector - calculates selected state
+ * @param stateIsEquivalent - determines if selected state should be recalculated
+ * @param selectedIsEquivalent - determines if selected state has changed
+ */
+public data class Selection<State, Selected>(
+    val stateIsEquivalent: (old: State, new: State) -> Boolean = defaultEqualsEquivalent,
+    val selectedIsEquivalent: (old: Selected, new: Selected) -> Boolean = defaultEqualsEquivalent,
+    val selector: Selector<State, Selected>,
+)
 
 /**
  * Maps [Store.state] to a new [StateFlow] using given [selector].
  * Selected state is calculated only if [stateIsEquivalent] returns false,
- * and it is emitted to subscribers only if [subStateIsEquivalent] returns false.
+ * and it is emitted to subscribers only if [selectedIsEquivalent] returns false.
  */
-public fun <State, SubState> Store<State>.select(
-    stateIsEquivalent: (old: State, new: State) -> Boolean = { old, new -> old == new },
-    subStateIsEquivalent: (old: SubState, new: SubState) -> Boolean = { old, new -> old == new },
-    selector: Selector<State, SubState>
-): StateFlow<SubState> = SelectStateFlow(this.state, stateIsEquivalent, subStateIsEquivalent, selector)
+public fun <State, Selected> Store<State>.select(
+    stateIsEquivalent: (old: State, new: State) -> Boolean = defaultEqualsEquivalent,
+    selectedIsEquivalent: (old: Selected, new: Selected) -> Boolean = defaultEqualsEquivalent,
+    selector: Selector<State, Selected>
+): StateFlow<Selected> = select(Selection(stateIsEquivalent, selectedIsEquivalent, selector))
 
-private class SelectStateFlow<State, SubState>(
+/**
+ * Maps [Store.state] to a new [StateFlow] using given [selection].
+ */
+public fun <State, Selected> Store<State>.select(
+    selection: Selection<State, Selected>
+): StateFlow<Selected> = SelectStateFlow(state, selection)
+
+private val defaultEqualsEquivalent: (Any?, Any?) -> Boolean = { a, b -> a == b }
+
+private class SelectStateFlow<State, Selected>(
     private val flow: StateFlow<State>,
-    private val stateIsEquivalent: (old: State, new: State) -> Boolean = { old, new -> old == new },
-    private val subStateIsEquivalent: (old: SubState, new: SubState) -> Boolean = { old, new -> old == new },
-    private val selector: Selector<State, SubState>
-) : StateFlow<SubState>, SynchronizedObject() {
+    private val selection: Selection<State, Selected>
+) : StateFlow<Selected>, SynchronizedObject() {
 
     private var lastProcessedState: State? by atomic(null)
 
-    private var lastMappedValue: SubState? by atomic(null)
+    private var lastMappedValue: Selected? by atomic(null)
 
-    override val replayCache: List<SubState> get() = listOf(value)
+    override val replayCache: List<Selected> get() = listOf(value)
 
-    override val value: SubState get() = (invalidate() ?: lastMappedValue)!!
+    override val value: Selected get() = (invalidate() ?: lastMappedValue)!!
 
-    override suspend fun collect(collector: FlowCollector<SubState>): Nothing {
+    override suspend fun collect(collector: FlowCollector<Selected>): Nothing {
         lastMappedValue?.let { collector.emit(it) }
         flow.collect { value ->
             val previousValue = lastMappedValue
             invalidate(value)
-                ?.takeIf { previousValue == null || !subStateIsEquivalent(previousValue, it) }
+                ?.takeIf { previousValue == null || !selection.selectedIsEquivalent(previousValue, it) }
                 ?.let { collector.emit(it) }
         }
     }
 
-    private fun invalidate(currentState: State = flow.value): SubState? = synchronized(this) {
+    private fun invalidate(currentState: State = flow.value): Selected? = synchronized(this) {
         val previousState = lastProcessedState
         lastProcessedState = currentState
         return when {
-            previousState == null || !stateIsEquivalent(previousState, currentState) -> {
-                selector(currentState).also { lastMappedValue = it }
+            previousState == null || !selection.stateIsEquivalent(previousState, currentState) -> {
+                selection.selector(currentState).also { lastMappedValue = it }
             }
             else -> null
         }
