@@ -13,10 +13,11 @@ It's worth to notice that some elements are missing/changed/added in comparison 
 1. [Create a store](#create-a-store)
 2. [Define actions](#define-actions)
 3. [Define reducers](#define-reducers)
-4. [Define middlewares](#define-middlewares)
-5. [Working with coroutines](#working-with-coroutines)
-6. [Dispatch closure basics](#dispatch-closure-basics)
-7. [Thread safety tools](#thread-safety-tools)
+4. [Select and subscribe the state](#select-and-subscribe-the-state)
+5. [Define middlewares](#define-middlewares)
+6. [Working with coroutines](#working-with-coroutines)
+7. [Dispatch closure basics](#dispatch-closure-basics)
+8. [Thread safety tools](#thread-safety-tools)
 
 ### Create a store
 
@@ -108,6 +109,20 @@ val combinedUserReducer: Reducer<User> = combineReducers(userReducer1, ::userRed
 Combined reducers apply changes to state in a given order.
 > **Warning**: JS Redux also has `combineReducers` function, but it works differently!
 
+### Select and subscribe the state
+
+There is no `subscribe` method in ReduKt Store. Instead, store provides `state: StateFlow<AppState>` field. 
+To receive state updates you have to collect the flow:
+
+```kotlin
+store.state.collect { /* process state updates here */ }
+
+// or more `subscribe-like` approach
+store.state
+    .onEach { /* process state updates here */ }
+    .launchIn(scope)
+```
+
 ### Define middlewares
 
 Middlewares in ReduKt differ a little from JS Redux. The key differences are:
@@ -170,7 +185,7 @@ fun fooMiddleware() = consumingMiddleware<AppState, FooAction> { action ->
 }
 ```
 
-There is also `consumeDispatch` helper that can be used like this:
+There is also `consumingDispatch` helper that can be used like this:
 
 ```kotlin
 fun fooMiddleware(): Middleware<AppState> = {
