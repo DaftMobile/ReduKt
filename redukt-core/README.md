@@ -111,7 +111,7 @@ Combined reducers apply changes to state in a given order.
 
 ### Select and subscribe the state
 
-There is no `subscribe` method in ReduKt Store. Instead, store provides `state: StateFlow<AppState>` field. 
+There is no `subscribe` method in ReduKt Store. Instead, store provides `state: StateFlow<AppState>` field.
 To receive state updates you have to collect the flow:
 
 ```kotlin
@@ -123,12 +123,43 @@ store.state
     .launchIn(scope)
 ```
 
+To observe part of a state you have to use `select`.
+
+```kotlin
+val totalProductsPrice = store.select { it.products.sumBy(Product::price) }
+totalProductsPrice.value // returns current state of total products price
+totalProductsPrice.collect {
+    /* this block is called only if total products price changes */
+}
+```
+
+StateFlow returned by `select` is lazy by default and has the following properties:
+* Selector function is not called before you access or collect selected state.
+* Selector function is not called if state is not changed (by default it's compared using equals). 
+* If selector function returns the same value as previously (by default it's compared using equals), selected state is not emitted again (just like every StateFlow).
+
+To optimize state selection you can use `select` with `Selector` param like this:
+
+```kotlin
+val totalProductsPriceSelector = Selector(
+    stateEquality = { old, new -> old.products == new.products },
+    selector = { it.products.sumBy(Product::price) }
+)
+// selected state is recalculated only if products list is changed
+val totalProductsPrice = store.select(totalProductsPriceSelector)
+
+totalProductsPrice.collect { }
+```
+
+It's also possible to change selected state equality function with Selector class, but generally it should not be necessary.
+
 ### Define middlewares
 
 Middlewares in ReduKt differ a little from JS Redux. The key differences are:
 
 * There is only 1 nested lambda instead of 2.
-* `getState`, `dispatch` and `next` are available from middleware lambda receiver -  `MiddlewareScope`
+* `getState`, `dispatch` and `next` are available from middleware lambda receiver -  `MiddlewareScope`.
+* `getState` function is replaced by `currentState` property.
 * `MiddlewareScope` also provides `closure`. Read more about *DispatchClosure* [here](#dispatch-closure-basics).
 
 The most straightforward way to define a middleware:
@@ -223,15 +254,15 @@ Luckily, there is a simple solution to this problem. We can use `dispatchFunctio
 fun restorePreviousValue(): Int = TODO()
 
 fun counterMiddleware(): Middleware<AppState> = {
-   var i = restorePreviousValue() // semicolon is NOT required here to compile
-   dispatchFunction { action ->
-      if (action is ResetCounter) {
-         i = 0
-         return@dispatchFunction next(action) // default label can be referred here
-      }
-      i++
-      next(action)
-   }
+    var i = restorePreviousValue() // semicolon is NOT required here to compile
+    dispatchFunction { action ->
+        if (action is ResetCounter) {
+            i = 0
+            return@dispatchFunction next(action) // default label can be referred here
+        }
+        i++
+        next(action)
+    }
 }
 ```
 
