@@ -92,15 +92,6 @@ abstract class BaseStoreTest {
     }
 
     @Test
-    fun shouldThrowUnsafeStateAccessExceptionWhenStateAccessedInReducer() {
-        useStoreWithMiddlewares = false
-        mockReducer.onReducerCall = { _, _ -> store.currentState + 3 }
-        shouldThrow<UnsafeStateAccessException> {
-            store.dispatch(KnownAction.A)
-        }
-    }
-
-    @Test
     fun shouldThrowUnsafeDispatchExceptionWhenDispatchInReducer() {
         useStoreWithMiddlewares = false
         mockReducer.onReducerCall = { _, _ -> store.dispatch(KnownAction.B); 1 }
