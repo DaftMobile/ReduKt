@@ -17,7 +17,7 @@ It's worth to notice that some elements are missing/changed/added in comparison 
 5. [Define middlewares](#define-middlewares)
 6. [Working with coroutines](#working-with-coroutines)
 7. [Dispatch closure basics](#dispatch-closure-basics)
-8. [Thread safety tools](#thread-safety-tools)
+8. [Thread safety](#thread-safety)
 
 ### Create a store
 
@@ -134,9 +134,11 @@ totalProductsPrice.collect {
 ```
 
 StateFlow returned by `select` is lazy by default and has the following properties:
+
 * Selector function is not called before you access or collect selected state.
-* Selector function is not called if state is not changed (by default it's compared using equals). 
-* If selector function returns the same value as previously (by default it's compared using equals), selected state is not emitted again (just like every StateFlow).
+* Selector function is not called if state is not changed (by default it's compared using equals).
+* If selector function returns the same value as previously (by default it's compared using equals), selected state is
+  not emitted again (just like every StateFlow).
 
 To optimize state selection you can use `select` with `Selector` param like this:
 
@@ -151,7 +153,8 @@ val totalProductsPrice = store.select(totalProductsPriceSelector)
 totalProductsPrice.collect { }
 ```
 
-It's also possible to change selected state equality function with Selector class, but generally it should not be necessary.
+It's also possible to change selected state equality function with Selector class, but generally it should not be
+necessary.
 
 ### Define middlewares
 
@@ -270,5 +273,39 @@ fun counterMiddleware(): Middleware<AppState> = {
 
 ### Dispatch closure basics
 
-### Thread safety tools
+### Thread safety
 
+ReduKt store is designed to be accessed from a single thread. It should be the same thread as the one bound
+to `DispatchCoroutineScope`. By default, ReduKt store contains an instance of `MainScope` so you have to access the
+store from the main thread.
+
+Despite all of this, ReduKt store is partially thread-safe. You can access or collect its state from different threads.
+That's because the state is stored within a `StateFlow`. Dispatch closure is effectively an immutable collection of
+objects, so it is also thread-safe. However, closure elements might mutate, and it might not be safe to interact with
+them from another thread.
+
+The only thing that is **not thread-safe** is `dispatch`.
+
+If you want to make sure that you are calling `dispatch` from single thread, you can use `threadGuardMiddleware` like
+this:
+
+```kotlin
+val store = buildStore {
+    middlewares {
+        +threadGuradMiddleware // should be first in the pipeline
+        // ...
+    }
+    // ...
+}
+```
+
+This middleware remembers the thread used to create a store and verifies if `dispatch` is called with this thread.
+If you use different thread, `threadGuardMiddleware` throws an exception.
+
+If you really want to call the `dispatch` from another thread, you can use `store.synchronized {}` like this:
+
+```kotlin
+store.synchronized { dispatch(action) }
+```
+
+`Store.synchronized` launches given block in a coroutine within `DispatchCoroutineScope`.
