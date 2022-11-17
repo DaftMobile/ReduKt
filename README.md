@@ -27,7 +27,7 @@ API reference has not been published yet. It's only available from the source co
     * Middlewares testing tools.
     * TestStore implementation for verifying interactions with a store.
 * [ReduKt Thunk](redukt-test) + [ReduKt Thunk Test](redukt-test-thunk) - Redux Thunk adaptation
-* [ReduKt Data Source](redukt-data-source/README.md) - fetching data from external data sources with generic actions as
+* [ReduKt Data Source](redukt-data-source) - fetching data from external data sources with generic actions as
   a result.
 * [ReduKt Koin](redukt-koin) - integration with [Koin framework](https://github.com/InsertKoinIO/koin).
 * [ReduKt Insight](redukt-insight) - logging and time measuring tools.
