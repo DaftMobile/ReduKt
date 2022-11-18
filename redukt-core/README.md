@@ -271,13 +271,17 @@ fun counterMiddleware(): Middleware<AppState> = {
 
 ### Working with coroutines
 
-In ReduKt there is a concept of *foreground job*. It is a **single** coroutine that is logically associated with given action. 
+In ReduKt there is a concept of *foreground job*. It is a **single** coroutine that is logically associated with given
+action.
 
 Let's consider this kind of action:
+
 ```kotlin
 data class FetchBook(val id: String) : Action
 ```
-Here we expect that this action is going to trigger an asynchronous call to get the book. A coroutine that host this call
+
+Here we expect that this action is going to trigger an asynchronous call to get the book. A coroutine that host this
+call
 is a foreground job, because it is logically associated with given action.
 
 However, ReduKt store can't really figure out which action has associated coroutine, so action has to be marked:
@@ -290,22 +294,24 @@ Now we have to ensure that there is a middleware that launches a coroutine:
 
 ```kotlin
 fun booksMiddleware(client: HttpClient) = consumingMiddleware<AppState, FetchBook> { action ->
-  launchForeground { // launches a coroutine in DispatchCoroutineScope by default
-    val response = client.get("$API_URL/book/${action.id}")
-    // process the response
-  }
+    launchForeground { // launches a coroutine in DispatchCoroutineScope by default
+        val response = client.get("$API_URL/book/${action.id}")
+        // process the response
+    }
 }
 ```
 
-And that's it! Now, what we can do with it?
+Now, what we can do with it?
 
-In the most straightforward example, you can use `store.dispatchJob` to dispatch a `FetchBook` action. This function 
+In the most straightforward example, you can use `store.dispatchJob` to dispatch a `FetchBook` action. This function
 returns a `Job`, so you are able to control the associated coroutine.
+
 ```kotlin
 val job = store.dispatchJob(FetchBook("1"))
 // ...
 job.cancel()
 ```
+
 You can change a `CoroutineScope` for the associated coroutine with `store.dispatchJobIn` like this:
 
 ```kotlin
@@ -320,18 +326,119 @@ You can wait for the coroutine with `store.joinDispatchJob` like this:
 
 ```kotlin
 fun initMiddleware() = middleware<AppState> { action ->
-  if (action is InitAction) {
-    launchForeground { 
-      joinDispatchJob(FetchUserData)
-      val currentBookId = currentState.user.currentBookId
-      joinDispatchJob(FetchBook(currentBookId))
+    if (action is InitAction) {
+        launchForeground {
+            joinDispatchJob(FetchUserData)
+            val currentBookId = currentState.user.currentBookId
+            joinDispatchJob(FetchBook(currentBookId))
+        }
     }
-  }
-  next(action)
+    next(action)
 }
 ```
 
 ### Dispatch closure basics
+
+Essentially, dispatch closure is an immutable map of objects (elements) that is injected into the store, and it is available from
+every middleware. It's primarily used to extend store's functionality. 
+
+Dispatch closure elements are associated with special keys. By convention, those keys are companion objects of closure
+element classes.
+
+It might seem a little confusing, but it should be clear with this example:
+
+```kotlin
+fun fooMiddleware() = middleware<AppState> { action ->
+    // to get an instance of DispatchCoroutineScope you have to pass its companion object as a key to closure
+    val scope = closure[DispatchCoroutineScope]
+}
+```
+
+Dispatch closure might contain only one `DispatchCoroutineScope`, because map must contain only one value for a given
+key. This applies for all closure elements introduced by this library. In other words, dispatch closure must contain only one object of given type.
+
+Often closure elements come with handy extensions to access them. In case of `DispatchCoroutineScope` we can access it
+like this:
+
+```kotlin
+fun fooMiddleware() = middleware<AppState> { action ->
+    coroutineScope // equivalent of closure[DispatchCoroutineScope]
+}
+```
+
+Closure has to be defined at store creation and remains immutable. Despite it being immutable, its
+elements themselves might mutate.
+
+```kotlin
+val store = buildStore {
+    // ...
+    closure {
+        +DispatchCoroutineScope(MainScope())
+    }
+}
+```
+
+> `DispatchCoroutineScope` is a `CoroutineScope` that is bound to the store.
+> It's often a default scope for many ReduKt mechanisms. By default, it is a `MainScope()`.
+
+As a dependency injection tool, dispatch closure might seem a little limited, because effectively it handles only
+singletons.
+Also, adding completely new types to it comes with a little boilerplate. That is because, dispatch closure is not
+designed to be
+a dependency injection tool. It is used to extend store's functionality.
+
+Despite dispatch closure not being a perfect DI tool, we can integrate a real DI into the store using this mechanism.
+
+In example below our DI tool of choice is [Kodein](https://github.com/kosi-libs/Kodein). In a first place we have to
+implement a `DispatchClosure.Element` like this:
+
+```kotlin
+class KodeinDI(di: DI) : DI by di, DispatchClosure.Element {
+
+    override val key: Key get() = Key
+
+    companion object Key : DispatchClosure.Key<KodeinDI>
+}
+```
+
+Now you we to add it into the store:
+
+```kotlin
+val store = buildStore {
+    //...
+    val di = DI {
+        bindSingleton { HttpClient() }
+        // ...
+    }
+    closure {
+        +DispatchCoroutineScope(MainScope())
+        +KodeinDI(di)
+    }
+}
+```
+
+Now KodeinDI is accessible from any middleware:
+
+```kotlin
+fun fooMiddleware() = middleware { action ->
+    val di = closure[KodeinDI]
+}
+```
+
+We can add an extension to make it easier to access DI:
+
+```kotlin
+val DispatchScope<*>.di: DI get() = closure[KodeinDI]
+```
+
+Final result:
+
+```kotlin
+fun fooMiddleware() = middleware<AppState> { action ->
+    val httpClient: HttpClient by di.instance()
+    // ...
+}
+```
 
 ### Thread safety
 

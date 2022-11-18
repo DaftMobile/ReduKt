@@ -21,7 +21,7 @@ API reference has not been published yet. It's only available from the source co
     * Wide range of middleware builders.
     * Tools to ensure single-threaded usage.
     * Coroutines support - easy launching/joining/cancelling coroutines logically associated with actions.
-    * _Dispatch closure_ - simple & powerful dependency injection mechanism to share dependencies between middlewares.
+    * _Dispatch closure_ - simple mechanism to extend store's functionality (e.g. integration with DI frameworks)
 * [ReduKt Test](redukt-test)
     * Dispatch spying tools with wide range of assertions.
     * Middlewares testing tools.
