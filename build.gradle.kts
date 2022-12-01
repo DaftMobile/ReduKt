@@ -10,6 +10,6 @@ buildscript {
 }
 
 allprojects {
-    group = "com.daftmobile.redukt"
+    group = "co.redukt"
     version = "1.0"
 }
