@@ -7,7 +7,7 @@ import kotlinx.coroutines.Job
 import kotlin.test.Test
 
 class EmptyForegroundJobRegistryTest {
-    private val registry = EmptyForegroundJobRegistry()
+    private val registry = EmptyForegroundJobRegistry
 
     @Test
     fun shouldNotRegisterPassedJob() {

@@ -49,7 +49,7 @@ private class StoreImpl<State>(
     initialClosure: DispatchClosure,
 ) : Store<State> {
 
-    override val closure: DispatchClosure = EmptyForegroundJobRegistry()
+    override val closure: DispatchClosure = EmptyForegroundJobRegistry
         .plus(LocalClosure(::closure::get))
         .plus(DispatchCoroutineScope(MainScope()))
         .plus(initialClosure)

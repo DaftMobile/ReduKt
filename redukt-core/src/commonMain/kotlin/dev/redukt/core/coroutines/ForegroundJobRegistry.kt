@@ -38,7 +38,7 @@ public interface ForegroundJobRegistry : DispatchClosure.Element {
  * A [ForegroundJobRegistry] that ignores registered job and always fails on [consume]. It's injected by default into the store's closure.
  */
 @DelicateReduKtApi
-public class EmptyForegroundJobRegistry : ForegroundJobRegistry {
+public object EmptyForegroundJobRegistry : ForegroundJobRegistry {
 
     /**
      * Does nothing. [job] is ignored.
@@ -58,6 +58,7 @@ public class EmptyForegroundJobRegistry : ForegroundJobRegistry {
                 "You are probably using launchForeground outside of dispatch function!"
     )
 
+    override fun toString(): String = "EmptyForegroundJobRegistry"
 }
 
 /**
@@ -77,4 +78,6 @@ public class SingleForegroundJobRegistry(
     override fun consumeOrNull(): Job? = job.also { job = null }
 
     override fun consume(): Job = requireNotNull(consumeOrNull()) { "Foreground job not registered!" }
+
+    override fun toString(): String = "SingleForegroundJobRegistry(registeredJob=$job)"
 }

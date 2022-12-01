@@ -14,12 +14,16 @@ public interface KoinDI: KoinComponent, DispatchClosure.Element {
     public companion object Key : DispatchClosure.Key<KoinDI>
 }
 
-public object GlobalKoinDI : KoinDI
+public object GlobalKoinDI : KoinDI {
+    override fun toString(): String = "GlobalKoinDI"
+}
 
 public class KoinApplicationDI(
     public val app: KoinApplication
 ) : KoinDI {
     override fun getKoin(): Koin = app.koin
+
+    override fun toString(): String = "KoinApplicationDI($app)"
 }
 
 public inline val DispatchScope<*>.koin: Koin get() = closure[KoinDI].getKoin()

@@ -4,6 +4,7 @@ import dev.redukt.core.DelicateReduKtApi
 import dev.redukt.core.DispatchScope
 import dev.redukt.core.closure.DispatchClosure
 import dev.redukt.insight.InsightContainer.ValueKey
+import kotlin.jvm.JvmInline
 import kotlin.time.Duration
 
 @Suppress("UNCHECKED_CAST")
@@ -22,7 +23,12 @@ public class InsightContainer: DispatchClosure.Element {
 
     public companion object Key : DispatchClosure.Key<InsightContainer>
 
-    public data class ValueKey<T>(val key: String)
+    override fun toString(): String = "InsightContainer($values)"
+
+    @JvmInline
+    public value class ValueKey<T>(public val key: String) {
+        override fun toString(): String = key
+    }
 }
 
 public object InsightValues {

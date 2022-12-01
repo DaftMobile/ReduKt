@@ -10,9 +10,11 @@ import kotlinx.coroutines.MainScope
  * It can be accessed by [coroutineScope] extension property. Tools provided by this library most likely use this scope to launch a coroutine.
  */
 public class DispatchCoroutineScope(
-    coroutineScope: CoroutineScope,
+    private val coroutineScope: CoroutineScope,
 ) : DispatchClosure.Element, CoroutineScope by coroutineScope {
     override val key: Key = Key
+
+    override fun toString(): String = "DispatchCoroutineScope($coroutineScope)"
 
     public companion object Key : DispatchClosure.Key<DispatchCoroutineScope>
 }

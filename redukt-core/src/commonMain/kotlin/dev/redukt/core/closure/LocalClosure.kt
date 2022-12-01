@@ -93,7 +93,8 @@ public interface LocalClosure : DispatchClosure.Element {
  * @see [LocalClosure]
  */
 @DelicateReduKtApi
-public fun LocalClosure(baseClosureProvider: () -> DispatchClosure): LocalClosure = CoreLocalClosure(baseClosureProvider)
+public fun LocalClosure(baseClosureProvider: () -> DispatchClosure): LocalClosure =
+    CoreLocalClosure(baseClosureProvider)
 
 /**
  * Identifies single local change.
@@ -134,11 +135,14 @@ private class CoreLocalClosure(
         reloadCurrent()
     }
 
-    override fun toString(): String = "Local(${current - LocalClosure})"
+    override fun toString(): String =
+        "LocalClosure(... + ${currentSlotAccumulation()})"
 
     private fun reloadCurrent() {
-        _current = baseClosureProvider() + localSlots.values.fold(EmptyDispatchClosure, DispatchClosure::plus)
+        _current = baseClosureProvider() + currentSlotAccumulation()
     }
+
+    private fun currentSlotAccumulation() = localSlots.values.fold(EmptyDispatchClosure, DispatchClosure::plus)
 
     companion object Key : DispatchClosure.Key<LocalClosure>
 }

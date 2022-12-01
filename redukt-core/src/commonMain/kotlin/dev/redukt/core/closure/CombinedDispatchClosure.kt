@@ -15,5 +15,5 @@ internal class CombinedDispatchClosure(
 
     override fun scatter(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = elements
 
-    override fun toString(): String = elements.toString()
+    override fun toString(): String = elements.values.joinToString(separator = " + ")
 }

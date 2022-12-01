@@ -15,4 +15,6 @@ public object EmptyDispatchClosure : DispatchClosure {
     override fun minus(key: DispatchClosure.Key<*>): DispatchClosure = this
 
     override fun scatter(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = emptyMap()
+
+    override fun toString(): String = "EmptyDispatchClosure"
 }
