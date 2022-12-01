@@ -134,7 +134,7 @@ private class CoreLocalClosure(
         reloadCurrent()
     }
 
-    override fun toString(): String = "Local($current)"
+    override fun toString(): String = "Local(${current - LocalClosure})"
 
     private fun reloadCurrent() {
         _current = baseClosureProvider() + localSlots.values.fold(EmptyDispatchClosure, DispatchClosure::plus)
