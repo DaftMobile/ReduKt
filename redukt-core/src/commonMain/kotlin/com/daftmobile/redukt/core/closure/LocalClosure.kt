@@ -121,8 +121,8 @@ private class CoreLocalClosure(
 ) : LocalClosure {
 
     private val localSlots = linkedMapOf<LocalSlot, DispatchClosure>()
-
-    override var current: DispatchClosure = baseClosureProvider()
+    private var _current: DispatchClosure? = null
+    override val current: DispatchClosure get() = _current ?: baseClosureProvider()
 
     override fun registerNewSlot(closure: DispatchClosure): LocalSlot = LocalSlot().also {
         localSlots[it] = closure
@@ -137,7 +137,7 @@ private class CoreLocalClosure(
     override fun toString(): String = "Local($current)"
 
     private fun reloadCurrent() {
-        current = baseClosureProvider() + localSlots.values.fold(EmptyDispatchClosure, DispatchClosure::plus)
+        _current = baseClosureProvider() + localSlots.values.fold(EmptyDispatchClosure, DispatchClosure::plus)
     }
 
     companion object Key : DispatchClosure.Key<LocalClosure>
