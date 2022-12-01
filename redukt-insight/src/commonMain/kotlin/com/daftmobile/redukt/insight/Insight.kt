@@ -8,7 +8,8 @@ public fun interface Insight<in State> {
         public fun empty(): Insight<Any?> = Insight { this }
 
         public fun debug(tag: String = "ReduKt-Insight: ", showTime: Boolean = true): Insight<Any?> = Insight {
-            if (showTime) mapToActionWithTime() else map { it.action.toString() }
+            val inspection = if (showTime) mapToActionWithTime() else map { it.action.toString() }
+            inspection
                 .prependWith(tag)
                 .splitByNewLine()
                 .printToSystemOut()
