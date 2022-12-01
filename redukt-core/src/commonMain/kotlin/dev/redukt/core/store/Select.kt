@@ -37,8 +37,8 @@ public interface Selector<State, Selected> {
  * Creates a [Selector] that associates [selector] function with [stateEquality] and [selectionEquality].
  */
 public fun <State, Selected> createSelector(
-    stateEquality: (old: State, new: State) -> Boolean = defaultEquality,
-    selectionEquality: (old: Selected, new: Selected) -> Boolean = defaultEquality,
+    stateEquality: SelectorEquality<State> = SelectorEquality.Default,
+    selectionEquality: SelectorEquality<Selected> = SelectorEquality.Default,
     selector: SelectorFunction<State, Selected>,
 ): Selector<State, Selected> = DynamicSelector(stateEquality, selectionEquality, selector)
 
@@ -63,16 +63,14 @@ public fun <State, Selected> Store<State>.select(
     selector: Selector<State, Selected>
 ): StateFlow<Selected> = SelectStateFlow(state, selector)
 
-private val defaultEquality: (Any?, Any?) -> Boolean = { a, b -> a == b }
-
 private data class DynamicSelector<State, Selected>(
-    val stateEquality: (old: State, new: State) -> Boolean = defaultEquality,
-    val selectionEquality: (old: Selected, new: Selected) -> Boolean = defaultEquality,
+    val stateEquality: SelectorEquality<State> = SelectorEquality.Default,
+    val selectionEquality: SelectorEquality<Selected> = SelectorEquality.Default,
     val selector: SelectorFunction<State, Selected>,
 ): Selector<State, Selected> {
-    override fun isStateEqual(old: State, new: State): Boolean = stateEquality(old, new)
+    override fun isStateEqual(old: State, new: State): Boolean = stateEquality.isEqual(old, new)
 
-    override fun isSelectionEqual(old: Selected, new: Selected): Boolean = selectionEquality(old, new)
+    override fun isSelectionEqual(old: Selected, new: Selected): Boolean = selectionEquality.isEqual(old, new)
 
     override fun select(state: State): Selected = selector(state)
 
