@@ -1,9 +1,9 @@
 package com.daftmobile.redukt.core
 
-import com.daftmobile.redukt.core.store.PureSelector
+import com.daftmobile.redukt.core.store.SelectorFunction
 
 internal class MockSelector<T, R>(
-    var onSelectorCall: PureSelector<T, R>
+    var onSelectorCall: SelectorFunction<T, R>
 ) {
 
     var receivedInput: T? = null

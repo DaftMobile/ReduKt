@@ -9,19 +9,38 @@ import kotlinx.coroutines.flow.StateFlow
 /**
  * Type alias for state mapping function.
  */
-public typealias PureSelector<T, R> = (T) -> R
+public typealias SelectorFunction<T, R> = (T) -> R
 
 /**
- * Associates [selector] function with [stateEquality] and [selectionEquality].
- * @param selector - calculates selected state
- * @param stateEquality - determines if selected state should be recalculated
- * @param selectionEquality - determines if selected state has changed
+ * Associates [select] function with [isStateEqual] and [isSelectionEqual] to improve selection performance.
  */
-public data class Selector<State, Selected>(
-    val stateEquality: (old: State, new: State) -> Boolean = defaultEquality,
-    val selectionEquality: (old: Selected, new: Selected) -> Boolean = defaultEquality,
-    val selector: PureSelector<State, Selected>,
-)
+public interface Selector<State, Selected> {
+
+    /**
+     *  Determines if selected state should be recalculated.
+     */
+    public fun isStateEqual(old: State, new: State): Boolean = old == new
+
+
+    /**
+     * Determines if selected state has changed.
+     */
+    public fun isSelectionEqual(old: Selected, new: Selected): Boolean = old == new
+
+    /**
+     * Calculates selected state
+     */
+    public fun select(state: State): Selected
+}
+
+/**
+ * Creates a [Selector] that associates [selector] function with [stateEquality] and [selectionEquality].
+ */
+public fun <State, Selected> createSelector(
+    stateEquality: (old: State, new: State) -> Boolean = defaultEquality,
+    selectionEquality: (old: Selected, new: Selected) -> Boolean = defaultEquality,
+    selector: SelectorFunction<State, Selected>,
+): Selector<State, Selected> = DynamicSelector(stateEquality, selectionEquality, selector)
 
 /**
  * Maps [Store.state] to a new [StateFlow] using given [selector] function. [selector] function is not called before
@@ -31,20 +50,40 @@ public data class Selector<State, Selected>(
  * To optimize state selection, use `select` with [Selector] param.
  */
 public fun <State, Selection> Store<State>.select(
-    selector: PureSelector<State, Selection>
-): StateFlow<Selection> = select(Selector(selector = selector))
+    selector: SelectorFunction<State, Selection>
+): StateFlow<Selection> = select(SimpleSelector(selector = selector))
 
 /**
  * Maps [Store.state] to a new [StateFlow] using given [selector].
- * Selector function is called only if [Selector.stateEquality] returns false (by default it refers to [equals]).
+ * Selector function is called only if [Selector.isStateEqual] returns false (by default it refers to [equals]).
  * Also, selector function is not called before selected state is actually accessed using [StateFlow.value] or collected.
- * Selector result is emitted only if [Selector.selectionEquality] returns false (by default it refers to [equals]).
+ * Selector result is emitted only if [Selector.isSelectionEqual] returns false (by default it refers to [equals]).
  */
 public fun <State, Selected> Store<State>.select(
     selector: Selector<State, Selected>
 ): StateFlow<Selected> = SelectStateFlow(state, selector)
 
 private val defaultEquality: (Any?, Any?) -> Boolean = { a, b -> a == b }
+
+private data class DynamicSelector<State, Selected>(
+    val stateEquality: (old: State, new: State) -> Boolean = defaultEquality,
+    val selectionEquality: (old: Selected, new: Selected) -> Boolean = defaultEquality,
+    val selector: SelectorFunction<State, Selected>,
+): Selector<State, Selected> {
+    override fun isStateEqual(old: State, new: State): Boolean = stateEquality(old, new)
+
+    override fun isSelectionEqual(old: Selected, new: Selected): Boolean = selectionEquality(old, new)
+
+    override fun select(state: State): Selected = selector(state)
+
+}
+
+private data class SimpleSelector<State, Selected>(
+    val selector: SelectorFunction<State, Selected>
+) : Selector<State, Selected> {
+    override fun select(state: State): Selected = selector(state)
+}
+
 
 private class SelectStateFlow<State, Selection>(
     private val flow: StateFlow<State>,
@@ -64,7 +103,7 @@ private class SelectStateFlow<State, Selection>(
         flow.collect { value ->
             val previousValue = lastMappedValue
             invalidate(value)
-                ?.takeIf { previousValue == null || !selector.selectionEquality(previousValue, it) }
+                ?.takeIf { previousValue == null || !selector.isSelectionEqual(previousValue, it) }
                 ?.let { collector.emit(it) }
         }
     }
@@ -73,10 +112,9 @@ private class SelectStateFlow<State, Selection>(
         val previousState = lastProcessedState
         lastProcessedState = currentState
         return when {
-            previousState == null || !selector.stateEquality(previousState, currentState) -> {
-                selector.selector(currentState).also { lastMappedValue = it }
+            previousState == null || !selector.isStateEqual(previousState, currentState) -> {
+                selector.select(currentState).also { lastMappedValue = it }
             }
-
             else -> null
         }
     }
