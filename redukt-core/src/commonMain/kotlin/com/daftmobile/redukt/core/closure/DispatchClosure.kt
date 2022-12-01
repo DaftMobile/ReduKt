@@ -36,6 +36,11 @@ public interface DispatchClosure {
     public operator fun plus(closure: DispatchClosure): DispatchClosure = CombinedDispatchClosure(scatter() + closure.scatter())
 
     /**
+     * Returns a closure without the element with a given [key]
+     */
+    public operator fun minus(key: Key<*>): DispatchClosure
+
+    /**
      * Returns elements form this [DispatchClosure] as a [Map].
      */
     public fun scatter(): Map<Key<*>, Element>
@@ -55,6 +60,8 @@ public interface DispatchClosure {
         override fun <T : Element> find(key: Key<T>): T? = if (this.key == key) this as T else null
 
         override fun <T : Element> get(key: Key<T>): T = find(key) ?: throw MissingClosureElementException(key)
+
+        override fun minus(key: Key<*>): DispatchClosure = if (this.key == key) EmptyDispatchClosure else this
 
         override fun scatter(): Map<Key<*> ,Element> = mapOf(key to this)
     }

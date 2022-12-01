@@ -33,4 +33,9 @@ internal class EmptyDispatchClosureTest {
         val rightSide = ClosureElementA()
         (EmptyDispatchClosure + rightSide) shouldBe rightSide
     }
+
+    @Test
+    fun minusAnyKeyShouldReturnThis() {
+        (EmptyDispatchClosure - ClosureElementA) shouldBe EmptyDispatchClosure
+    }
 }

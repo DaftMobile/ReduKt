@@ -41,4 +41,14 @@ class DispatchClosureElementTest {
     fun scatterShouldReturnListWithOnlyThis() {
         dispatchClosureElement.scatter() shouldContainExactly  mapOf(dispatchClosureElement.key to dispatchClosureElement)
     }
+
+    @Test
+    fun minusShouldReturnThisWhenKeyDiffers() {
+        (dispatchClosureElement - ClosureElementB) shouldBe dispatchClosureElement
+    }
+
+    @Test
+    fun minusShouldReturnEmptyClosureWhenKeysDiffer() {
+        (dispatchClosureElement - ClosureElementA) shouldBe EmptyDispatchClosure
+    }
 }

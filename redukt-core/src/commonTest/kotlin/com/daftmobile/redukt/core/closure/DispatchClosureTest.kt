@@ -14,6 +14,7 @@ private class ControlDispatchClosure(
 ) : DispatchClosure {
     @Suppress("UNCHECKED_CAST")
     override fun <T : DispatchClosure.Element> find(key: DispatchClosure.Key<T>): T? = findResult as? T
+    override fun minus(key: DispatchClosure.Key<*>): DispatchClosure = (scatterResult - key).values.reduce(DispatchClosure::plus)
     override fun scatter(): Map<DispatchClosure.Key<*>, DispatchClosure.Element> = scatterResult
 }
 
@@ -83,5 +84,12 @@ internal class DispatchClosureTest {
         val elements = listOf(ClosureElementA(), ClosureElementB(), ClosureElementC())
         val result = elements[0] + elements[1] + elements[2]
         result.scatter() shouldBe elements.associateBy { it.key }
+    }
+
+    @Test
+    fun minusShouldResultInRemovingTheElementWithGivenKeyFromResultClosure() {
+        val elements = listOf(ClosureElementA(), ClosureElementB(), ClosureElementC())
+        val result = elements.reduce(DispatchClosure::plus) - ClosureElementC
+        result.scatter().values shouldBe elements.dropLast(1)
     }
 }
