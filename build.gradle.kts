@@ -10,6 +10,6 @@ buildscript {
 }
 
 allprojects {
-    group = "co.redukt"
+    group = "dev.redukt"
     version = "1.0"
 }
