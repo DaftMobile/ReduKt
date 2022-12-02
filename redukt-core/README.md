@@ -143,7 +143,7 @@ StateFlow returned by `select` is lazy by default and has the following properti
 To optimize state selection you can use `select` with `Selector` param like this:
 
 ```kotlin
-val totalProductsPriceSelector = Selector(
+val totalProductsPriceSelector = createSelector(
     stateEquality = { old, new -> old.products == new.products },
     selector = { it.products.sumBy(Product::price) }
 )
