@@ -30,7 +30,6 @@ API reference has not been published yet. It's only available from the source co
 * [ReduKt Data Source](redukt-data-source) - fetching data from external data sources with generic actions as
   a result.
 * [ReduKt Koin](redukt-koin) - integration with [Koin framework](https://github.com/InsertKoinIO/koin).
-* [ReduKt Insight](redukt-insight) - logging and time measuring tools.
 
 ## Multiplatform
 

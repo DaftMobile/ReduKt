@@ -22,7 +22,6 @@ include(
     ":redukt-core",
     ":redukt-thunk",
     ":redukt-koin",
-    ":redukt-insight",
     ":redukt-test",
     ":redukt-test-thunk",
     ":redukt-data-source"
