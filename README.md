@@ -30,7 +30,7 @@ API reference has not been published yet. It's only available from the source co
 * [ReduKt Data Source](redukt-data-source) - fetching data from external data sources with generic actions as
   a result.
 * [ReduKt Koin](redukt-koin) - integration with [Koin framework](https://github.com/InsertKoinIO/koin).
-
+* [ReduKt Compose](redukt-compose) - integration with Jetpack Compose.
 ## Multiplatform
 
 This library is highly dependent on [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines) and therefore

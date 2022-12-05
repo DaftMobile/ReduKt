@@ -8,7 +8,7 @@ java.apply {
 }
 
 dependencies {
-    api(libs.plugin.android)
+    api(libs.plugin.compose)
     api(libs.plugin.kotlin)
     api(libs.plugin.dokka)
 }
