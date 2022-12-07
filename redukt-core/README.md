@@ -401,7 +401,7 @@ class KodeinDI(di: DI) : DI by di, DispatchClosure.Element {
 }
 ```
 
-Now you we to add it into the store:
+Now we have to add it into the store:
 
 ```kotlin
 val store = buildStore {
