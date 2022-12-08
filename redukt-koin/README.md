@@ -2,7 +2,7 @@
 
 ReduKt integration with [Koin framework](https://github.com/InsertKoinIO/koin).
 
-### Examples
+### Quick start
 
 You have 2 ways to work with Koin here.
 

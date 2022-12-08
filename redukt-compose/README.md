@@ -2,7 +2,7 @@
 
 ReduKt Compose is a small set of utils to work with ReduKt store in Jetpack Compose.
 
-### Setup
+### Quick start
 
 You have to create a `CompositionLocal` for your store and provide an instance like this:
 
@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
-
-### Usage
 
 Example below shows how to properly dispatch actions and observe the state from Jetpack Compose.
 
