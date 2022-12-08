@@ -26,7 +26,7 @@ API reference has not been published yet. It's only available from the source co
     * Dispatch spying tools with wide range of assertions.
     * Middlewares testing tools.
     * TestStore implementation for verifying interactions with a store.
-* [ReduKt Thunk](redukt-test) + [ReduKt Thunk Test](redukt-test-thunk) - Redux Thunk adaptation
+* [ReduKt Thunk](redukt-thunk) + [ReduKt Thunk Test](redukt-test-thunk) - Redux Thunk adaptation
 * [ReduKt Data Source](redukt-data-source) - fetching data from external data sources with generic actions as
   a result.
 * [ReduKt Koin](redukt-koin) - integration with [Koin framework](https://github.com/InsertKoinIO/koin).
