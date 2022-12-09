@@ -2,18 +2,21 @@
 
 Adaptation of [Redux thunk](https://redux.js.org/usage/writing-logic-thunks) in ReduKt.
 
-### Quick start
+### Basics
 
-In ReduKt every thunk is an action that has some logic attached to it and evaluated by `thunkMiddleware`. 
+In ReduKt every thunk is an action that has some logic attached to it and evaluated by `thunkMiddleware`.
 There are 2 types of thunks:
 
-* Associated with regular function
+* Associated with regular function that are executed by `thunkMiddleware` in a blocking manner.
+
 ```kotlin
 interface ThunkAction<State> : Action {
     fun DispatchScope<State>.execute()
 }
 ```
-* Associated with suspending function
+
+* Associated with suspending function that are executed by `thunkMiddleware` in a foreground coroutine.
+
 ```kotlin
 interface CoThunkAction<State> : ForegroundJobAction {
     suspend fun DispatchScope<State>.execute()
@@ -34,6 +37,7 @@ data class FetchBook(val id: String) : CoThunkAction<AppState> {
     }
 }
 ```
+
 You can also instantiate it directly with `Thunk` or `CoThunk` classes:
 
 ```kotlin
@@ -54,4 +58,50 @@ data class FetchBook(val id: String) : CoThunk<AppState>({
         .onSuccess { dispatch(BookFetchSuccess(it)) }
         .onFailure { dispatch(BookFetchFailed(it)) }
 })
+```
+
+### DispatchList
+
+ReduKt Thunk comes with one handy util called `DispatchList`. It allows you to wrap multiple actions into a single
+action.
+It can be created like this:
+
+```kotlin
+val action = DispatchList(listOf(ActionA, ActionB))
+// or 
+val action = ActionA + ActionB
+
+store.dispatch(action) 
+// it results in ActionA and ActionB being dispatched in given order.
+```
+
+`DispatchList` is a `ThunkAction` so it requires `thunkMiddlewares`.
+
+### JoiningCoroutinesDispatchList
+
+If any action in `DispatchList` is a `ForegroundJobAction` you might want to wait for associated coroutine before
+dispatching next action.
+Example below shows how to do it:
+
+```kotlin
+val action = JoiningCoroutinesDispatchList(listOf(ActionA, JobActionB, JobActionC))
+// or
+val action = ActionA + JobActionB + JobActionC support JoiningCoroutines()
+
+store.dispatch(action) 
+// It results in ActionA being dispatched normally
+// However, JobActionB and JobActionC are dispatched with `joinDispatchJob` in given order.
+// It means that their associated coroutines are executed sequentially
+```
+
+`JoiningCoroutinesDispatchList` has a concurrency flag, that runs associated coroutines concurrently.
+
+```kotlin
+val action = JoiningCoroutinesDispatchList(listOf(ActionA, JobActionB, JobActionC), concurrent = true)
+// or
+val action = ActionA + JobActionB + JobActionC support JoiningCoroutines(concurrent = true)
+
+store.dispatch(action)
+// It results in ActionA, JobActionB and JobActionC being dispatched in given order.
+// Also, `JoiningCoroutinesDispatchList` waits for coroutines of JobActionB and JobActionC to complete.
 ```
