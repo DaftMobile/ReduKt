@@ -30,7 +30,7 @@ To create a thunk you can simply implement `ThunkAction` or `CoThunkAction` like
 ```kotlin
 data class FetchBook(val id: String) : CoThunkAction<AppState> {
     suspend fun DispatchScope<AppState>.execute() {
-        val client by koin.instance()
+        val client by koin.instance<HttpClient>()
         runCatching { client.get("/book/$id") }
             .onSuccess { dispatch(BookFetchSuccess(it)) }
             .onFailure { dispatch(BookFetchFailed(it)) }
@@ -42,7 +42,7 @@ You can also instantiate it directly with `Thunk` or `CoThunk` classes:
 
 ```kotlin
 fun fetchBook(id: String): CoThunkAction<AppState> = CoThunk {
-    val client by koin.instance()
+    val client by koin.instance<HttpClient>()
     runCatching { client.get("/book/$id") }
         .onSuccess { dispatch(BookFetchSuccess(it)) }
         .onFailure { dispatch(BookFetchFailed(it)) }
@@ -53,7 +53,7 @@ fun fetchBook(id: String): CoThunkAction<AppState> = CoThunk {
 
 ```kotlin
 data class FetchBook(val id: String) : CoThunk<AppState>({
-    val client by koin.instance()
+    val client by koin.instance<HttpClient>()
     runCatching { client.get("/book/$id") }
         .onSuccess { dispatch(BookFetchSuccess(it)) }
         .onFailure { dispatch(BookFetchFailed(it)) }
@@ -93,6 +93,8 @@ store.dispatch(action)
 // However, JobActionB and JobActionC are dispatched with `joinDispatchJob` in given order.
 // It means that their associated coroutines are executed sequentially
 ```
+
+It's worth to notice that `JoiningCoroutinesDispatchList` is a `CoThunkAction` so it's executed in foreground coroutine.
 
 `JoiningCoroutinesDispatchList` has a concurrency flag, that runs associated coroutines concurrently.
 
