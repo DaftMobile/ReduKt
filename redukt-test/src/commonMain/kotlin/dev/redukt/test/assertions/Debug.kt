@@ -2,13 +2,13 @@ package dev.redukt.test.assertions
 
 import dev.redukt.core.Action
 
-public val ActionsAssertScope.currentAction: Action? get() = pipeline.firstOrNull()
+public val ActionsAssertScope.currentAction: Action? get() = unverified.firstOrNull()
 
 public val ActionsAssertScope.actionStackString: String
     get() {
-        val processed = (history - pipeline)
+        val processed = (history - unverified)
         val lastProcessed = processed.lastOrNull()
-        return (processed + pipeline).joinToString(separator = "\t\n") {
+        return (processed + unverified).joinToString(separator = "\t\n") {
             if (it == lastProcessed) "-> $it" else "   $it"
         }
     }

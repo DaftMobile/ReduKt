@@ -61,7 +61,7 @@ internal class DefaultMiddlewareTestScope<State>(
         return registry.consume()
     }
 
-    override val pipeline get() = dispatchSpy.pipeline
+    override val unverified get() = dispatchSpy.unverified
 
     override val history get() = dispatchSpy.history
 
@@ -75,5 +75,5 @@ private class SpyingMiddlewareScope<State>(
     private val nextSpy = SpyingDispatchScope(dispatchScope::currentState, dispatchScope::closure)
     override fun next(action: Action) = nextSpy.dispatch(action)
     override val history: List<Action> get() = nextSpy.history
-    override val pipeline: Queue<Action> get() = nextSpy.pipeline
+    override val unverified: Queue<Action> get() = nextSpy.unverified
 }

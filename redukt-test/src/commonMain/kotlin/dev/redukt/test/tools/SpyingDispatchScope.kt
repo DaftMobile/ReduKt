@@ -16,10 +16,10 @@ public class SpyingDispatchScope<out State>(
     private val _history = mutableListOf<Action>()
     override val history: List<Action> = _history
 
-    override val pipeline: Queue<Action> = emptyQueue()
+    override val unverified: Queue<Action> = emptyQueue()
 
     override fun dispatch(action: Action) {
         _history.add(action)
-        pipeline.push(action)
+        unverified.push(action)
     }
 }
