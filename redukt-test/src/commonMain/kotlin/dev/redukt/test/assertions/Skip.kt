@@ -4,14 +4,26 @@ import dev.redukt.core.Action
 import dev.redukt.test.tools.pullOrNull
 import kotlin.test.fail
 
+/**
+ * Skips first unverified action.
+ */
 public fun ActionsAssertScope.skipOneAction(): Unit = skipActions(1)
 
-public fun ActionsAssertScope.skipActions(count: Int): Unit = repeat(count) {
+/**
+ * Skips first [n] unverified actions.
+ */
+public fun ActionsAssertScope.skipActions(n: Int): Unit = repeat(n) {
     unverified.pullOrNull() ?: fail("No action to skip!")
 }
 
-public fun ActionsAssertScope.skipActionsWhile(action: (Action) -> Boolean) {
-    while (unverified.firstOrNull()?.let(action) == true) unverified.pull()
+/**
+ * Skips actions while [predicate] is true.
+ */
+public fun ActionsAssertScope.skipActionsWhile(predicate: (Action) -> Boolean) {
+    while (unverified.firstOrNull()?.let(predicate) == true) unverified.pull()
 }
 
+/**
+ * Skips all unverified actions.
+ */
 public fun ActionsAssertScope.skipOtherActions(): Unit = skipActionsWhile { true }

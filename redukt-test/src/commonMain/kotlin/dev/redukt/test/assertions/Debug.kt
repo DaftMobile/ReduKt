@@ -2,17 +2,25 @@ package dev.redukt.test.assertions
 
 import dev.redukt.core.Action
 
+/**
+ * Returns first unverified action.
+ */
 public val ActionsAssertScope.currentAction: Action? get() = unverified.firstOrNull()
 
+/**
+ * Returns a string that contains list of all dispatched actions. The action recently pulled form the queue is marked with '->'.
+ */
 public val ActionsAssertScope.actionStackString: String
     get() {
-        val processed = (history - unverified)
-        val lastProcessed = processed.lastOrNull()
-        return (processed + unverified).joinToString(separator = "\t\n") {
-            if (it == lastProcessed) "-> $it" else "   $it"
-        }
+        val lastUnverified = history.size - unverified.size - 1
+        return history.mapIndexed { index, action ->
+            if (index == lastUnverified) "-> $action" else "   $action"
+        }.joinToString(separator = "\t\n")
     }
 
+/**
+ * Prints information about dispatched actions based on [actionStackString].
+ */
 public fun ActionsAssertScope.printActionsStack() {
     println(stackDescription)
 }

@@ -16,21 +16,45 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 
+/**
+ * The scope for a single middleware under test.
+ */
 public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
+    /**
+     * A state for a middleware under.
+     */
     public var state: State
 
+    /**
+     * A closure for a middleware under.
+     */
     public var closure: DispatchClosure
 
+    /**
+     * Calls middleware under test with given [action].
+     */
     public fun testAction(action: Action)
 
+    /**
+     * Calls middleware under test with given [action] and joins foreground job.
+     */
     public suspend fun testJobAction(action: ForegroundJobAction)
 
+    /**
+     * Calls middleware under test with given [action] and provides a [scope] for a foreground job.
+     */
     public fun testJobActionIn(scope: CoroutineScope, action: Action): Job
 
+    /**
+     * Runs assertions block on actions passed to the next middleware by the middleware under test.
+     */
     public fun assertNext(block: ActionsAssertScope.() -> Unit)
 }
 
+/**
+ * Calls [MiddlewareTestScope.testAction] for every action from [actions].
+ */
 public fun MiddlewareTestScope<*>.testAllActions(vararg actions: Action): Unit = actions.forEach { testAction(it) }
 
 @PublishedApi
