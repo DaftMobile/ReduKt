@@ -6,5 +6,6 @@ import dev.redukt.core.middleware.Middleware
 
 public fun <State> Middleware<State>.tester(
     initialState: State,
-    initialClosure: DispatchClosure = EmptyDispatchClosure
-): MiddlewareTester<State> = MiddlewareTester(this, initialState, initialClosure)
+    initialClosure: DispatchClosure = EmptyDispatchClosure,
+    strict: Boolean = true,
+): MiddlewareTester<State> = MiddlewareTester(this, initialState, initialClosure, strict)

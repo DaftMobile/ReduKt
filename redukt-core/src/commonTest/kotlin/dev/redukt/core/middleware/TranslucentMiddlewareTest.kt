@@ -4,7 +4,7 @@ import dev.redukt.core.Action
 import dev.redukt.core.KnownAction
 import dev.redukt.core.UnknownAction
 import dev.redukt.test.assertions.expectActionsSequence
-import dev.redukt.test.assertions.expectNoMoreActions
+import dev.redukt.test.assertions.skipActions
 import dev.redukt.test.middleware.testAllActions
 import dev.redukt.test.middleware.tester
 import kotlin.test.Test
@@ -20,12 +20,12 @@ internal class TranslucentMiddlewareTest {
     fun shouldCallPassedBlockOnAnyAction() = tester.test {
         testAllActions(KnownAction.A, UnknownAction, KnownAction.B)
         expectActionsSequence(TestAction, TestAction, TestAction)
-        expectNoMoreActions()
     }
 
     @Test
     fun shouldNextOnAnyAction() = tester.test {
         testAllActions(KnownAction.A, UnknownAction, KnownAction.B)
+        skipActions(count = 3)
         assertNext {
             expectActionsSequence(KnownAction.A, UnknownAction, KnownAction.B)
         }

@@ -18,7 +18,7 @@ internal class DispatchListTest {
 
     @Test
     fun shouldDispatchPassedActionsWithGivenOrder() = DispatchList(actionsList).testExecute(Unit) {
-        expectActionsSequence(ActionA, ActionB, ActionB)
+        expectActionsSequence(ActionA, ActionB, ActionC)
         expectNoMoreActions()
     }
 
