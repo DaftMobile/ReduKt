@@ -1,52 +1,53 @@
 package dev.redukt.test.assertions
 
 import dev.redukt.core.Action
-import dev.redukt.test.tools.pullOnEach
+import dev.redukt.test.tools.pullEach
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
 /**
- * Expects first unverified action to be equal to [action].
+ * Asserts that first unverified action is equal to [action].
  */
-public fun ActionsAssertScope.expectActionEquals(action: Action) {
+public fun ActionsAssertScope.assertActionEquals(action: Action) {
     requiresAtLeasOneAction()
     assertEquals(unverified.pull(), action, "Expected current action to be equal to $action. $stackDescription")
 }
 
 /**
- * Expects single unverified action to be equal to [action].
+ * Asserts that first unverified action is equal to [action] and it is the only one dispatched action.
  */
-public fun ActionsAssertScope.expectSingleActionEquals(action: Action) {
+public fun ActionsAssertScope.assertSingleActionEquals(action: Action) {
     requiresAtLeasOneAction()
     assertEquals(unverified.pull(), action, "Expect single action to be equal to $action. $stackDescription")
     requiresSingle()
 }
 
 /**
- * Expects first unverified action to be an instance of [T]. Also, it applies additional [checks].
+ * Asserts that first unverified action is an instance of type [T]. Also, it applies additional [assertions].
  */
-public inline fun <reified T : Action> ActionsAssertScope.expectActionOfType(checks: (T) -> Unit = {}) {
+public inline fun <reified T : Action> ActionsAssertScope.assertActionOfType(assertions: (T) -> Unit = {}) {
     requiresAtLeasOneAction()
     val action = unverified.pull()
-    assertIs<T>(action, "Expected action is not an instance of type ${T::class.simpleName}!").apply(checks)
+    assertIs<T>(action, "Expected action is not an instance of type ${T::class.simpleName}!").apply(assertions)
 }
 
 /**
- * Expects first unverified action to be an instance of [T]. Also, it applies additional [checks].
+ * Asserts that first unverified action is an instance of [T] and it is the only one dispatched action.
+ * Also, it applies additional [assertions].
  */
-public inline fun <reified T : Action> ActionsAssertScope.expectSingleActionOfType(checks: (T) -> Unit = {}) {
+public inline fun <reified T : Action> ActionsAssertScope.assertSingleActionOfType(assertions: (T) -> Unit = {}) {
     requiresAtLeasOneAction()
     val action = unverified.pull()
-    assertIs<T>(action, "Expected action is not an instance of type ${T::class.simpleName}!").apply(checks)
+    assertIs<T>(action, "Expected action is not an instance of type ${T::class.simpleName}!").apply(assertions)
     requiresSingle()
 }
 
 /**
- * Expects every unverified action to match the [predicate].
+ * Asserts that every unverified action matches the [predicate].
  */
-public fun ActionsAssertScope.expectEvery(message: String? = null, predicate: (Action) -> Boolean) {
-    unverified.pullOnEach { action ->
+public fun ActionsAssertScope.assertEveryAction(message: String? = null, predicate: (Action) -> Boolean) {
+    unverified.pullEach { action ->
         assertTrue(
             predicate(action),
             (message
@@ -56,35 +57,35 @@ public fun ActionsAssertScope.expectEvery(message: String? = null, predicate: (A
 }
 
 /**
- * Expects all dispatched actions count to be equal to [count]. It does not pull any action from unverified queue.
+ * Asserts that all dispatched actions count is equal to [count]. It does not pull any action from unverified queue.
  */
-public fun ActionsAssertScope.expectAllActionsCount(count: Int): Unit = assertEquals(
+public fun ActionsAssertScope.assertAllActionsCount(count: Int): Unit = assertEquals(
     count,
     history.size,
     "Expected all dispatched actions count to be equal $count!"
 )
 
 /**
- * Expects no dispatched actions.
+ * Asserts that there is no dispatched actions.
  */
-public fun ActionsAssertScope.expectNoActions(): Unit = assertTrue(
+public fun ActionsAssertScope.assertNoActions(): Unit = assertTrue(
     history.isEmpty(),
     "Expected no actions! $stackDescription"
 )
 
 /**
- * Expects no unverified actions left.
+ * Asserts that there is no unverified actions left.
  */
-public fun ActionsAssertScope.expectNoMoreActions() {
+public fun ActionsAssertScope.assertNoMoreActions() {
     assertTrue(unverified.isEmpty(), "Expected all actions to be processed! $stackDescription")
 }
 
 /**
- * Expects only this unverified [actions] and no more.
+ * Asserts that there are only [actions] dispatched in given order and no more.
  */
-public inline fun ActionsAssertScope.expectActionsSequence(vararg actions: Action){
-    actions.forEach { expectActionEquals(it) }
-    expectNoMoreActions()
+public inline fun ActionsAssertScope.assertActionSequence(vararg actions: Action) {
+    actions.forEach { assertActionEquals(it) }
+    assertNoMoreActions()
 }
 
 @PublishedApi

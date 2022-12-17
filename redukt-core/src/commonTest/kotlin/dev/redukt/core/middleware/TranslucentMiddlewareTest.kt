@@ -3,7 +3,7 @@ package dev.redukt.core.middleware
 import dev.redukt.core.Action
 import dev.redukt.core.KnownAction
 import dev.redukt.core.UnknownAction
-import dev.redukt.test.assertions.expectActionsSequence
+import dev.redukt.test.assertions.assertActionSequence
 import dev.redukt.test.assertions.skipActions
 import dev.redukt.test.middleware.testAllActions
 import dev.redukt.test.middleware.tester
@@ -19,7 +19,7 @@ internal class TranslucentMiddlewareTest {
     @Test
     fun shouldCallPassedBlockOnAnyAction() = tester.test {
         testAllActions(KnownAction.A, UnknownAction, KnownAction.B)
-        expectActionsSequence(TestAction, TestAction, TestAction)
+        assertActionSequence(TestAction, TestAction, TestAction)
     }
 
     @Test
@@ -27,7 +27,7 @@ internal class TranslucentMiddlewareTest {
         testAllActions(KnownAction.A, UnknownAction, KnownAction.B)
         skipActions(n = 3)
         assertNext {
-            expectActionsSequence(KnownAction.A, UnknownAction, KnownAction.B)
+            assertActionSequence(KnownAction.A, UnknownAction, KnownAction.B)
         }
     }
 

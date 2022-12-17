@@ -1,8 +1,8 @@
 package dev.redukt.thunk.utils
 
 import dev.redukt.core.Action
-import dev.redukt.test.assertions.expectActionsSequence
-import dev.redukt.test.assertions.expectNoMoreActions
+import dev.redukt.test.assertions.assertActionSequence
+import dev.redukt.test.assertions.assertNoMoreActions
 import dev.redukt.test.thunk.testExecute
 import dev.redukt.thunk.utils.DispatchListSupport.JoiningCoroutines
 import io.kotest.matchers.shouldBe
@@ -18,8 +18,8 @@ internal class DispatchListTest {
 
     @Test
     fun shouldDispatchPassedActionsWithGivenOrder() = DispatchList(actionsList).testExecute(Unit) {
-        expectActionsSequence(ActionA, ActionB, ActionC)
-        expectNoMoreActions()
+        assertActionSequence(ActionA, ActionB, ActionC)
+        assertNoMoreActions()
     }
 
     @Test

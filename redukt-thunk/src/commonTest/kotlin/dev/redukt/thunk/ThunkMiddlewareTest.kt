@@ -3,7 +3,7 @@ package dev.redukt.thunk
 import dev.redukt.core.Action
 import dev.redukt.core.coroutines.DispatchCoroutineScope
 import dev.redukt.core.coroutines.SingleForegroundJobRegistry
-import dev.redukt.test.assertions.expectSingleActionEquals
+import dev.redukt.test.assertions.assertSingleActionEquals
 import dev.redukt.test.middleware.tester
 import io.kotest.matchers.sequences.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -48,14 +48,14 @@ internal class ThunkMiddlewareTest {
     @Test
     fun shouldAllowToDispatchFromThunk() = tester.test {
         testAction(Thunk<Unit> { dispatch(TestAction) })
-        expectSingleActionEquals(TestAction)
+        assertSingleActionEquals(TestAction)
     }
 
     @Test
     fun shouldAllowToDispatchFromCoThunk() = runTest {
         tester.test {
             testJobAction(CoThunk<Unit> { dispatch(TestAction) })
-            expectSingleActionEquals(TestAction)
+            assertSingleActionEquals(TestAction)
         }
     }
 

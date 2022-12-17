@@ -3,8 +3,8 @@ package dev.redukt.core.middleware
 import dev.redukt.core.Action
 import dev.redukt.core.KnownAction
 import dev.redukt.core.UnknownAction
-import dev.redukt.test.assertions.expectNoActions
-import dev.redukt.test.assertions.expectSingleActionEquals
+import dev.redukt.test.assertions.assertNoActions
+import dev.redukt.test.assertions.assertSingleActionEquals
 import dev.redukt.test.middleware.tester
 import kotlin.test.Test
 
@@ -18,23 +18,23 @@ internal class ConsumingMiddlewareTest {
     @Test
     fun shouldPassOnUnknownType() = tester.test {
         testAction(UnknownAction)
-        assertNext { expectSingleActionEquals(UnknownAction) }
+        assertNext { assertSingleActionEquals(UnknownAction) }
     }
 
     @Test
     fun shouldConsumeOnConsumableType() = tester.test {
-        assertNext { expectNoActions() }
+        assertNext { assertNoActions() }
     }
 
     @Test
     fun shouldCallBlockWithConsumedAction() = tester.test {
         testAction(KnownAction.A)
-        expectSingleActionEquals(TestAction)
+        assertSingleActionEquals(TestAction)
     }
 
     @Test
     fun shouldNotCallBlockWithUnknownAction() = tester.test {
         testAction(UnknownAction)
-        expectNoActions()
+        assertNoActions()
     }
 }

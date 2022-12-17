@@ -1,8 +1,8 @@
 package dev.redukt.thunk.utils
 
 import dev.redukt.core.Action
-import dev.redukt.test.assertions.expectActionsSequence
-import dev.redukt.test.assertions.expectNoMoreActions
+import dev.redukt.test.assertions.assertActionSequence
+import dev.redukt.test.assertions.assertNoMoreActions
 import dev.redukt.test.thunk.testExecute
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -19,8 +19,8 @@ internal class JoiningCoroutinesDispatchListTest {
     @Test
     fun shouldDispatchPassedActionsWithGivenOrder() = runTest {
         JoiningCoroutinesDispatchList(actionsList, true).testExecute(Unit) {
-            expectActionsSequence(ActionA, ActionB, ActionC)
-            expectNoMoreActions()
+            assertActionSequence(ActionA, ActionB, ActionC)
+            assertNoMoreActions()
         }
     }
 }
