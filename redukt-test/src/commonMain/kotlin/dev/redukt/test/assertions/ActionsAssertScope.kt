@@ -4,10 +4,14 @@ import dev.redukt.core.Action
 import dev.redukt.test.tools.Queue
 
 /**
- * Provides all actions dispatched with a spying component. It is a core API for all assertions.
- * If assertion logically consumes/verifies certain action, it is responsible for pulling it from [unverified] queue.
- * Most of the assertions consume actions. If given assertion does not consume, it should be mentioned in the documentation.
- * Action might be skipped. It means that it is removed from [unverified] without assertion.
+ * It is a core API for all assertions. It provides all actions dispatched with a spying component.
+ * If assertion verifies certain action, it is responsible for pulling it from [unverified] queue.
+ * Queue enforces verifying actions from the oldest to the latest.
+ * Verifying actions is expected behaviour of every assertion,
+ * but there are assertions that check certain conditions without pulling from the queue.
+ * Also, action might be skipped. It means that it is removed from [unverified] without assertion.
+ *
+ * If you want to provide your own assertion check existing assertions source code.
  */
 public interface ActionsAssertScope {
 
@@ -17,7 +21,7 @@ public interface ActionsAssertScope {
     public val history: List<Action>
 
     /**
-     * Contains all dispatched actions queue.
+     * Contains all dispatched actions queue. If action is verified, it must be pulled from this queue.
      */
     public val unverified: Queue<Action>
 }
