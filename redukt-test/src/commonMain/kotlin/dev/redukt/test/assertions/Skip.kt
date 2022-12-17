@@ -1,6 +1,7 @@
 package dev.redukt.test.assertions
 
 import dev.redukt.core.Action
+import dev.redukt.test.tools.pullEach
 import dev.redukt.test.tools.pullOrNull
 import kotlin.test.fail
 
@@ -20,7 +21,7 @@ public fun ActionsAssertScope.skipActions(n: Int): Unit = repeat(n) {
  * Skips actions while [predicate] is true.
  */
 public fun ActionsAssertScope.skipActionsWhile(predicate: (Action) -> Boolean) {
-    while (unverified.firstOrNull()?.let(predicate) == true) unverified.pull()
+    unverified.pullEach { if (!predicate(it)) return }
 }
 
 /**
