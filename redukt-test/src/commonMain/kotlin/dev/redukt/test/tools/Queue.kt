@@ -31,6 +31,13 @@ public interface Queue<T> : Collection<T> {
  */
 public fun <T> Queue<T>.pullOrNull(): T? = firstOrNull()?.let { pull() }
 
+public inline fun <T> Queue<T>.pullEach(block: (T) -> Unit) {
+    while (true) {
+        val action = pullOrNull() ?: return
+        block(action)
+    }
+}
+
 private class ListBasedQueue<T>(private val list: MutableList<T> = mutableListOf()) : Queue<T> {
 
     override fun push(item: T) {
