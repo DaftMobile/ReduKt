@@ -12,18 +12,17 @@ internal class ConsumingMiddlewareTest {
 
     private object TestAction : Action
 
-    private val middleware = consumingMiddleware<Unit, KnownAction> { dispatch(TestAction) }
-    private val tester = middleware.tester(Unit)
+    private val tester = consumingMiddleware<Unit, KnownAction> { dispatch(TestAction) }.tester(Unit)
 
     @Test
     fun shouldPassOnUnknownType() = tester.test {
         testAction(UnknownAction)
-        assertNext { assertSingleActionEquals(UnknownAction) }
+        verifyNext { assertSingleActionEquals(UnknownAction) }
     }
 
     @Test
     fun shouldConsumeOnConsumableType() = tester.test {
-        assertNext { assertNoActions() }
+        verifyNext { assertNoActions() }
     }
 
     @Test

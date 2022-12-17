@@ -49,7 +49,7 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
     /**
      * Runs assertions block on actions passed to the next middleware by the middleware under test.
      */
-    public fun assertNext(block: ActionsAssertScope.() -> Unit)
+    public fun verifyNext(block: ActionsAssertScope.() -> Unit)
 }
 
 /**
@@ -89,7 +89,7 @@ internal class DefaultMiddlewareTestScope<State>(
 
     override val history get() = dispatchSpy.history
 
-    override fun assertNext(block: ActionsAssertScope.() -> Unit) = middlewareSpy.block()
+    override fun verifyNext(block: ActionsAssertScope.() -> Unit) = middlewareSpy.block()
 }
 
 private class SpyingMiddlewareScope<State>(
