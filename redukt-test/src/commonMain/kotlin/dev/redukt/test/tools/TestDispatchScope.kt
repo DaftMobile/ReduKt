@@ -8,9 +8,9 @@ import dev.redukt.core.closure.EmptyDispatchClosure
 import dev.redukt.test.assertions.ActionsAssertScope
 
 /**
- * A mocked DispatchScope that registers dispatched actions.
+ * A DispatchScope for testing purposes that registers dispatched actions.
  */
-public interface MockDispatchScope<out State> :  DispatchScope<State>, ActionsAssertScope {
+public interface TestDispatchScope<out State> :  DispatchScope<State>, ActionsAssertScope {
 
     /**
      * Clears [unverified] and [history].
@@ -19,20 +19,20 @@ public interface MockDispatchScope<out State> :  DispatchScope<State>, ActionsAs
 }
 
 /**
- * Creates a [MockDispatchScope] that provides state and closure from [stateProvider] and [closureProvider].
+ * Creates a [TestDispatchScope] that provides state and closure from [stateProvider] and [closureProvider].
  * On every dispatch [dispatchFunction] is called.
  */
-public fun <State> MockDispatchScope(
+public fun <State> TestDispatchScope(
     stateProvider: () -> State,
     closureProvider: () -> DispatchClosure = { EmptyDispatchClosure },
     dispatchFunction: DispatchFunction = { },
-): MockDispatchScope<State> = MockDispatchScopeImpl(stateProvider, closureProvider, dispatchFunction)
+): TestDispatchScope<State> = TestDispatchScopeImpl(stateProvider, closureProvider, dispatchFunction)
 
-private class MockDispatchScopeImpl<out State>(
+private class TestDispatchScopeImpl<out State>(
     private val stateProvider: () -> State,
     private val closureProvider: () -> DispatchClosure,
     private val dispatchFunction: DispatchFunction,
-) : MockDispatchScope<State> {
+) : TestDispatchScope<State> {
 
     override val closure: DispatchClosure get() = closureProvider()
     override val currentState: State get() = stateProvider()

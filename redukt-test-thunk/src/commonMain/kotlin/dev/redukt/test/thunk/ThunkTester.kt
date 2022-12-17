@@ -4,9 +4,9 @@ import dev.redukt.core.closure.DispatchClosure
 import dev.redukt.core.closure.EmptyDispatchClosure
 import dev.redukt.test.assertions.ActionsAssertScope
 import dev.redukt.test.assertions.assertNoMoreActions
-import dev.redukt.test.tools.ImmutableLocalClosure
-import dev.redukt.test.tools.StubForegroundJobRegistry
-import dev.redukt.test.tools.MockDispatchScope
+import dev.redukt.test.tools.TestLocalClosure
+import dev.redukt.test.tools.TestForegroundJobRegistry
+import dev.redukt.test.tools.TestDispatchScope
 import dev.redukt.thunk.CoThunkAction
 import dev.redukt.thunk.ThunkAction
 
@@ -16,10 +16,10 @@ public fun <State> ThunkAction<State>.testExecute(
     strict: Boolean = true,
     testBlock: ActionsAssertScope.() -> Unit
 ) {
-    val resultingClosure = StubForegroundJobRegistry() + closure
-    MockDispatchScope(
+    val resultingClosure = TestForegroundJobRegistry() + closure
+    TestDispatchScope(
         stateProvider = { state },
-        closureProvider = { ImmutableLocalClosure { resultingClosure } + resultingClosure }
+        closureProvider = { TestLocalClosure { resultingClosure } + resultingClosure }
     ).run {
         execute()
         testBlock()
@@ -33,10 +33,10 @@ public suspend fun <State> CoThunkAction<State>.testExecute(
     strict: Boolean = true,
     testBlock: suspend ActionsAssertScope.() -> Unit
 ) {
-    val initialClosure = StubForegroundJobRegistry() + closure
-    MockDispatchScope(
+    val initialClosure = TestForegroundJobRegistry() + closure
+    TestDispatchScope(
         stateProvider = { state },
-        closureProvider = { ImmutableLocalClosure { initialClosure } + initialClosure }
+        closureProvider = { TestLocalClosure { initialClosure } + initialClosure }
     ).run {
         execute()
         testBlock()

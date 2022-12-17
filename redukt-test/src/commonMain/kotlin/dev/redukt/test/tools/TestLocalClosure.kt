@@ -9,7 +9,7 @@ import dev.redukt.core.closure.LocalSlot
  * Provides LocalClosure with [closureProvider] and ignores mutations from [registerNewSlot].
  */
 @DelicateReduKtApi
-public class ImmutableLocalClosure(private val closureProvider: () -> DispatchClosure) : LocalClosure {
+public class TestLocalClosure(private val closureProvider: () -> DispatchClosure) : LocalClosure {
 
     override val current: DispatchClosure get() = closureProvider()
 

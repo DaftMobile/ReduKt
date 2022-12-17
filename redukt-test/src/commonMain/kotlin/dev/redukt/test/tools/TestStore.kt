@@ -1,4 +1,4 @@
-package dev.redukt.test.store
+package dev.redukt.test.tools
 
 import dev.redukt.core.Action
 import dev.redukt.core.DispatchFunction
@@ -6,7 +6,6 @@ import dev.redukt.core.closure.DispatchClosure
 import dev.redukt.core.closure.EmptyDispatchClosure
 import dev.redukt.core.store.Store
 import dev.redukt.test.assertions.ActionsAssertScope
-import dev.redukt.test.tools.MockDispatchScope
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
@@ -46,7 +45,7 @@ private class TestStoreImpl<State>(
         this.dispatchFunction = dispatchFunction
     }
 
-    private val scope = MockDispatchScope(
+    private val scope = TestDispatchScope(
         stateProvider = state::value,
         closureProvider = ::closure,
         dispatchFunction = { dispatchFunction(it) })

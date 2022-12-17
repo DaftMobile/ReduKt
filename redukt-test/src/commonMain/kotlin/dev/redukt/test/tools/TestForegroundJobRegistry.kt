@@ -9,7 +9,7 @@ import kotlinx.coroutines.Job
  * [ForegroundJobRegistry] that ignores interactions and returns a completed Job on consume.
  */
 @DelicateReduKtApi
-public class StubForegroundJobRegistry : ForegroundJobRegistry {
+public class TestForegroundJobRegistry : ForegroundJobRegistry {
     override fun register(job: Job): Unit = Unit
 
     override fun consumeOrNull(): Job = Job().apply(CompletableJob::complete)

@@ -8,10 +8,10 @@ import dev.redukt.core.coroutines.ForegroundJobAction
 import dev.redukt.core.coroutines.SingleForegroundJobRegistry
 import dev.redukt.core.middleware.Middleware
 import dev.redukt.test.assertions.ActionsAssertScope
-import dev.redukt.test.tools.ImmutableLocalClosure
-import dev.redukt.test.tools.StubForegroundJobRegistry
+import dev.redukt.test.tools.TestLocalClosure
+import dev.redukt.test.tools.TestForegroundJobRegistry
 import dev.redukt.test.tools.Queue
-import dev.redukt.test.tools.MockDispatchScope
+import dev.redukt.test.tools.TestDispatchScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
@@ -83,13 +83,13 @@ private class MiddlewareTestScopeImpl<State>(
 
     override var state: State = initialState
     override var closure: DispatchClosure =
-        ImmutableLocalClosure(::closure) + StubForegroundJobRegistry() + initialClosure
+        TestLocalClosure(::closure) + TestForegroundJobRegistry() + initialClosure
 
     override fun onDispatch(dispatchFunction: DispatchFunction) {
         this.dispatchFunction = dispatchFunction
     }
 
-    private val dispatchSpy = MockDispatchScope(
+    private val dispatchSpy = TestDispatchScope(
         stateProvider = ::state,
         closureProvider = ::closure,
         dispatchFunction = { dispatchFunction(it) }
@@ -121,7 +121,7 @@ private class SpyingMiddlewareScope<State>(
     private val dispatchScope: DispatchScope<State>
 ) : MiddlewareScope<State>, ActionsAssertScope, DispatchScope<State> by dispatchScope {
 
-    private val nextSpy = MockDispatchScope(dispatchScope::currentState, dispatchScope::closure)
+    private val nextSpy = TestDispatchScope(dispatchScope::currentState, dispatchScope::closure)
     override fun next(action: Action) = nextSpy.dispatch(action)
     override val history: List<Action> get() = nextSpy.history
     override val unverified: Queue<Action> get() = nextSpy.unverified

@@ -10,7 +10,7 @@ import dev.redukt.core.coroutines.EmptyForegroundJobRegistry
 import dev.redukt.core.coroutines.ForegroundJobRegistry
 import dev.redukt.core.coroutines.SingleForegroundJobRegistry
 import dev.redukt.core.middleware.Middleware
-import dev.redukt.test.tools.ImmutableLocalClosure
+import dev.redukt.test.tools.TestLocalClosure
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.inspectors.shouldForAll
 import io.kotest.matchers.nulls.shouldNotBeNull
@@ -79,7 +79,7 @@ abstract class BaseStoreTest {
 
     @Test
     fun shouldOverwriteLocalClosureWhenInitialClosureContainsCorrectReplacement() {
-        val replacedLocal = ImmutableLocalClosure { EmptyDispatchClosure }
+        val replacedLocal = TestLocalClosure { EmptyDispatchClosure }
         initialClosure = replacedLocal
         store.closure.find(LocalClosure) shouldBe replacedLocal
         store.closure.find(ForegroundJobRegistry).shouldBeInstanceOf<EmptyForegroundJobRegistry>()
