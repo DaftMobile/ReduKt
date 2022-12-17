@@ -63,7 +63,7 @@ public object EmptyForegroundJobRegistry : ForegroundJobRegistry {
 
 /**
  * A [ForegroundJobRegistry] that allows to register only one [Job] at once.
- * Repeated call to a [register] without a [consumeOrNull] results in a exception.
+ * Repeated call to a [register] without a [consumeOrNull] results in an exception.
  */
 @DelicateReduKtApi
 public class SingleForegroundJobRegistry(

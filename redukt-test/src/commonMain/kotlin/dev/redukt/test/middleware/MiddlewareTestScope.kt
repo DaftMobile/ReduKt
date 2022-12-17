@@ -9,9 +9,9 @@ import dev.redukt.core.coroutines.SingleForegroundJobRegistry
 import dev.redukt.core.middleware.Middleware
 import dev.redukt.test.assertions.ActionsAssertScope
 import dev.redukt.test.tools.ImmutableLocalClosure
-import dev.redukt.test.tools.MockForegroundJobRegistry
+import dev.redukt.test.tools.StubForegroundJobRegistry
 import dev.redukt.test.tools.Queue
-import dev.redukt.test.tools.SpyingDispatchScope
+import dev.redukt.test.tools.MockDispatchScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
@@ -22,12 +22,12 @@ import kotlinx.coroutines.coroutineScope
 public interface MiddlewareTestScope<State> : ActionsAssertScope {
 
     /**
-     * A state for a middleware under.
+     * A state for a middleware under test.
      */
     public var state: State
 
     /**
-     * A closure for a middleware under.
+     * A closure for a middleware under test.
      */
     public var closure: DispatchClosure
 
@@ -66,9 +66,9 @@ internal class DefaultMiddlewareTestScope<State>(
 
     override var state: State = initialState
     override var closure: DispatchClosure =
-        ImmutableLocalClosure(::closure) + MockForegroundJobRegistry() + initialClosure
+        ImmutableLocalClosure(::closure) + StubForegroundJobRegistry() + initialClosure
 
-    private val dispatchSpy = SpyingDispatchScope(::state, ::closure)
+    private val dispatchSpy = MockDispatchScope(::state, ::closure)
     private val middlewareSpy = SpyingMiddlewareScope(dispatchSpy)
     private val middlewareDispatch = middleware(middlewareSpy)
 
@@ -96,7 +96,7 @@ private class SpyingMiddlewareScope<State>(
     private val dispatchScope: DispatchScope<State>
 ) : MiddlewareScope<State>, ActionsAssertScope, DispatchScope<State> by dispatchScope {
 
-    private val nextSpy = SpyingDispatchScope(dispatchScope::currentState, dispatchScope::closure)
+    private val nextSpy = MockDispatchScope(dispatchScope::currentState, dispatchScope::closure)
     override fun next(action: Action) = nextSpy.dispatch(action)
     override val history: List<Action> get() = nextSpy.history
     override val unverified: Queue<Action> get() = nextSpy.unverified
