@@ -22,7 +22,7 @@ public class MiddlewareTester<State>(
      * @param overwriteStrict if it is not null, overwrites [strict] param value for this test call.
      */
     public inline fun test(overwriteStrict: Boolean? = null, block: MiddlewareTestScope<State>.() -> Unit) {
-        DefaultMiddlewareTestScope(middleware, initialState, initialClosure).apply {
+        MiddlewareTestScope(middleware, initialState, initialClosure).apply {
             block()
             if (overwriteStrict ?: strict) assertNoMoreActions()
         }

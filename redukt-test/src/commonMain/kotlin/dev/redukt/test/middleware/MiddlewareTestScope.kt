@@ -32,6 +32,12 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
     public var closure: DispatchClosure
 
     /**
+     * Sets a [dispatchFunction] that will be called on every dispatch called by middleware under test.
+     * Each call replaces previously provided [dispatchFunction].
+     */
+    public fun onDispatch(dispatchFunction: DispatchFunction)
+
+    /**
      * Calls middleware under test with given [action].
      */
     public fun testAction(action: Action)
@@ -57,18 +63,37 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
  */
 public fun MiddlewareTestScope<*>.testAllActions(vararg actions: Action): Unit = actions.forEach { testAction(it) }
 
-@PublishedApi
-internal class DefaultMiddlewareTestScope<State>(
+/**
+ * Creates a [MiddlewareTestScope] for a [middleware] with [initialState], [initialClosure].
+ * [dispatchFunction] will be called on each dispatch called by a [middleware].
+ */
+public fun <State> MiddlewareTestScope(
     middleware: Middleware<State>,
     initialState: State,
     initialClosure: DispatchClosure = EmptyDispatchClosure,
+    dispatchFunction: DispatchFunction = { },
+): MiddlewareTestScope<State> = MiddlewareTestScopeImpl(middleware, initialState, initialClosure, dispatchFunction)
+
+private class MiddlewareTestScopeImpl<State>(
+    middleware: Middleware<State>,
+    initialState: State,
+    initialClosure: DispatchClosure,
+    private var dispatchFunction: DispatchFunction
 ) : MiddlewareTestScope<State> {
 
     override var state: State = initialState
     override var closure: DispatchClosure =
         ImmutableLocalClosure(::closure) + StubForegroundJobRegistry() + initialClosure
 
-    private val dispatchSpy = MockDispatchScope(::state, ::closure)
+    override fun onDispatch(dispatchFunction: DispatchFunction) {
+        this.dispatchFunction = dispatchFunction
+    }
+
+    private val dispatchSpy = MockDispatchScope(
+        stateProvider = ::state,
+        closureProvider = ::closure,
+        dispatchFunction = { dispatchFunction(it) }
+    )
     private val middlewareSpy = SpyingMiddlewareScope(dispatchSpy)
     private val middlewareDispatch = middleware(middlewareSpy)
 
