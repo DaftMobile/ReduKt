@@ -17,14 +17,21 @@ public class MiddlewareTester<State>(
 ) {
 
     /**
-     * Runs a middleware test from a [block].
+     * Runs a middleware test from a [block]. Each test call initiates middleware separately.
      *
-     * @param overwriteStrict if it is not null, overwrites [strict] param value for this test call.
+     * @param strict if it is not null, overwrites [strict] param value for this test call.
+     * @param state provides initial state for this state
+     * @param closure provides initial closure for this state
      */
-    public inline fun test(overwriteStrict: Boolean? = null, block: MiddlewareTestScope<State>.() -> Unit) {
-        MiddlewareTestScope(middleware, initialState, initialClosure).apply {
+    public inline fun test(
+        strict: Boolean? = null,
+        state: State = initialState,
+        closure: DispatchClosure = initialClosure,
+        block: MiddlewareTestScope<State>.() -> Unit
+    ) {
+        MiddlewareTestScope(middleware, state, closure).apply {
             block()
-            if (overwriteStrict ?: strict) assertNoMoreActions()
+            if (strict ?: this@MiddlewareTester.strict) assertNoMoreActions()
         }
     }
 }
