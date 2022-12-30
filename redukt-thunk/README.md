@@ -75,7 +75,7 @@ store.dispatch(action)
 // it results in ActionA and ActionB being dispatched in given order.
 ```
 
-`DispatchList` is a `ThunkAction` so it requires `thunkMiddlewares`.
+`DispatchList` is a `ThunkAction` so it requires `thunkMiddleware`.
 
 ### JoiningCoroutinesDispatchList
 
