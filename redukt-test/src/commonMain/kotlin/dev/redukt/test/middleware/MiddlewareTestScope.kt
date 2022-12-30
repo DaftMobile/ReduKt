@@ -1,20 +1,17 @@
 package dev.redukt.test.middleware
 
-import dev.redukt.core.*
-import dev.redukt.core.closure.*
-import dev.redukt.core.middleware.MiddlewareScope
-import dev.redukt.core.coroutines.DispatchCoroutineScope
-import dev.redukt.core.coroutines.ForegroundJobAction
-import dev.redukt.core.coroutines.SingleForegroundJobRegistry
+import dev.redukt.core.Action
+import dev.redukt.core.DispatchFunction
+import dev.redukt.core.DispatchScope
+import dev.redukt.core.closure.DispatchClosure
+import dev.redukt.core.closure.EmptyDispatchClosure
 import dev.redukt.core.middleware.Middleware
+import dev.redukt.core.middleware.MiddlewareScope
 import dev.redukt.test.assertions.ActionsAssertScope
-import dev.redukt.test.tools.TestLocalClosure
-import dev.redukt.test.tools.TestForegroundJobRegistry
 import dev.redukt.test.tools.Queue
 import dev.redukt.test.tools.TestDispatchScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.coroutineScope
+import dev.redukt.test.tools.TestForegroundJobRegistry
+import dev.redukt.test.tools.TestLocalClosure
 
 /**
  * The scope for a single middleware under test.
@@ -41,16 +38,6 @@ public interface MiddlewareTestScope<State> : ActionsAssertScope {
      * Calls middleware under test with given [action].
      */
     public fun testAction(action: Action)
-
-    /**
-     * Calls middleware under test with given [action] and joins foreground job.
-     */
-    public suspend fun testJobAction(action: ForegroundJobAction)
-
-    /**
-     * Calls middleware under test with given [action] and provides a [scope] for a foreground job.
-     */
-    public fun testJobActionIn(scope: CoroutineScope, action: Action): Job
 
     /**
      * Runs assertions block on actions passed to the next middleware by the middleware under test.
@@ -98,17 +85,6 @@ private class MiddlewareTestScopeImpl<State>(
     private val middlewareDispatch = middleware(middlewareSpy)
 
     override fun testAction(action: Action) = middlewareDispatch(action)
-
-    override suspend fun testJobAction(action: ForegroundJobAction) = coroutineScope<Unit> {
-        testJobActionIn(this, action)
-    }
-
-    override fun testJobActionIn(scope: CoroutineScope, action: Action): Job {
-        val registry = SingleForegroundJobRegistry()
-        closure += registry + DispatchCoroutineScope(scope)
-        middlewareDispatch(action)
-        return registry.consume()
-    }
 
     override val unverified get() = dispatchSpy.unverified
 

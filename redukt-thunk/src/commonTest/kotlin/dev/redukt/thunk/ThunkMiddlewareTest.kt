@@ -4,6 +4,7 @@ import dev.redukt.core.Action
 import dev.redukt.core.coroutines.DispatchCoroutineScope
 import dev.redukt.core.coroutines.SingleForegroundJobRegistry
 import dev.redukt.test.assertions.assertSingleActionEquals
+import dev.redukt.test.middleware.testJobAction
 import dev.redukt.test.middleware.tester
 import io.kotest.matchers.sequences.shouldHaveSize
 import io.kotest.matchers.shouldBe
