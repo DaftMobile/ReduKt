@@ -2,7 +2,6 @@ package dev.redukt.test.assertions
 
 import dev.redukt.core.Action
 import dev.redukt.test.tools.pullEach
-import dev.redukt.test.tools.pullOrNull
 import kotlin.test.fail
 
 /**

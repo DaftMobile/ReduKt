@@ -3,12 +3,12 @@ package dev.redukt.test.tools
 /**
  * Creates empty queue of type [T].
  */
-public fun <T> emptyQueue(): Queue<T> = ListBasedQueue()
+public fun <T> emptyQueue(): Queue<T> = DequeBasedQueue()
 
 /**
  * Creates a queue of type [T] with initial [items] in a given order.
  */
-public fun <T> queueOf(vararg items: T): Queue<T> = ListBasedQueue(items.toMutableList())
+public fun <T> queueOf(vararg items: T): Queue<T> = DequeBasedQueue(ArrayDeque(items.toList()))
 
 /**
  * A [Collection] that mutates in a FIFO manner.
@@ -24,12 +24,13 @@ public interface Queue<T> : Collection<T> {
      * Removes first item from the queue and returns it. If there is no more elements in the queue, it throws an exception.
      */
     public fun pull(): T
+
+    /**
+     * Removes first item from the queue and returns it. If there is no more elements in the queue, it returns null.
+     */
+    public fun pullOrNull(): T?
 }
 
-/**
- * Removes first item from the queue and returns it. If there is no more elements in the queue, it returns null.
- */
-public fun <T> Queue<T>.pullOrNull(): T? = firstOrNull()?.let { pull() }
 
 public inline fun <T> Queue<T>.pullEach(block: (T) -> Unit) {
     while (true) {
@@ -38,21 +39,22 @@ public inline fun <T> Queue<T>.pullEach(block: (T) -> Unit) {
     }
 }
 
-private class ListBasedQueue<T>(private val list: MutableList<T> = mutableListOf()) : Queue<T> {
+private class DequeBasedQueue<T>(private val deque: ArrayDeque<T> = ArrayDeque()) : Queue<T> {
 
     override fun push(item: T) {
-        list.add(item)
+        deque.add(item)
     }
 
-    override fun pull(): T = list.removeFirst()
+    override fun pull(): T = deque.removeFirst()
+    override fun pullOrNull(): T? = deque.removeFirstOrNull()
 
-    override val size: Int get() = list.size
+    override val size: Int get() = deque.size
 
-    override fun isEmpty(): Boolean = list.isEmpty()
+    override fun isEmpty(): Boolean = deque.isEmpty()
 
-    override fun iterator(): Iterator<T> = list.iterator()
+    override fun iterator(): Iterator<T> = deque.iterator()
 
-    override fun containsAll(elements: Collection<T>): Boolean = list.containsAll(elements)
+    override fun containsAll(elements: Collection<T>): Boolean = deque.containsAll(elements)
 
-    override fun contains(element: T): Boolean = list.contains(element)
+    override fun contains(element: T): Boolean = deque.contains(element)
 }
