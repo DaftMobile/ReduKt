@@ -7,7 +7,7 @@ provides very similar API.
 
 Testing thunks is very similar to testing middlewares
 described [here](../redukt-test/README.md#testing-middlewares-basics),
-and you should start there. Examples below shows simple example of testing thunks:
+and you should start there. Simple examples below shows thunk testing flow:
 
 * For `Thunk`:
 
