@@ -1,10 +1,10 @@
 package dev.redukt.test.tools
 
 import dev.redukt.core.Action
-import dev.redukt.core.DispatchFunction
 import dev.redukt.core.closure.DispatchClosure
 import dev.redukt.core.closure.EmptyDispatchClosure
 import dev.redukt.core.store.Store
+import dev.redukt.test.MutableDispatchScope
 import dev.redukt.test.assertions.ActionsAssertScope
 import dev.redukt.test.assertions.assertNoMoreActions
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,11 +12,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 /**
  * ReduKt store for testing purposes that registers dispatched actions.
  */
-public interface TestStore<State> : Store<State> {
+public interface TestStore<State> : MutableDispatchScope<State>, Store<State> {
 
     override val state: MutableStateFlow<State>
-
-    override var closure: DispatchClosure
 
     /**
      * If it is true, every [test] call must process all [ActionsAssertScope.unverified] actions.
@@ -24,21 +22,11 @@ public interface TestStore<State> : Store<State> {
     public val strict: Boolean
 
     /**
-     * Sets a [dispatchFunction] that will be called on every dispatch. Each call replaces previously provided [dispatchFunction].
-     */
-    public fun onDispatch(dispatchFunction: DispatchFunction)
-
-    /**
      * Runs test with [block] that verifies dispatched actions with this store.
      *
      * @param strict if it is not null, overwrites [strict] param value for this test call.
      */
     public fun test(strict: Boolean? = null, block: ActionsAssertScope.() -> Unit)
-
-    /**
-     * Clears dispatched actions.
-     */
-    public fun reset()
 }
 
 /**
@@ -48,38 +36,38 @@ public interface TestStore<State> : Store<State> {
 public fun <State> TestStore(
     initialState: State,
     initialClosure: DispatchClosure = EmptyDispatchClosure,
+    initialOnDispatch: MutableDispatchScope<State>.(Action) -> Unit = { },
     strict: Boolean = true,
-): TestStore<State> = TestStoreImpl(initialState, initialClosure, strict)
+): TestStore<State> = TestStoreImpl(initialState, initialClosure, initialOnDispatch, strict)
 
 private class TestStoreImpl<State>(
     initialState: State,
-    override var closure: DispatchClosure,
+    initialClosure: DispatchClosure,
+    initialOnDispatch: MutableDispatchScope<State>.(Action) -> Unit,
     override val strict: Boolean
 ) : TestStore<State> {
 
     override val state: MutableStateFlow<State> = MutableStateFlow(initialState)
 
-    var dispatchFunction: DispatchFunction = { }
-    override fun onDispatch(dispatchFunction: DispatchFunction) {
-        this.dispatchFunction = dispatchFunction
-    }
-
-    private val scope = TestDispatchScope(
-        stateProvider = state::value,
-        closureProvider = ::closure,
-        dispatchFunction = { dispatchFunction(it) }
-    )
+    private val scope = TestDispatchScope(Unit, initialClosure, initialOnDispatch = { initialOnDispatch(it) })
+    override fun onDispatch(block: MutableDispatchScope<State>.(Action) -> Unit) = scope.onDispatch { block(it) }
 
     override fun dispatch(action: Action): Unit = scope.dispatch(action)
 
-    override val currentState: State get() = state.value
+    override var currentState: State
+        get() = state.value
+        set(value) {
+            state.value = value
+        }
+
+    override var closure: DispatchClosure
+        get() = scope.closure
+        set(value) {
+            scope.closure = value
+        }
 
     override fun test(strict: Boolean?, block: ActionsAssertScope.() -> Unit) {
         scope.block()
         if (strict ?: this.strict) scope.assertNoMoreActions()
-    }
-
-    override fun reset() {
-        scope.reset()
     }
 }

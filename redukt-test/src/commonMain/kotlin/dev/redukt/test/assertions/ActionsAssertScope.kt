@@ -21,7 +21,12 @@ public interface ActionsAssertScope {
     public val history: List<Action>
 
     /**
-     * Contains all dispatched actions queue. If action is verified, it must be pulled from this queue.
+     * Contains all unverified dispatched actions queue. If action is verified, it must be pulled from this queue.
      */
     public val unverified: Queue<Action>
+
+    /**
+     * Clears [history] and [unverified].
+     */
+    public fun clearActionsHistory()
 }
