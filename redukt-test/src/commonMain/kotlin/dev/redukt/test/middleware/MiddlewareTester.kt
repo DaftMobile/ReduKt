@@ -20,8 +20,8 @@ public class MiddlewareTester<State>(
      * Runs a middleware test from a [block]. Each test call initiates middleware separately.
      *
      * @param strict if it is not null, overwrites [strict] param value for this test call.
-     * @param state provides initial state for this state
-     * @param closure provides initial closure for this state
+     * @param state provides initial state for this test
+     * @param closure provides initial closure for this test
      */
     public inline fun test(
         strict: Boolean? = null,
