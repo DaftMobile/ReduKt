@@ -13,7 +13,7 @@ public class MiddlewareTester<State>(
     public val middleware: Middleware<State>,
     public val initialState: State,
     public val initialClosure: DispatchClosure = EmptyDispatchClosure,
-    public val strict: Boolean
+    public val strict: Boolean = true
 ) {
 
     /**
