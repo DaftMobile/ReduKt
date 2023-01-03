@@ -78,7 +78,7 @@ fun testB() = tester.test {
     // ...
     testAction(ActionB)
     assertActionEquals(ActionC) // expects ActionC to be dispatched first by middleware under test
-    assertActionEquals(ActionD) // expects ActionD to be dispatched last by middleware under test
+    assertActionEquals(ActionD) // expects ActionD to be dispatched second by middleware under test
 }
 
 @Test
@@ -154,7 +154,7 @@ You can also verify dispatched actions:
 ```kotlin
 store.test {
     assertActionEquals(ActionA) // expects ActionA to be dispatched first with this store
-    assertActionEquals(ActionB) // expects ActionB to be dispatched last with this store
+    assertActionEquals(ActionB) // expects ActionB to be dispatched second with this store
 }
 ```
 

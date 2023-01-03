@@ -7,7 +7,7 @@ Adaptation of [Redux thunk](https://redux.js.org/usage/writing-logic-thunks) in 
 In ReduKt every thunk is an action that has some logic attached to it and evaluated by `thunkMiddleware`.
 There are 2 types of thunks:
 
-* Associated with regular function that are executed by `thunkMiddleware` in a blocking manner.
+* Associated with regular function that is executed by `thunkMiddleware` in a blocking manner.
 
 ```kotlin
 interface ThunkAction<State> : Action {
@@ -15,7 +15,7 @@ interface ThunkAction<State> : Action {
 }
 ```
 
-* Associated with suspending function that are executed by `thunkMiddleware` in a foreground coroutine.
+* Associated with suspending function that is executed by `thunkMiddleware` in a foreground coroutine.
 
 ```kotlin
 interface CoThunkAction<State> : ForegroundJobAction {
