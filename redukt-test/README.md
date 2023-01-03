@@ -27,7 +27,7 @@ Tester provides operations to change state or closure dynamically like this:
 ```kotlin
 @Test
 fun test() = tester.test {
-    state = AppState(hasNetwork = false)
+    currentState = AppState(hasNetwork = false)
     clousre += GlobalKoinDi
     // ...
 }
@@ -43,7 +43,7 @@ This properties might be changed in response to actions dispatched by a middlewa
 fun test() = tester.test {
     onDispatch { action ->
         when (action) {
-            is FetchBook -> state = AppState(books = listOf(Book()))
+            is FetchBook -> currentState = AppState(books = listOf(Book()))
         }
     }
     // ...
@@ -135,16 +135,17 @@ fun test() = runTest {
 ReduKt Test contains a `TestStore` that can be injected into components that depends on a store.
 It provides a similar API to a [middleware tester](#testing-middlewares-basics). 
 
-You can dynamically change state,
-closure and reactions on dispatch.
+You can dynamically change state, closure and reactions on dispatch.
 
 ```kotlin
 val store = TestStore(initialState = AppState(hasNetowork = false), initialClosure = EmptyDispatchClosure)
 
-store.state.value = AppState(hasNetwork = true)
-store.closure = GlobalKoinDi
-store.onDispatch {
-    // ...
+store.currentState = AppState(hasNetwork = true)
+store.closure += GlobalKoinDi
+store.onDispatch { action ->
+    when (action) {
+        is FetchBook -> currentState = AppState(books = listOf(Book()))
+    }
 }
 ```
 
