@@ -54,6 +54,11 @@ public interface LocalClosure : DispatchClosure.Element {
     override val key: Key get() = Key
 
     /**
+     * Sets a [provider] that is a source of an *original* closure.
+     */
+    public fun setBaseClosureProvider(provider: () -> DispatchClosure)
+
+    /**
      * Returns current [DispatchClosure] with respect of local changes.
      */
     public val current: DispatchClosure
@@ -93,8 +98,9 @@ public interface LocalClosure : DispatchClosure.Element {
  * @see [LocalClosure]
  */
 @DelicateReduKtApi
-public fun LocalClosure(baseClosureProvider: () -> DispatchClosure): LocalClosure =
-    CoreLocalClosure(baseClosureProvider)
+public fun LocalClosure(
+    baseClosureProvider: () -> DispatchClosure = { EmptyDispatchClosure }
+): LocalClosure = CoreLocalClosure(baseClosureProvider)
 
 /**
  * Identifies single local change.
@@ -118,11 +124,16 @@ public fun <T> DispatchScope<*>.withLocalClosure(closure: DispatchClosure, block
 }
 
 private class CoreLocalClosure(
-    private val baseClosureProvider: () -> DispatchClosure
+    private var baseClosureProvider: () -> DispatchClosure = { EmptyDispatchClosure }
 ) : LocalClosure {
 
     private val localSlots = linkedMapOf<LocalSlot, DispatchClosure>()
     private var _current: DispatchClosure? = null
+
+    override fun setBaseClosureProvider(provider: () -> DispatchClosure) {
+        baseClosureProvider = provider
+    }
+
     override val current: DispatchClosure get() = _current ?: baseClosureProvider()
 
     override fun registerNewSlot(closure: DispatchClosure): LocalSlot = LocalSlot().also {
