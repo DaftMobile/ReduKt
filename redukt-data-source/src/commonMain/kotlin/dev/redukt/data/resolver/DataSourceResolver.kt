@@ -1,11 +1,13 @@
-package dev.redukt.data
+package dev.redukt.data.resolver
 
 import dev.redukt.core.DispatchScope
 import dev.redukt.core.closure.DispatchClosure
+import dev.redukt.data.DataSource
+import dev.redukt.data.PureDataSourceKey
 
 public interface DataSourceResolver : DispatchClosure.Element {
 
-    public suspend fun <T : DataSource<*, *>> resolve(key: DataSourceKey<T>): T
+    public fun <T : DataSource<*, *>> resolve(key: PureDataSourceKey<T>): T
 
     override val key: Key get() = Key
 

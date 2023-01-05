@@ -4,12 +4,12 @@ import dev.redukt.core.Action
 import dev.redukt.core.coroutines.ForegroundJobAction
 
 public data class DataSourceCall<Request, Response>(
-    val key: DataSourceKey<DataSource<Request, Response>>,
+    val key: PureDataSourceKey<DataSource<Request, Response>>,
     val request: Request
 ) : ForegroundJobAction
 
 public data class DataSourceAction<Request, Response>(
-    val key: DataSourceKey<DataSource<Request, Response>>,
+    val key: PureDataSourceKey<DataSource<Request, Response>>,
     val payload: DataSourcePayload<Request, Response>,
 ) : Action
 

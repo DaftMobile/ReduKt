@@ -1,4 +1,6 @@
-package dev.redukt.data
+package dev.redukt.data.adapter
+
+import dev.redukt.data.DataSource
 
 public fun <Request, OriginRequest, Response> DataSource<OriginRequest, Response>.adaptRequest(
     transform: suspend (Request) -> OriginRequest
