@@ -24,6 +24,6 @@ include(
     ":redukt-koin",
     ":redukt-test",
     ":redukt-test-thunk",
-    ":redukt-data-source",
+    ":redukt-data",
     ":redukt-compose"
 )
