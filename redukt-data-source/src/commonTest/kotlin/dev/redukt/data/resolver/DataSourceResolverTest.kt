@@ -7,7 +7,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import kotlin.test.Test
 
-internal class TypeSafeDataSourceResolverTest {
+internal class DataSourceResolverTest {
 
     private object IntToString : DataSourceKey<Int, String>
     private object FloatToString : DataSourceKey<Float, String>
@@ -23,13 +23,13 @@ internal class TypeSafeDataSourceResolverTest {
 
     @Test
     fun shouldFailToResolveMissingDataSource() {
-        val resolver = TypeSafeDataSourceResolver { }
+        val resolver = DataSourceResolver { }
         shouldThrow<MissingDataSourceException> { resolver.resolve(IntToString) }
     }
 
     @Test
     fun shouldReturnProperlyDataSourcesWhenMultipleKeys() {
-        val resolver = TypeSafeDataSourceResolver {
+        val resolver = DataSourceResolver {
             IntToString resolveBy { intToStringSource }
             FloatToString resolveBy { floatToStringSource }
             DoubleToString resolveBy { doubleToStringSource }
@@ -41,7 +41,7 @@ internal class TypeSafeDataSourceResolverTest {
 
     @Test
     fun shouldReturnDataSourcesProperlyWhenMultipleDataSourcesWithTheSameSignature() {
-        val resolver = TypeSafeDataSourceResolver {
+        val resolver = DataSourceResolver {
             FloatToString resolveBy { floatToStringSource }
             AltFloatToString resolveBy { altFloatToStringSource }
         }
@@ -51,7 +51,7 @@ internal class TypeSafeDataSourceResolverTest {
 
     @Test
     fun shouldCallProviderOnEachResolve() {
-        val resolver = TypeSafeDataSourceResolver {
+        val resolver = DataSourceResolver {
             IntToString resolveBy { DataSourceMock(Int::toString) }
         }
         resolver.resolve(IntToString) shouldNotBeSameInstanceAs resolver.resolve(IntToString)

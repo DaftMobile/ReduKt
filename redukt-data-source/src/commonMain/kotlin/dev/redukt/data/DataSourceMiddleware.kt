@@ -5,6 +5,19 @@ import dev.redukt.core.middleware.Middleware
 import dev.redukt.core.middleware.consumingDispatch
 import dev.redukt.data.resolver.dataSourceResolver
 
+/**
+ * Consumes [DataSourceCall] and launches a [DataSource] call in a foreground coroutine.
+ *
+ * It requires [dev.redukt.data.resolver.DataSourceResolver] in a dispatch closure that provides [DataSource]s.
+ * If [DataSource] with [DataSourceCall.key] cannot be resolved it throws an exception with no dispatched actions.
+ *
+ * The foreground coroutine dispatches:
+ * * [DataSourceAction] with [DataSourcePayload.Started] before a foreground coroutine launch.
+ * * [DataSourceAction] with [DataSourcePayload.Success] after successful [DataSource] call.
+ * * [DataSourceAction] with [DataSourcePayload.Failure] after failure [DataSource] call.
+ * * [DataSourceAction] with [DataSourcePayload.Failure] with CancellationException after cancellation.
+ *
+ */
 public val dataSourceMiddleware: Middleware<*> = {
     val resolver = dataSourceResolver
     consumingDispatch<DataSourceCall<Any?, Any?>> { action ->
