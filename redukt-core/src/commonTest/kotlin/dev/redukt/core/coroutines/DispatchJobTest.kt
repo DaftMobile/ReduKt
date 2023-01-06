@@ -47,7 +47,7 @@ class DispatchJobTest {
     @Test
     fun launchInForegroundShouldLaunchForegroundJob() = runTest {
         closure = LocalClosure { registry + DispatchCoroutineScope(this) }
-        val job = flowOf(1, 2, 3).launchInForeground(scope)
+        val job = flowOf(1, 2, 3).launchInForegroundOf(scope)
         registry.consumeOrNull() shouldBe job
     }
 
@@ -57,7 +57,7 @@ class DispatchJobTest {
         val elements = mutableListOf<Int>()
         val job = flowOf(1, 2, 3)
             .onEach(elements::add)
-            .launchInForeground(scope)
+            .launchInForegroundOf(scope)
         job.join()
         elements shouldBe listOf(1, 2, 3)
     }

@@ -1,3 +1,4 @@
+@file:Suppress("UNNECESSARY_INLINE")
 package dev.redukt.core.closure
 
 import dev.redukt.core.DispatchScope
@@ -112,15 +113,30 @@ public class LocalSlot
  * Returns [LocalClosure] from this scope.
  */
 @DelicateReduKtApi
-public val DispatchScope<*>.localClosure: LocalClosure get() = closure[LocalClosure]
+public inline val DispatchScope<*>.localClosure: LocalClosure get() = closure.local
+
+/**
+ * Returns [LocalClosure] from this closure.
+ */
+@DelicateReduKtApi
+public inline val DispatchClosure.local: LocalClosure get() = this[LocalClosure]
 
 /**
  * Changes [LocalClosure] with a given [closure] for a time of [block] execution.
  */
 @DelicateReduKtApi
-public fun <T> DispatchScope<*>.withLocalClosure(closure: DispatchClosure, block: DispatchScope<*>.() -> T): T {
-    val slot = localClosure.registerNewSlot(closure)
-    return block().also { localClosure.removeSlot(slot) }
+public fun <T> DispatchScope<*>.withLocalClosure(
+    closure: DispatchClosure,
+    block: DispatchScope<*>.() -> T
+): T = this.closure.withLocalClosure(closure) { block() }
+
+@DelicateReduKtApi
+/**
+ * Changes [LocalClosure] with a given [closure] for a time of [block] execution.
+ */
+public fun <T> DispatchClosure.withLocalClosure(closure: DispatchClosure, block: DispatchClosure.() -> T): T {
+    val slot = local.registerNewSlot(closure)
+    return block().also { local.removeSlot(slot) }
 }
 
 private class CoreLocalClosure(
