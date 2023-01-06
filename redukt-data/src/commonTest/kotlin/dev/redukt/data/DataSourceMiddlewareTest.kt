@@ -1,7 +1,7 @@
 package dev.redukt.data
 
+import dev.redukt.data.resolver.DataSourceResolver
 import dev.redukt.data.resolver.MissingDataSourceException
-import dev.redukt.data.resolver.TypeSafeDataSourceResolver
 import dev.redukt.test.assertions.*
 import dev.redukt.test.middleware.testJobAction
 import dev.redukt.test.middleware.testJobActionIn
@@ -25,7 +25,7 @@ internal class DataSourceMiddlewareTest {
 
     @Test
     fun shouldEmitStartOnDataSourceCallStart() = runTest {
-        val resolver = TypeSafeDataSourceResolver {
+        val resolver = DataSourceResolver {
             IntToStringDataSource resolveBy { DataSourceMock(Int::toString) }
         }
         tester.test(closure = resolver) {
@@ -37,7 +37,7 @@ internal class DataSourceMiddlewareTest {
 
     @Test
     fun shouldEmitSuccessOnDataSourceCallWhenDataSourceProperlyCompletes() = runTest {
-        val resolver = TypeSafeDataSourceResolver {
+        val resolver = DataSourceResolver {
             IntToStringDataSource resolveBy { DataSourceMock(Int::toString) }
         }
         tester.test(closure = resolver) {
@@ -50,7 +50,7 @@ internal class DataSourceMiddlewareTest {
     @Test
     fun shouldEmitFailureOnDataSourceCallWheDataSourceFails() = runTest {
         val exception = Exception("Operation failed!")
-        val resolver = TypeSafeDataSourceResolver {
+        val resolver = DataSourceResolver {
             IntToStringDataSource resolveBy { DataSourceMock { throw exception }}
         }
         tester.test(closure = resolver) {
@@ -62,7 +62,7 @@ internal class DataSourceMiddlewareTest {
 
     @Test
     fun shouldNotPassDataSourceCallForward() = runTest {
-        val resolver = TypeSafeDataSourceResolver {
+        val resolver = DataSourceResolver {
             IntToStringDataSource resolveBy { DataSourceMock(Int::toString) }
         }
         tester.test(closure = resolver, strict = false) {
@@ -73,7 +73,7 @@ internal class DataSourceMiddlewareTest {
 
     @Test
     fun shouldResultInFailureWhenCancellationExceptionThrown() {
-        val resolver = TypeSafeDataSourceResolver {
+        val resolver = DataSourceResolver {
             IntToStringDataSource resolveBy { DataSourceMock { awaitCancellation() } }
         }
         tester.test(closure = resolver) {
@@ -93,7 +93,7 @@ internal class DataSourceMiddlewareTest {
     @Test
     fun shouldFailWhenNoDataSourceWithGivenKey() = runTest {
         shouldThrow<MissingDataSourceException> {
-            tester.test(closure = TypeSafeDataSourceResolver { }) {
+            tester.test(closure = DataSourceResolver { }) {
                 testJobAction(DataSourceCall(IntToStringDataSource, 3))
             }
         }
