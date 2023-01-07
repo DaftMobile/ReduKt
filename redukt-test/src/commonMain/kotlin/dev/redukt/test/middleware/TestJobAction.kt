@@ -19,7 +19,9 @@ public suspend fun MiddlewareTestScope<*>.testJobAction(action: ForegroundJobAct
  */
 public fun MiddlewareTestScope<*>.testJobActionIn(scope: CoroutineScope, action: ForegroundJobAction): Job {
     val registry = SingleForegroundJobRegistry()
+    val prevClosure = closure
     closure += registry + DispatchCoroutineScope(scope)
     testAction(action)
+    closure = prevClosure
     return registry.consume()
 }

@@ -28,7 +28,7 @@ private class TestDispatchScopeImpl<State>(
     private var onDispatch: MutableDispatchScope<State>.(Action) -> Unit,
 ) : TestDispatchScope<State> {
 
-    override var closure: DispatchClosure = TestLocalClosure() + TestForegroundJobRegistry() + initialClosure
+    override var closure: DispatchClosure = SkipCoroutinesClosure() + initialClosure
 
     init {
         localClosure.setBaseClosureProvider(::closure)
