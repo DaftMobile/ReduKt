@@ -3,11 +3,16 @@ package dev.redukt.compose
 
 import androidx.compose.runtime.*
 import dev.redukt.core.DispatchFunction
+import dev.redukt.core.coroutines.ForegroundJobAction
+import dev.redukt.core.coroutines.dispatchJob
+import dev.redukt.core.coroutines.dispatchJobIn
+import dev.redukt.core.coroutines.joinDispatchJob
 import dev.redukt.core.store.Selector
 import dev.redukt.core.store.SelectorFunction
 import dev.redukt.core.store.Store
 import dev.redukt.core.store.select
-import kotlin.properties.ReadOnlyProperty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 
 /**
  * Creates static [CompositionLocal] for a [Store] with a given state [T].
@@ -16,32 +21,81 @@ public fun <T> localStoreOf(
     defaultFactory: () -> Store<T> = { null!! }
 ): ProvidableCompositionLocal<Store<T>> = staticCompositionLocalOf(defaultFactory = defaultFactory)
 
-public val <T> CompositionLocal<Store<T>>.dispatch: ReadOnlyProperty<Any?, DispatchFunction>
-    @Composable get() = current.let { remember(it) { ReadOnlyProperty { _, _ -> it::dispatch } } }
+/**
+ * Returns a dispatch function for a composition local store.
+ */
+public inline val <AppState> CompositionLocal<Store<AppState>>.dispatch: DispatchFunction
+    @Composable
+    get() {
+        val store = current
+        return remember { { store.dispatch(it) } }
+    }
+
+/**
+ * Returns a dispatchJob function for a composition local store.
+ */
+public inline val <AppState> CompositionLocal<Store<AppState>>.dispatchJob: (ForegroundJobAction) -> Job
+    @Composable
+    get() {
+        val store = current
+        return remember { { store.dispatchJob(it) } }
+    }
+
+/**
+ * Returns a [dispatchJobIn] function for a composition local store.
+ */
+public inline val <AppState> CompositionLocal<Store<AppState>>.dispatchJobIn: (ForegroundJobAction, CoroutineScope) -> Unit
+    @Composable
+    get() {
+        val store = current
+        return remember { { action, scope -> store.dispatchJobIn(action, scope) } }
+    }
+
+
+/**
+ * Returns a [joinDispatchJob] function for a composition local store.
+ */
+public inline val <AppState> CompositionLocal<Store<AppState>>.joinDispatchJob: suspend (ForegroundJobAction) -> Unit
+    @Composable
+    get() {
+        val store = current
+        return remember { { store.joinDispatchJob(it) } }
+    }
+
+
+
+/**
+ * Returns a [dispatchJobIn] function for a composition local store. It provides a [CoroutineScope] from [rememberCoroutineScope].
+ * It results in an automatic cancellation of any foreground coroutine triggered by this function at a composable disposal.
+ */
+public inline val <AppState> CompositionLocal<Store<AppState>>.dispatchJobInHere: (ForegroundJobAction) -> Unit
+    @Composable
+    get() {
+        val store = current
+        val scope = rememberCoroutineScope()
+        return remember { { store.dispatchJobIn(it, scope) } }
+    }
 
 /**
  * Selects part of a state using given [selector] as a Compose [State].
  */
 @Composable
-public fun <AppState, Selected> CompositionLocal<Store<AppState>>.select(
+public fun <AppState, Selected> Store<AppState>.selectAsState(
     selector: Selector<AppState, Selected>
-): State<Selected> = current.let { store ->
-    remember(store) { store.select(selector) }.collectAsState()
-}
+): State<Selected> = remember(selector) { select(selector) }.collectAsState()
 
 /**
- * Selects part of a state using given [selectorFunction] as a Compose [State].
+ * Selects part of a state as a Compose [State] from composition local store using [selectorFunction].
  */
 @Composable
-public fun <AppState, Selected> CompositionLocal<Store<AppState>>.select(
+public fun <AppState, Selected> Store<AppState>.selectAsState(
     selectorFunction: SelectorFunction<AppState, Selected>,
-): State<Selected> = current.let { store ->
-    remember(store) { store.select(selectorFunction) }.collectAsState()
-}
-
+): State<Selected> = remember(selectorFunction) { select(selectorFunction) }.collectAsState()
 
 /**
- * Returns state as a Compose [State]
+ * Selects part of a state as a Compose [State] from composition local store using [selector].
  */
-public val <AppState> CompositionLocal<Store<AppState>>.state: State<AppState>
-    @Composable get() = current.state.collectAsState()
+@Composable
+public fun <AppState, Selected> CompositionLocal<Store<AppState>>.selectAsState(
+    selector: Selector<AppState, Selected>
+): State<Selected> = current.selectAsState(selector)
