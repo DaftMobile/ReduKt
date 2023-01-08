@@ -2,6 +2,7 @@ package dev.redukt.data
 
 import dev.redukt.core.DispatchScope
 import dev.redukt.data.resolver.DataSourceResolver
+import dev.redukt.data.resolver.MissingDataSourceException
 import dev.redukt.data.resolver.dataSourceResolver
 
 /**
@@ -25,6 +26,8 @@ public typealias DataSourceKey<Request, Response> = PureDataSourceKey<DataSource
 
 /**
  * Calls a [DataSource] resolved with a [DataSourceResolver] from a [DispatchScope.closure].
+ *
+ * @throws MissingDataSourceException when [DataSource] with given [key] could not be resolved.
  */
 public suspend fun <Request, Response> DispatchScope<*>.callDataSource(
     key: PureDataSourceKey<DataSource<Request, Response>>,
@@ -33,8 +36,10 @@ public suspend fun <Request, Response> DispatchScope<*>.callDataSource(
 
 /**
  * Resolves a [DataSource] identified by a given [key] and calls with a given [request].
+ *
+ * @throws MissingDataSourceException when [DataSource] with given [key] could not be resolved.
  */
 public suspend fun <Request, Response> DataSourceResolver.call(
     key: PureDataSourceKey<DataSource<Request, Response>>,
     request: Request
-): Response = this.resolve(key).call(request)
+): Response = this.resolve(key)?.call(request) ?: throw MissingDataSourceException(key)

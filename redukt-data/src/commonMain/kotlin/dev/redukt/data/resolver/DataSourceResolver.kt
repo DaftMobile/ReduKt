@@ -13,7 +13,7 @@ public interface DataSourceResolver : DispatchClosure.Element {
     /**
      * Returns a [DataSource] for a given [key]
      */
-    public fun <T : DataSource<*, *>> resolve(key: PureDataSourceKey<T>): T
+    public fun <T : DataSource<*, *>> resolve(key: PureDataSourceKey<T>): T?
 
     override val key: Key get() = Key
 
@@ -24,6 +24,17 @@ public interface DataSourceResolver : DispatchClosure.Element {
  * Returns [DataSourceResolver] instance associated with a store. It depends on [DataSourceResolver] element injected into the closure.
  */
 public val DispatchScope<*>.dataSourceResolver: DataSourceResolver get() = closure[DataSourceResolver]
+
+/**
+ * Creates a [DataSourceResolver] with a [config] with type-safe DSL.
+ */
+public fun DataSourceResolver(
+    config: TypeSafeResolverConfigScope.() -> Unit
+): DataSourceResolver = TypeSafeDataSourceResolver(config)
+
+public class MissingDataSourceException(
+    key: PureDataSourceKey<*>
+) : Exception("DataSource with $key is not defined in the DataSourceResolver!")
 
 @DslMarker
 public annotation class TypeSafeResolverConfigMarker
@@ -36,22 +47,13 @@ public interface TypeSafeResolverConfigScope {
     public infix fun <T : DataSource<*, *>> PureDataSourceKey<T>.resolveBy(provider: () -> T)
 }
 
-/**
- * Creates a [DataSourceResolver] with a [config] with type-safe DSL.
- */
-public fun DataSourceResolver(config: TypeSafeResolverConfigScope.() -> Unit): DataSourceResolver =
-    TypeSafeDataSourceResolver(config)
-
-internal class MissingDataSourceException(key: PureDataSourceKey<*>) :
-    Exception("DataSource with $key is not defined in the DataSourceResolver!")
-
 private class TypeSafeDataSourceResolver(resolveConfig: TypeSafeResolverConfigScope.() -> Unit) : DataSourceResolver {
 
     private val typeSafeResolve = TypeSafeResolverConfigScopeImpl().apply(resolveConfig)
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : DataSource<*, *>> resolve(key: PureDataSourceKey<T>): T {
-        return typeSafeResolve.providers[key]?.invoke() as? T ?: throw MissingDataSourceException(key)
+    override fun <T : DataSource<*, *>> resolve(key: PureDataSourceKey<T>): T? {
+        return typeSafeResolve.providers[key]?.invoke() as? T
     }
 }
 
