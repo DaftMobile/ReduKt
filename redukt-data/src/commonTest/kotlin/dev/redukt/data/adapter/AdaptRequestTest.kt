@@ -13,7 +13,7 @@ internal class AdaptRequestTest {
     fun shouldReturnDataSourceThatTransformsRequestProperly() = runTest {
         val ds = DataSourceMock(String::reversed)
             .adaptRequest(Float::toString)
-        assertEquals("0.1", ds.call(1.0f))
         assertEquals("2.1", ds.call(1.2f))
+        assertEquals("3.1", ds.call(1.3f))
     }
 }
