@@ -87,10 +87,12 @@ It results in:
 1. `DataSources.FetchBook` is resolved with `DataSourceResolver` from the closure. If `DataSourceResolver`
    or `DataSource` with given key is missing, exception is thrown and flow ends here.
 2. `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Started("book-1"))` is dispatched.
-3. Foreground coroutine is launched. `dispatch` method returns here. Rest of the flow happens in the coroutine.
-4. `DataSource` is called with "book-1". 
-   * If it fails, `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Failure("book-1", exception))` is dispatched.
-   * If it returns response properly, `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Success("book-1", response))`.
+3.  A Foreground coroutine is launched. `dispatch` method returns here. The rest of the flow happens in the coroutine.
+4. `DataSource` is called with "book-1".
+    * If it fails, `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Failure("book-1", exception))` is
+      dispatched.
+    * If it returns response properly, 
+   `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Success("book-1", response))` is dispatched.
 
 ### Cancelling calls
 
@@ -102,18 +104,20 @@ val job = store.dispatchJob(DataSourceCall(key = DataSources.FetchBook, request 
 job.cancel()
 ```
 
-Cancellation results in `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Failure("book-1", cancellationException))`.
+Cancellation results
+in `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Failure("book-1", cancellationException))`.
 
 ### Handling responses
 
-All events related to data sources are represented by `DataSourceAction`. 
-Every action contains a `DataSourceKey` and a `DataSourcePayload`. 
+All events related to data sources are represented by `DataSourceAction`.
+Every action contains a `DataSourceKey` and a `DataSourcePayload`.
 Payload has 3 variants:
+
 * `DataSourcePayload.Started` - dispatched on start of the call.
 * `DataSourcePayload.Success` - dispatched on successful call.
 * `DataSourcePayload.Failure` - dispatched on failed call.
 
-The suggested way of handling those events should be done with `createDataSourceReducer`:
+The suggested way to handle these events is to use the `createDataSourceReducer`:
 
 ```kotlin
 
