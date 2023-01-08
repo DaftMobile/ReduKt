@@ -1,11 +1,11 @@
 [versions]
 kotlin = "1.7.20"
-kotlinx-coroutines = "1.6.3"
-kotlinx-atomicfu = "0.18.5"
-kotest = "5.2.3"
-kodein = "7.14.0"
-koin = "3.2.0"
-turbine = "0.12.0"
+dokka = "1.7.20"
+kotlinx-coroutines = "1.6.4"
+kotlinx-atomicfu = "0.19.0"
+kotest = "5.5.4"
+koin = "3.3.2"
+turbine = "0.12.1"
 compose = "1.2.1"
 
 [libraries]
@@ -14,7 +14,7 @@ compose = "1.2.1"
 
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 plugin-kotlinx-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "kotlinx-atomicfu" }
-plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "kotlin" }
+plugin-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 plugin-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
 
 # kotlinx
@@ -25,7 +25,6 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 # others
 
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
-kodein = { module = "org.kodein.di:kodein-di", version.ref = "kodein"}
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 compose = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose" }
