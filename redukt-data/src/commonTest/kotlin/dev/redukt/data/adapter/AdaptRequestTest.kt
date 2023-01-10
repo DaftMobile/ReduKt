@@ -1,10 +1,10 @@
 package dev.redukt.data.adapter
 
 import dev.redukt.data.DataSourceMock
+import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class AdaptRequestTest {
@@ -13,7 +13,7 @@ internal class AdaptRequestTest {
     fun shouldReturnDataSourceThatTransformsRequestProperly() = runTest {
         val ds = DataSourceMock(String::reversed)
             .adaptRequest(Float::toString)
-        assertEquals("2.1", ds.call(1.2f))
-        assertEquals("3.1", ds.call(1.3f))
+        ds.call(1.2f) shouldBe "2.1"
+        ds.call(1.3f) shouldBe "3.1"
     }
 }

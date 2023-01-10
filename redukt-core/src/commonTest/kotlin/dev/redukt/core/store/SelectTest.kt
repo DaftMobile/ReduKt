@@ -8,7 +8,6 @@ import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SelectTest {
@@ -33,9 +32,9 @@ class SelectTest {
     fun shouldProperlyReturnChangedValue() {
         val subState = store.select { it.toString() }
         store.dispatch(KnownAction.A)
-        assertEquals("2", subState.value)
+        subState.value shouldBe "2"
         store.dispatch(KnownAction.A)
-        assertEquals("3", subState.value)
+        subState.value shouldBe "3"
     }
 
     @Test
@@ -67,7 +66,7 @@ class SelectTest {
         subState.test {
             awaitItem() shouldBe 1
             store.dispatch(KnownAction.B)
-            assertEquals(1, selector.callsCounter)
+            selector.callsCounter shouldBe 1
         }
     }
 
@@ -75,6 +74,6 @@ class SelectTest {
     fun shouldNotCallSelectorIfNotAccessed() = runTest {
         val selector = MockSelector<Int, Int> { it * it }
         store.select(selector = selector::call)
-        assertEquals(0, selector.callsCounter)
+        selector.callsCounter shouldBe 0
     }
 }
