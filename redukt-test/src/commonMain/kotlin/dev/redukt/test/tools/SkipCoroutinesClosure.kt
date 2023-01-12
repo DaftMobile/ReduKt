@@ -8,4 +8,4 @@ import dev.redukt.core.closure.DispatchClosure
  * is executed with no failure and returns completed job.
  */
 @DelicateReduKtApi
-public fun SkipCoroutinesClosure(): DispatchClosure = TestLocalClosure() + TestForegroundJobRegistry()
+public fun SkipCoroutinesClosure(): DispatchClosure = TestLocalClosureContainer() + TestForegroundJobRegistry()

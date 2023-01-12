@@ -4,7 +4,6 @@ import dev.redukt.core.Action
 import dev.redukt.core.DispatchScope
 import dev.redukt.core.closure.DispatchClosure
 import dev.redukt.core.closure.EmptyDispatchClosure
-import dev.redukt.core.closure.localClosure
 import dev.redukt.test.MutableDispatchScope
 import dev.redukt.test.assertions.ActionsAssertScope
 
@@ -29,10 +28,6 @@ private class TestDispatchScopeImpl<State>(
 ) : TestDispatchScope<State> {
 
     override var closure: DispatchClosure = SkipCoroutinesClosure() + initialClosure
-
-    init {
-        localClosure.setBaseClosureProvider(::closure)
-    }
 
     override var currentState: State = initialState
 

@@ -3,7 +3,6 @@ package dev.redukt.core.coroutines
 import dev.redukt.core.DispatchScope
 import dev.redukt.core.closure.DispatchClosure
 import dev.redukt.core.closure.local
-import dev.redukt.core.closure.localClosure
 import dev.redukt.core.closure.withLocalClosure
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -38,7 +37,7 @@ public fun Flow<*>.launchInForegroundOf(scope: DispatchScope<*>): Job = scope.la
 public fun DispatchScope<*>.dispatchJob(action: ForegroundJobAction): Job {
     return withLocalClosure(SingleForegroundJobRegistry()) {
         dispatch(action)
-        localForegroundJobRegistry.consume()
+        closure.local[ForegroundJobRegistry].consume()
     }
 }
 
@@ -50,7 +49,7 @@ public fun DispatchScope<*>.dispatchJob(action: ForegroundJobAction): Job {
 public fun DispatchScope<*>.dispatchJobIn(action: ForegroundJobAction, scope: CoroutineScope): Job {
     return withLocalClosure(SingleForegroundJobRegistry() + DispatchCoroutineScope(scope)) {
         dispatch(action)
-        localForegroundJobRegistry.consume()
+        closure.local[ForegroundJobRegistry].consume()
     }
 }
 
@@ -76,5 +75,3 @@ public fun DispatchClosure.launchForeground(
 ): Job = local[DispatchCoroutineScope]
     .launch(context, start, block)
     .also { local[ForegroundJobRegistry].register(it) }
-
-private val DispatchScope<*>.localForegroundJobRegistry: ForegroundJobRegistry get() = localClosure[ForegroundJobRegistry]

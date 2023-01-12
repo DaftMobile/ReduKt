@@ -1,12 +1,12 @@
 package dev.redukt.thunk.utils
 
-import dev.redukt.core.closure.LocalClosure
 import dev.redukt.core.coroutines.ForegroundJobAction
 import dev.redukt.core.coroutines.launchForeground
 import dev.redukt.test.assertions.assertActionEquals
 import dev.redukt.test.assertions.assertActionSequence
 import dev.redukt.test.assertions.assertNoMoreActions
 import dev.redukt.test.thunk.tester
+import dev.redukt.test.tools.RunningCoroutinesClosure
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
@@ -37,7 +37,7 @@ internal class JoiningCoroutinesDispatchListTest {
     fun shouldAwaitForegroundCoroutineBeforeDispatchingNextActions() = runTest(dispatchTimeoutMs = 2_000) {
         tester.test {
             val channel = Channel<Unit>()
-            closure += LocalClosure(this::closure)
+            closure += RunningCoroutinesClosure()
             onDispatch {
                 if (it is ForegroundJobAction) closure.launchForeground { channel.send(Unit) }
             }
@@ -59,7 +59,7 @@ internal class JoiningCoroutinesDispatchListTest {
         val concurrentDispatchListTester = JoiningCoroutinesDispatchList(actionsList, concurrent = true).tester(Unit)
         concurrentDispatchListTester.test {
             val channel = Channel<Int>()
-            closure += LocalClosure(this::closure)
+            closure += RunningCoroutinesClosure()
             var i = 1
             onDispatch {
                 if (it is ForegroundJobAction) closure.launchForeground { channel.send(i++) }

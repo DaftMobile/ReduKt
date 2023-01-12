@@ -5,7 +5,7 @@ import dev.redukt.core.ClosureElementB
 import dev.redukt.core.ClosureElementC
 import dev.redukt.core.Reducer
 import dev.redukt.core.closure.DispatchClosure
-import dev.redukt.core.closure.LocalClosure
+import dev.redukt.core.closure.LocalClosureContainer
 import dev.redukt.core.coroutines.ForegroundJobRegistry
 import dev.redukt.core.middleware.Middleware
 
@@ -32,7 +32,7 @@ class StoreBuilderTest : BaseStoreTest() {
         }
         closure {
             initialClosure.find(ForegroundJobRegistry)?.unaryPlus()
-            initialClosure.find(LocalClosure)?.unaryPlus()
+            initialClosure.find(LocalClosureContainer)?.unaryPlus()
         }
     }
 }

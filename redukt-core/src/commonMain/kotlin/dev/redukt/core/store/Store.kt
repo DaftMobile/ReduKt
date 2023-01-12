@@ -5,8 +5,7 @@ import dev.redukt.core.DispatchFunction
 import dev.redukt.core.DispatchScope
 import dev.redukt.core.Reducer
 import dev.redukt.core.closure.DispatchClosure
-import dev.redukt.core.closure.LocalClosure
-import dev.redukt.core.closure.localClosure
+import dev.redukt.core.closure.LocalClosureContainer
 import dev.redukt.core.coroutines.DispatchCoroutineScope
 import dev.redukt.core.coroutines.EmptyForegroundJobRegistry
 import dev.redukt.core.middleware.MergedMiddlewareScope
@@ -51,13 +50,9 @@ private class StoreImpl<State>(
 ) : Store<State> {
 
     override val closure: DispatchClosure = EmptyForegroundJobRegistry
-        .plus(LocalClosure())
+        .plus(LocalClosureContainer())
         .plus(DispatchCoroutineScope(MainScope()))
         .plus(initialClosure)
-
-    init {
-        localClosure.setBaseClosureProvider(::closure)
-    }
 
     override val state = MutableStateFlow(initialState)
 

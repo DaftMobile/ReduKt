@@ -26,62 +26,69 @@ class DispatchJobTest {
     private val registry = SingleForegroundJobRegistry()
 
     private var dispatchFunction: DispatchFunction = { }
-    private var closure: DispatchClosure = LocalClosure { EmptyDispatchClosure }
+    private var closure: DispatchClosure = LocalClosureContainer()
 
     private val scope by lazy { dispatchScope(closure = closure, dispatch = dispatchFunction, getState = { }) }
 
     @Test
     fun launchForegroundShouldRegisterJobInLocalJobRegistry() {
-        closure = LocalClosure { registry + dispatchCoroutineScope }
-        val job = scope.launchForeground { }
-        registry.consumeOrNull() shouldBe job
+        closure.withLocalClosure(registry + dispatchCoroutineScope) {
+            val job = scope.launchForeground { }
+            registry.consumeOrNull() shouldBe job
+        }
     }
 
     @Test
     fun launchForegroundShouldLaunchJobInLocalDispatchCoroutineScope() {
-        closure = LocalClosure { registry + dispatchCoroutineScope }
-        val job = scope.launchForeground { }
-        dispatchCoroutineScope.coroutineContext.job.children shouldContain job
+        closure.withLocalClosure(registry + dispatchCoroutineScope) {
+            val job = scope.launchForeground { }
+            dispatchCoroutineScope.coroutineContext.job.children shouldContain job
+        }
     }
 
     @Test
     fun launchInForegroundShouldLaunchForegroundJob() = runTest {
-        closure = LocalClosure { registry + DispatchCoroutineScope(this) }
-        val job = flowOf(1, 2, 3).launchInForegroundOf(scope)
-        registry.consumeOrNull() shouldBe job
+        closure.withLocalClosure(registry + DispatchCoroutineScope(this)) {
+            val job = flowOf(1, 2, 3).launchInForegroundOf(scope)
+            registry.consumeOrNull() shouldBe job
+        }
     }
 
     @Test
     fun launchInForegroundShouldCollectFlowUsingLaunchForeground() = runTest {
-        closure = LocalClosure { registry + DispatchCoroutineScope(this) }
-        val elements = mutableListOf<Int>()
-        val job = flowOf(1, 2, 3)
-            .onEach(elements::add)
-            .launchInForegroundOf(scope)
-        job.join()
-        elements shouldBe listOf(1, 2, 3)
+        closure.withLocalClosure(registry + DispatchCoroutineScope(this)) {
+            val elements = mutableListOf<Int>()
+            val job = flowOf(1, 2, 3)
+                .onEach(elements::add)
+                .launchInForegroundOf(scope)
+            job.join()
+            elements shouldBe listOf(1, 2, 3)
+        }
     }
 
     @Test
     fun dispatchJobShouldNotFailOnLaunchForeground() {
-        closure = LocalClosure { dispatchCoroutineScope }
-        dispatchFunction = { scope.launchForeground { } }
-        shouldNotThrowAny { scope.dispatchJob(TestForegroundJobAction) }
+        closure.withLocalClosure(dispatchCoroutineScope) {
+            dispatchFunction = { scope.launchForeground { } }
+            shouldNotThrowAny { scope.dispatchJob(TestForegroundJobAction) }
+        }
     }
 
     @Test
     fun dispatchJobShouldThrowIllegalArgumentExceptionWhenForegroundJobNotRegistered() {
-        closure = LocalClosure { dispatchCoroutineScope }
-        dispatchFunction = { }
-        shouldThrow<IllegalArgumentException> { scope.dispatchJob(TestForegroundJobAction) }
+        closure.withLocalClosure(dispatchCoroutineScope) {
+            dispatchFunction = { }
+            shouldThrow<IllegalArgumentException> { scope.dispatchJob(TestForegroundJobAction) }
+        }
     }
 
     @Test
     fun dispatchJobShouldReturnRegisteredJob() {
-        closure = LocalClosure { dispatchCoroutineScope }
-        var registeredJob: Job? = null
-        dispatchFunction = { registeredJob = scope.launchForeground { } }
-        scope.dispatchJob(TestForegroundJobAction) shouldBe registeredJob
+        closure.withLocalClosure(dispatchCoroutineScope) {
+            var registeredJob: Job? = null
+            dispatchFunction = { registeredJob = scope.launchForeground { } }
+            scope.dispatchJob(TestForegroundJobAction) shouldBe registeredJob
+        }
     }
 
     @Test

@@ -5,12 +5,12 @@ import dev.redukt.core.ClosureElementA
 import dev.redukt.core.KnownAction
 import dev.redukt.core.closure.DispatchClosure
 import dev.redukt.core.closure.EmptyDispatchClosure
-import dev.redukt.core.closure.LocalClosure
+import dev.redukt.core.closure.LocalClosureContainer
 import dev.redukt.core.coroutines.EmptyForegroundJobRegistry
 import dev.redukt.core.coroutines.ForegroundJobRegistry
 import dev.redukt.core.coroutines.SingleForegroundJobRegistry
 import dev.redukt.core.middleware.Middleware
-import dev.redukt.test.tools.TestLocalClosure
+import dev.redukt.test.tools.TestLocalClosureContainer
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.inspectors.shouldForAll
 import io.kotest.matchers.nulls.shouldNotBeNull
@@ -74,14 +74,14 @@ abstract class BaseStoreTest {
         val replacedRegistry = SingleForegroundJobRegistry()
         initialClosure = replacedRegistry
         store.closure.find(ForegroundJobRegistry) shouldBe replacedRegistry
-        store.closure.find(LocalClosure).shouldNotBeNull()
+        store.closure.find(LocalClosureContainer).shouldNotBeNull()
     }
 
     @Test
     fun shouldOverwriteLocalClosureWhenInitialClosureContainsCorrectReplacement() {
-        val replacedLocal = TestLocalClosure { EmptyDispatchClosure }
+        val replacedLocal = TestLocalClosureContainer(EmptyDispatchClosure)
         initialClosure = replacedLocal
-        store.closure.find(LocalClosure) shouldBe replacedLocal
+        store.closure.find(LocalClosureContainer) shouldBe replacedLocal
         store.closure.find(ForegroundJobRegistry).shouldBeInstanceOf<EmptyForegroundJobRegistry>()
     }
 
@@ -202,7 +202,7 @@ abstract class BaseStoreTest {
 
     private fun storeShouldContainOriginalClosure() {
         store.closure.find(ForegroundJobRegistry).shouldBeInstanceOf<EmptyForegroundJobRegistry>()
-        store.closure.find(LocalClosure).shouldNotBeNull()
+        store.closure.find(LocalClosureContainer).shouldNotBeNull()
     }
 }
 
