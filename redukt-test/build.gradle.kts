@@ -7,4 +7,6 @@ dependencies {
     commonMainApi(kotlin("test"))
 
     commonTestImplementation(kotlin("test"))
+    commonTestImplementation(libs.kotlinx.coroutines.test)
+    commonTestImplementation(libs.kotest.assertions.core)
 }
