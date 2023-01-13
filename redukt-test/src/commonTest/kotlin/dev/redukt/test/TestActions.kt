@@ -6,4 +6,5 @@ object TestActions {
     object ActionA : Action
     object ActionB : Action
     object ActionC : Action
+    class ActionD : Action
 }

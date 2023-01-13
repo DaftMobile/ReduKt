@@ -11,6 +11,11 @@ public fun <T> emptyQueue(): Queue<T> = DequeBasedQueue()
 public fun <T> queueOf(vararg items: T): Queue<T> = DequeBasedQueue(ArrayDeque(items.toList()))
 
 /**
+ * Transforms collection into [Queue].
+ */
+public fun <T> Collection<T>.toQueue(): Queue<T> = DequeBasedQueue(ArrayDeque(this))
+
+/**
  * A [Collection] that mutates in a FIFO manner.
  */
 public interface Queue<T> : Collection<T> {
