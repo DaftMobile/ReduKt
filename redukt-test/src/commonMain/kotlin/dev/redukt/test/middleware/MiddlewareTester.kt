@@ -26,10 +26,10 @@ public class MiddlewareTester<State>(
     public inline fun test(
         strict: Boolean? = null,
         state: State = initialState,
-        closure: DispatchClosure = initialClosure,
+        closure: DispatchClosure = EmptyDispatchClosure,
         block: MiddlewareTestScope<State>.() -> Unit
     ) {
-        MiddlewareTestScope(middleware, state, closure).apply {
+        MiddlewareTestScope(middleware, state, initialClosure + closure).apply {
             block()
             if (strict ?: this@MiddlewareTester.strict) assertNoMoreActions()
         }
