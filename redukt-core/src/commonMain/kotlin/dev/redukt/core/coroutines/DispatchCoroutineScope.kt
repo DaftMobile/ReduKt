@@ -4,6 +4,7 @@ import dev.redukt.core.DispatchScope
 import dev.redukt.core.closure.DispatchClosure
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Default [CoroutineScope] associated with a store. By default, the store contains a [MainScope] and it can be replaced at store creation by adding it into a [DispatchClosure].
@@ -13,6 +14,8 @@ public class DispatchCoroutineScope(
     private val coroutineScope: CoroutineScope,
 ) : DispatchClosure.Element, CoroutineScope by coroutineScope {
     override val key: Key = Key
+
+    public constructor(context: CoroutineContext) : this(CoroutineScope(context))
 
     override fun toString(): String = "DispatchCoroutineScope($coroutineScope)"
 
