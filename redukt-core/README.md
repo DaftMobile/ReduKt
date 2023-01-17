@@ -269,78 +269,10 @@ fun counterMiddleware(): Middleware<AppState> = {
 }
 ```
 
-### Working with coroutines
-
-In ReduKt there is a concept of *foreground job*. It is a **single** coroutine that is logically associated with given
-action.
-
-Let's consider this kind of action:
-
-```kotlin
-data class FetchBook(val id: String) : Action
-```
-
-Here we expect that this action is going to trigger an asynchronous call to get the book. A coroutine that host this
-call
-is a foreground job, because it is logically associated with given action.
-
-However, ReduKt store can't really figure out which action has associated coroutine, so action has to be marked:
-
-```kotlin
-data class FetchBook(val id: String) : ForegroundJobAction
-```
-
-Now we have to ensure that there is a middleware that launches a coroutine:
-
-```kotlin
-fun booksMiddleware(client: HttpClient) = consumingMiddleware<AppState, FetchBook> { action ->
-    launchForeground { // launches a coroutine in DispatchCoroutineScope by default
-        val response = client.get("$API_URL/book/${action.id}")
-        // process the response
-    }
-}
-```
-
-Now, what we can do with it?
-
-In the most straightforward example, you can use `store.dispatchJob` to dispatch a `FetchBook` action. This function
-returns a `Job`, so you are able to control the associated coroutine.
-
-```kotlin
-val job = store.dispatchJob(FetchBook("1"))
-// ...
-job.cancel()
-```
-
-You can change a `CoroutineScope` for the associated coroutine with `store.dispatchJobIn` like this:
-
-```kotlin
-val scope = MainScope()
-
-store.dispatchJobIn(FetchBook("1"), scope)
-
-scope.cancel() // results in the associated coroutine being cancelled
-```
-
-You can wait for the coroutine with `store.joinDispatchJob` like this:
-
-```kotlin
-fun initMiddleware() = middleware<AppState> { action ->
-    if (action is InitAction) {
-        launchForeground {
-            joinDispatchJob(FetchUserData)
-            val currentBookId = currentState.user.currentBookId
-            joinDispatchJob(FetchBook(currentBookId))
-        }
-    }
-    next(action)
-}
-```
-
 ### Dispatch closure basics
 
 Essentially, dispatch closure is an immutable map of objects (elements) that is injected into the store, and it is available from
-every middleware. It's primarily used to extend store's functionality. 
+every middleware. It's primarily used to extend store's functionality.
 
 Dispatch closure elements are associated with special keys. By convention, those keys are companion objects of closure
 element classes.
@@ -353,6 +285,8 @@ fun fooMiddleware() = middleware<AppState> { action ->
     val scope = closure[DispatchCoroutineScope]
 }
 ```
+
+
 
 Dispatch closure might contain only one `DispatchCoroutineScope`, because map must contain only one value for a given
 key. This applies for all closure elements introduced by this library. In other words, dispatch closure must contain only one object of given type.
@@ -377,9 +311,6 @@ val store = buildStore {
     }
 }
 ```
-
-> `DispatchCoroutineScope` is a `CoroutineScope` that is bound to the store.
-> It's often a default scope for many ReduKt mechanisms. By default, it is a `MainScope()`.
 
 As a dependency injection tool, dispatch closure might seem a little limited, because effectively it handles only
 singletons.
@@ -440,6 +371,80 @@ fun fooMiddleware() = middleware<AppState> { action ->
 }
 ```
 
+### Working with coroutines
+
+In ReduKt there is a concept of *foreground job*. It is a **single** coroutine that is logically associated with given
+action.
+
+Let's consider this kind of action:
+
+```kotlin
+data class FetchBook(val id: String) : Action
+```
+
+Here we expect that this action is going to trigger an asynchronous call to get the book. A coroutine that host this
+call
+is a foreground job, because it is logically associated with given action.
+
+However, ReduKt store can't really figure out which action has associated coroutine, so action has to be marked:
+
+```kotlin
+data class FetchBook(val id: String) : ForegroundJobAction
+```
+
+Now we have to ensure that there is a middleware that launches a coroutine:
+
+```kotlin
+fun booksMiddleware(client: HttpClient) = consumingMiddleware<AppState, FetchBook> { action ->
+    launchForeground {
+        val response = client.get("$API_URL/book/${action.id}")
+        // process the response
+    }
+}
+```
+
+`launchForeground` launches a coroutine in the `DispatchCoroutineScope` that is a `CoroutineScope` associated
+with a store. By default, `DispatchCoroutineScope` is a `MainScope`, therefore foreground
+coroutines work on the main thread in this case.
+
+Now, what we can do with it?
+
+In the most straightforward example, you can use `store.dispatchJob` to dispatch a `FetchBook` action. This function
+returns a `Job`, so you are able to control the associated coroutine.
+
+```kotlin
+val job = store.dispatchJob(FetchBook("1"))
+// ...
+job.cancel()
+```
+
+You can change a `CoroutineScope` for the associated coroutine with `store.dispatchJobIn`:
+
+```kotlin
+val scope = MainScope()
+
+store.dispatchJobIn(FetchBook("1"), scope)
+
+scope.cancel() // results in the associated coroutine being cancelled
+```
+Main purpose of `dispatchJobIn` is providing a `CoroutineScope` that has a shorter lifecycle than `DispatchCoroutineScope`. 
+Using it to change a `CoroutineDispatcher` is technically correct, but also discouraged.
+
+You can wait for the coroutine with `store.joinDispatchJob` like this:
+
+```kotlin
+fun initMiddleware() = middleware<AppState> { action ->
+    if (action is InitAction) {
+        launchForeground {
+            joinDispatchJob(FetchUserData)
+            val currentBookId = currentState.user.currentBookId
+            joinDispatchJob(FetchBook(currentBookId))
+        }
+    }
+    next(action)
+}
+```
+
 ### Thread safety
 
 ReduKt store is designed to be accessed from a single thread. It should be the same thread as the one bound
@@ -451,7 +456,7 @@ That's because the state is stored within a `StateFlow`. Dispatch closure is eff
 objects, so it is also thread-safe. However, closure elements might mutate, and it might not be safe to interact with
 them from another thread.
 
-The only thing that is **not thread-safe** is `dispatch`.
+The only thing that is definitely **not thread-safe** is `dispatch`.
 
 If you want to make sure that you are calling `dispatch` from single thread, you can use `threadGuardMiddleware` like
 this:

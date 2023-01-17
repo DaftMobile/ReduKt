@@ -13,7 +13,7 @@ ReduKt Data provides a generic flow of fetching asynchronous data.
 ### Data sources
 
 A data source is any object that provides a response to a request, most of the time in an asynchronous way.
-It has to implement `DataSource` interface. Example below shows how to implement it with Ktor:
+It has to implement `DataSource` interface. The example below shows how to implement it with Ktor:
 
 ```kotlin
 data class FetchBookDataSource(
