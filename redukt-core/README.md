@@ -15,8 +15,8 @@ It's worth to notice that some elements are missing/changed/added in comparison 
 3. [Define reducers](#define-reducers)
 4. [Select and subscribe the state](#select-and-subscribe-the-state)
 5. [Define middlewares](#define-middlewares)
-6. [Working with coroutines](#working-with-coroutines)
-7. [Dispatch closure basics](#dispatch-closure-basics)
+6. [Dispatch closure basics](#dispatch-closure-basics)
+7. [Working with coroutines](#working-with-coroutines)
 8. [Thread safety](#thread-safety)
 
 ### Create a store
