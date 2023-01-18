@@ -55,3 +55,23 @@ public data class DataSourceResultPayload<Request, Response>(
     public val request: Request,
     public val result: Result<Response>
 )
+
+public fun <Request, Response> PureDataSourceKey<DataSource<Request, Response>>.successAction(
+    request: Request,
+    response: Response
+): DataSourceAction<Request, Response> {
+    return DataSourceAction(this, DataSourcePayload.Success(request, response))
+}
+
+public fun <Request, Response> PureDataSourceKey<DataSource<Request, Response>>.startAction(
+    request: Request
+): DataSourceAction<Request, Response> {
+    return DataSourceAction(this, DataSourcePayload.Started(request))
+}
+
+public fun <Request, Response> PureDataSourceKey<DataSource<Request, Response>>.failureAction(
+    request: Request,
+    error: Throwable,
+): DataSourceAction<Request, Response> {
+    return DataSourceAction(this, DataSourcePayload.Failure(request, error))
+}

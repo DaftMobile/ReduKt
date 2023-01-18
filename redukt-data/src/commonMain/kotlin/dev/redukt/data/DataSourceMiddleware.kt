@@ -23,11 +23,11 @@ public val dataSourceMiddleware: Middleware<*> = {
     val resolver = dataSourceResolver
     consumingDispatch<DataSourceCall<Any?, Any?>> { action ->
         val dataSource = resolver.resolve(action.key) ?: throw MissingDataSourceException(action.key)
-        dispatch(DataSourceAction(action.key, DataSourcePayload.Started(action.request)))
+        dispatch(action.key.startAction(action.request))
         launchForeground {
             runCatching { dataSource.call(action.request) }
-                .onSuccess { dispatch(DataSourceAction(action.key, DataSourcePayload.Success(action.request, it))) }
-                .onFailure { dispatch(DataSourceAction(action.key, DataSourcePayload.Failure(action.request, it))) }
+                .onSuccess { dispatch(action.key.successAction(action.request, it)) }
+                .onFailure { dispatch(action.key.failureAction(action.request, it)) }
         }
     }
 }

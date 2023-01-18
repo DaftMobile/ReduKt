@@ -20,7 +20,7 @@ public interface DataSource<in Request, out Response> {
 /**
  * Identifies a [DataSource] of type [T].
  */
-public interface PureDataSourceKey<T : DataSource<*, *>>
+public interface PureDataSourceKey<out T : DataSource<*, *>>
 
 public typealias DataSourceKey<Request, Response> = PureDataSourceKey<DataSource<Request, Response>>
 
