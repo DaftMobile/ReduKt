@@ -52,6 +52,7 @@ private class StoreImpl<State>(
     override val closure: DispatchClosure = EmptyForegroundJobRegistry
         .plus(LocalClosureContainer())
         .plus(DispatchCoroutineScope(MainScope()))
+        .plus(SelectStateFlowProvider())
         .plus(initialClosure)
 
     override val state = MutableStateFlow(initialState)
