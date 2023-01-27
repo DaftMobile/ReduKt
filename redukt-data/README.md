@@ -9,6 +9,7 @@ ReduKt Data provides a generic flow of fetching asynchronous data.
 3. [Calling data sources](#calling-data-sources)
 4. [Cancelling calls](#cancelling-calls)
 5. [Handling responses](#handling-responses)
+6. [Manual calls](#manual-calls)
 
 ### Data sources
 
@@ -87,12 +88,12 @@ It results in:
 1. `DataSources.FetchBook` is resolved with `DataSourceResolver` from the closure. If `DataSourceResolver`
    or `DataSource` with given key is missing, exception is thrown and flow ends here.
 2. `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Started("book-1"))` is dispatched.
-3.  A Foreground coroutine is launched. `dispatch` method returns here. The rest of the flow happens in the coroutine.
+3. A Foreground coroutine is launched. `dispatch` method returns here. The rest of the flow happens in the coroutine.
 4. `DataSource` is called with "book-1".
     * If it fails, `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Failure("book-1", exception))` is
       dispatched.
-    * If it returns response properly, 
-   `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Success("book-1", response))` is dispatched.
+    * If it returns response properly,
+      `DataSourceAction(DataSources.FetchBook, DataSourcePayload.Success("book-1", response))` is dispatched.
 
 ### Cancelling calls
 
@@ -138,3 +139,19 @@ val booksReducer: Reducer<DataHolder<List<Book>>> = createDataSourceReducer(
     onFailure = { holder, (_, error) -> holder.copy(error = error) }
 )
 ```
+
+### Manual calls
+
+To perform a data source call and process the response manually you have to use `callDataSource` from a middleware:
+
+```kotlin
+val customCallMiddleware = middleware<AppState> {
+    //...
+    launchForeground {
+        val book = callDataSource(DataSources.FetchBook, "book-1")
+    }
+    //...
+}
+```
+
+This approach does not dispatch any actions automatically. It just calls given data source.
