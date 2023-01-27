@@ -16,6 +16,6 @@ public interface SelectStateFlowProvider : DispatchClosure.Element {
 
     public companion object Key : DispatchClosure.Key<SelectStateFlowProvider> {
 
-        public operator fun invoke(): SelectStateFlowProvider = AlwaysNewSelectStateFlowProvider()
+        public operator fun invoke(): SelectStateFlowProvider = NewSelectStateFlowProvider()
     }
 }

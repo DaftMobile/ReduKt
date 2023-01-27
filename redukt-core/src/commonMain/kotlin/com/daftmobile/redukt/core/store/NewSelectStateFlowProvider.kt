@@ -6,7 +6,7 @@ import kotlinx.atomicfu.locks.synchronized
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.StateFlow
 
-internal class AlwaysNewSelectStateFlowProvider : SelectStateFlowProvider {
+internal class NewSelectStateFlowProvider : SelectStateFlowProvider {
     override fun <State, Selected> provide(
         state: StateFlow<State>,
         selector: Selector<State, Selected>
