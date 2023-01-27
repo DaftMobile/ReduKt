@@ -43,7 +43,7 @@ kotlin {
         all {
             languageSettings.apply {
                 optIn("kotlin.experimental.ExperimentalTypeInference")
-                optIn("dev.redukt.core.DelicateReduKtApi")
+                optIn("com.daftmobile.redukt.core.DelicateReduKtApi")
             }
         }
         val commonMain by getting
