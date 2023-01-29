@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.core.store
+package com.daftmobile.redukt.core.store.select
 
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.locks.SynchronizedObject
@@ -40,7 +40,6 @@ internal class SelectStateFlow<State, Selection>(
             prevState === NULL || !selector.isStateEqual(prevState as State, currentState) -> {
                 selector.select(currentState).also { lastSelection = it }
             }
-
             else -> lastSelection as Selection
         }
     }

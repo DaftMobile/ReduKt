@@ -7,10 +7,10 @@ import com.daftmobile.redukt.core.coroutines.ForegroundJobAction
 import com.daftmobile.redukt.core.coroutines.dispatchJob
 import com.daftmobile.redukt.core.coroutines.dispatchJobIn
 import com.daftmobile.redukt.core.coroutines.joinDispatchJob
-import com.daftmobile.redukt.core.store.Selector
-import com.daftmobile.redukt.core.store.SelectorFunction
+import com.daftmobile.redukt.core.store.select.Selector
+import com.daftmobile.redukt.core.store.select.SelectorFunction
 import com.daftmobile.redukt.core.store.Store
-import com.daftmobile.redukt.core.store.select
+import com.daftmobile.redukt.core.store.select.select
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 

@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.core
 
-import com.daftmobile.redukt.core.store.SelectorFunction
+import com.daftmobile.redukt.core.store.select.SelectorFunction
 
 internal class MockSelector<T, R>(
     var onSelectorCall: SelectorFunction<T, R>

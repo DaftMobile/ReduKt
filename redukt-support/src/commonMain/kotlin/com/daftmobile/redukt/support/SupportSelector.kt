@@ -1,6 +1,6 @@
 package com.daftmobile.redukt.support
 
-import com.daftmobile.redukt.core.store.Selector
+import com.daftmobile.redukt.core.store.select.Selector
 
 public abstract class SupportSelector<State, Selected> : Selector<State, Selected>
 

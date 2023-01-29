@@ -5,7 +5,7 @@ import com.daftmobile.redukt.core.coroutines.ForegroundJobAction
 import com.daftmobile.redukt.core.coroutines.coroutineScope
 import com.daftmobile.redukt.core.coroutines.dispatchJob
 import com.daftmobile.redukt.core.store.Store
-import com.daftmobile.redukt.core.store.select
+import com.daftmobile.redukt.core.store.select.select
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

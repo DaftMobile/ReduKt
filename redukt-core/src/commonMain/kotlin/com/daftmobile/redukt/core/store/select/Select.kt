@@ -1,5 +1,6 @@
-package com.daftmobile.redukt.core.store
+package com.daftmobile.redukt.core.store.select
 
+import com.daftmobile.redukt.core.store.Store
 import kotlinx.coroutines.flow.StateFlow
 
 /**

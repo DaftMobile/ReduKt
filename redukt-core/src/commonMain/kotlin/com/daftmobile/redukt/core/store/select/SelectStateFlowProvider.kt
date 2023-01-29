@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.core.store
+package com.daftmobile.redukt.core.store.select
 
 import com.daftmobile.redukt.core.DelicateReduKtApi
 import com.daftmobile.redukt.core.closure.DispatchClosure

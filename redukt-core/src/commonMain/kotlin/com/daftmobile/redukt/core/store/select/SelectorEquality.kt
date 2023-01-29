@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.core.store
+package com.daftmobile.redukt.core.store.select
 
 public fun interface SelectorEquality<in T> {
     public fun isEqual(old: T, new: T): Boolean

@@ -3,7 +3,7 @@ package com.daftmobile.redukt.test.tools
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
-import com.daftmobile.redukt.core.store.SelectStateFlowProvider
+import com.daftmobile.redukt.core.store.select.SelectStateFlowProvider
 import com.daftmobile.redukt.core.store.Store
 import com.daftmobile.redukt.test.MutableDispatchScope
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
