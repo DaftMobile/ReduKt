@@ -19,36 +19,35 @@ internal class SelectStateFlow<State, Selection>(
     private val selector: Selector<State, Selection>
 ) : StateFlow<Selection>, SynchronizedObject() {
 
-    private var lastProcessedState: Any? by atomic(NULL)
-    private var lastMappedValue: Any? by atomic(NULL)
+    private var lastState: Any? by atomic(NULL)
+    private var lastSelection: Any? by atomic(NULL)
 
     override val replayCache: List<Selection> get() = listOf(value)
 
-    override val value: Selection get() = invalidate()
+    override val value: Selection get() = getOrInvalidateSelection()
 
     override suspend fun collect(collector: FlowCollector<Selection>): Nothing {
-        val lastMappedValue = this.lastMappedValue
-        if (lastMappedValue !== NULL) collector.emit(lastMappedValue as Selection)
-        var previousValue: Any? = lastMappedValue
+        val lastSelection = this.lastSelection
+        if (lastSelection !== NULL) collector.emit(lastSelection as Selection)
+        var prevEmittedValue: Any? = lastSelection
         flow.collect { value ->
-            val prev = previousValue
-            val mappedValue = invalidate(value)
-            if (prev === NULL || !selector.isSelectionEqual(prev as Selection, mappedValue)) {
-                previousValue = mappedValue
-                collector.emit(mappedValue)
+            val prev = prevEmittedValue
+            val selection = getOrInvalidateSelection(value)
+            if (prev === NULL || !selector.isSelectionEqual(prev as Selection, selection)) {
+                prevEmittedValue = selection
+                collector.emit(selection)
             }
         }
     }
 
-    private fun invalidate(currentState: State = flow.value): Selection = synchronized(this) {
-        val previousState = lastProcessedState
-        lastProcessedState = currentState
+    private fun getOrInvalidateSelection(currentState: State = flow.value): Selection = synchronized(this) {
+        val prevState = lastState
+        lastState = currentState
         return when {
-            previousState === NULL || !selector.isStateEqual(previousState as State, currentState) -> {
-                selector.select(currentState).also { lastMappedValue = it }
+            prevState === NULL || !selector.isStateEqual(prevState as State, currentState) -> {
+                selector.select(currentState).also { lastSelection = it }
             }
-
-            else -> lastMappedValue as Selection
+            else -> lastSelection as Selection
         }
     }
 
