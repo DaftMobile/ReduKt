@@ -1,10 +1,10 @@
-package com.daftmobile.redukt.core.store
+package com.daftmobile.redukt.core.store.select
 
 import app.cash.turbine.test
 import com.daftmobile.redukt.core.KnownAction
 import com.daftmobile.redukt.core.MockSelector
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
-import com.daftmobile.redukt.core.store.select.select
+import com.daftmobile.redukt.core.store.Store
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.*
