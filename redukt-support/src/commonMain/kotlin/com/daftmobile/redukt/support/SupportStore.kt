@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-public open class SupportStore<State>(private val store: Store<State>) {
+public open class SupportStore<State>(protected val store: Store<State>) {
 
     public open val state: State get() = store.currentState
 
