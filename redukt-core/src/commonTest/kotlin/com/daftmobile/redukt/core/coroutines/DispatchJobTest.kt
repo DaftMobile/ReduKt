@@ -7,12 +7,9 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.sequences.shouldContain
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.job
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -22,18 +19,21 @@ private object TestForegroundJobAction : ForegroundJobAction
 @OptIn(ExperimentalCoroutinesApi::class)
 class DispatchJobTest {
 
-    private val dispatchCoroutineScope = DispatchCoroutineScope(TestScope())
+    private val testScope = TestScope()
+    private val dispatchCoroutineScope = DispatchCoroutineScope(testScope)
     private val registry = SingleForegroundJobRegistry()
 
-    private var dispatchFunction: DispatchFunction = { }
-    private var closure: DispatchClosure = LocalClosureContainer()
+    private val initialCoroutineScope = DispatchCoroutineScope(Dispatchers.Unconfined)
 
-    private val scope by lazy { dispatchScope(closure = closure, dispatch = dispatchFunction, getState = { }) }
+    private var dispatchFunction: DispatchFunction = { }
+    private var closure: DispatchClosure = initialCoroutineScope + LocalClosureContainer()
+
+    private val dispatchScope by lazy { dispatchScope(closure = closure, dispatch = dispatchFunction, getState = { }) }
 
     @Test
     fun launchForegroundShouldRegisterJobInLocalJobRegistry() {
         closure.withLocalClosure(registry + dispatchCoroutineScope) {
-            val job = scope.launchForeground { }
+            val job = dispatchScope.launchForeground { }
             registry.consumeOrNull() shouldBe job
         }
     }
@@ -41,26 +41,37 @@ class DispatchJobTest {
     @Test
     fun launchForegroundShouldLaunchJobInLocalDispatchCoroutineScope() {
         closure.withLocalClosure(registry + dispatchCoroutineScope) {
-            val job = scope.launchForeground { }
+            val job = dispatchScope.launchForeground { }
             dispatchCoroutineScope.coroutineContext.job.children shouldContain job
         }
     }
 
     @Test
-    fun launchInForegroundShouldLaunchForegroundJob() = runTest {
-        closure.withLocalClosure(registry + DispatchCoroutineScope(this)) {
-            val job = flowOf(1, 2, 3).launchInForegroundOf(scope)
+    fun launchForegroundShouldNotLeakLocalClosureToTheCoroutineIfCoroutineIsLaunchedImmediately() {
+        var localClosureFromTheCoroutine: DispatchClosure? = null
+        closure.withLocalClosure(registry + dispatchCoroutineScope) {
+            closure.launchForeground(start = CoroutineStart.UNDISPATCHED) {
+                localClosureFromTheCoroutine = local
+            }
+        }
+        localClosureFromTheCoroutine?.get(DispatchCoroutineScope) shouldBe initialCoroutineScope
+    }
+
+    @Test
+    fun launchInForegroundShouldLaunchForegroundJob() {
+        closure.withLocalClosure(registry + dispatchCoroutineScope) {
+            val job = flowOf(1, 2, 3).launchInForegroundOf(dispatchScope)
             registry.consumeOrNull() shouldBe job
         }
     }
 
     @Test
     fun launchInForegroundShouldCollectFlowUsingLaunchForeground() = runTest {
-        closure.withLocalClosure(registry + DispatchCoroutineScope(this)) {
+        closure.withLocalClosure(registry + dispatchCoroutineScope) {
             val elements = mutableListOf<Int>()
             val job = flowOf(1, 2, 3)
                 .onEach(elements::add)
-                .launchInForegroundOf(scope)
+                .launchInForegroundOf(dispatchScope)
             job.join()
             elements shouldBe listOf(1, 2, 3)
         }
@@ -69,8 +80,8 @@ class DispatchJobTest {
     @Test
     fun dispatchJobShouldNotFailOnLaunchForeground() {
         closure.withLocalClosure(dispatchCoroutineScope) {
-            dispatchFunction = { scope.launchForeground { } }
-            shouldNotThrowAny { scope.dispatchJob(TestForegroundJobAction) }
+            dispatchFunction = { dispatchScope.launchForeground { } }
+            shouldNotThrowAny { dispatchScope.dispatchJob(TestForegroundJobAction) }
         }
     }
 
@@ -78,7 +89,7 @@ class DispatchJobTest {
     fun dispatchJobShouldThrowIllegalArgumentExceptionWhenForegroundJobNotRegistered() {
         closure.withLocalClosure(dispatchCoroutineScope) {
             dispatchFunction = { }
-            shouldThrow<IllegalArgumentException> { scope.dispatchJob(TestForegroundJobAction) }
+            shouldThrow<IllegalArgumentException> { dispatchScope.dispatchJob(TestForegroundJobAction) }
         }
     }
 
@@ -86,42 +97,42 @@ class DispatchJobTest {
     fun dispatchJobShouldReturnRegisteredJob() {
         closure.withLocalClosure(dispatchCoroutineScope) {
             var registeredJob: Job? = null
-            dispatchFunction = { registeredJob = scope.launchForeground { } }
-            scope.dispatchJob(TestForegroundJobAction) shouldBe registeredJob
+            dispatchFunction = { registeredJob = dispatchScope.launchForeground { } }
+            dispatchScope.dispatchJob(TestForegroundJobAction) shouldBe registeredJob
         }
     }
 
     @Test
     fun dispatchJobInShouldNotFailOnLaunchForeground() {
-        dispatchFunction = { scope.launchForeground { } }
-        shouldNotThrowAny { scope.dispatchJobIn(TestForegroundJobAction, dispatchCoroutineScope) }
+        dispatchFunction = { dispatchScope.launchForeground { } }
+        shouldNotThrowAny { dispatchScope.dispatchJobIn(TestForegroundJobAction, dispatchCoroutineScope) }
     }
 
     @Test
     fun dispatchJobInShouldThrowIllegalArgumentExceptionWhenForegroundJobNotRegistered() {
         dispatchFunction = { }
-        shouldThrow<IllegalArgumentException> { scope.dispatchJobIn(TestForegroundJobAction, dispatchCoroutineScope) }
+        shouldThrow<IllegalArgumentException> { dispatchScope.dispatchJobIn(TestForegroundJobAction, dispatchCoroutineScope) }
     }
 
     @Test
     fun dispatchJobInShouldProvideLocalDispatchCoroutineScope() {
         dispatchFunction = {
-            scope.launchForeground {  }
-            scope.localClosure.find(DispatchCoroutineScope) shouldNotBe null
+            dispatchScope.launchForeground {  }
+            dispatchScope.localClosure.find(DispatchCoroutineScope) shouldNotBe null
         }
-        scope.dispatchJobIn(TestForegroundJobAction, TestScope())
+        dispatchScope.dispatchJobIn(TestForegroundJobAction, TestScope())
     }
 
     @Test
     fun joinDispatchJobShouldProperlyJoinLaunchedCoroutine() = runTest {
         var joined = false
         dispatchFunction = {
-            scope.launchForeground {
+            dispatchScope.launchForeground {
                 delay(1_000)
                 joined = true
             }
         }
-        scope.joinDispatchJob(TestForegroundJobAction)
+        dispatchScope.joinDispatchJob(TestForegroundJobAction)
         joined shouldBe true
     }
 }

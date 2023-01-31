@@ -3,6 +3,8 @@ package com.daftmobile.redukt.core.closure
 
 import com.daftmobile.redukt.core.DelicateReduKtApi
 import com.daftmobile.redukt.core.DispatchScope
+import com.daftmobile.redukt.core.closure.LocalClosureContainer.Frame
+import com.daftmobile.redukt.core.closure.LocalClosureContainer.Slot
 
 /**
  * A [DispatchClosure.Element], that handles local changes of a [DispatchClosure].
@@ -13,7 +15,7 @@ import com.daftmobile.redukt.core.DispatchScope
  * * It doesn't affect the closure that is a part of. Therefore, it must be accessed directly by [DispatchClosure.local]` to receive locally changed values. Original closure always remains the same.
  * * It works only for a time of dispatch call. Therefore, accessing it outside of dispatch function returns unchanged values.
  * * It's hierarchical. Nested dispatch calls receive accumulated local closures.
- * * Every change is identified by [LocalSlot].
+ * * Every change is identified by [Slot].
  *
  * These properties are not only determined by the implementation of this interface, but also by the convention.
  * Therefore, it is important to use this mechanism according to the documentation and attached examples.
@@ -61,14 +63,36 @@ public interface LocalClosureContainer : DispatchClosure.Element {
      * Registers local change of a closure.
      *
      * @param closure to apply local changes.
-     * @return [LocalSlot] to undo local change
+     * @return [Slot] to undo local change
      */
-    public fun registerNewSlot(closure: DispatchClosure): LocalSlot
+    public fun registerNewSlot(closure: DispatchClosure): Slot
 
     /**
      * Undo local change associated with a [slot]
      */
-    public fun removeSlot(slot: LocalSlot)
+    public fun removeSlot(slot: Slot)
+
+    /**
+     * Registers a new frame that creates a new hierarchy of local changes.
+     */
+    public fun registerNewFrame(): Frame
+
+    /**
+     * Removes a frame along with local changes that occurred.
+     */
+    public fun removeFrame(frame: Frame)
+
+    /**
+     * Identifies single local change.
+     */
+    @DelicateReduKtApi
+    public class Slot
+
+    /**
+     * Identifies a single hierarchy of local changes.
+     */
+    @DelicateReduKtApi
+    public class Frame
 
     public companion object Key : DispatchClosure.Key<LocalClosureContainer> {
 
@@ -80,11 +104,7 @@ public interface LocalClosureContainer : DispatchClosure.Element {
     }
 }
 
-/**
- * Identifies single local change.
- */
-@DelicateReduKtApi
-public class LocalSlot
+
 
 /**
  * Returns locally changed [DispatchClosure] from this scope.
@@ -104,21 +124,35 @@ public inline val DispatchClosure.local: DispatchClosure get() = this[LocalClosu
 @DelicateReduKtApi
 public inline fun <T> DispatchScope<*>.withLocalClosure(
     closure: DispatchClosure,
+    newFrame: Boolean = false,
     block: DispatchScope<*>.() -> T
-): T = this.closure.withLocalClosure(closure) { block() }
+): T = this.closure.withLocalClosure(closure, newFrame) { block() }
 
 @DelicateReduKtApi
 /**
  * Changes [LocalClosureContainer] with a given [closure] for a time of [block] execution.
  */
-public inline fun <T> DispatchClosure.withLocalClosure(closure: DispatchClosure, block: DispatchClosure.() -> T): T {
-    val slot = this[LocalClosureContainer].registerNewSlot(closure)
-    return block().also { this[LocalClosureContainer].removeSlot(slot) }
+public inline fun <T> DispatchClosure.withLocalClosure(
+    closure: DispatchClosure,
+    newFrame: Boolean = false,
+    block: DispatchClosure.() -> T
+): T {
+    val container = this[LocalClosureContainer]
+    val frame = if (newFrame) container.registerNewFrame() else null
+    val slot = container.registerNewSlot(closure)
+    return try {
+        block()
+    } finally {
+        container.removeSlot(slot)
+        frame?.let(container::removeFrame)
+    }
 }
+
+private typealias FramesCollection = MutableMap<Frame, MutableMap<Slot, DispatchClosure>>
 
 private class CoreLocalClosureContainer : LocalClosureContainer {
 
-    private val localSlots = linkedMapOf<LocalSlot, DispatchClosure>()
+    private val frames: FramesCollection = linkedMapOf(Frame() to linkedMapOf())
     private var invalidate = true
     private var current: DispatchClosure = EmptyDispatchClosure
 
@@ -129,20 +163,31 @@ private class CoreLocalClosureContainer : LocalClosureContainer {
         return current
     }
 
-
-    override fun registerNewSlot(closure: DispatchClosure): LocalSlot = LocalSlot().also {
-        localSlots[it] = closure
+    override fun registerNewSlot(closure: DispatchClosure): Slot = Slot().also {
+        currentFrame[it] = closure
         invalidate = true
     }
 
-    override fun removeSlot(slot: LocalSlot) {
-        localSlots.remove(slot)
+    override fun removeSlot(slot: Slot) {
+        currentFrame.remove(slot)
+        invalidate = true
+    }
+
+    override fun registerNewFrame(): Frame = Frame().also {
+        frames[it] = linkedMapOf()
+        invalidate = true
+    }
+
+    override fun removeFrame(frame: Frame) {
+        frames.remove(frame)
         invalidate = true
     }
 
     override fun toString(): String = "LocalClosure(currentLocalChanges=${currentSlotAccumulation()})"
 
-    private fun currentSlotAccumulation() = localSlots.values.fold(EmptyDispatchClosure, DispatchClosure::plus)
+    private fun currentSlotAccumulation() = currentFrame.values.fold(EmptyDispatchClosure, DispatchClosure::plus)
+
+    private inline val currentFrame get() = frames.entries.last().value
 
     companion object Key : DispatchClosure.Key<LocalClosureContainer>
 }

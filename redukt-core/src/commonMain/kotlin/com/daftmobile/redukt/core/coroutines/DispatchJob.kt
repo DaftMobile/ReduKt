@@ -2,6 +2,7 @@ package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.closure.DispatchClosure
+import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.closure.local
 import com.daftmobile.redukt.core.closure.withLocalClosure
 import kotlinx.coroutines.*
@@ -72,6 +73,12 @@ public fun DispatchClosure.launchForeground(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit
-): Job = local[DispatchCoroutineScope]
-    .launch(context, start, block)
-    .also { local[ForegroundJobRegistry].register(it) }
+): Job {
+    val scope = local[DispatchCoroutineScope]
+    // creates a new frame to ensure that foreground coroutine body has access only to global DispatchClosure (in case of immediate dispatchers)
+    val job = withLocalClosure(closure = EmptyDispatchClosure, newFrame = true) {
+        scope.launch(context, start, block)
+    }
+    local[ForegroundJobRegistry].register(job)
+    return job
+}
