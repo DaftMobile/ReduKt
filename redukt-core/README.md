@@ -445,6 +445,8 @@ fun initMiddleware() = middleware<AppState> { action ->
 }
 ```
 
+A foreground job that is launched by the `joinDispatchJob` is cancelled along with parent coroutine that dispatched it.
+
 ### Thread safety
 
 ReduKt store is designed to be accessed from a single thread. It should be the same thread as the one bound

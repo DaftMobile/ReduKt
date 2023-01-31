@@ -56,7 +56,8 @@ public fun DispatchScope<*>.dispatchJobIn(action: ForegroundJobAction, scope: Co
 
 /**
  *  Dispatches [action] and expects any middleware to launch a single *foreground job* logically associate with it.
- *  This function suspends until foreground job is finished.
+ *  This function suspends until foreground job is finished. When coroutine that calls this function is cancelled,
+ *  foreground job is also cancelled.
  */
 public suspend fun DispatchScope<*>.joinDispatchJob(action: ForegroundJobAction): Unit = coroutineScope {
     dispatchJobIn(action, this)
