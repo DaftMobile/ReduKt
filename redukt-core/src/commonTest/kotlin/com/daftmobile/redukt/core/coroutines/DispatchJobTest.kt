@@ -67,7 +67,7 @@ class DispatchJobTest {
 
     @Test
     fun launchInForegroundShouldCollectFlowUsingLaunchForeground() = runTest {
-        closure.withLocalClosure(registry + dispatchCoroutineScope) {
+        closure.withLocalClosure(registry + DispatchCoroutineScope(this)) {
             val elements = mutableListOf<Int>()
             val job = flowOf(1, 2, 3)
                 .onEach(elements::add)
