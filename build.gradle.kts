@@ -1,11 +1,11 @@
 plugins {
-    id("org.jetbrains.kotlinx.kover") version "0.5.0"
+    alias(libs.plugins.kover)
 }
 
 buildscript {
     dependencies {
         classpath(":build-redukt")
-        classpath(libs.plugin.kotlinx.atomicfu)
+        classpath(libs.gradle.plugin.kotlinx.atomicfu)
     }
 }
 
