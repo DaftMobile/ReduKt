@@ -50,6 +50,18 @@ public abstract class KmmStore<State : Any> {
     private fun <T> Flow<T>.subscribe(onStateChange: (T) -> Unit): Disposable = onEach(onStateChange)
         .launchIn(store.coroutineScope)
         .let { Disposable(it::cancel) }
+
+    public companion object {
+
+        /**
+         * This declaration is not really useful, but it bounds [KmmPreviewStore] with [KmmStore], so it is exported to
+         * iOS framework with it.
+         */
+        public fun <State : Any> createPreview(
+            initialState: State,
+            reducer: Reducer<State>,
+        ): KmmPreviewStore<State> = KmmPreviewStore(initialState, reducer)
+    }
 }
 
 /**
