@@ -5,9 +5,8 @@ import com.daftmobile.redukt.core.DispatchFunction
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.Reducer
 import com.daftmobile.redukt.core.closure.DispatchClosure
-import com.daftmobile.redukt.core.closure.LocalClosureContainer
 import com.daftmobile.redukt.core.coroutines.DispatchCoroutineScope
-import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
+import com.daftmobile.redukt.core.coroutines.runningCoroutinesClosure
 import com.daftmobile.redukt.core.middleware.MergedMiddlewareScope
 import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.core.store.select.SelectStateFlowProvider
@@ -50,8 +49,7 @@ private class StoreImpl<State>(
     initialClosure: DispatchClosure,
 ) : Store<State> {
 
-    override val closure: DispatchClosure = EmptyForegroundJobRegistry
-        .plus(LocalClosureContainer())
+    override val closure: DispatchClosure = runningCoroutinesClosure()
         .plus(DispatchCoroutineScope(MainScope()))
         .plus(SelectStateFlowProvider())
         .plus(initialClosure)

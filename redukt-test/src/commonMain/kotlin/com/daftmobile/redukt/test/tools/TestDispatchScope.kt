@@ -4,6 +4,7 @@ import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
+import com.daftmobile.redukt.core.coroutines.skipCoroutinesClosure
 import com.daftmobile.redukt.test.MutableDispatchScope
 import com.daftmobile.redukt.test.assertions.ActionsAssertScope
 
@@ -27,7 +28,7 @@ private class TestDispatchScopeImpl<State>(
     private var onDispatch: MutableDispatchScope<State>.(Action) -> Unit,
 ) : TestDispatchScope<State> {
 
-    override var closure: DispatchClosure = SkipCoroutinesClosure() + initialClosure
+    override var closure: DispatchClosure = skipCoroutinesClosure() + initialClosure
 
     override var currentState: State = initialState
 

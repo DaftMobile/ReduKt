@@ -1,13 +1,13 @@
-package com.daftmobile.redukt.test.tools
+package com.daftmobile.redukt.core.coroutines
 
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldNotBe
 import kotlinx.coroutines.Job
 import kotlin.test.Test
 
-internal class TestForegroundJobRegistryTest {
+internal class DisabledForegroundJobRegistryTest {
 
-    private val jobRegistry = TestForegroundJobRegistry()
+    private val jobRegistry = DisabledForegroundJobRegistry
 
     @Test
     fun shouldReturnCompletedJobOnConsumeEvenIfNotRegistered() {

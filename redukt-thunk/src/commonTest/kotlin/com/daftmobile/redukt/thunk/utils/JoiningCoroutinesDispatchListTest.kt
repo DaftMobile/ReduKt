@@ -6,7 +6,7 @@ import com.daftmobile.redukt.test.assertions.assertActionEquals
 import com.daftmobile.redukt.test.assertions.assertActionSequence
 import com.daftmobile.redukt.test.assertions.assertNoMoreActions
 import com.daftmobile.redukt.test.thunk.tester
-import com.daftmobile.redukt.test.tools.RunningCoroutinesClosure
+import com.daftmobile.redukt.core.coroutines.runningCoroutinesClosure
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
@@ -37,7 +37,7 @@ internal class JoiningCoroutinesDispatchListTest {
     fun shouldAwaitForegroundCoroutineBeforeDispatchingNextActions() = runTest(dispatchTimeoutMs = 2_000) {
         tester.test {
             val channel = Channel<Unit>()
-            closure += RunningCoroutinesClosure()
+            closure += runningCoroutinesClosure()
             onDispatch {
                 if (it is ForegroundJobAction) closure.launchForeground { channel.send(Unit) }
             }
@@ -59,7 +59,7 @@ internal class JoiningCoroutinesDispatchListTest {
         val concurrentDispatchListTester = JoiningCoroutinesDispatchList(actionsList, concurrent = true).tester(Unit)
         concurrentDispatchListTester.test {
             val channel = Channel<Int>()
-            closure += RunningCoroutinesClosure()
+            closure += runningCoroutinesClosure()
             var i = 1
             onDispatch {
                 if (it is ForegroundJobAction) closure.launchForeground { channel.send(i++) }

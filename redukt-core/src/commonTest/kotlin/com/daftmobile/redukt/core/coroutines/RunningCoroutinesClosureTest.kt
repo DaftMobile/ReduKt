@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.test.tools
+package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.closure.LocalClosureContainer
 import io.kotest.matchers.nulls.shouldNotBeNull
@@ -9,14 +9,15 @@ internal class RunningCoroutinesClosureTest {
 
     @Test
     fun shouldContainLocalClosureContainer() {
-        RunningCoroutinesClosure().find(LocalClosureContainer).let {
+        runningCoroutinesClosure().find(LocalClosureContainer).let {
             it.shouldNotBeNull()
             it::class shouldBe LocalClosureContainer()::class
         }
     }
 
     @Test
-    fun shouldContainOnlyOneElement() {
-        RunningCoroutinesClosure().scatter().size shouldBe 1
+    fun shouldContainEmptyForegroundJobRegistry() {
+        runningCoroutinesClosure().find(ForegroundJobRegistry).shouldBe(EmptyForegroundJobRegistry)
     }
+
 }

@@ -5,6 +5,8 @@ import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.closure.LocalClosureContainer
 import com.daftmobile.redukt.core.coroutines.ForegroundJobRegistry
 import com.daftmobile.redukt.core.coroutines.SingleForegroundJobRegistry
+import com.daftmobile.redukt.core.coroutines.DisabledForegroundJobRegistry
+import com.daftmobile.redukt.core.coroutines.DisabledLocalClosureContainer
 import com.daftmobile.redukt.test.TestActions.ActionA
 import com.daftmobile.redukt.test.TestActions.ActionB
 import com.daftmobile.redukt.test.TestActions.ActionC
@@ -95,12 +97,12 @@ internal class TestStoreTest {
 
     @Test
     fun shouldContainTestForegroundJobRegistry() {
-        store.closure[ForegroundJobRegistry].shouldBeInstanceOf<TestForegroundJobRegistry>()
+        store.closure[ForegroundJobRegistry].shouldBeInstanceOf<DisabledForegroundJobRegistry>()
     }
 
     @Test
     fun shouldContainTestLocalClosureContainer() {
-        store.closure[LocalClosureContainer].shouldBeInstanceOf<TestLocalClosureContainer>()
+        store.closure[LocalClosureContainer].shouldBeInstanceOf<DisabledLocalClosureContainer>()
     }
 
     @Test

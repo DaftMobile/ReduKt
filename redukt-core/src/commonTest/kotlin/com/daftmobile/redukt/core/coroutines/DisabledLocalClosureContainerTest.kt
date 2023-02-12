@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.test.tools
+package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
@@ -6,10 +6,10 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import kotlin.test.Test
 
-internal class TestLocalClosureContainerTest {
+internal class DisabledLocalClosureContainerTest {
 
     private val initialClosure = TestClosureElement()
-    private val localClosureContainer = TestLocalClosureContainer(initialClosure)
+    private val localClosureContainer = DisabledLocalClosureContainer(initialClosure)
 
     private class TestClosureElement : DispatchClosure.Element {
         override val key = Key

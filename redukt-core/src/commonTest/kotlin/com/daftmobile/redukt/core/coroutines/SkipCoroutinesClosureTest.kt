@@ -1,7 +1,6 @@
-package com.daftmobile.redukt.test.tools
+package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.closure.LocalClosureContainer
-import com.daftmobile.redukt.core.coroutines.ForegroundJobRegistry
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlin.test.Test
@@ -10,16 +9,16 @@ internal class SkipCoroutinesClosureTest {
 
     @Test
     fun shouldContainTestForegroundJobRegistry() {
-        SkipCoroutinesClosure()[ForegroundJobRegistry].shouldBeInstanceOf<TestForegroundJobRegistry>()
+        skipCoroutinesClosure()[ForegroundJobRegistry].shouldBeInstanceOf<DisabledForegroundJobRegistry>()
     }
 
     @Test
     fun shouldContainTestLocalClosureContainer() {
-        SkipCoroutinesClosure()[LocalClosureContainer].shouldBeInstanceOf<TestLocalClosureContainer>()
+        skipCoroutinesClosure()[LocalClosureContainer].shouldBeInstanceOf<DisabledLocalClosureContainer>()
     }
 
     @Test
     fun shouldContainOnly2Elements() {
-        SkipCoroutinesClosure().scatter().size shouldBe 2
+        skipCoroutinesClosure().scatter().size shouldBe 2
     }
 }

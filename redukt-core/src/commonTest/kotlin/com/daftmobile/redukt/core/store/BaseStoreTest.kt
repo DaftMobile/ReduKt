@@ -10,7 +10,7 @@ import com.daftmobile.redukt.core.coroutines.EmptyForegroundJobRegistry
 import com.daftmobile.redukt.core.coroutines.ForegroundJobRegistry
 import com.daftmobile.redukt.core.coroutines.SingleForegroundJobRegistry
 import com.daftmobile.redukt.core.middleware.Middleware
-import com.daftmobile.redukt.test.tools.TestLocalClosureContainer
+import com.daftmobile.redukt.core.coroutines.DisabledLocalClosureContainer
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.inspectors.shouldForAll
 import io.kotest.matchers.nulls.shouldNotBeNull
@@ -79,7 +79,7 @@ abstract class BaseStoreTest {
 
     @Test
     fun shouldOverwriteLocalClosureWhenInitialClosureContainsCorrectReplacement() {
-        val replacedLocal = TestLocalClosureContainer(EmptyDispatchClosure)
+        val replacedLocal = DisabledLocalClosureContainer(EmptyDispatchClosure)
         initialClosure = replacedLocal
         store.closure.find(LocalClosureContainer) shouldBe replacedLocal
         store.closure.find(ForegroundJobRegistry).shouldBeInstanceOf<EmptyForegroundJobRegistry>()
