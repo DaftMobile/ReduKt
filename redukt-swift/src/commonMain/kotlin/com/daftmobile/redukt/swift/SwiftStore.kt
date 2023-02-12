@@ -29,19 +29,20 @@ public abstract class SwiftStore<State : Any> {
     @HiddenFromObjC
     protected abstract val store: Store<State>
 
-    public open fun subscribe(onStateChange: (State) -> Unit): Disposable = store.state.subscribe(onStateChange)
+    public abstract val state: RequiredSwiftState<State>
 
     @ShouldRefineInSwift
-    public open fun <Selected> subscribe(
+    public open fun <Selected> select(
         selector: Selector<State, Selected>,
         onStateChange: (Selected) -> Unit
-    ): Disposable = store.select(selector).subscribe(onStateChange)
+    ): SwiftState<Selected> = store.select(selector).asSwiftState(store.coroutineScope)
+
 
     @ShouldRefineInSwift
-    public open fun <Selected> subscribe(
-        selector: (State) -> Selected,
+    public open fun <Selected : Any> select(
+        selector: Selector<State, Selected>,
         onStateChange: (Selected) -> Unit
-    ): Disposable = store.select(selector).subscribe(onStateChange)
+    ): RequiredSwiftState<Selected> = store.select(selector).asSwiftState(store.coroutineScope)
 
     public open fun dispatch(action: Action): Unit = store.dispatch(action)
 
@@ -77,6 +78,9 @@ public class SwiftPreviewStore<State : Any>(
 
     @HiddenFromObjC
     override val store: Store<State> = previewStore(initialState = initialState, reducer = reducer)
+
+
+    override val state: RequiredSwiftState<State> = store.state.asSwiftState(store.coroutineScope)
 }
 
 /**
@@ -85,4 +89,6 @@ public class SwiftPreviewStore<State : Any>(
 @HiddenFromObjC
 public fun <State : Any> Store<State>.toSwiftStore(): SwiftStore<State> = SwiftStoreWrapper(this)
 
-private class SwiftStoreWrapper<State : Any>(override val store: Store<State>) : SwiftStore<State>()
+private class SwiftStoreWrapper<State : Any>(override val store: Store<State>) : SwiftStore<State>() {
+    override val state: RequiredSwiftState<State> = store.state.asSwiftState(store.coroutineScope)
+}
