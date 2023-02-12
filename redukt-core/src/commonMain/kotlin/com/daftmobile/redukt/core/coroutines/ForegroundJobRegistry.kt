@@ -53,10 +53,7 @@ public object EmptyForegroundJobRegistry : ForegroundJobRegistry {
     /**
      * It only throws.
      */
-    override fun consume(): Nothing = error(
-        "Foreground job could not be registered in EmptyForegroundJobRegistry! " +
-                "You are probably using launchForeground outside of dispatch function!"
-    )
+    override fun consume(): Nothing = error("Foreground job not registered!")
 
     override fun toString(): String = "EmptyForegroundJobRegistry"
 }
