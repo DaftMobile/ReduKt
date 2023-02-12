@@ -24,7 +24,7 @@ import kotlin.native.ShouldRefineInSwift
  * Simplified [Store] API to provide better interop with Objective-C/Swift.
  */
 @ObjCName("ReduKtStore", exact = true)
-public abstract class KmmStore<State : Any> {
+public abstract class SwiftStore<State : Any> {
 
     @HiddenFromObjC
     protected abstract val store: Store<State>
@@ -54,24 +54,24 @@ public abstract class KmmStore<State : Any> {
     public companion object {
 
         /**
-         * This declaration is not really useful, but it bounds [KmmPreviewStore] with [KmmStore], so it is exported to
+         * This declaration is not really useful, but it bounds [SwiftPreviewStore] with [SwiftStore], so it is exported to
          * iOS framework with it.
          */
         public fun <State : Any> createPreview(
             initialState: State,
             reducer: Reducer<State>,
-        ): KmmPreviewStore<State> = KmmPreviewStore(initialState, reducer)
+        ): SwiftPreviewStore<State> = SwiftPreviewStore(initialState, reducer)
     }
 }
 
 /**
- * [previewStore] equivalent that implements [KmmStore].
+ * [previewStore] equivalent that implements [SwiftStore].
  */
 @ObjCName("ReduKtPreviewStore", exact = true)
-public class KmmPreviewStore<State : Any>(
+public class SwiftPreviewStore<State : Any>(
     initialState: State,
     reducer: Reducer<State>,
-) : KmmStore<State>() {
+) : SwiftStore<State>() {
 
     public constructor(initialState: State) : this(initialState, { state, _ -> state })
 
@@ -80,9 +80,9 @@ public class KmmPreviewStore<State : Any>(
 }
 
 /**
- * Returns [KmmStore] that delegates to [this] store.
+ * Returns [SwiftStore] that delegates to [this] store.
  */
 @HiddenFromObjC
-public fun <State : Any> Store<State>.toKmmStore(): KmmStore<State> = KmmStoreWrapper(this)
+public fun <State : Any> Store<State>.toKmmStore(): SwiftStore<State> = SwiftStoreWrapper(this)
 
-private class KmmStoreWrapper<State : Any>(override val store: Store<State>) : KmmStore<State>()
+private class SwiftStoreWrapper<State : Any>(override val store: Store<State>) : SwiftStore<State>()

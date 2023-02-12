@@ -26,5 +26,5 @@ include(
     ":redukt-test-thunk",
     ":redukt-data",
     ":redukt-compose",
-    ":redukt-kmm"
+    ":redukt-swift"
 )
