@@ -83,6 +83,6 @@ public class SwiftPreviewStore<State : Any>(
  * Returns [SwiftStore] that delegates to [this] store.
  */
 @HiddenFromObjC
-public fun <State : Any> Store<State>.toKmmStore(): SwiftStore<State> = SwiftStoreWrapper(this)
+public fun <State : Any> Store<State>.toSwiftStore(): SwiftStore<State> = SwiftStoreWrapper(this)
 
 private class SwiftStoreWrapper<State : Any>(override val store: Store<State>) : SwiftStore<State>()
