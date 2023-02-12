@@ -1,8 +1,13 @@
 package com.daftmobile.redukt.core
 
+import kotlin.experimental.ExperimentalObjCName
+import kotlin.native.ObjCName
+
 /**
  * Marker interface for every [Redux action](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#actions).
  */
+@OptIn(ExperimentalObjCName::class)
+@ObjCName("ReduKtAction", exact = true)
 public interface Action
 
 /**

@@ -1,6 +1,8 @@
 package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.Action
+import kotlin.experimental.ExperimentalObjCName
+import kotlin.native.ObjCName
 
 /**
  * Marker interface for every [Action] that has a *foreground job* ([kotlinx.coroutines.Job]) logically associated with it.
@@ -10,4 +12,6 @@ import com.daftmobile.redukt.core.Action
  *
  * Foreground job concept was introduced to await or cancel any asynchronous operations associated with an action.
  */
+@OptIn(ExperimentalObjCName::class)
+@ObjCName("ReduKtForegroundJobAction", exact = true)
 public interface ForegroundJobAction : Action

@@ -2,6 +2,8 @@ package com.daftmobile.redukt.core.store.select
 
 import com.daftmobile.redukt.core.store.Store
 import kotlinx.coroutines.flow.StateFlow
+import kotlin.experimental.ExperimentalObjCName
+import kotlin.native.ObjCName
 
 /**
  * Type alias for state mapping function.
@@ -11,6 +13,8 @@ public typealias SelectorFunction<T, R> = (T) -> R
 /**
  * Associates [select] function with [isStateEqual] and [isSelectionEqual] to improve selection performance.
  */
+@OptIn(ExperimentalObjCName::class)
+@ObjCName("ReduKtSelector", exact = true)
 public interface Selector<State, Selected> {
 
     /**
