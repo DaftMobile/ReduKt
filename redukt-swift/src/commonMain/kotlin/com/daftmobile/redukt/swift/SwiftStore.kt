@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalObjCRefinement::class, ExperimentalObjCName::class)
 
-package com.daftmobile.redukt.kmm
+package com.daftmobile.redukt.swift
 
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.Reducer

@@ -1,4 +1,4 @@
-package com.daftmobile.redukt.kmm
+package com.daftmobile.redukt.swift
 
 import kotlin.experimental.ExperimentalObjCName
 import kotlin.native.ObjCName
