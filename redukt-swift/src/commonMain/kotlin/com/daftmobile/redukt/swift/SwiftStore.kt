@@ -11,14 +11,14 @@ import com.daftmobile.redukt.core.store.Store
 import com.daftmobile.redukt.core.store.previewStore
 import com.daftmobile.redukt.core.store.select.Selector
 import com.daftmobile.redukt.core.store.select.select
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlin.experimental.ExperimentalObjCName
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
 import kotlin.native.ObjCName
-import kotlin.native.ShouldRefineInSwift
 
 /**
  * Simplified [Store] API to provide better interop with Objective-C/Swift.
@@ -29,29 +29,28 @@ public abstract class SwiftStore<State : Any> {
     @HiddenFromObjC
     protected abstract val store: Store<State>
 
-    public abstract val state: SwiftState<State>
+    public open val currentState: State get() = store.currentState
 
-    public open val currentState: State get() = state.value
+    public open fun subscribe(onStateChange: (State) -> Unit): Disposable = store.state.subscribe(onStateChange)
 
-    @ShouldRefineInSwift
-    public open fun <Selected> select(
+    public open fun <Selected> subscribe(
         selector: Selector<State, Selected>,
-        onStateChange: (Selected) -> Unit
-    ): OptionalSwiftState<Selected> = store.select(selector).asSwiftState(store.coroutineScope)
-
-
-    @ShouldRefineInSwift
-    public open fun <Selected : Any> select(selector: Selector<State, Selected>): SwiftState<Selected> = store
-        .select(selector)
-        .asSwiftState(store.coroutineScope)
+        onStateChange: (Selected) -> Unit,
+    ): Disposable = store.select(selector).subscribe(onStateChange)
 
     public open fun dispatch(action: Action): Unit = store.dispatch(action)
 
     public open fun dispatchJob(action: ForegroundJobAction): Disposable = Disposable(store.dispatchJob(action)::cancel)
 
-    private fun <T> Flow<T>.subscribe(onStateChange: (T) -> Unit): Disposable = onEach(onStateChange)
+    private fun <T> StateFlow<T>.subscribe(onStateChange: (T) -> Unit): Disposable = drop(1)
+        .onEach(onStateChange)
         .launchIn(store.coroutineScope)
-        .let { Disposable(it::cancel) }
+        .let {
+            // dropping first value and calling onStateChange here
+            // guarantees that initial value is delivered before subscription returns
+            onStateChange(value)
+            Disposable(it::cancel)
+        }
 
     public companion object {
 
@@ -80,8 +79,6 @@ public class SwiftPreviewStore<State : Any>(
     @HiddenFromObjC
     override val store: Store<State> = previewStore(initialState = initialState, reducer = reducer)
 
-
-    override val state: SwiftState<State> = store.state.asSwiftState(store.coroutineScope)
 }
 
 /**
@@ -90,6 +87,4 @@ public class SwiftPreviewStore<State : Any>(
 @HiddenFromObjC
 public fun <State : Any> Store<State>.toSwiftStore(): SwiftStore<State> = SwiftStoreWrapper(this)
 
-private class SwiftStoreWrapper<State : Any>(override val store: Store<State>) : SwiftStore<State>() {
-    override val state: SwiftState<State> = store.state.asSwiftState(store.coroutineScope)
-}
+private class SwiftStoreWrapper<State : Any>(override val store: Store<State>) : SwiftStore<State>()
