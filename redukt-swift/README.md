@@ -25,14 +25,14 @@ Example below shows how to use ReduKt store from Swift with given adjustments:
 ```swift
 let store = IosApp.shared.buildAppStore()
 let subDisposable = store.subscribePosts {
-   // process updates for posts
+   // process posts updates
 }
 // ...
 val jobDisposable = store.dispatchJob(PostAction.Fetch)
 // ...
 jobDisposable.dispose()
 // ...
-subDisposable = store.dispose()
+subDisposable.dispose()
 ```
 
 Also, if you are using SwiftUI these samples should be useful:
