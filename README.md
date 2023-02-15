@@ -31,6 +31,7 @@ API reference has not been published yet. It's only available from the source co
   a result.
 * [ReduKt Koin](redukt-koin) - integration with [Koin framework](https://github.com/InsertKoinIO/koin).
 * [ReduKt Compose](redukt-compose) - integration with Jetpack Compose.
+* [ReduKt Swift](redukt-swift) - store wrapper that provides better experience on the Swift side.
 
 ## Overview
 
