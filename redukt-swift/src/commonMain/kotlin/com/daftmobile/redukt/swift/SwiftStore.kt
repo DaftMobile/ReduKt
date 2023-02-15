@@ -26,13 +26,27 @@ import kotlin.native.ObjCName
 @ObjCName("ReduKtStore", exact = true)
 public abstract class SwiftStore<State : Any> {
 
+    /**
+     * Returns internal store instance that is hidden form Objective-C. It enables implementing any missing delegation
+     * to real store as an extension to this class.
+     */
     @HiddenFromObjC
-    protected abstract val store: Store<State>
+    public abstract val store: Store<State>
 
     public open val currentState: State get() = store.currentState
 
+    /**
+     *  Invokes [onStateChange] on each change of [currentState]. Returns a [Disposable] that should be
+     *  disposed when subscription is no longer needed. Initial value is delivered with [onStateChange] before
+     *  this method returns.
+     */
     public open fun subscribe(onStateChange: (State) -> Unit): Disposable = store.state.subscribe(onStateChange)
 
+    /**
+     *  Invokes [onStateChange] on each change of selected state with [selector]. Returns a [Disposable] that should be
+     *  disposed when subscription is no longer needed. Initial value is delivered with [onStateChange] before
+     *  this method returns.
+     */
     public open fun <Selected> subscribe(
         selector: Selector<State, Selected>,
         onStateChange: (Selected) -> Unit,
@@ -40,6 +54,9 @@ public abstract class SwiftStore<State : Any> {
 
     public open fun dispatch(action: Action): Unit = store.dispatch(action)
 
+    /**
+     * Calls [Store.dispatchJob] and returns a [Disposable] that cancels foreground coroutine on dispose call.
+     */
     public open fun dispatchJob(action: ForegroundJobAction): Disposable = Disposable(store.dispatchJob(action)::cancel)
 
     private fun <T> StateFlow<T>.subscribe(onStateChange: (T) -> Unit): Disposable = drop(1)
