@@ -55,13 +55,24 @@ val store = buildStore {
     }
 }
 ```
-State changes are delivered by the StateFlow:
 
+State changes are delivered by the StateFlow:
 ```kotlin
 // Collecting whole state...
 store.state.collect { /* ... */ }
 // ...or just a part of it!
 store.select { it.posts }.collect { /* ... */ }
+```
+
+Customizable selectors that enables performance improvements:
+```kotlin
+val totalProductsPriceSelector = createSelector(
+  stateEquality = { old, new -> old.products == new.products },
+  selector = { it.products.sumBy(Product::price) }
+)
+store.select(totalProductsPriceSelector).collect { 
+    // Total prices is recalculated only if products have changed and when value is really needed!
+}
 ```
 
 Declaring middlewares comes with predefined utils:
@@ -82,6 +93,7 @@ val debugMiddleware = middleware<AppState> { action ->
 // ...or even shorter with `translucentMiddleware`
 val debugMiddleware = translucentMiddleware<AppState> { action -> println(action) }
 ```
+
 Launching and controlling coroutines is integrated with the store:
 ```kotlin
 fun fetchPostsMiddleware(client: HttpClient) = consumingMiddleware<AppState, PostAction.FetchAll> {
@@ -96,6 +108,7 @@ val job = store.dispatchJob(PostAction.FetchAll)
 // ...
 job.cancel()
 ```
+
 Http client instance might be injected thanks to [ReduKt Koin](redukt-koin):
 ```kotlin
 val fetchPostsMiddleware = consumingMiddleware<AppState, PostAction.FetchAll> {
@@ -119,6 +132,7 @@ val job = store.dispatchJob(FetchAllPosts)
 // ...
 job.cancel()
 ```
+
 To reduce even more code with asynchronous data sources, you can use [ReduKt Data](redukt-data)!
 
 ## Multiplatform
