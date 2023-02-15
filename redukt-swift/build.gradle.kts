@@ -1,11 +1,11 @@
 plugins {
-    id("redukt-lib")
+    id("redukt-lib-darwin")
 }
 
 dependencies {
-    commonMainApi(ReduKt.core)
+    darwinMainApi(ReduKt.core)
 
-    commonTestImplementation(libs.kotlinx.coroutines.test)
-    commonTestImplementation(ReduKt.test)
-    commonTestImplementation(kotlin("test"))
+    darwinTestImplementation(libs.kotlinx.coroutines.test)
+    darwinTestImplementation(ReduKt.test)
+    darwinTestImplementation(kotlin("test"))
 }
