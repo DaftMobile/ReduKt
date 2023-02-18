@@ -57,6 +57,9 @@ public annotation class TypeSafeResolverConfigMarker
 public interface TypeSafeResolverConfigScope {
     @TypeSafeResolverConfigMarker
     public infix fun <T : DataSource<*, *>> PureDataSourceKey<T>.resolveBy(provider: () -> T)
+
+    @TypeSafeResolverConfigMarker
+    public infix fun <T : DataSource<*, *>> PureDataSourceKey<T>.resolvesTo(dataSource: T)
 }
 
 private class TypeSafeDataSourceResolver(resolveConfig: TypeSafeResolverConfigScope.() -> Unit) : DataSourceResolver {
@@ -74,5 +77,9 @@ private class TypeSafeResolverConfigScopeImpl(
 ) : TypeSafeResolverConfigScope {
     override infix fun <T : DataSource<*, *>> PureDataSourceKey<T>.resolveBy(provider: () -> T) {
         providers[this] = provider
+    }
+
+    override fun <T : DataSource<*, *>> PureDataSourceKey<T>.resolvesTo(dataSource: T) {
+        providers[this] = { dataSource }
     }
 }

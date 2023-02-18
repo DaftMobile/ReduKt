@@ -9,6 +9,7 @@ koin = "3.3.3"
 turbine = "0.12.1"
 compose = "1.3.0"
 detekt = "1.22.0"
+ktor = "2.2.3"
 
 [plugins]
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
@@ -34,3 +35,4 @@ kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 compose = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
