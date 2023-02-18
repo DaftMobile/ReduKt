@@ -3,8 +3,8 @@ package com.daftmobile.redukt.data.ktor
 import com.daftmobile.redukt.data.DataSource
 import com.daftmobile.redukt.data.DataSourceKey
 import com.daftmobile.redukt.data.PureDataSourceKey
-import com.daftmobile.redukt.data.resolver.DataSourceResolver
-import com.daftmobile.redukt.data.resolver.TypeSafeResolverConfigMarker
+import com.daftmobile.redukt.data.DataSourceResolver
+import com.daftmobile.redukt.data.TypeSafeResolverConfigMarker
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.HttpClientEngine
