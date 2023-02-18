@@ -1,9 +1,6 @@
 package com.daftmobile.redukt.data
 
 import com.daftmobile.redukt.core.DispatchScope
-import com.daftmobile.redukt.data.resolver.DataSourceResolver
-import com.daftmobile.redukt.data.resolver.MissingDataSourceException
-import com.daftmobile.redukt.data.resolver.dataSourceResolver
 
 /**
  * Any asynchronous source of data that provides [Response] on a [call] with a [Request].

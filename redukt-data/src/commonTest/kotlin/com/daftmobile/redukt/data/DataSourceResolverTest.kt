@@ -1,7 +1,5 @@
-package com.daftmobile.redukt.data.resolver
+package com.daftmobile.redukt.data
 
-import com.daftmobile.redukt.data.DataSourceKey
-import com.daftmobile.redukt.data.DataSourceMock
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import kotlin.test.Test

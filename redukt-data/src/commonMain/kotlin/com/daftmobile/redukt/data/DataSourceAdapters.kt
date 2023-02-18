@@ -1,6 +1,4 @@
-package com.daftmobile.redukt.data.adapter
-
-import com.daftmobile.redukt.data.DataSource
+package com.daftmobile.redukt.data
 
 /**
  * Adapts a [DataSource] with [transform] to accept a [Request] instead of a [OriginRequest].

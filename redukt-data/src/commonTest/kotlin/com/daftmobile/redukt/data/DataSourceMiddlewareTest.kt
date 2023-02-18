@@ -1,8 +1,9 @@
 package com.daftmobile.redukt.data
 
-import com.daftmobile.redukt.data.resolver.DataSourceResolver
-import com.daftmobile.redukt.data.resolver.MissingDataSourceException
-import com.daftmobile.redukt.test.assertions.*
+import com.daftmobile.redukt.test.assertions.assertActionEquals
+import com.daftmobile.redukt.test.assertions.assertActionOfType
+import com.daftmobile.redukt.test.assertions.assertNoActions
+import com.daftmobile.redukt.test.assertions.skipOneAction
 import com.daftmobile.redukt.test.middleware.testJobAction
 import com.daftmobile.redukt.test.middleware.testJobActionIn
 import com.daftmobile.redukt.test.middleware.tester

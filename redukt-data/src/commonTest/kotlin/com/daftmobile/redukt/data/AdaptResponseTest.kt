@@ -1,6 +1,5 @@
-package com.daftmobile.redukt.data.adapter
+package com.daftmobile.redukt.data
 
-import com.daftmobile.redukt.data.DataSourceMock
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

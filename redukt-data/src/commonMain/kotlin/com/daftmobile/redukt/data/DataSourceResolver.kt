@@ -1,9 +1,7 @@
-package com.daftmobile.redukt.data.resolver
+package com.daftmobile.redukt.data
 
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.closure.DispatchClosure
-import com.daftmobile.redukt.data.DataSource
-import com.daftmobile.redukt.data.PureDataSourceKey
 
 /**
  * Provides [DataSource]s associated with [PureDataSourceKey]s.
