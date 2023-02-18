@@ -98,11 +98,14 @@ internal class StoreBuilder<State> : StoreBuilderScope<State> {
     }
 
     fun build() = Store(
-        requireNotNull(state) { stateAndReducerMissingMsg() },
-        requireNotNull(stateReducer) { stateAndReducerMissingMsg() },
+        requireNotNull(state) { stateAndReducerMissingMsg },
+        requireNotNull(stateReducer) { stateAndReducerMissingMsg },
         middlewareBuilder.middlewares,
         closureBuilder.closure
     )
 
-    private fun stateAndReducerMissingMsg() = "Initial state and reducer are missing! Use `AppState() reducedBy ::appReducer` to initialize it!"
+    companion object {
+        private const val stateAndReducerMissingMsg = "Initial state and reducer are missing! " +
+                "Use `AppState() reducedBy ::appReducer` to initialize it!"
+    }
 }

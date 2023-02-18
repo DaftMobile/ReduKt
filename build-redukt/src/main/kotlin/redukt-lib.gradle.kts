@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE")
+
 plugins {
     id("redukt-lib-base")
     id("redukt-lib-darwin")

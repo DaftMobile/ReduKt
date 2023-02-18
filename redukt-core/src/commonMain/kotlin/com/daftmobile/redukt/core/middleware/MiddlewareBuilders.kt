@@ -45,7 +45,8 @@ public inline fun <State, reified T : Action> consumingMiddleware(
 ): Middleware<State> = { consumingDispatch<T> { block(it) } }
 
 /**
- * Creates a middleware with [translucentDispatch] that executes a given [block] and passes every action to the next middleware.
+ * Creates a middleware with [translucentDispatch] that executes a given [block] and passes every action to the next
+ * middleware.
  *
  *  Example of usage:
  * ```
@@ -57,7 +58,8 @@ public inline fun <State> translucentMiddleware(
 ): Middleware<State> = { translucentDispatch { block(it) } }
 
 /**
- * This function only returns given [dispatch]. It has a few benefits over simple [DispatchFunction] lambda that are illustrated with this example:
+ * This function only returns given [dispatch]. It has a few benefits over simple [DispatchFunction] lambda that are
+ * illustrated with this example:
  * ```
  * fun counterMiddleware1(): Middleware<AppState> = {
  *    var i = restorePreviousValue() // semicolon is required here to compile
@@ -134,7 +136,8 @@ public inline fun MiddlewareScope<*>.translucentDispatch(crossinline block: Disp
 }
 
 /**
- * Creates a dispatch function that executes a given [block] for every action with given supertype [T] and passes every action to the next middleware.
+ * Creates a dispatch function that executes a given [block] for every action with given supertype [T] and passes every
+ * action to the next middleware.
  *
  * Example of usage:
  * ```

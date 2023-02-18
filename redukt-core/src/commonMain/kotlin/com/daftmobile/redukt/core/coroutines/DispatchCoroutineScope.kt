@@ -7,8 +7,9 @@ import kotlinx.coroutines.MainScope
 import kotlin.coroutines.CoroutineContext
 
 /**
- * Default [CoroutineScope] associated with a store. By default, the store contains a [MainScope] and it can be replaced at store creation by adding it into a [DispatchClosure].
- * It can be accessed by [coroutineScope] extension property. Tools provided by this library most likely use this scope to launch a coroutine.
+ * Default [CoroutineScope] associated with a store. By default, the store contains a [MainScope] and it can be replaced
+ * at store creation by adding it into a [DispatchClosure]. It can be accessed by [coroutineScope] extension property.
+ * Tools provided by this library most likely use this scope to launch a coroutine.
  */
 public class DispatchCoroutineScope(
     private val coroutineScope: CoroutineScope,

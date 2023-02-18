@@ -45,10 +45,10 @@ public fun <State, Selected> createSelector(
 
 /**
  * Maps [Store.state] to a new [StateFlow] using given [selector] function. [selector] function is not called before
- * selected state is actually accessed using [StateFlow.value] or collected. Also, it's not called if state is not changed.
- * State is compared using [equals] so selection might be recalculated even if unrelated part of the state changed.
- * However, if selection stays the same (again compared using [equals]), it's not emitted (just like every [StateFlow]).
- * To optimize state selection, use `select` with [Selector] param.
+ * selected state is actually accessed using [StateFlow.value] or collected. Also, it's not called if state
+ * is not changed. State is compared using [equals] so selection might be recalculated even if unrelated part of the
+ * state changed. However, if selection stays the same (again compared using [equals]), it's not emitted (just like
+ * every [StateFlow]). To optimize state selection, use `select` with [Selector] param.
  */
 public fun <State, Selection> Store<State>.select(
     selector: SelectorFunction<State, Selection>
@@ -57,8 +57,9 @@ public fun <State, Selection> Store<State>.select(
 /**
  * Maps [Store.state] to a new [StateFlow] using given [selector].
  * Selector function is called only if [Selector.isStateEqual] returns false (by default it refers to [equals]).
- * Also, selector function is not called before selected state is actually accessed using [StateFlow.value] or collected.
- * Selector result is emitted only if [Selector.isSelectionEqual] returns false (by default it refers to [equals]).
+ * Also, selector function is not called before selected state is actually accessed using [StateFlow.value]
+ * or collected. Selector result is emitted only if [Selector.isSelectionEqual] returns false
+ * (by default it refers to [equals]).
  */
 public fun <State, Selected> Store<State>.select(
     selector: Selector<State, Selected>

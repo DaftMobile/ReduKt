@@ -6,8 +6,8 @@ public fun interface SelectorEquality<in T> {
     public companion object {
         public val Default: SelectorEquality<Any?> = SelectorEquality { o, n -> o == n }
 
-        public inline fun <T, R> by(crossinline property: (T) -> R): SelectorEquality<T> = SelectorEquality { old, new ->
-            old.let(property) == new.let(property)
-        }
+        public inline fun <T, R> by(
+            crossinline property: (T) -> R
+        ): SelectorEquality<T> = SelectorEquality { old, new -> old.let(property) == new.let(property) }
     }
 }

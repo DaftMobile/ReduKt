@@ -8,7 +8,8 @@ import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Job
 
 /**
- * Creates a [DispatchClosure] that skips coroutines mechanism. Every [dispatchJob] is executed with no failure and returns completed job.
+ * Creates a [DispatchClosure] that skips coroutines mechanism. Every [dispatchJob] is executed with no failure
+ * and returns completed job.
  */
 @DelicateReduKtApi
 public fun skipCoroutinesClosure(): DispatchClosure = DisabledLocalClosureContainer() + DisabledForegroundJobRegistry

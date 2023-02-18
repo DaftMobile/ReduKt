@@ -9,11 +9,14 @@ import com.daftmobile.redukt.core.closure.LocalClosureContainer.Slot
 /**
  * A [DispatchClosure.Element], that handles local changes of a [DispatchClosure].
  *
- * Generally, this mechanism is not required to know in normal usage. However, it might be useful to introduce some new special mechanisms to the store.
+ * Generally, this mechanism is not required to know in normal usage. However, it might be useful to introduce some new
+ * special mechanisms to the store.
  *
  * [LocalClosureContainer] has following properties:
- * * It doesn't affect the closure that is a part of. Therefore, it must be accessed directly by [DispatchClosure.local]` to receive locally changed values. Original closure always remains the same.
- * * It works only for a time of dispatch call. Therefore, accessing it outside of dispatch function returns unchanged values.
+ * * It doesn't affect the closure that is a part of. Therefore, it must be accessed directly by
+ * [DispatchClosure.local]` to receive locally changed values. Original closure always remains the same.
+ * * It works only for a time of dispatch call. Therefore, accessing it outside of dispatch function returns
+ * unchanged values.
  * * It's hierarchical. Nested dispatch calls receive accumulated local closures.
  * * Every change is identified by [Slot].
  *
@@ -24,8 +27,9 @@ import com.daftmobile.redukt.core.closure.LocalClosureContainer.Slot
  * ### Interactions with a store
  *
  * By default, store contains an instance of [LocalClosureContainer] (created by *LocalClosureContainer()*).
- * It applies changes to the original closure field, so accessing local closure without local changes, returns values from the original one.
- * Because local changes remains only for a time of dispatch call, accessing them from coroutines launched by a middleware, don't work.
+ * It applies changes to the original closure field, so accessing local closure without local changes, returns values
+ * from the original one. Because local changes remains only for a time of dispatch call, accessing them from
+ * coroutines launched by a middleware, doesn't work.
  *
  * ### Example
  *
@@ -43,8 +47,11 @@ import com.daftmobile.redukt.core.closure.LocalClosureContainer.Slot
  * fun customMiddleware(): Middleware<AppState> = {
  *    var element = localClosure[ClosureElement] // outside of dispatch - returns values from the original closure
  *    dispatchFunction {
- *        element = localClosure[ClosureElement] // inside of dispatch and direct access to local closure - properly returns local changes
- *        element = closure[ClosureElement]      // direct access to original closure - returns values from the original closure
+ *        element = localClosure[ClosureElement] // direct access to local closure in dispatch
+ *                                               // properly returns local changes
+ *
+ *        element = closure[ClosureElement]      // direct access to original closure
+ *                                               // returns values from the original closure
  *    }
  * }
  * ```

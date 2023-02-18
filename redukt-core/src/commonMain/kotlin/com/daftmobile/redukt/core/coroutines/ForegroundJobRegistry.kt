@@ -35,7 +35,8 @@ public interface ForegroundJobRegistry : DispatchClosure.Element {
 }
 
 /**
- * A [ForegroundJobRegistry] that ignores registered job and always fails on [consume]. It's injected by default into the store's closure.
+ * A [ForegroundJobRegistry] that ignores registered job and always fails on [consume].
+ * It's injected by default into the store's closure.
  */
 @DelicateReduKtApi
 public object EmptyForegroundJobRegistry : ForegroundJobRegistry {

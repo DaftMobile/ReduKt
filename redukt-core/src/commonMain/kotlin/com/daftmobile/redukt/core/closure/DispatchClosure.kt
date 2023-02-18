@@ -33,7 +33,9 @@ public interface DispatchClosure {
      * Combines this closure with incoming [closure].
      * If both closures contain elements with the same keys, the ones from the incoming [closure] remain.
      */
-    public operator fun plus(closure: DispatchClosure): DispatchClosure = CombinedDispatchClosure(scatter() + closure.scatter())
+    public operator fun plus(
+        closure: DispatchClosure
+    ): DispatchClosure = CombinedDispatchClosure(scatter() + closure.scatter())
 
     /**
      * Returns a closure without the element with a given [key]
@@ -72,7 +74,10 @@ public interface DispatchClosure {
     public interface Key<T : Element>
 }
 
-public fun <T : DispatchClosure.Element> DispatchClosure.findOrElse(key: DispatchClosure.Key<T>, value: T): T = find(key) ?: value
+public fun <T : DispatchClosure.Element> DispatchClosure.findOrElse(
+    key: DispatchClosure.Key<T>,
+    value: T
+): T = find(key) ?: value
 
 internal class MissingClosureElementException(
     key: DispatchClosure.Key<*>

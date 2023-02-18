@@ -17,9 +17,11 @@ import kotlinx.coroutines.flow.StateFlow
 /**
  * This is an equivalent of [Redux store](https://redux.js.org/tutorials/fundamentals/part-4-store#redux-store).
  * However, there are a few differences:
- * * Instead of [getState](https://redux.js.org/api/store#getState) there is a [currentState] property that returns current state.
+ * * Instead of [getState](https://redux.js.org/api/store#getState) there is a [currentState] property
+ * that returns current state.
  * * State changes are received by collecting [state].
- * * Contains [closure] field that provides a mechanism to inject objects to the store and make them available to middlewares.
+ * * Contains [closure] field that provides a mechanism to inject objects to the store and make them
+ * available to middlewares.
  *
  * To create an instance use [buildStore] (recommended) or Store() function.
  */

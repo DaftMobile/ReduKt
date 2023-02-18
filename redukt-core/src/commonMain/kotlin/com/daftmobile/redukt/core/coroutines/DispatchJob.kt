@@ -5,16 +5,21 @@ import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.closure.local
 import com.daftmobile.redukt.core.closure.withLocalClosure
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * Launches a *foreground job* using closure form [this] scope.
- * By default, it's launched in a scope provided by [DispatchCoroutineScope]. This behaviour might be changed by [dispatchJobIn] or [joinDispatchJob].
- * Because this function uses local closure, calling it outside dispatch should not be done, because it might result in unexpected behaviour.
+ * By default, it's launched in a scope provided by [DispatchCoroutineScope]. This behaviour might be changed by
+ * [dispatchJobIn] or [joinDispatchJob]. Because this function uses local closure, calling it outside dispatch should
+ * not be done, because it might result in unexpected behaviour.
  *
  * @see ForegroundJobAction
  */
@@ -65,8 +70,9 @@ public suspend fun DispatchScope<*>.joinDispatchJob(action: ForegroundJobAction)
 
 /**
  * Launches a *foreground job* using [this] closure.
- * By default, it's launched in a scope provided by [DispatchCoroutineScope]. This behaviour might be changed by [dispatchJobIn] or [joinDispatchJob].
- * Because this function uses local closure, calling it outside dispatch should not be done, because it might result in unexpected behaviour.
+ * By default, it's launched in a scope provided by [DispatchCoroutineScope]. This behaviour might be changed
+ * by [dispatchJobIn] or [joinDispatchJob]. Because this function uses local closure, calling it outside dispatch
+ * should not be done, because it might result in unexpected behaviour.
  *
  * @see ForegroundJobAction
  */
@@ -76,7 +82,8 @@ public fun DispatchClosure.launchForeground(
     block: suspend CoroutineScope.() -> Unit
 ): Job {
     val scope = local[DispatchCoroutineScope]
-    // creates a new frame to ensure that foreground coroutine body has access only to global DispatchClosure (in case of immediate dispatchers)
+    // creates a new frame to ensure that foreground coroutine body has access only to global
+    // DispatchClosure (in case of immediate dispatchers)
     val job = withLocalClosure(closure = EmptyDispatchClosure, newFrame = true) {
         scope.launch(context, start, block)
     }

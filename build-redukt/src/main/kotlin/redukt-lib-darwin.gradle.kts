@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE")
+
 plugins {
     id("redukt-lib-base")
 }
@@ -18,7 +20,6 @@ kotlin {
 
     sourceSets {
         val darwinMain by creating
-        val darwinTest by creating
 
         val iosMain by getting { dependsOn(darwinMain) }
         val iosTest by getting

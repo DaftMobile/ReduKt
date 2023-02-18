@@ -11,4 +11,5 @@ dependencies {
     api(libs.gradle.plugin.compose)
     api(libs.gradle.plugin.kotlin)
     api(libs.gradle.plugin.dokka)
+    api(libs.gradle.plugin.detekt)
 }

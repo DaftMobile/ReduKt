@@ -20,7 +20,8 @@ public interface DispatchScope<out State> {
     public val currentState: State
 
     /**
-     * This is equivalent to [Redux dispatch](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#dispatch).
+     * This is equivalent to
+     * [Redux dispatch](https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow#dispatch).
      */
     public fun dispatch(action: Action)
 }

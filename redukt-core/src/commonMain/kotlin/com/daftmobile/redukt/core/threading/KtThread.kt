@@ -22,7 +22,8 @@ public sealed interface KtThread {
 }
 
 /**
- * Creates a [KtThread] with given [rawName]. It doesn't create a real native thread. It is just for thread identification.
+ * Creates a [KtThread] with given [rawName]. It doesn't create a real native thread.
+ * It is just for thread identification.
  */
 internal fun KtThread(rawName: String?): KtThread = KtThreadImpl(rawName)
 

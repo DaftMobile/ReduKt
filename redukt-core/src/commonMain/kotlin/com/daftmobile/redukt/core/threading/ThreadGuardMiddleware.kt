@@ -11,8 +11,11 @@ public val threadGuardMiddleware: Middleware<*> = {
     val initialThread = KtThread.current()
     translucentDispatch {
         val currentThread = KtThread.current()
-        if (currentThread != initialThread) error(
-            "Calling dispatch from $currentThread, but you used $initialThread to create a store! You should stick to initial thread!"
-        )
+        if (currentThread != initialThread) {
+            error(
+                "Calling dispatch from $currentThread, but you used $initialThread to create a store!" +
+                    " You should stick to initial thread!"
+            )
+        }
     }
 }
