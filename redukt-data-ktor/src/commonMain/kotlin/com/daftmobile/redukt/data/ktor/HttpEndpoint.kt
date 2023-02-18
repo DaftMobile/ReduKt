@@ -38,17 +38,6 @@ public fun <Request, RawResponse, Response> HttpEndpoint(
     errorMapper = errorMapper
 )
 
-public fun <Request, Response> HttpEndpoint(
-    requestCreator: HttpRequestCreator<Request>,
-    responseReader: HttpResponseReader<Response>,
-    errorMapper: HttpErrorMapper? = null
-): HttpEndpoint<Request, Response, Response> = HttpEndpointDefinition(
-    requestCreator = requestCreator,
-    responseReader = responseReader,
-    responseMapper = { _, raw -> raw },
-    errorMapper = errorMapper
-)
-
 public inline fun <Request, reified RawResponse, Response> HttpEndpoint(
     noinline requestCreator: HttpRequestCreator<Request>,
     noinline responseMapper: HttpResponseMapper<Request, RawResponse, Response>,
