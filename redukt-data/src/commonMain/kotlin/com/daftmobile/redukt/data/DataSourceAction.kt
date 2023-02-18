@@ -4,7 +4,8 @@ import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.coroutines.ForegroundJobAction
 
 /**
- * An action that triggers a [DataSource] (identified by a given [key]) call with a given [request] in a foreground coroutine.
+ * An action that triggers a [DataSource] (identified by a given [key]) call with a given [request] in
+ * a foreground coroutine.
  */
 public data class DataSourceCall<Request, Response>(
     val key: PureDataSourceKey<DataSource<Request, Response>>,
@@ -49,7 +50,8 @@ public sealed interface DataSourcePayload<Request, Response> {
 }
 
 /**
- * Special type of payload that contains a [kotlin.Result]. It's not associated with [DataSourceAction] and it's only a util.
+ * Special type of payload that contains a [kotlin.Result]. It's not associated with [DataSourceAction] and
+ * it's only a util.
  */
 public data class DataSourceResultPayload<Request, Response>(
     public val request: Request,

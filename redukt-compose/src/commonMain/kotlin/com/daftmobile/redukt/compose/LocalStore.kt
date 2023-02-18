@@ -1,7 +1,13 @@
 package com.daftmobile.redukt.compose
 
-
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocal
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.staticCompositionLocalOf
 import com.daftmobile.redukt.core.DispatchFunction
 import com.daftmobile.redukt.core.coroutines.ForegroundJobAction
 import com.daftmobile.redukt.core.coroutines.dispatchJob
@@ -44,7 +50,8 @@ public inline val <AppState> CompositionLocal<Store<AppState>>.dispatchJob: (For
 /**
  * Returns a [dispatchJobIn] function for a composition local store.
  */
-public inline val <AppState> CompositionLocal<Store<AppState>>.dispatchJobIn: (ForegroundJobAction, CoroutineScope) -> Unit
+public inline val <AppState> CompositionLocal<Store<AppState>>
+        .dispatchJobIn: (ForegroundJobAction, CoroutineScope) -> Unit
     @Composable
     get() {
         val store = current
@@ -65,8 +72,9 @@ public inline val <AppState> CompositionLocal<Store<AppState>>.joinDispatchJob: 
 
 
 /**
- * Returns a [dispatchJobIn] function for a composition local store. It provides a [CoroutineScope] from [rememberCoroutineScope].
- * It results in an automatic cancellation of any foreground coroutine triggered by this function at a composable disposal.
+ * Returns a [dispatchJobIn] function for a composition local store. It provides a [CoroutineScope]
+ * from [rememberCoroutineScope]. It results in an automatic cancellation of any foreground coroutine triggered by
+ * this function at a composable disposal.
  */
 public inline val <AppState> CompositionLocal<Store<AppState>>.dispatchJobInHere: (ForegroundJobAction) -> Unit
     @Composable

@@ -1,7 +1,9 @@
 package com.daftmobile.redukt.data
 
 import com.daftmobile.redukt.core.Reducer
-import com.daftmobile.redukt.data.DataSourcePayload.*
+import com.daftmobile.redukt.data.DataSourcePayload.Failure
+import com.daftmobile.redukt.data.DataSourcePayload.Started
+import com.daftmobile.redukt.data.DataSourcePayload.Success
 
 public typealias PayloadReducer<State, Payload> = (state: State, payload: Payload) -> State
 
@@ -44,7 +46,8 @@ public inline fun <Request, Response, State> createDataSourceReducer(
 /**
  * Creates a [Reducer] that:
  * * Calls [onStart] on [DataSourceAction] with [DataSourcePayload.Started] and a given [key].
- * * Calls [onResult] with [kotlin.Result] on [DataSourceAction] with [DataSourcePayload.Success] or [DataSourcePayload.Failure] and a given [key].
+ * * Calls [onResult] with [kotlin.Result] on [DataSourceAction] with [DataSourcePayload.Success]
+ * or [DataSourcePayload.Failure] and a given [key].
  * * Calls [onElse] otherwise.
  *
  * Example of usage:

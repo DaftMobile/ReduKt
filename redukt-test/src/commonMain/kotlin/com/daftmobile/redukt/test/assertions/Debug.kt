@@ -8,7 +8,8 @@ import com.daftmobile.redukt.core.Action
 public val ActionsAssertScope.currentAction: Action? get() = unverified.firstOrNull()
 
 /**
- * Returns a string that contains list of all dispatched actions. The action recently pulled form the queue is marked with '->'.
+ * Returns a string that contains list of all dispatched actions.
+ * The action recently pulled form the queue is marked with '->'.
  */
 public val ActionsAssertScope.actionStackString: String
     get() {

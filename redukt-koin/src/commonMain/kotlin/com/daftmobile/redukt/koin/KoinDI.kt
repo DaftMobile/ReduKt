@@ -8,7 +8,8 @@ import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
 
 /**
- * Injects Koin into dispatch closure. It can be accessed by the [Key] from [DispatchClosure] or by [koin] property from [DispatchScope].
+ * Injects Koin into dispatch closure. It can be accessed by the [Key] from [DispatchClosure]
+ * or by [koin] property from [DispatchScope].
  */
 public interface KoinDI : KoinComponent, DispatchClosure.Element {
 

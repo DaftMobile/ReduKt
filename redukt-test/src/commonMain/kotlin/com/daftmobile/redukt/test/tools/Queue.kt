@@ -26,7 +26,8 @@ public interface Queue<T> : Collection<T> {
     public fun push(item: T)
 
     /**
-     * Removes first item from the queue and returns it. If there is no more elements in the queue, it throws an exception.
+     * Removes first item from the queue and returns it. If there is no more elements in the queue,
+     * it throws an exception.
      */
     public fun pull(): T
 

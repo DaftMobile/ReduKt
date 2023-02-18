@@ -49,7 +49,10 @@ public fun <State> CoThunkTestScope(
     initialState: State,
     initialClosure: DispatchClosure = EmptyDispatchClosure,
     initialOnDispatch: MutableDispatchScope<State>.(Action) -> Unit = { },
-): CoThunkTestScope<State> = CoThunkTestScopeImpl(thunk, TestDispatchScope(initialState, initialClosure, initialOnDispatch))
+): CoThunkTestScope<State> = CoThunkTestScopeImpl(
+    thunk = thunk,
+    scope = TestDispatchScope(initialState, initialClosure, initialOnDispatch)
+)
 
 private class ThunkTestScopeImpl<State>(
     private val thunk: ThunkAction<State>,

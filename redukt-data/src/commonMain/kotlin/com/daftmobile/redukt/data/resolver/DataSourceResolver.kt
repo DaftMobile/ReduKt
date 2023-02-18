@@ -21,7 +21,8 @@ public interface DataSourceResolver : DispatchClosure.Element {
 }
 
 /**
- * Returns [DataSourceResolver] instance associated with a store. It depends on [DataSourceResolver] element injected into the closure.
+ * Returns [DataSourceResolver] instance associated with a store. It depends on [DataSourceResolver] element injected
+ * into the closure.
  */
 public val DispatchScope<*>.dataSourceResolver: DataSourceResolver get() = closure[DataSourceResolver]
 

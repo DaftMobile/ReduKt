@@ -9,8 +9,9 @@ import com.daftmobile.redukt.data.resolver.dataSourceResolver
 /**
  * Consumes [DataSourceCall] and launches a [DataSource] call in a foreground coroutine.
  *
- * It requires [com.daftmobile.redukt.data.resolver.DataSourceResolver] in a dispatch closure that provides [DataSource]s.
- * If [DataSource] with [DataSourceCall.key] cannot be resolved it throws an exception with no dispatched actions.
+ * It requires [com.daftmobile.redukt.data.resolver.DataSourceResolver] in a dispatch closure that
+ * provides [DataSource]s. If [DataSource] with [DataSourceCall.key] cannot be resolved it throws an exception
+ * with no dispatched actions.
  *
  * The foreground coroutine dispatches:
  * * [DataSourceAction] with [DataSourcePayload.Started] before a foreground coroutine launch.
