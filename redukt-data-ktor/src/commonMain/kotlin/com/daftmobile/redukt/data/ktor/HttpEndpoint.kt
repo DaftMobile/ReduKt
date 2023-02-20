@@ -15,11 +15,6 @@ public interface HttpEndpoint<in Request, RawResponse, out Response> {
     public val errorMapper: HttpErrorMapper?
 }
 
-public object HttpEndpointDefaults {
-
-    public inline fun <reified T> body(): HttpResponseReader<T> = { this.body() }
-}
-
 public typealias HttpRequestCreator<Request> = HttpRequestBuilder.(request: Request) -> Unit
 public typealias HttpResponseReader<Response> = suspend HttpResponse.() -> Response
 public typealias HttpResponseMapper<Request, RawResponse, Response> =
@@ -45,7 +40,7 @@ public inline fun <Request, reified RawResponse, Response> HttpEndpoint(
 ): HttpEndpoint<Request, RawResponse, Response> {
     return HttpEndpoint(
         requestCreator = requestCreator,
-        responseReader = HttpEndpointDefaults.body(),
+        responseReader = HttpResponse::body,
         responseMapper = responseMapper,
         errorMapper = errorMapper
     )
