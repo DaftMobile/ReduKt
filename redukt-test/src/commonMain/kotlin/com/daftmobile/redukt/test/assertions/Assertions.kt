@@ -83,7 +83,7 @@ public fun ActionsAssertScope.assertNoMoreActions() {
 /**
  * Asserts that there are only [actions] dispatched in given order and no more.
  */
-public inline fun ActionsAssertScope.assertActionSequence(vararg actions: Action) {
+public fun ActionsAssertScope.assertActionSequence(vararg actions: Action) {
     actions.forEach { assertActionEquals(it) }
     assertNoMoreActions()
 }
