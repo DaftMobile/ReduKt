@@ -15,7 +15,20 @@ public interface DataSourceResolver : DispatchClosure.Element {
 
     override val key: Key get() = Key
 
-    public companion object Key : DispatchClosure.Key<DataSourceResolver>
+    public companion object Key : DispatchClosure.Key<DataSourceResolver> {
+
+        /**
+         * Creates a [DataSourceResolver] that delegates key resolve to [resolvers]. It calls [DataSourceResolver.resolve]
+         * on each resolver until first non-null [DataSource].
+         */
+        public fun chain(resolvers: List<DataSourceResolver>): DataSourceResolver = ChainedDataSourceResolver(resolvers)
+
+        /**
+         * Creates a [DataSourceResolver] that delegates key resolve to [resolvers]. It calls [DataSourceResolver.resolve]
+         * on each resolver until first non-null [DataSource].
+         */
+        public fun chain(vararg resolvers: DataSourceResolver): DataSourceResolver = chain(resolvers.toList())
+    }
 }
 
 /**

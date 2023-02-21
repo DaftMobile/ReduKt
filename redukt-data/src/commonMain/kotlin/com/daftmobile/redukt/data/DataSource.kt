@@ -4,7 +4,6 @@ import com.daftmobile.redukt.core.DispatchScope
 
 /**
  * Any asynchronous source of data that provides [Response] on a [call] with a [Request].
- *
  */
 public interface DataSource<in Request, out Response> {
 
@@ -12,6 +11,15 @@ public interface DataSource<in Request, out Response> {
      * Provides a [Response] for a [Request].
      */
     public suspend fun call(request: Request): Response
+}
+
+/**
+ * Creates a [DataSource] with given [block] invoked on each [DataSource.call].
+ */
+public inline fun <Request, Response> DataSource(
+    crossinline block: suspend (Request) -> Response
+): DataSource<Request, Response> = object : DataSource<Request, Response> {
+    override suspend fun call(request: Request): Response = block(request)
 }
 
 /**
