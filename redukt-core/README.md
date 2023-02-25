@@ -1,7 +1,5 @@
 # ReduKt Core
 
-[![Kotlin](https://img.shields.io/badge/kotlin-1.7.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
-
 ## Before you start
 
 Before diving into this guide, you should be familiar
