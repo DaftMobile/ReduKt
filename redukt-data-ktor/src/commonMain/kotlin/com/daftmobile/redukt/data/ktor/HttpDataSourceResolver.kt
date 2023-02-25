@@ -11,36 +11,71 @@ import io.ktor.client.engine.HttpClientEngine
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
+/**
+ * Creates a [DataSourceResolver] integrated with [HttpClient]. It is based on association between [DataSourceKey]s
+ * and [HttpEndpoint]s described with [config] block.
+ *
+ * On [DataSourceResolver.resolve] call it returns a [DataSource], only if there is [HttpEndpoint] associated
+ * with given key. This [DataSource] performs an HTTP call and applies functions from a [HttpEndpoint] object.
+ *
+ * @see [HttpEndpoint]
+ */
 public fun HttpDataSourceResolver(
-    config: HttpResolverConfigScope.() -> Unit
+    config: HttpDataSourceResolverConfigScope.() -> Unit
 ): DataSourceResolver = HttpResolverBuilder().apply(config).build()
 
-public interface HttpResolverConfigScope {
+public interface HttpDataSourceResolverConfigScope {
 
+    /**
+     * Dispatcher that is used only to transformations associated with HTTP endpoint. Actual HTTP call
+     * is performed with dispatcher associated with [HttpClient].
+     */
     public var dispatcher: CoroutineDispatcher
+
+    /**
+     * [HttpErrorMapper] that is injected into [HttpEndpoint]s that returns null from [HttpEndpoint.errorMapper].
+     */
     public var defaultErrorMapper: HttpErrorMapper?
 
+    /**
+     * Sets a [client] for this [DataSourceResolver].
+     * It overwrites previous [HttpDataSourceResolverConfigScope.client] calls.
+     */
     @TypeSafeResolverConfigMarker
     public fun client(client: HttpClient)
 
+    /**
+     * Sets an instance of [HttpClient] with given [config] for this [DataSourceResolver].
+     * It overwrites previous [HttpDataSourceResolverConfigScope.client] calls.
+     */
     @TypeSafeResolverConfigMarker
-    public fun client(block: HttpClientConfig<*>.() -> Unit)
+    public fun client(config: HttpClientConfig<*>.() -> Unit)
 
+    /**
+     * Sets an instance of [HttpClient] with given [config] and [engine] for this [DataSourceResolver].
+     * It overwrites previous [HttpDataSourceResolverConfigScope.client] calls.
+     */
     @TypeSafeResolverConfigMarker
-    public fun client(engine: HttpClientEngine, block: HttpClientConfig<*>.() -> Unit)
+    public fun client(engine: HttpClientEngine, config: HttpClientConfig<*>.() -> Unit)
 
+    /**
+     * Associates [this] key with [HttpEndpoint] provided by [provider].
+     */
     @TypeSafeResolverConfigMarker
     public infix fun <Request, Response, T : DataSource<Request, Response>> PureDataSourceKey<T>.resolvedBy(
         provider: () -> HttpEndpoint<Request, *, Response>
     )
 
+    /**
+     * Associates [this] key with [endpoint].
+     */
     @TypeSafeResolverConfigMarker
     public infix fun <Request, Response, T : DataSource<Request, Response>> PureDataSourceKey<T>.resolvesTo(
         endpoint: HttpEndpoint<Request, *, Response>
     )
 }
 
-internal class HttpResolverBuilder : HttpResolverConfigScope {
+internal class HttpResolverBuilder : HttpDataSourceResolverConfigScope {
 
     private var clientInstance: HttpClient? = null
     private val providers = mutableMapOf<DataSourceKey<*, *>, () -> HttpEndpoint<*, *, *>>()
@@ -51,12 +86,12 @@ internal class HttpResolverBuilder : HttpResolverConfigScope {
         clientInstance = client
     }
 
-    override fun client(block: HttpClientConfig<*>.() -> Unit) {
-        clientInstance = HttpClient(block = block)
+    override fun client(config: HttpClientConfig<*>.() -> Unit) {
+        clientInstance = HttpClient(block = config)
     }
 
-    override fun client(engine: HttpClientEngine, block: HttpClientConfig<*>.() -> Unit) {
-        clientInstance = HttpClient(engine, block)
+    override fun client(engine: HttpClientEngine, config: HttpClientConfig<*>.() -> Unit) {
+        clientInstance = HttpClient(engine, config)
     }
 
     override fun <Request, Response, T : DataSource<Request, Response>> PureDataSourceKey<T>.resolvedBy(

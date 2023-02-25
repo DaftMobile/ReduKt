@@ -27,8 +27,9 @@ API reference has not been published yet. It's only available from the source co
     * Middlewares testing tools.
     * TestStore implementation for verifying interactions with a store.
 * [ReduKt Thunk](redukt-thunk) + [ReduKt Thunk Test](redukt-test-thunk) - Redux Thunk adaptation
-* [ReduKt Data](redukt-data) - fetching data from external data sources with generic actions as
-  a result.
+* [ReduKt Data](redukt-data) - fetching data from external data sources with generic actions as a result.
+* [ReduKt Data Ktor](redukt-data-ktor) - integration with
+[Ktor Client](https://ktor.io/docs/welcome.html).
 * [ReduKt Koin](redukt-koin) - integration with [Koin framework](https://github.com/InsertKoinIO/koin).
 * [ReduKt Compose](redukt-compose) - integration with Jetpack Compose.
 * [ReduKt Swift](redukt-swift) - store wrapper that provides better experience on the Swift side.

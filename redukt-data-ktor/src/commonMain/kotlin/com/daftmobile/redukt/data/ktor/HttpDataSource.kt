@@ -13,6 +13,7 @@ internal class HttpDataSource<in Request, RawResponse, out Response>(
     private val dispatcher: CoroutineDispatcher,
     private val endpoint: HttpEndpoint<Request, RawResponse, Response>
 ) : DataSource<Request, Response> {
+
     override suspend fun call(request: Request): Response = withContext(dispatcher) {
         try {
             val rawRequest = HttpRequestBuilder().apply { endpoint.requestCreator(this, request) }

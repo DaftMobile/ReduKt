@@ -4,7 +4,17 @@ import io.ktor.client.call.body
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.statement.HttpResponse
 
-public interface HttpEndpoint<in Request, Dto, out Response> {
+/**
+ * Represents a set of transforming functions that is specific for an HTTP endpoint.
+ *
+ * Usage scheme:
+ * 1. [requestCreator] transforms [Request] into [HttpRequestBuilder].
+ * 2. Actual HTTP call with Ktor client.
+ * 3. [responseReader] reads a [Dto] from [HttpResponse].
+ * 4. [responseMapper] transforms [Dto] into [Response].
+ * 5. If any exception occurred, it is mapped with [errorMapper] and rethrown.
+ */
+public sealed interface HttpEndpoint<in Request, Dto, out Response> {
 
     public val requestCreator: HttpRequestCreator<Request>
 
@@ -21,6 +31,9 @@ public typealias HttpResponseMapper<Request, Dto, Response> =
             (request: Request, dto: Dto) -> Response
 public typealias HttpErrorMapper = (error: Throwable) -> Throwable
 
+/**
+ * Creates a [HttpEndpoint] with given transformation functions.
+ */
 public fun <Request, Dto, Response> HttpEndpoint(
     requestCreator: HttpRequestCreator<Request>,
     responseReader: HttpResponseReader<Dto>,
@@ -33,6 +46,10 @@ public fun <Request, Dto, Response> HttpEndpoint(
     errorMapper = errorMapper
 )
 
+/**
+ * Creates a [HttpEndpoint] with given transformation functions that reads a [Dto] form [HttpResponse]
+ * with [HttpResponse.body].
+ */
 public inline fun <Request, reified Dto, Response> HttpEndpoint(
     noinline requestCreator: HttpRequestCreator<Request>,
     noinline responseMapper: HttpResponseMapper<Request, Dto, Response>,
@@ -46,6 +63,10 @@ public inline fun <Request, reified Dto, Response> HttpEndpoint(
     )
 }
 
+/**
+ * Creates a [HttpEndpoint] with given transformation functions, that reads a [Response] form [HttpResponse]
+ * with [HttpResponse.body] and returns it without mapping.
+ */
 public inline fun <Request, reified Response> HttpEndpoint(
     noinline requestCreator: HttpRequestCreator<Request>,
     noinline errorMapper: HttpErrorMapper? = null
