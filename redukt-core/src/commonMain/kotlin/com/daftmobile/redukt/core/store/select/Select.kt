@@ -37,7 +37,7 @@ public interface Selector<State, Selected> {
 /**
  * Creates a [Selector] that associates [selector] function with [stateEquality] and [selectionEquality].
  */
-public fun <State, Selected> createSelector(
+public fun <State, Selected> Selector(
     stateEquality: SelectorEquality<State> = SelectorEquality.Default,
     selectionEquality: SelectorEquality<Selected> = SelectorEquality.Default,
     selector: SelectorFunction<State, Selected>,

@@ -67,7 +67,7 @@ store.select { it.posts }.collect { /* ... */ }
 
 Customizable selectors that enables performance improvements:
 ```kotlin
-val totalProductsPriceSelector = createSelector(
+val totalProductsPriceSelector = Selector(
   stateEquality = { old, new -> old.products == new.products },
   selector = { it.products.sumBy(Product::price) }
 )
