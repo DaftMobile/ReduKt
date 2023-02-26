@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kover)
+    alias(libs.plugins.dokka)
 }
 
 buildscript {
