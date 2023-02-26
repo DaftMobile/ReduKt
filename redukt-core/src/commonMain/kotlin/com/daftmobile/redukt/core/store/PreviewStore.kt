@@ -9,7 +9,7 @@ import com.daftmobile.redukt.core.store.select.SelectStateFlowProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
- * Creates a [Store] simplified store implementation for UI previews.
+ * Creates a simplified [Store] implementation for UI previews.
  */
 public fun <State> previewStore(
     initialState: State,

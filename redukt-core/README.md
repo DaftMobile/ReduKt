@@ -151,7 +151,7 @@ val totalProductsPrice = store.select(totalProductsPriceSelector)
 totalProductsPrice.collect { }
 ```
 
-It's also possible to change selected state equality function with `createSelector`, but generally it should not be
+It's also possible to change selected state equality function with `Selector`, but generally it should not be
 necessary.
 
 ### Define middlewares
