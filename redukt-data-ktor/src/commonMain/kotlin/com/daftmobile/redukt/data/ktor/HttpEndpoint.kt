@@ -57,7 +57,7 @@ public inline fun <Request, reified Dto, Response> HttpEndpoint(
 ): HttpEndpoint<Request, Dto, Response> {
     return HttpEndpoint(
         requestCreator = requestCreator,
-        responseReader = HttpResponse::body,
+        responseReader = { body() },
         responseMapper = responseMapper,
         errorMapper = errorMapper
     )

@@ -32,7 +32,7 @@ fun createDataSourceResolver() = HttpDataSourceResolver {
 ```kotlin
 val BookEndpoint = HttpEndpoint<Book.Id, BookDto, Book>(
     requestCreator = { id -> url.encodedPath = "/api/book/$id" },
-    responseReader = HttpResponse::body,
+    responseReader = { body() },
     responseMapper = BookDto::toBook,
     errorMapper = ::AppException
 )
@@ -50,7 +50,7 @@ as DTO representation. By default, it uses
 Previous example can be simplified:
 
 ```kotlin
-// we can omit `responseReader`, because HttpResponse::body is the default
+// we can omit `responseReader`, because HttpResponse.body is the default
 val BookEndpoint = HttpEndpoint<Book.Id, BookDto, Book>(
     requestCreator = { id -> url.encodedPath = "/api/book/$id" },
     responseMapper = BookDto::toBook,
