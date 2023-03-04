@@ -1,8 +1,8 @@
 plugins {
     kotlin("multiplatform")
-    id("maven-publish")
     id("org.jetbrains.dokka")
     id("io.gitlab.arturbosch.detekt")
+    id("redukt-publish")
 }
 
 kotlin {
