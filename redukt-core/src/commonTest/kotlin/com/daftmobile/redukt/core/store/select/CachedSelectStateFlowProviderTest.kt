@@ -16,7 +16,6 @@ import kotlin.time.Duration.Companion.seconds
 class CachedSelectStateFlowProviderTest {
     private val testScope = TestScope()
     private val provider = CachedSelectStateFlowProvider(
-        newStateFlowProvider = NewSelectStateFlowProvider(),
         unusedFlowTimeout = 1.seconds,
         scope = testScope
     )
