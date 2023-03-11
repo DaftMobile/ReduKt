@@ -13,7 +13,7 @@ import kotlin.time.Duration
 
 @Suppress("UNCHECKED_CAST")
 internal class CachedSelectStateFlowProvider(
-    private val newStateFlowProvider: SelectStateFlowProvider,
+    private val stateFlowProvider: SelectStateFlowProvider = NewSelectStateFlowProvider,
     private val unusedFlowTimeout: Duration,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : SelectStateFlowProvider {
@@ -26,7 +26,7 @@ internal class CachedSelectStateFlowProvider(
     ): StateFlow<Selected> = cache.use {
         val cachedFlow = it[selector]
         if (cachedFlow != null) return@use cachedFlow as StateFlow<Selected>
-        val newFlow = newStateFlowProvider.provide(state, selector)
+        val newFlow = stateFlowProvider.provide(state, selector)
         it[selector] = newFlow
         scheduleCleanUp(selector, newFlow)
         return@use newFlow

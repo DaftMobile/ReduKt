@@ -29,11 +29,8 @@ public interface SelectStateFlowProvider : DispatchClosure.Element {
 public fun SelectStateFlowProvider(
     cache: SelectStateCache = SelectStateCache.Never
 ): SelectStateFlowProvider = when (cache) {
-    SelectStateCache.Never -> NewSelectStateFlowProvider()
-    is SelectStateCache.WhileSubscribed -> CachedSelectStateFlowProvider(
-        newStateFlowProvider = NewSelectStateFlowProvider(),
-        unusedFlowTimeout = cache.timeout,
-    )
+    SelectStateCache.Never -> NewSelectStateFlowProvider
+    is SelectStateCache.WhileSubscribed -> CachedSelectStateFlowProvider(unusedFlowTimeout = cache.timeout)
 }
 
 /**
