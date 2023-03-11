@@ -22,19 +22,17 @@ internal class SelectStateFlow<State, Selection>(
 
     override val replayCache: List<Selection> get() = listOf(value)
 
-    override val value: Selection get() = getOrInvalidateSelection()
+    override val value: Selection get() = getSelection()
 
     override suspend fun collect(collector: FlowCollector<Selection>): Nothing {
         _subscribers.update { it + 1 }
         try {
-            val lastSelection = this.lastSelection
-            if (lastSelection !== NULL) collector.emit(lastSelection as Selection)
-            var prevEmittedValue: Any? = lastSelection
+            var previousValue = getSelection()
+            collector.emit(previousValue)
             flow.collect { value ->
-                val prev = prevEmittedValue
-                val selection = getOrInvalidateSelection(value)
-                if (prev === NULL || !selector.isSelectionEqual(prev as Selection, selection)) {
-                    prevEmittedValue = selection
+                val selection = getSelection(value)
+                if (!selector.isSelectionEqual(previousValue, selection)) {
+                    previousValue = selection
                     collector.emit(selection)
                 }
             }
@@ -43,7 +41,7 @@ internal class SelectStateFlow<State, Selection>(
         }
     }
 
-    private fun getOrInvalidateSelection(currentState: State = flow.value): Selection = synchronized(this) {
+    private fun getSelection(currentState: State = flow.value): Selection = synchronized(this) {
         val prevState = lastState
         lastState = currentState
         return when {

@@ -11,4 +11,5 @@ dependencies {
     commonTestImplementation(libs.kotlinx.coroutines.test)
     commonTestImplementation(libs.turbine)
     commonTestImplementation(ReduKt.test)
+    jvmTestImplementation("org.jetbrains.kotlinx:lincheck:2.16")
 }
