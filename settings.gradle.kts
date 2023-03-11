@@ -19,6 +19,7 @@ dependencyResolutionManagement {
 }
 includeBuild("build-redukt")
 include(
+    ":redukt-bom",
     ":redukt-core",
     ":redukt-thunk",
     ":redukt-koin",
