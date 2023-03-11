@@ -1,0 +1,152 @@
+public abstract interface class com/daftmobile/redukt/data/DataSource {
+	public abstract fun call (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceAction : com/daftmobile/redukt/core/Action {
+	public fun <init> (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lcom/daftmobile/redukt/data/DataSourcePayload;)V
+	public final fun component1 ()Lcom/daftmobile/redukt/data/PureDataSourceKey;
+	public final fun component2 ()Lcom/daftmobile/redukt/data/DataSourcePayload;
+	public final fun copy (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lcom/daftmobile/redukt/data/DataSourcePayload;)Lcom/daftmobile/redukt/data/DataSourceAction;
+	public static synthetic fun copy$default (Lcom/daftmobile/redukt/data/DataSourceAction;Lcom/daftmobile/redukt/data/PureDataSourceKey;Lcom/daftmobile/redukt/data/DataSourcePayload;ILjava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourceAction;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKey ()Lcom/daftmobile/redukt/data/PureDataSourceKey;
+	public final fun getPayload ()Lcom/daftmobile/redukt/data/DataSourcePayload;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceActionKt {
+	public static final fun failureAction (Lcom/daftmobile/redukt/data/PureDataSourceKey;Ljava/lang/Object;Ljava/lang/Throwable;)Lcom/daftmobile/redukt/data/DataSourceAction;
+	public static final fun startAction (Lcom/daftmobile/redukt/data/PureDataSourceKey;Ljava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourceAction;
+	public static final fun successAction (Lcom/daftmobile/redukt/data/PureDataSourceKey;Ljava/lang/Object;Ljava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourceAction;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceAdaptersKt {
+	public static final fun adaptRequest (Lcom/daftmobile/redukt/data/DataSource;Lkotlin/jvm/functions/Function2;)Lcom/daftmobile/redukt/data/DataSource;
+	public static final fun adaptResponse (Lcom/daftmobile/redukt/data/DataSource;Lkotlin/jvm/functions/Function2;)Lcom/daftmobile/redukt/data/DataSource;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceCall : com/daftmobile/redukt/core/coroutines/ForegroundJobAction {
+	public fun <init> (Lcom/daftmobile/redukt/data/PureDataSourceKey;Ljava/lang/Object;)V
+	public final fun component1 ()Lcom/daftmobile/redukt/data/PureDataSourceKey;
+	public final fun component2 ()Ljava/lang/Object;
+	public final fun copy (Lcom/daftmobile/redukt/data/PureDataSourceKey;Ljava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourceCall;
+	public static synthetic fun copy$default (Lcom/daftmobile/redukt/data/DataSourceCall;Lcom/daftmobile/redukt/data/PureDataSourceKey;Ljava/lang/Object;ILjava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourceCall;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKey ()Lcom/daftmobile/redukt/data/PureDataSourceKey;
+	public final fun getRequest ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceKt {
+	public static final fun DataSource (Lkotlin/jvm/functions/Function2;)Lcom/daftmobile/redukt/data/DataSource;
+	public static final fun call (Lcom/daftmobile/redukt/data/DataSourceResolver;Lcom/daftmobile/redukt/data/PureDataSourceKey;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun callDataSource (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/data/PureDataSourceKey;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceMiddlewareKt {
+	public static final fun getDataSourceMiddleware ()Lkotlin/jvm/functions/Function1;
+}
+
+public abstract interface class com/daftmobile/redukt/data/DataSourcePayload {
+	public abstract fun getRequest ()Ljava/lang/Object;
+}
+
+public final class com/daftmobile/redukt/data/DataSourcePayload$Failure : com/daftmobile/redukt/data/DataSourcePayload {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Throwable;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2 ()Ljava/lang/Throwable;
+	public final fun copy (Ljava/lang/Object;Ljava/lang/Throwable;)Lcom/daftmobile/redukt/data/DataSourcePayload$Failure;
+	public static synthetic fun copy$default (Lcom/daftmobile/redukt/data/DataSourcePayload$Failure;Ljava/lang/Object;Ljava/lang/Throwable;ILjava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourcePayload$Failure;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Ljava/lang/Throwable;
+	public fun getRequest ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/data/DataSourcePayload$Started : com/daftmobile/redukt/data/DataSourcePayload {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourcePayload$Started;
+	public static synthetic fun copy$default (Lcom/daftmobile/redukt/data/DataSourcePayload$Started;Ljava/lang/Object;ILjava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourcePayload$Started;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getRequest ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/data/DataSourcePayload$Success : com/daftmobile/redukt/data/DataSourcePayload {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;Ljava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourcePayload$Success;
+	public static synthetic fun copy$default (Lcom/daftmobile/redukt/data/DataSourcePayload$Success;Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourcePayload$Success;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getRequest ()Ljava/lang/Object;
+	public final fun getResponse ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceReducerKt {
+	public static final fun createDataSourceReducer (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)Lkotlin/jvm/functions/Function2;
+	public static final fun createDataSourceReducer (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)Lkotlin/jvm/functions/Function2;
+	public static synthetic fun createDataSourceReducer$default (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlin/jvm/functions/Function2;
+	public static synthetic fun createDataSourceReducer$default (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlin/jvm/functions/Function2;
+}
+
+public abstract interface class com/daftmobile/redukt/data/DataSourceResolver : com/daftmobile/redukt/core/closure/DispatchClosure$Element {
+	public static final field Key Lcom/daftmobile/redukt/data/DataSourceResolver$Key;
+	public abstract fun getKey ()Lcom/daftmobile/redukt/data/DataSourceResolver$Key;
+	public abstract fun resolve (Lcom/daftmobile/redukt/data/PureDataSourceKey;)Lcom/daftmobile/redukt/data/DataSource;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceResolver$DefaultImpls {
+	public static fun find (Lcom/daftmobile/redukt/data/DataSourceResolver;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun get (Lcom/daftmobile/redukt/data/DataSourceResolver;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun getKey (Lcom/daftmobile/redukt/data/DataSourceResolver;)Lcom/daftmobile/redukt/data/DataSourceResolver$Key;
+	public static fun minus (Lcom/daftmobile/redukt/data/DataSourceResolver;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun plus (Lcom/daftmobile/redukt/data/DataSourceResolver;Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun scatter (Lcom/daftmobile/redukt/data/DataSourceResolver;)Ljava/util/Map;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceResolver$Key : com/daftmobile/redukt/core/closure/DispatchClosure$Key {
+	public final fun chain (Ljava/util/List;)Lcom/daftmobile/redukt/data/DataSourceResolver;
+	public final fun chain ([Lcom/daftmobile/redukt/data/DataSourceResolver;)Lcom/daftmobile/redukt/data/DataSourceResolver;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceResolverKt {
+	public static final fun DataSourceResolver (Lkotlin/jvm/functions/Function1;)Lcom/daftmobile/redukt/data/DataSourceResolver;
+	public static final fun getDataSourceResolver (Lcom/daftmobile/redukt/core/DispatchScope;)Lcom/daftmobile/redukt/data/DataSourceResolver;
+}
+
+public final class com/daftmobile/redukt/data/DataSourceResultPayload {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun component2-d1pmJ48 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;Ljava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourceResultPayload;
+	public static synthetic fun copy$default (Lcom/daftmobile/redukt/data/DataSourceResultPayload;Ljava/lang/Object;Lkotlin/Result;ILjava/lang/Object;)Lcom/daftmobile/redukt/data/DataSourceResultPayload;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRequest ()Ljava/lang/Object;
+	public final fun getResult-d1pmJ48 ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/data/MissingDataSourceException : java/lang/Exception {
+	public fun <init> (Lcom/daftmobile/redukt/data/PureDataSourceKey;)V
+}
+
+public abstract interface class com/daftmobile/redukt/data/PureDataSourceKey {
+}
+
+public abstract interface annotation class com/daftmobile/redukt/data/TypeSafeResolverConfigMarker : java/lang/annotation/Annotation {
+}
+
+public abstract interface class com/daftmobile/redukt/data/TypeSafeResolverConfigScope {
+	public abstract fun resolveBy (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lkotlin/jvm/functions/Function0;)V
+	public abstract fun resolvesTo (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lcom/daftmobile/redukt/data/DataSource;)V
+}
+

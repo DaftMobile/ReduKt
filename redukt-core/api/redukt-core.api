@@ -1,0 +1,389 @@
+public abstract interface class com/daftmobile/redukt/core/Action {
+}
+
+public abstract interface annotation class com/daftmobile/redukt/core/DelicateReduKtApi : java/lang/annotation/Annotation {
+}
+
+public abstract interface class com/daftmobile/redukt/core/DispatchScope {
+	public abstract fun dispatch (Lcom/daftmobile/redukt/core/Action;)V
+	public abstract fun getClosure ()Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public abstract fun getCurrentState ()Ljava/lang/Object;
+}
+
+public final class com/daftmobile/redukt/core/DispatchScopeKt {
+	public static final fun dispatchIfPresent (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/core/Action;)V
+}
+
+public final class com/daftmobile/redukt/core/ReducerKt {
+	public static final fun combineReducers ([Lkotlin/jvm/functions/Function2;)Lkotlin/jvm/functions/Function2;
+}
+
+public abstract interface class com/daftmobile/redukt/core/closure/DispatchClosure {
+	public abstract fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public abstract fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public abstract fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public abstract fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public abstract fun scatter ()Ljava/util/Map;
+}
+
+public final class com/daftmobile/redukt/core/closure/DispatchClosure$DefaultImpls {
+	public static fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+}
+
+public abstract interface class com/daftmobile/redukt/core/closure/DispatchClosure$Element : com/daftmobile/redukt/core/closure/DispatchClosure {
+	public abstract fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public abstract fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public abstract fun getKey ()Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;
+	public abstract fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public abstract fun scatter ()Ljava/util/Map;
+}
+
+public final class com/daftmobile/redukt/core/closure/DispatchClosure$Element$DefaultImpls {
+	public static fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun scatter (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;)Ljava/util/Map;
+}
+
+public abstract interface class com/daftmobile/redukt/core/closure/DispatchClosure$Key {
+}
+
+public final class com/daftmobile/redukt/core/closure/DispatchClosureKt {
+	public static final fun findOrElse (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+}
+
+public final class com/daftmobile/redukt/core/closure/EmptyDispatchClosure : com/daftmobile/redukt/core/closure/DispatchClosure {
+	public static final field INSTANCE Lcom/daftmobile/redukt/core/closure/EmptyDispatchClosure;
+	public synthetic fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Ljava/lang/Void;
+	public synthetic fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Ljava/lang/Void;
+	public fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun scatter ()Ljava/util/Map;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/daftmobile/redukt/core/closure/LocalClosureContainer : com/daftmobile/redukt/core/closure/DispatchClosure$Element {
+	public static final field Key Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Key;
+	public abstract fun applyTo (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public abstract fun getKey ()Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Key;
+	public abstract fun registerNewFrame ()Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Frame;
+	public abstract fun registerNewSlot (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Slot;
+	public abstract fun removeFrame (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Frame;)V
+	public abstract fun removeSlot (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Slot;)V
+}
+
+public final class com/daftmobile/redukt/core/closure/LocalClosureContainer$DefaultImpls {
+	public static fun find (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun get (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun getKey (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer;)Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Key;
+	public static fun minus (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun plus (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer;Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun scatter (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer;)Ljava/util/Map;
+}
+
+public final class com/daftmobile/redukt/core/closure/LocalClosureContainer$Frame {
+	public fun <init> ()V
+}
+
+public final class com/daftmobile/redukt/core/closure/LocalClosureContainer$Key : com/daftmobile/redukt/core/closure/DispatchClosure$Key {
+	public final fun invoke ()Lcom/daftmobile/redukt/core/closure/LocalClosureContainer;
+}
+
+public final class com/daftmobile/redukt/core/closure/LocalClosureContainer$Slot {
+	public fun <init> ()V
+}
+
+public final class com/daftmobile/redukt/core/closure/LocalClosureContainerKt {
+	public static final fun getLocal (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static final fun getLocalClosure (Lcom/daftmobile/redukt/core/DispatchScope;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static final fun withLocalClosure (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun withLocalClosure (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static synthetic fun withLocalClosure$default (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun withLocalClosure$default (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/DisabledForegroundJobRegistry : com/daftmobile/redukt/core/coroutines/ForegroundJobRegistry {
+	public static final field INSTANCE Lcom/daftmobile/redukt/core/coroutines/DisabledForegroundJobRegistry;
+	public fun consume ()Lkotlinx/coroutines/Job;
+	public fun consumeOrNull ()Lkotlinx/coroutines/Job;
+	public fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public synthetic fun getKey ()Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;
+	public fun getKey ()Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry$Key;
+	public fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun register (Lkotlinx/coroutines/Job;)V
+	public fun scatter ()Ljava/util/Map;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/DisabledLocalClosureContainer : com/daftmobile/redukt/core/closure/LocalClosureContainer {
+	public fun <init> ()V
+	public fun <init> (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)V
+	public synthetic fun <init> (Lcom/daftmobile/redukt/core/closure/DispatchClosure;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun applyTo (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public synthetic fun getKey ()Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;
+	public fun getKey ()Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Key;
+	public fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun registerNewFrame ()Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Frame;
+	public fun registerNewSlot (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Slot;
+	public fun removeFrame (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Frame;)V
+	public fun removeSlot (Lcom/daftmobile/redukt/core/closure/LocalClosureContainer$Slot;)V
+	public fun scatter ()Ljava/util/Map;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/DispatchCoroutineScope : com/daftmobile/redukt/core/closure/DispatchClosure$Element, kotlinx/coroutines/CoroutineScope {
+	public static final field Key Lcom/daftmobile/redukt/core/coroutines/DispatchCoroutineScope$Key;
+	public fun <init> (Lkotlin/coroutines/CoroutineContext;)V
+	public fun <init> (Lkotlinx/coroutines/CoroutineScope;)V
+	public fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun getCoroutineContext ()Lkotlin/coroutines/CoroutineContext;
+	public synthetic fun getKey ()Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;
+	public fun getKey ()Lcom/daftmobile/redukt/core/coroutines/DispatchCoroutineScope$Key;
+	public fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun scatter ()Ljava/util/Map;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/DispatchCoroutineScope$Key : com/daftmobile/redukt/core/closure/DispatchClosure$Key {
+}
+
+public final class com/daftmobile/redukt/core/coroutines/DispatchCoroutineScopeKt {
+	public static final fun getCoroutineScope (Lcom/daftmobile/redukt/core/DispatchScope;)Lkotlinx/coroutines/CoroutineScope;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/DispatchJobKt {
+	public static final fun dispatchJob (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/core/coroutines/ForegroundJobAction;)Lkotlinx/coroutines/Job;
+	public static final fun dispatchJobIn (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/core/coroutines/ForegroundJobAction;Lkotlinx/coroutines/CoroutineScope;)Lkotlinx/coroutines/Job;
+	public static final fun joinDispatchJob (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/core/coroutines/ForegroundJobAction;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun launchForeground (Lcom/daftmobile/redukt/core/DispatchScope;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
+	public static final fun launchForeground (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
+	public static synthetic fun launchForeground$default (Lcom/daftmobile/redukt/core/DispatchScope;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
+	public static synthetic fun launchForeground$default (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
+	public static final fun launchInForegroundOf (Lkotlinx/coroutines/flow/Flow;Lcom/daftmobile/redukt/core/DispatchScope;)Lkotlinx/coroutines/Job;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/EmptyForegroundJobRegistry : com/daftmobile/redukt/core/coroutines/ForegroundJobRegistry {
+	public static final field INSTANCE Lcom/daftmobile/redukt/core/coroutines/EmptyForegroundJobRegistry;
+	public fun consume ()Ljava/lang/Void;
+	public synthetic fun consume ()Lkotlinx/coroutines/Job;
+	public fun consumeOrNull ()Ljava/lang/Void;
+	public synthetic fun consumeOrNull ()Lkotlinx/coroutines/Job;
+	public fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public synthetic fun getKey ()Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;
+	public fun getKey ()Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry$Key;
+	public fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun register (Lkotlinx/coroutines/Job;)V
+	public fun scatter ()Ljava/util/Map;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/daftmobile/redukt/core/coroutines/ForegroundJobAction : com/daftmobile/redukt/core/Action {
+}
+
+public abstract interface class com/daftmobile/redukt/core/coroutines/ForegroundJobRegistry : com/daftmobile/redukt/core/closure/DispatchClosure$Element {
+	public static final field Key Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry$Key;
+	public abstract fun consume ()Lkotlinx/coroutines/Job;
+	public abstract fun consumeOrNull ()Lkotlinx/coroutines/Job;
+	public abstract fun getKey ()Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry$Key;
+	public abstract fun register (Lkotlinx/coroutines/Job;)V
+}
+
+public final class com/daftmobile/redukt/core/coroutines/ForegroundJobRegistry$DefaultImpls {
+	public static fun find (Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun get (Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun getKey (Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry;)Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry$Key;
+	public static fun minus (Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun plus (Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry;Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun scatter (Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry;)Ljava/util/Map;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/ForegroundJobRegistry$Key : com/daftmobile/redukt/core/closure/DispatchClosure$Key {
+}
+
+public final class com/daftmobile/redukt/core/coroutines/RunningCoroutinesClosureKt {
+	public static final fun runningCoroutinesClosure ()Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/SingleForegroundJobRegistry : com/daftmobile/redukt/core/coroutines/ForegroundJobRegistry {
+	public fun <init> ()V
+	public fun <init> (Lkotlinx/coroutines/Job;)V
+	public synthetic fun <init> (Lkotlinx/coroutines/Job;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun consume ()Lkotlinx/coroutines/Job;
+	public fun consumeOrNull ()Lkotlinx/coroutines/Job;
+	public fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public synthetic fun getKey ()Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;
+	public fun getKey ()Lcom/daftmobile/redukt/core/coroutines/ForegroundJobRegistry$Key;
+	public fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun register (Lkotlinx/coroutines/Job;)V
+	public fun scatter ()Ljava/util/Map;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/SkipCoroutinesClosureKt {
+	public static final fun skipCoroutinesClosure ()Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+}
+
+public final class com/daftmobile/redukt/core/coroutines/SynchronizedKt {
+	public static final fun synchronized (Lcom/daftmobile/redukt/core/DispatchScope;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
+}
+
+public final class com/daftmobile/redukt/core/middleware/MergedMiddlewareScope : com/daftmobile/redukt/core/DispatchScope, com/daftmobile/redukt/core/middleware/MiddlewareScope {
+	public fun <init> (Lcom/daftmobile/redukt/core/DispatchScope;Lkotlin/jvm/functions/Function1;)V
+	public fun dispatch (Lcom/daftmobile/redukt/core/Action;)V
+	public fun getClosure ()Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun getCurrentState ()Ljava/lang/Object;
+	public fun next (Lcom/daftmobile/redukt/core/Action;)V
+}
+
+public final class com/daftmobile/redukt/core/middleware/MiddlewareBuildersKt {
+	public static final fun dispatchFunction (Lcom/daftmobile/redukt/core/middleware/MiddlewareScope;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function1;
+	public static final fun middleware (Lkotlin/jvm/functions/Function2;)Lkotlin/jvm/functions/Function1;
+	public static final fun translucentDispatch (Lcom/daftmobile/redukt/core/middleware/MiddlewareScope;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function1;
+	public static final fun translucentMiddleware (Lkotlin/jvm/functions/Function2;)Lkotlin/jvm/functions/Function1;
+}
+
+public abstract interface class com/daftmobile/redukt/core/middleware/MiddlewareScope : com/daftmobile/redukt/core/DispatchScope {
+	public abstract fun next (Lcom/daftmobile/redukt/core/Action;)V
+}
+
+public abstract interface class com/daftmobile/redukt/core/store/ClosureBuilderScope {
+	public abstract fun unaryPlus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)V
+}
+
+public abstract interface class com/daftmobile/redukt/core/store/MiddlewaresBuilderScope {
+	public abstract fun unaryPlus (Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class com/daftmobile/redukt/core/store/PreviewStoreKt {
+	public static final fun previewStore (Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;)Lcom/daftmobile/redukt/core/store/Store;
+	public static synthetic fun previewStore$default (Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/daftmobile/redukt/core/store/Store;
+}
+
+public abstract interface class com/daftmobile/redukt/core/store/Store : com/daftmobile/redukt/core/DispatchScope {
+	public abstract fun getState ()Lkotlinx/coroutines/flow/StateFlow;
+}
+
+public abstract interface annotation class com/daftmobile/redukt/core/store/StoreBuilderDsl : java/lang/annotation/Annotation {
+}
+
+public final class com/daftmobile/redukt/core/store/StoreBuilderKt {
+	public static final fun buildStore (Lkotlin/jvm/functions/Function1;)Lcom/daftmobile/redukt/core/store/Store;
+}
+
+public abstract interface class com/daftmobile/redukt/core/store/StoreBuilderScope {
+	public abstract fun closure (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun middlewares (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun reducedBy (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)V
+}
+
+public final class com/daftmobile/redukt/core/store/StoreKt {
+	public static final fun Store (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;Ljava/util/List;Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/store/Store;
+}
+
+public final class com/daftmobile/redukt/core/store/select/SelectKt {
+	public static final fun Selector (Lcom/daftmobile/redukt/core/store/select/SelectorEquality;Lcom/daftmobile/redukt/core/store/select/SelectorEquality;Lkotlin/jvm/functions/Function1;)Lcom/daftmobile/redukt/core/store/select/Selector;
+	public static synthetic fun Selector$default (Lcom/daftmobile/redukt/core/store/select/SelectorEquality;Lcom/daftmobile/redukt/core/store/select/SelectorEquality;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/daftmobile/redukt/core/store/select/Selector;
+	public static final fun select (Lcom/daftmobile/redukt/core/store/Store;Lcom/daftmobile/redukt/core/store/select/Selector;)Lkotlinx/coroutines/flow/StateFlow;
+	public static final fun select (Lcom/daftmobile/redukt/core/store/Store;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/StateFlow;
+}
+
+public abstract interface class com/daftmobile/redukt/core/store/select/SelectStateCache {
+}
+
+public final class com/daftmobile/redukt/core/store/select/SelectStateCache$Never : com/daftmobile/redukt/core/store/select/SelectStateCache {
+	public static final field INSTANCE Lcom/daftmobile/redukt/core/store/select/SelectStateCache$Never;
+}
+
+public final class com/daftmobile/redukt/core/store/select/SelectStateCache$WhileSubscribed : com/daftmobile/redukt/core/store/select/SelectStateCache {
+	public static final field Companion Lcom/daftmobile/redukt/core/store/select/SelectStateCache$WhileSubscribed$Companion;
+	public synthetic fun <init> (JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-UwyO8pc ()J
+	public final fun copy-LRDsOJo (J)Lcom/daftmobile/redukt/core/store/select/SelectStateCache$WhileSubscribed;
+	public static synthetic fun copy-LRDsOJo$default (Lcom/daftmobile/redukt/core/store/select/SelectStateCache$WhileSubscribed;JILjava/lang/Object;)Lcom/daftmobile/redukt/core/store/select/SelectStateCache$WhileSubscribed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTimeout-UwyO8pc ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/core/store/select/SelectStateCache$WhileSubscribed$Companion {
+	public final fun getDEFAULT_TIMEOUT-UwyO8pc ()J
+}
+
+public abstract interface class com/daftmobile/redukt/core/store/select/SelectStateFlowProvider : com/daftmobile/redukt/core/closure/DispatchClosure$Element {
+	public static final field Key Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider$Key;
+	public abstract fun getKey ()Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider$Key;
+	public abstract fun provide (Lkotlinx/coroutines/flow/StateFlow;Lcom/daftmobile/redukt/core/store/select/Selector;)Lkotlinx/coroutines/flow/StateFlow;
+}
+
+public final class com/daftmobile/redukt/core/store/select/SelectStateFlowProvider$DefaultImpls {
+	public static fun find (Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun get (Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun getKey (Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider;)Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider$Key;
+	public static fun minus (Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun plus (Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider;Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun scatter (Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider;)Ljava/util/Map;
+}
+
+public final class com/daftmobile/redukt/core/store/select/SelectStateFlowProvider$Key : com/daftmobile/redukt/core/closure/DispatchClosure$Key {
+}
+
+public final class com/daftmobile/redukt/core/store/select/SelectStateFlowProviderKt {
+	public static final fun SelectStateFlowProvider (Lcom/daftmobile/redukt/core/store/select/SelectStateCache;)Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider;
+	public static synthetic fun SelectStateFlowProvider$default (Lcom/daftmobile/redukt/core/store/select/SelectStateCache;ILjava/lang/Object;)Lcom/daftmobile/redukt/core/store/select/SelectStateFlowProvider;
+}
+
+public abstract interface class com/daftmobile/redukt/core/store/select/Selector {
+	public abstract fun isSelectionEqual (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public abstract fun isStateEqual (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public abstract fun select (Ljava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/daftmobile/redukt/core/store/select/Selector$DefaultImpls {
+	public static fun isSelectionEqual (Lcom/daftmobile/redukt/core/store/select/Selector;Ljava/lang/Object;Ljava/lang/Object;)Z
+	public static fun isStateEqual (Lcom/daftmobile/redukt/core/store/select/Selector;Ljava/lang/Object;Ljava/lang/Object;)Z
+}
+
+public abstract interface class com/daftmobile/redukt/core/store/select/SelectorEquality {
+	public static final field Companion Lcom/daftmobile/redukt/core/store/select/SelectorEquality$Companion;
+	public abstract fun isEqual (Ljava/lang/Object;Ljava/lang/Object;)Z
+}
+
+public final class com/daftmobile/redukt/core/store/select/SelectorEquality$Companion {
+	public final fun by (Lkotlin/jvm/functions/Function1;)Lcom/daftmobile/redukt/core/store/select/SelectorEquality;
+	public final fun getDefault ()Lcom/daftmobile/redukt/core/store/select/SelectorEquality;
+}
+
+public final class com/daftmobile/redukt/core/threading/JvmCurrentThreadKt {
+	public static final fun current (Lcom/daftmobile/redukt/core/threading/KtThread$Companion;)Lcom/daftmobile/redukt/core/threading/KtThread;
+}
+
+public abstract interface class com/daftmobile/redukt/core/threading/KtThread {
+	public static final field Companion Lcom/daftmobile/redukt/core/threading/KtThread$Companion;
+	public static final field UNSPECIFIED Ljava/lang/String;
+	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getRawName ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/core/threading/KtThread$Companion {
+	public static final field UNSPECIFIED Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/core/threading/ThreadGuardMiddlewareKt {
+	public static final fun getThreadGuardMiddleware ()Lkotlin/jvm/functions/Function1;
+}
+

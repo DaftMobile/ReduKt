@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kover)
     alias(libs.plugins.dokka)
+    alias(libs.plugins.binarycheck)
 }
 
 buildscript {

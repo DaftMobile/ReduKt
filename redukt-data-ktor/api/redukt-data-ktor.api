@@ -1,0 +1,28 @@
+public abstract interface class com/daftmobile/redukt/data/ktor/HttpDataSourceResolverConfigScope {
+	public abstract fun client (Lio/ktor/client/HttpClient;)V
+	public abstract fun client (Lio/ktor/client/engine/HttpClientEngine;Lkotlin/jvm/functions/Function1;)V
+	public abstract fun client (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun getDefaultErrorMapper ()Lkotlin/jvm/functions/Function1;
+	public abstract fun getDispatcher ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public abstract fun resolvedBy (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lkotlin/jvm/functions/Function0;)V
+	public abstract fun resolvesTo (Lcom/daftmobile/redukt/data/PureDataSourceKey;Lcom/daftmobile/redukt/data/ktor/HttpEndpoint;)V
+	public abstract fun setDefaultErrorMapper (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun setDispatcher (Lkotlinx/coroutines/CoroutineDispatcher;)V
+}
+
+public final class com/daftmobile/redukt/data/ktor/HttpDataSourceResolverKt {
+	public static final fun HttpDataSourceResolver (Lkotlin/jvm/functions/Function1;)Lcom/daftmobile/redukt/data/DataSourceResolver;
+}
+
+public abstract interface class com/daftmobile/redukt/data/ktor/HttpEndpoint {
+	public abstract fun getErrorMapper ()Lkotlin/jvm/functions/Function1;
+	public abstract fun getRequestCreator ()Lkotlin/jvm/functions/Function2;
+	public abstract fun getResponseMapper ()Lkotlin/jvm/functions/Function2;
+	public abstract fun getResponseReader ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/daftmobile/redukt/data/ktor/HttpEndpointKt {
+	public static final fun HttpEndpoint (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)Lcom/daftmobile/redukt/data/ktor/HttpEndpoint;
+	public static synthetic fun HttpEndpoint$default (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/daftmobile/redukt/data/ktor/HttpEndpoint;
+}
+

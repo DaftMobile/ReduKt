@@ -1,0 +1,49 @@
+public final class com/daftmobile/redukt/koin/GlobalKoinDI : com/daftmobile/redukt/koin/KoinDI {
+	public static final field INSTANCE Lcom/daftmobile/redukt/koin/GlobalKoinDI;
+	public fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public synthetic fun getKey ()Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;
+	public fun getKey ()Lcom/daftmobile/redukt/koin/KoinDI$Key;
+	public fun getKoin ()Lorg/koin/core/Koin;
+	public fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun scatter ()Ljava/util/Map;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/daftmobile/redukt/koin/KoinApplicationDI : com/daftmobile/redukt/koin/KoinDI {
+	public fun <init> (Lorg/koin/core/KoinApplication;)V
+	public fun find (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public fun get (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public final fun getApp ()Lorg/koin/core/KoinApplication;
+	public synthetic fun getKey ()Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;
+	public fun getKey ()Lcom/daftmobile/redukt/koin/KoinDI$Key;
+	public fun getKoin ()Lorg/koin/core/Koin;
+	public fun minus (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun plus (Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public fun scatter ()Ljava/util/Map;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/daftmobile/redukt/koin/KoinDI : com/daftmobile/redukt/core/closure/DispatchClosure$Element, org/koin/core/component/KoinComponent {
+	public static final field Key Lcom/daftmobile/redukt/koin/KoinDI$Key;
+	public abstract fun getKey ()Lcom/daftmobile/redukt/koin/KoinDI$Key;
+}
+
+public final class com/daftmobile/redukt/koin/KoinDI$DefaultImpls {
+	public static fun find (Lcom/daftmobile/redukt/koin/KoinDI;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun get (Lcom/daftmobile/redukt/koin/KoinDI;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+	public static fun getKey (Lcom/daftmobile/redukt/koin/KoinDI;)Lcom/daftmobile/redukt/koin/KoinDI$Key;
+	public static fun getKoin (Lcom/daftmobile/redukt/koin/KoinDI;)Lorg/koin/core/Koin;
+	public static fun minus (Lcom/daftmobile/redukt/koin/KoinDI;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun plus (Lcom/daftmobile/redukt/koin/KoinDI;Lcom/daftmobile/redukt/core/closure/DispatchClosure;)Lcom/daftmobile/redukt/core/closure/DispatchClosure;
+	public static fun scatter (Lcom/daftmobile/redukt/koin/KoinDI;)Ljava/util/Map;
+}
+
+public final class com/daftmobile/redukt/koin/KoinDI$Key : com/daftmobile/redukt/core/closure/DispatchClosure$Key {
+}
+
+public final class com/daftmobile/redukt/koin/KoinDIKt {
+	public static final fun getKoin (Lcom/daftmobile/redukt/core/DispatchScope;)Lorg/koin/core/Koin;
+}
+

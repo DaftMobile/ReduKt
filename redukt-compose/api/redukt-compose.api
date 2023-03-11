@@ -1,0 +1,13 @@
+public final class com/daftmobile/redukt/compose/LocalStoreKt {
+	public static final fun getDispatch (Landroidx/compose/runtime/CompositionLocal;Landroidx/compose/runtime/Composer;I)Lkotlin/jvm/functions/Function1;
+	public static final fun getDispatchJob (Landroidx/compose/runtime/CompositionLocal;Landroidx/compose/runtime/Composer;I)Lkotlin/jvm/functions/Function1;
+	public static final fun getDispatchJobIn (Landroidx/compose/runtime/CompositionLocal;Landroidx/compose/runtime/Composer;I)Lkotlin/jvm/functions/Function2;
+	public static final fun getDispatchJobInHere (Landroidx/compose/runtime/CompositionLocal;Landroidx/compose/runtime/Composer;I)Lkotlin/jvm/functions/Function1;
+	public static final fun getJoinDispatchJob (Landroidx/compose/runtime/CompositionLocal;Landroidx/compose/runtime/Composer;I)Lkotlin/jvm/functions/Function2;
+	public static final fun localStoreOf (Lkotlin/jvm/functions/Function0;)Landroidx/compose/runtime/ProvidableCompositionLocal;
+	public static synthetic fun localStoreOf$default (Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Landroidx/compose/runtime/ProvidableCompositionLocal;
+	public static final fun selectAsState (Landroidx/compose/runtime/CompositionLocal;Lcom/daftmobile/redukt/core/store/select/Selector;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
+	public static final fun selectAsState (Lcom/daftmobile/redukt/core/store/Store;Lcom/daftmobile/redukt/core/store/select/Selector;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
+	public static final fun selectAsState (Lcom/daftmobile/redukt/core/store/Store;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;I)Landroidx/compose/runtime/State;
+}
+
