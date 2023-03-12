@@ -166,31 +166,30 @@ private class CoreLocalClosureContainer : LocalClosureContainer {
     override fun applyTo(closure: DispatchClosure): DispatchClosure {
         if (invalidate) {
             current = closure + currentSlotAccumulation()
+            invalidate = false
         }
         return current
     }
 
-    override fun registerNewSlot(closure: DispatchClosure): Slot = Slot().also {
-        currentFrame[it] = closure
-        invalidate = true
+    override fun registerNewSlot(closure: DispatchClosure): Slot = requiresInvalidate {
+        Slot().also { currentFrame[it] = closure }
     }
 
-    override fun removeSlot(slot: Slot) {
+    override fun removeSlot(slot: Slot) = requiresInvalidate<Unit> {
         currentFrame.remove(slot)
-        invalidate = true
     }
 
-    override fun registerNewFrame(): Frame = Frame().also {
-        frames[it] = linkedMapOf()
-        invalidate = true
+    override fun registerNewFrame(): Frame = requiresInvalidate {
+        Frame().also { frames[it] = linkedMapOf() }
     }
 
-    override fun removeFrame(frame: Frame) {
+    override fun removeFrame(frame: Frame) = requiresInvalidate<Unit> {
         frames.remove(frame)
-        invalidate = true
     }
 
     override fun toString(): String = "LocalClosure(currentLocalChanges=${currentSlotAccumulation()})"
+
+    private inline fun <T> requiresInvalidate(block: () -> T): T = block().also { invalidate = true }
 
     private fun currentSlotAccumulation() = currentFrame.values.fold(EmptyDispatchClosure, DispatchClosure::plus)
 

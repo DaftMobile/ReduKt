@@ -77,6 +77,27 @@ class LocalClosureContainerTest {
     }
 
     @Test
+    fun shouldSeparateLocalChangesInNewFrame() {
+        val baseClosureA = ClosureElementA()
+        val closure = baseClosureA + LocalClosureContainer()
+        val localClosureA = ClosureElementA()
+        closure[LocalClosureContainer].registerNewSlot(localClosureA)
+        closure[LocalClosureContainer].registerNewFrame()
+        closure.local[ClosureElementA] shouldBe baseClosureA
+    }
+
+    @Test
+    fun shouldProvideLocalChangeAfterFrameRemoval() {
+        val baseClosureA = ClosureElementA()
+        val closure = baseClosureA + LocalClosureContainer()
+        val localClosureA = ClosureElementA()
+        closure[LocalClosureContainer].registerNewSlot(localClosureA)
+        val frame = closure[LocalClosureContainer].registerNewFrame()
+        closure[LocalClosureContainer].removeFrame(frame)
+        closure.local[ClosureElementA] shouldBe localClosureA
+    }
+
+    @Test
     fun findShouldReturnThisWhenLocalClosureKey() {
         val localClosure = LocalClosureContainer()
         localClosure.find(LocalClosureContainer) shouldBe localClosure
