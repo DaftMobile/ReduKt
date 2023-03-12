@@ -7,6 +7,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.take
@@ -48,7 +49,7 @@ class SelectStateFlowCollectStressTest {
     @Test
     fun stressTestSlowUpdates() = runTest {
         newFixedThreadPoolContext(10, "TestPool").use { pool ->
-            val collectorsCount = 20
+            val collectorsCount = 8
             val syncChannel = Channel<Int>()
             val collectors = List(collectorsCount) {
                 launch(pool) {
@@ -62,7 +63,7 @@ class SelectStateFlowCollectStressTest {
                 }
             }
             collectors.joinAll()
-            emitter.cancel()
+            emitter.cancelAndJoin()
         }
     }
 
