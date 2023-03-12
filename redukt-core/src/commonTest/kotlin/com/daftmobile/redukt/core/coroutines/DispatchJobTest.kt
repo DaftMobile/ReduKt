@@ -118,7 +118,7 @@ class DispatchJobTest {
     fun dispatchJobInShouldProvideLocalDispatchCoroutineScope() {
         dispatchFunction = {
             dispatchScope.launchForeground {  }
-            dispatchScope.localClosure.find(DispatchCoroutineScope) shouldNotBe null
+            dispatchScope.closure.local.find(DispatchCoroutineScope) shouldNotBe null
         }
         dispatchScope.dispatchJobIn(TestForegroundJobAction, TestScope())
     }

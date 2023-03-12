@@ -45,12 +45,12 @@ import com.daftmobile.redukt.core.closure.LocalClosureContainer.Slot
  * How to access changed values:
  * ```
  * fun customMiddleware(): Middleware<AppState> = {
- *    var element = localClosure[ClosureElement] // outside of dispatch - returns values from the original closure
+ *    var element = closure.local[ClosureElement] // outside of dispatch - returns values from the original closure
  *    dispatchFunction {
- *        element = localClosure[ClosureElement] // direct access to local closure in dispatch
+ *        element = closure.local[ClosureElement] // direct access to local closure in dispatch
  *                                               // properly returns local changes
  *
- *        element = closure[ClosureElement]      // direct access to original closure
+ *        element = closure.local[ClosureElement]      // direct access to original closure
  *                                               // returns values from the original closure
  *    }
  * }
@@ -110,14 +110,6 @@ public interface LocalClosureContainer : DispatchClosure.Element {
         public operator fun invoke(): LocalClosureContainer = CoreLocalClosureContainer()
     }
 }
-
-
-
-/**
- * Returns locally changed [DispatchClosure] from this scope.
- */
-@DelicateReduKtApi
-public inline val DispatchScope<*>.localClosure: DispatchClosure get() = closure.local
 
 /**
  * Returns this closure with local changes.
