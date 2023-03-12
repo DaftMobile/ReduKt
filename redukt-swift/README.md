@@ -86,7 +86,7 @@ struct ObserveOn<State, Content>: View where Content: View {
     
     init(
         _ subscriber: @escaping (@escaping (State) -> Void) -> ReduKtDisposable,
-        _ content: @escaping (State) -> Content
+        @ViewBuilder _ content: @escaping (State) -> Content
     ) {
         self.content = content
         self._observer = .init(wrappedValue: Observer(subscriber))
