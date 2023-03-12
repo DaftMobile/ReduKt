@@ -33,14 +33,9 @@ public interface DispatchClosure {
      * Combines this closure with incoming [closure].
      * If both closures contain elements with the same keys, the ones from the incoming [closure] remain.
      */
-    public operator fun plus(closure: DispatchClosure): DispatchClosure {
-        val result = scatter() + closure.scatter()
-        return when (result.values.size) {
-            0 -> EmptyDispatchClosure
-            1 -> result.values.single()
-            else -> CombinedDispatchClosure(result)
-        }
-    }
+    public operator fun plus(
+        closure: DispatchClosure
+    ): DispatchClosure = combinedDispatchClosureOf(scatter() + closure.scatter())
 
     /**
      * Returns a closure without the element with a given [key]
