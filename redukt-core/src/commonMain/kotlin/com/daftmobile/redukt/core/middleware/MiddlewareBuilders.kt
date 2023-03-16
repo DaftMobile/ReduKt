@@ -2,7 +2,6 @@ package com.daftmobile.redukt.core.middleware
 
 import com.daftmobile.redukt.core.Action
 import com.daftmobile.redukt.core.DispatchFunction
-import com.daftmobile.redukt.core.DispatchScope
 
 /**
  * Creates a middleware.
@@ -41,7 +40,7 @@ public inline fun <State> middleware(
  * ```
  */
 public inline fun <State, reified T : Action> consumingMiddleware(
-    crossinline block: DispatchScope<State>.(T) -> Unit
+    crossinline block: MiddlewareScope<State>.(T) -> Unit
 ): Middleware<State> = { consumingDispatch<T> { block(it) } }
 
 /**
@@ -54,7 +53,7 @@ public inline fun <State, reified T : Action> consumingMiddleware(
  * ```
  */
 public inline fun <State> translucentMiddleware(
-    crossinline block: DispatchScope<State>.(Action) -> Unit
+    crossinline block: MiddlewareScope<State>.(Action) -> Unit
 ): Middleware<State> = { translucentDispatch { block(it) } }
 
 /**

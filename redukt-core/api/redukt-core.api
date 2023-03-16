@@ -163,11 +163,11 @@ public final class com/daftmobile/redukt/core/coroutines/DispatchJobKt {
 	public static final fun dispatchJob (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/core/coroutines/ForegroundJobAction;)Lkotlinx/coroutines/Job;
 	public static final fun dispatchJobIn (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/core/coroutines/ForegroundJobAction;Lkotlinx/coroutines/CoroutineScope;)Lkotlinx/coroutines/Job;
 	public static final fun joinDispatchJob (Lcom/daftmobile/redukt/core/DispatchScope;Lcom/daftmobile/redukt/core/coroutines/ForegroundJobAction;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun launchForeground (Lcom/daftmobile/redukt/core/DispatchScope;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
 	public static final fun launchForeground (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
-	public static synthetic fun launchForeground$default (Lcom/daftmobile/redukt/core/DispatchScope;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
+	public static final fun launchForeground (Lcom/daftmobile/redukt/core/middleware/MiddlewareScope;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Job;
 	public static synthetic fun launchForeground$default (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
-	public static final fun launchInForegroundOf (Lkotlinx/coroutines/flow/Flow;Lcom/daftmobile/redukt/core/DispatchScope;)Lkotlinx/coroutines/Job;
+	public static synthetic fun launchForeground$default (Lcom/daftmobile/redukt/core/middleware/MiddlewareScope;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
+	public static final fun launchInForegroundOf (Lkotlinx/coroutines/flow/Flow;Lcom/daftmobile/redukt/core/middleware/MiddlewareScope;)Lkotlinx/coroutines/Job;
 }
 
 public final class com/daftmobile/redukt/core/coroutines/EmptyForegroundJobRegistry : com/daftmobile/redukt/core/coroutines/ForegroundJobRegistry {

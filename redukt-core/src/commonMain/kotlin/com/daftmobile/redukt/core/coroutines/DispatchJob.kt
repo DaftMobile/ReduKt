@@ -5,6 +5,7 @@ import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
 import com.daftmobile.redukt.core.closure.local
 import com.daftmobile.redukt.core.closure.withLocalClosure
+import com.daftmobile.redukt.core.middleware.MiddlewareScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
@@ -23,7 +24,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  *
  * @see ForegroundJobAction
  */
-public fun DispatchScope<*>.launchForeground(
+public fun MiddlewareScope<*>.launchForeground(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit
@@ -33,7 +34,7 @@ public fun DispatchScope<*>.launchForeground(
  * Launches a foreground coroutine to collect [this] flow using given [scope].
  * @see launchForeground
  */
-public fun Flow<*>.launchInForegroundOf(scope: DispatchScope<*>): Job = scope.launchForeground { collect() }
+public fun Flow<*>.launchInForegroundOf(scope: MiddlewareScope<*>): Job = scope.launchForeground { collect() }
 
 /**
  * Dispatches [action] and expects any middleware to launch a single *foreground job* logically associate with it.

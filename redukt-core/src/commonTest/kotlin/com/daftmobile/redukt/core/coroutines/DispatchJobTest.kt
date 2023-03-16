@@ -2,6 +2,7 @@ package com.daftmobile.redukt.core.coroutines
 
 import com.daftmobile.redukt.core.*
 import com.daftmobile.redukt.core.closure.*
+import com.daftmobile.redukt.core.middleware.MergedMiddlewareScope
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.sequences.shouldContain
@@ -33,7 +34,7 @@ class DispatchJobTest {
     @Test
     fun launchForegroundShouldRegisterJobInLocalJobRegistry() {
         closure.withLocalClosure(registry + dispatchCoroutineScope) {
-            val job = dispatchScope.launchForeground { }
+            val job = closure.launchForeground { }
             registry.consumeOrNull() shouldBe job
         }
     }
@@ -41,7 +42,7 @@ class DispatchJobTest {
     @Test
     fun launchForegroundShouldLaunchJobInLocalDispatchCoroutineScope() {
         closure.withLocalClosure(registry + dispatchCoroutineScope) {
-            val job = dispatchScope.launchForeground { }
+            val job = closure.launchForeground { }
             dispatchCoroutineScope.coroutineContext.job.children shouldContain job
         }
     }
@@ -60,7 +61,7 @@ class DispatchJobTest {
     @Test
     fun launchInForegroundShouldLaunchForegroundJob() {
         closure.withLocalClosure(registry + dispatchCoroutineScope) {
-            val job = flowOf(1, 2, 3).launchInForegroundOf(dispatchScope)
+            val job = flowOf(1, 2, 3).launchInForegroundOf(MergedMiddlewareScope(dispatchScope, {}))
             registry.consumeOrNull() shouldBe job
         }
     }
@@ -71,7 +72,7 @@ class DispatchJobTest {
             val elements = mutableListOf<Int>()
             val job = flowOf(1, 2, 3)
                 .onEach(elements::add)
-                .launchInForegroundOf(dispatchScope)
+                .launchInForegroundOf(MergedMiddlewareScope(dispatchScope, {}))
             job.join()
             elements shouldBe listOf(1, 2, 3)
         }
@@ -80,7 +81,7 @@ class DispatchJobTest {
     @Test
     fun dispatchJobShouldNotFailOnLaunchForeground() {
         closure.withLocalClosure(dispatchCoroutineScope) {
-            dispatchFunction = { dispatchScope.launchForeground { } }
+            dispatchFunction = { closure.launchForeground { } }
             shouldNotThrowAny { dispatchScope.dispatchJob(TestForegroundJobAction) }
         }
     }
@@ -97,14 +98,14 @@ class DispatchJobTest {
     fun dispatchJobShouldReturnRegisteredJob() {
         closure.withLocalClosure(dispatchCoroutineScope) {
             var registeredJob: Job? = null
-            dispatchFunction = { registeredJob = dispatchScope.launchForeground { } }
+            dispatchFunction = { registeredJob = closure.launchForeground { } }
             dispatchScope.dispatchJob(TestForegroundJobAction) shouldBe registeredJob
         }
     }
 
     @Test
     fun dispatchJobInShouldNotFailOnLaunchForeground() {
-        dispatchFunction = { dispatchScope.launchForeground { } }
+        dispatchFunction = { closure.launchForeground { } }
         shouldNotThrowAny { dispatchScope.dispatchJobIn(TestForegroundJobAction, dispatchCoroutineScope) }
     }
 
@@ -117,7 +118,7 @@ class DispatchJobTest {
     @Test
     fun dispatchJobInShouldProvideLocalDispatchCoroutineScope() {
         dispatchFunction = {
-            dispatchScope.launchForeground {  }
+            closure.launchForeground {  }
             dispatchScope.closure.local.find(DispatchCoroutineScope) shouldNotBe null
         }
         dispatchScope.dispatchJobIn(TestForegroundJobAction, TestScope())
@@ -127,7 +128,7 @@ class DispatchJobTest {
     fun joinDispatchJobShouldProperlyJoinLaunchedCoroutine() = runTest {
         var joined = false
         dispatchFunction = {
-            dispatchScope.launchForeground {
+            closure.launchForeground {
                 delay(1_000)
                 joined = true
             }
