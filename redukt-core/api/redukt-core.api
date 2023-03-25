@@ -168,6 +168,8 @@ public final class com/daftmobile/redukt/core/coroutines/DispatchJobKt {
 	public static synthetic fun launchForeground$default (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
 	public static synthetic fun launchForeground$default (Lcom/daftmobile/redukt/core/middleware/MiddlewareScope;Lkotlin/coroutines/CoroutineContext;Lkotlinx/coroutines/CoroutineStart;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
 	public static final fun launchInForegroundOf (Lkotlinx/coroutines/flow/Flow;Lcom/daftmobile/redukt/core/middleware/MiddlewareScope;)Lkotlinx/coroutines/Job;
+	public static final fun registeringJob (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/Job;
+	public static synthetic fun registeringJob$default (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/Job;
 }
 
 public final class com/daftmobile/redukt/core/coroutines/EmptyForegroundJobRegistry : com/daftmobile/redukt/core/coroutines/ForegroundJobRegistry {

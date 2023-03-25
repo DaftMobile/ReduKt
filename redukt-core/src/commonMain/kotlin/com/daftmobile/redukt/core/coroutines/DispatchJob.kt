@@ -1,5 +1,6 @@
 package com.daftmobile.redukt.core.coroutines
 
+import com.daftmobile.redukt.core.DelicateReduKtApi
 import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.closure.DispatchClosure
 import com.daftmobile.redukt.core.closure.EmptyDispatchClosure
@@ -41,24 +42,17 @@ public fun Flow<*>.launchInForegroundOf(scope: MiddlewareScope<*>): Job = scope.
  * Coroutine is launched in a scope provided by [DispatchCoroutineScope].
  * @return a job associated with [action]
  */
-public fun DispatchScope<*>.dispatchJob(action: ForegroundJobAction): Job {
-    return withLocalClosure(SingleForegroundJobRegistry()) {
-        dispatch(action)
-        closure.local[ForegroundJobRegistry].consume()
-    }
-}
+public fun DispatchScope<*>.dispatchJob(action: ForegroundJobAction): Job = closure.registeringJob { dispatch(action) }
 
 /**
  * Dispatches [action] and expects any middleware to launch a single *foreground job* logically associate with it.
  * Coroutine is launched in the [scope].
  * @return a job associated with [action]
  */
-public fun DispatchScope<*>.dispatchJobIn(action: ForegroundJobAction, scope: CoroutineScope): Job {
-    return withLocalClosure(SingleForegroundJobRegistry() + DispatchCoroutineScope(scope)) {
-        dispatch(action)
-        closure.local[ForegroundJobRegistry].consume()
-    }
-}
+public fun DispatchScope<*>.dispatchJobIn(
+    action: ForegroundJobAction,
+    scope: CoroutineScope
+): Job = closure.registeringJob(DispatchCoroutineScope(scope)) { dispatch(action) }
 
 /**
  *  Dispatches [action] and expects any middleware to launch a single *foreground job* logically associate with it.
@@ -90,4 +84,23 @@ public fun DispatchClosure.launchForeground(
     }
     local[ForegroundJobRegistry].register(job)
     return job
+}
+
+/**
+ * Runs [block] that must register a *foreground job*. It adds [SingleForegroundJobRegistry] to local closure
+ * to allow proper job registration. Local closure change creates a new frame if [newFrame] is true.
+ *
+ * It's possible to add additional local closure changes with [closure].
+ * @return registered job
+ */
+@DelicateReduKtApi
+public inline fun DispatchClosure.registeringJob(
+    closure: DispatchClosure = EmptyDispatchClosure,
+    newFrame: Boolean = false,
+    block: DispatchClosure.() -> Unit
+): Job {
+    return withLocalClosure(SingleForegroundJobRegistry() + closure, newFrame = newFrame) {
+        block()
+        local[ForegroundJobRegistry].consume()
+    }
 }
