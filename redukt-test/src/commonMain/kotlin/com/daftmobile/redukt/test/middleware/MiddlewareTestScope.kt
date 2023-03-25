@@ -22,6 +22,11 @@ public interface MiddlewareTestScope<State> : MutableDispatchScope<State>, Actio
     public fun testAction(action: Action)
 
     /**
+     * Just like [onDispatch], but for [MiddlewareScope.next] function.
+     */
+    public fun onNext(block: MutableDispatchScope<State>.(Action) -> Unit)
+
+    /**
      * Runs assertions block on actions passed to the next middleware by the middleware under test.
      */
     public fun verifyNext(block: ActionsAssertScope.() -> Unit)
@@ -56,6 +61,10 @@ private class MiddlewareTestScopeImpl<State>(
     override fun testAction(action: Action) = middlewareDispatch(action)
 
     override fun verifyNext(block: ActionsAssertScope.() -> Unit) = middlewareSpy.block()
+
+    override fun onNext(block: MutableDispatchScope<State>.(Action) -> Unit) {
+        middlewareSpy.onNext { block(it) }
+    }
 }
 
 private class SpyingMiddlewareScope<State>(
@@ -68,5 +77,9 @@ private class SpyingMiddlewareScope<State>(
     override val unverified: Queue<Action> get() = nextSpy.unverified
     override fun clearActionsHistory() {
         nextSpy.clearActionsHistory()
+    }
+
+    fun onNext(block: (Action) -> Unit) {
+        nextSpy.onDispatch { block(it) }
     }
 }

@@ -40,6 +40,7 @@ public final class com/daftmobile/redukt/test/assertions/SkipKt {
 }
 
 public abstract interface class com/daftmobile/redukt/test/middleware/MiddlewareTestScope : com/daftmobile/redukt/test/MutableDispatchScope, com/daftmobile/redukt/test/assertions/ActionsAssertScope {
+	public abstract fun onNext (Lkotlin/jvm/functions/Function2;)V
 	public abstract fun testAction (Lcom/daftmobile/redukt/core/Action;)V
 	public abstract fun verifyNext (Lkotlin/jvm/functions/Function1;)V
 }
