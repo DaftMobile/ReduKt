@@ -11,10 +11,8 @@ publishing.publications {
 
 dependencies {
     constraints {
-        (rootProject.subprojects - project)
-            .filter { it.plugins.hasPlugin("maven-publish") }
-            .forEach {
-                api("${rootProject.group}:${it.name}:${rootProject.version}").also(::println)
-            }
+        (rootProject.subprojects - project).forEach {
+            api("${rootProject.group}:${it.name}:${rootProject.version}")
+        }
     }
 }
