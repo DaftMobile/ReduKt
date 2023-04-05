@@ -6,7 +6,7 @@ import com.daftmobile.redukt.core.middleware.Middleware
 import com.daftmobile.redukt.core.middleware.consumingMiddleware
 
 /**
- * Consumes every thunk and executes it. If action is a [CoThunkAction], it is executed in a foreground coroutine.
+ * Consumes every thunk and executes it. If action is a [CoThunk], it is executed in a foreground coroutine.
  */
 public val thunkMiddleware: Middleware<*> = consumingMiddleware<_, ThunkMarker<*>> { thunk ->
     when (thunk) {

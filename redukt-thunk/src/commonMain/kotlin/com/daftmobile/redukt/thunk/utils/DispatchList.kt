@@ -20,7 +20,7 @@ public data class DispatchList(val actions: List<Action>) : Thunk<Unit> {
 }
 
 /**
- * A [CoThunkAction] that dispatches [actions] in given order.
+ * A [CoThunk] that dispatches [actions] in given order.
  * If [concurrent] is false, every [ForegroundJobAction] is joined sequentially.
  * If [concurrent] is true, [actions] are dispatched concurrently and [execute] suspends until every [ForegroundJobAction] is completed.
  */
