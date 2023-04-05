@@ -3,12 +3,12 @@ public abstract interface class com/daftmobile/redukt/test/thunk/CoThunkTestScop
 }
 
 public final class com/daftmobile/redukt/test/thunk/CoThunkTester {
-	public fun <init> (Lcom/daftmobile/redukt/thunk/CoThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Z)V
-	public synthetic fun <init> (Lcom/daftmobile/redukt/thunk/CoThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/daftmobile/redukt/thunk/CoThunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Z)V
+	public synthetic fun <init> (Lcom/daftmobile/redukt/thunk/CoThunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getInitialClosure ()Lcom/daftmobile/redukt/core/closure/DispatchClosure;
 	public final fun getInitialState ()Ljava/lang/Object;
 	public final fun getStrict ()Z
-	public final fun getThunk ()Lcom/daftmobile/redukt/thunk/CoThunkAction;
+	public final fun getThunk ()Lcom/daftmobile/redukt/thunk/CoThunk;
 	public final fun test (ZLkotlin/jvm/functions/Function1;)V
 	public static synthetic fun test$default (Lcom/daftmobile/redukt/test/thunk/CoThunkTester;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
@@ -18,27 +18,27 @@ public abstract interface class com/daftmobile/redukt/test/thunk/ThunkTestScope 
 }
 
 public final class com/daftmobile/redukt/test/thunk/ThunkTestScopeKt {
-	public static final fun CoThunkTestScope (Lcom/daftmobile/redukt/thunk/CoThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;)Lcom/daftmobile/redukt/test/thunk/CoThunkTestScope;
-	public static synthetic fun CoThunkTestScope$default (Lcom/daftmobile/redukt/thunk/CoThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/daftmobile/redukt/test/thunk/CoThunkTestScope;
-	public static final fun ThunkTestScope (Lcom/daftmobile/redukt/thunk/ThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;)Lcom/daftmobile/redukt/test/thunk/ThunkTestScope;
-	public static synthetic fun ThunkTestScope$default (Lcom/daftmobile/redukt/thunk/ThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/daftmobile/redukt/test/thunk/ThunkTestScope;
+	public static final fun CoThunkTestScope (Lcom/daftmobile/redukt/thunk/CoThunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;)Lcom/daftmobile/redukt/test/thunk/CoThunkTestScope;
+	public static synthetic fun CoThunkTestScope$default (Lcom/daftmobile/redukt/thunk/CoThunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/daftmobile/redukt/test/thunk/CoThunkTestScope;
+	public static final fun ThunkTestScope (Lcom/daftmobile/redukt/thunk/Thunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;)Lcom/daftmobile/redukt/test/thunk/ThunkTestScope;
+	public static synthetic fun ThunkTestScope$default (Lcom/daftmobile/redukt/thunk/Thunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/daftmobile/redukt/test/thunk/ThunkTestScope;
 }
 
 public final class com/daftmobile/redukt/test/thunk/ThunkTester {
-	public fun <init> (Lcom/daftmobile/redukt/thunk/ThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Z)V
-	public synthetic fun <init> (Lcom/daftmobile/redukt/thunk/ThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/daftmobile/redukt/thunk/Thunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Z)V
+	public synthetic fun <init> (Lcom/daftmobile/redukt/thunk/Thunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getInitialClosure ()Lcom/daftmobile/redukt/core/closure/DispatchClosure;
 	public final fun getInitialState ()Ljava/lang/Object;
 	public final fun getStrict ()Z
-	public final fun getThunk ()Lcom/daftmobile/redukt/thunk/ThunkAction;
+	public final fun getThunk ()Lcom/daftmobile/redukt/thunk/Thunk;
 	public final fun test (ZLkotlin/jvm/functions/Function1;)V
 	public static synthetic fun test$default (Lcom/daftmobile/redukt/test/thunk/ThunkTester;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
 
 public final class com/daftmobile/redukt/test/thunk/ThunkTesterKt {
-	public static final fun tester (Lcom/daftmobile/redukt/thunk/CoThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Z)Lcom/daftmobile/redukt/test/thunk/CoThunkTester;
-	public static final fun tester (Lcom/daftmobile/redukt/thunk/ThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Z)Lcom/daftmobile/redukt/test/thunk/ThunkTester;
-	public static synthetic fun tester$default (Lcom/daftmobile/redukt/thunk/CoThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZILjava/lang/Object;)Lcom/daftmobile/redukt/test/thunk/CoThunkTester;
-	public static synthetic fun tester$default (Lcom/daftmobile/redukt/thunk/ThunkAction;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZILjava/lang/Object;)Lcom/daftmobile/redukt/test/thunk/ThunkTester;
+	public static final fun tester (Lcom/daftmobile/redukt/thunk/CoThunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Z)Lcom/daftmobile/redukt/test/thunk/CoThunkTester;
+	public static final fun tester (Lcom/daftmobile/redukt/thunk/Thunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;Z)Lcom/daftmobile/redukt/test/thunk/ThunkTester;
+	public static synthetic fun tester$default (Lcom/daftmobile/redukt/thunk/CoThunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZILjava/lang/Object;)Lcom/daftmobile/redukt/test/thunk/CoThunkTester;
+	public static synthetic fun tester$default (Lcom/daftmobile/redukt/thunk/Thunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZILjava/lang/Object;)Lcom/daftmobile/redukt/test/thunk/ThunkTester;
 }
 

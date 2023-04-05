@@ -10,13 +10,13 @@ import com.daftmobile.redukt.core.middleware.consumingMiddleware
  */
 public val thunkMiddleware: Middleware<*> = consumingMiddleware<_, ThunkMarker<*>> { thunk ->
     when (thunk) {
-        is CoThunkAction -> launchForeground { thunk.executeWith(this@consumingMiddleware) }
-        is ThunkAction -> thunk.executeWith(this)
+        is CoThunk -> launchForeground { thunk.executeWith(this@consumingMiddleware) }
+        is Thunk -> thunk.executeWith(this)
     }
 }
 
 @Suppress("UNCHECKED_CAST")
-private fun ThunkAction<*>.executeWith(scope: DispatchScope<Any?>) = (this as ThunkAction<Any?>).run { scope.execute() }
+private fun Thunk<*>.executeWith(scope: DispatchScope<Any?>) = (this as Thunk<Any?>).run { scope.execute() }
 
 @Suppress("UNCHECKED_CAST")
-private suspend fun CoThunkAction<*>.executeWith(scope: DispatchScope<Any?>) = (this as CoThunkAction<Any?>).run { scope.execute() }
+private suspend fun CoThunk<*>.executeWith(scope: DispatchScope<Any?>) = (this as CoThunk<Any?>).run { scope.execute() }

@@ -5,14 +5,15 @@ import com.daftmobile.redukt.core.DispatchScope
 import com.daftmobile.redukt.core.coroutines.ForegroundJobAction
 import com.daftmobile.redukt.core.coroutines.dispatchJobIn
 import com.daftmobile.redukt.core.coroutines.joinDispatchJob
-import com.daftmobile.redukt.thunk.CoThunkAction
-import com.daftmobile.redukt.thunk.ThunkAction
+import com.daftmobile.redukt.thunk.CoThunk
+import com.daftmobile.redukt.thunk.Thunk
+import com.daftmobile.redukt.thunk.ThunkMarker
 import kotlinx.coroutines.coroutineScope
 
 /**
- * A [ThunkAction] that dispatches [actions] in given order. It should be created with [plus].
+ * A [ThunkMarker] that dispatches [actions] in given order. It should be created with [plus].
  */
-public data class DispatchList(val actions: List<Action>) : ThunkAction<Unit> {
+public data class DispatchList(val actions: List<Action>) : Thunk<Unit> {
     override fun DispatchScope<Unit>.execute() {
         actions.forEach(::dispatch)
     }
@@ -26,7 +27,7 @@ public data class DispatchList(val actions: List<Action>) : ThunkAction<Unit> {
 public data class JoiningCoroutinesDispatchList(
     val actions: List<Action>,
     val concurrent: Boolean
-) : CoThunkAction<Any?> {
+) : CoThunk<Any?> {
     override suspend fun DispatchScope<Any?>.execute() {
         if (concurrent) coroutineScope {
             actions.forEach {

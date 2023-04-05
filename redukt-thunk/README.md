@@ -10,7 +10,7 @@ There are 2 types of thunks:
 * Associated with regular function that is executed by `thunkMiddleware` in a blocking manner.
 
 ```kotlin
-interface ThunkAction<State> : Action {
+interface Thunk<State> : Action {
     fun DispatchScope<State>.execute()
 }
 ```
@@ -18,17 +18,17 @@ interface ThunkAction<State> : Action {
 * Associated with suspending function that is executed by `thunkMiddleware` in a foreground coroutine.
 
 ```kotlin
-interface CoThunkAction<State> : ForegroundJobAction {
+interface CoThunk<State> : ForegroundJobAction {
     suspend fun DispatchScope<State>.execute()
 }
 ```
 
 Every thunk has `DispatchScope` as `execute` method receiver. It provides `closure`, `dispatch` and `currentState`.
 
-To create a thunk you can simply implement `ThunkAction` or `CoThunkAction` like this:
+To create a thunk you can simply implement `Thunk` or `CoThunk` like this:
 
 ```kotlin
-data class FetchBook(val id: String) : CoThunkAction<AppState> {
+data class FetchBook(val id: String) : CoThunk<AppState> {
     suspend fun DispatchScope<AppState>.execute() {
         val client by koin.instance<HttpClient>()
         runCatching { client.get("/book/$id") }
@@ -37,27 +37,26 @@ data class FetchBook(val id: String) : CoThunkAction<AppState> {
     }
 }
 ```
-
-You can also instantiate it directly with `Thunk` or `CoThunk` classes:
-
-```kotlin
-fun fetchBook(id: String): CoThunkAction<AppState> = CoThunk {
-    val client by koin.instance<HttpClient>()
-    runCatching { client.get("/book/$id") }
-        .onSuccess { dispatch(BookFetchSuccess(it)) }
-        .onFailure { dispatch(BookFetchFailed(it)) }
-}
-```
-
-`Thunk` and `CoThunk` are open classes, so you might create subclasses for them:
+You can create thunks as separate types in a more compact way with `BaseThunk` and `BaseCoThunk`:
 
 ```kotlin
-data class FetchBook(val id: String) : CoThunk<AppState>({
+data class FetchBook(val id: String): BaseCoThunk<AppState>({
     val client by koin.instance<HttpClient>()
     runCatching { client.get("/book/$id") }
         .onSuccess { dispatch(BookFetchSuccess(it)) }
         .onFailure { dispatch(BookFetchFailed(it)) }
 })
+```
+
+You can also instantiate it directly with `Thunk` or `CoThunk` functions:
+
+```kotlin
+fun fetchBook(id: String) = CoThunk<AppState> {
+    val client by koin.instance<HttpClient>()
+    runCatching { client.get("/book/$id") }
+        .onSuccess { dispatch(BookFetchSuccess(it)) }
+        .onFailure { dispatch(BookFetchFailed(it)) }
+}
 ```
 
 ### DispatchList
@@ -75,7 +74,7 @@ store.dispatch(action)
 // it results in ActionA and ActionB being dispatched in given order.
 ```
 
-`DispatchList` is a `ThunkAction` so it requires `thunkMiddleware`.
+`DispatchList` is a `Thunk` so it requires `thunkMiddleware`.
 
 ### JoiningCoroutinesDispatchList
 
@@ -94,7 +93,7 @@ store.dispatch(action)
 // It means that their associated coroutines are executed sequentially
 ```
 
-It's worth to notice that `JoiningCoroutinesDispatchList` is a `CoThunkAction` so it's executed in foreground coroutine.
+It's worth to notice that `JoiningCoroutinesDispatchList` is a `CoThunk` so it's executed in foreground coroutine.
 
 `JoiningCoroutinesDispatchList` has a concurrency flag, that runs associated coroutines concurrently.
 

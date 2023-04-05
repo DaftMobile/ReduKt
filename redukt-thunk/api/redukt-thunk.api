@@ -1,21 +1,24 @@
-public class com/daftmobile/redukt/thunk/CoThunk : com/daftmobile/redukt/thunk/CoThunkAction {
+public abstract class com/daftmobile/redukt/thunk/BaseCoThunk : com/daftmobile/redukt/thunk/CoThunk {
 	public fun <init> (Lkotlin/jvm/functions/Function2;)V
-	public fun execute (Lcom/daftmobile/redukt/core/DispatchScope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public final fun getBlock ()Lkotlin/jvm/functions/Function2;
+	public final fun execute (Lcom/daftmobile/redukt/core/DispatchScope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public abstract interface class com/daftmobile/redukt/thunk/CoThunkAction : com/daftmobile/redukt/core/coroutines/ForegroundJobAction, com/daftmobile/redukt/thunk/ThunkMarker {
+public abstract class com/daftmobile/redukt/thunk/BaseThunk : com/daftmobile/redukt/thunk/Thunk {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public final fun execute (Lcom/daftmobile/redukt/core/DispatchScope;)V
+}
+
+public abstract interface class com/daftmobile/redukt/thunk/CoThunk : com/daftmobile/redukt/core/coroutines/ForegroundJobAction, com/daftmobile/redukt/thunk/ThunkMarker {
 	public abstract fun execute (Lcom/daftmobile/redukt/core/DispatchScope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public class com/daftmobile/redukt/thunk/Thunk : com/daftmobile/redukt/thunk/ThunkAction {
-	public fun <init> (Lkotlin/jvm/functions/Function1;)V
-	public fun execute (Lcom/daftmobile/redukt/core/DispatchScope;)V
-	public final fun getBlock ()Lkotlin/jvm/functions/Function1;
+public abstract interface class com/daftmobile/redukt/thunk/Thunk : com/daftmobile/redukt/thunk/ThunkMarker {
+	public abstract fun execute (Lcom/daftmobile/redukt/core/DispatchScope;)V
 }
 
-public abstract interface class com/daftmobile/redukt/thunk/ThunkAction : com/daftmobile/redukt/thunk/ThunkMarker {
-	public abstract fun execute (Lcom/daftmobile/redukt/core/DispatchScope;)V
+public final class com/daftmobile/redukt/thunk/ThunkKt {
+	public static final fun CoThunk (Lkotlin/jvm/functions/Function2;)Lcom/daftmobile/redukt/thunk/CoThunk;
+	public static final fun Thunk (Lkotlin/jvm/functions/Function1;)Lcom/daftmobile/redukt/thunk/Thunk;
 }
 
 public abstract interface class com/daftmobile/redukt/thunk/ThunkMarker : com/daftmobile/redukt/core/Action {
@@ -25,7 +28,7 @@ public final class com/daftmobile/redukt/thunk/ThunkMiddlewareKt {
 	public static final fun getThunkMiddleware ()Lkotlin/jvm/functions/Function1;
 }
 
-public final class com/daftmobile/redukt/thunk/utils/DispatchList : com/daftmobile/redukt/thunk/ThunkAction {
+public final class com/daftmobile/redukt/thunk/utils/DispatchList : com/daftmobile/redukt/thunk/Thunk {
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun copy (Ljava/util/List;)Lcom/daftmobile/redukt/thunk/utils/DispatchList;
@@ -58,7 +61,7 @@ public final class com/daftmobile/redukt/thunk/utils/DispatchListSupport$Joining
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/daftmobile/redukt/thunk/utils/JoiningCoroutinesDispatchList : com/daftmobile/redukt/thunk/CoThunkAction {
+public final class com/daftmobile/redukt/thunk/utils/JoiningCoroutinesDispatchList : com/daftmobile/redukt/thunk/CoThunk {
 	public fun <init> (Ljava/util/List;Z)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Z
