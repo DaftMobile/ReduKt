@@ -13,6 +13,13 @@ public final class com/daftmobile/redukt/test/thunk/CoThunkTester {
 	public static synthetic fun test$default (Lcom/daftmobile/redukt/test/thunk/CoThunkTester;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
 
+public final class com/daftmobile/redukt/test/thunk/ThunkTestKt {
+	public static final fun test (Lcom/daftmobile/redukt/thunk/CoThunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;)V
+	public static final fun test (Lcom/daftmobile/redukt/thunk/Thunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;)V
+	public static synthetic fun test$default (Lcom/daftmobile/redukt/thunk/CoThunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static synthetic fun test$default (Lcom/daftmobile/redukt/thunk/Thunk;Ljava/lang/Object;Lcom/daftmobile/redukt/core/closure/DispatchClosure;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
 public abstract interface class com/daftmobile/redukt/test/thunk/ThunkTestScope : com/daftmobile/redukt/test/MutableDispatchScope, com/daftmobile/redukt/test/assertions/ActionsAssertScope {
 	public abstract fun testExecute ()V
 }
