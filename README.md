@@ -122,7 +122,7 @@ val fetchPostsMiddleware = consumingMiddleware<AppState, PostAction.FetchAll> {
 
 You might reduce amount of required middlewares with [ReduKt Thunk](redukt-thunk):
 ```kotlin
-object FetchAllPosts : CoThunk<AppState>({
+object FetchAllPosts : BaseCoThunk<AppState>({
     val client by koin.inject<HttpClient>()
     runCatching { client.get("/posts") }
         .onSuccess { dispatch(PostAction.FetchSuccess(it)) }
