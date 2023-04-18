@@ -8,13 +8,13 @@ val dokkaJar by tasks.creating(Jar::class) {
     archiveClassifier.set("javadoc")
     from(tasks.findByName("dokkaGfm"))
 }
+ext["signing.keyId"] = reduKtProperty("signingKeyId")
+ext["signing.password"] = reduKtProperty("signingPassword")
+ext["signing.secretKeyRingFile"] = reduKtProperty("signingSecretKeyRingFile")
 
 signing {
     // disables signing for publishToMavenLocal
     setRequired { gradle.taskGraph.allTasks.any { it is PublishToMavenRepository } }
-    ext["signing.keyId"] = reduKtProperty("signingKeyId")
-    ext["signing.password"] = reduKtProperty("signingPassword")
-    ext["signing.secretKeyRingFile"] = reduKtProperty("signingSecretKeyRingFile")
     sign(publishing.publications)
 }
 
