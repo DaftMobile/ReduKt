@@ -1,6 +1,6 @@
 # ReduKt
 
-[![Kotlin](https://img.shields.io/badge/kotlin-1.8.10-blue.svg?logo=kotlin)](http://kotlinlang.org) [![build](https://github.com/DaftMobile/ReduKt/actions/workflows/gradle.yml/badge.svg)](https://github.com/DaftMobile/ReduKt/actions/workflows/gradle.yml)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.8.20-blue.svg?logo=kotlin)](http://kotlinlang.org) [![build](https://github.com/DaftMobile/ReduKt/actions/workflows/gradle.yml/badge.svg)](https://github.com/DaftMobile/ReduKt/actions/workflows/gradle.yml)
 
 ReduKt is a [Redux pattern](https://redux.js.org/understanding/thinking-in-redux/three-principles) adaptation in Kotlin,
 integrated with [coroutines](https://github.com/Kotlin/kotlinx.coroutines), testable and multiplatform.
