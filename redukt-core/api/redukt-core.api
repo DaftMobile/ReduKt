@@ -50,6 +50,10 @@ public final class com/daftmobile/redukt/core/closure/DispatchClosure$Element$De
 public abstract interface class com/daftmobile/redukt/core/closure/DispatchClosure$Key {
 }
 
+public final class com/daftmobile/redukt/core/closure/DispatchClosure$Key$DefaultImpls {
+	public static fun getDefault (Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
+}
+
 public final class com/daftmobile/redukt/core/closure/DispatchClosureKt {
 	public static final fun findOrElse (Lcom/daftmobile/redukt/core/closure/DispatchClosure;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Key;Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;)Lcom/daftmobile/redukt/core/closure/DispatchClosure$Element;
 }

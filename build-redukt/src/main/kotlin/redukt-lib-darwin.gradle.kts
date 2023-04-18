@@ -13,7 +13,6 @@ kotlin {
     tvosSimulatorArm64()
 
     watchos()
-    watchosX86()
 
     macosArm64()
     macosX64()
@@ -31,7 +30,6 @@ kotlin {
         }
 
         val watchosMain by getting { dependsOn(darwinMain) }
-        val watchosX86Main by getting { dependsOn(watchosMain) }
 
         val tvosMain by getting { dependsOn(darwinMain) }
         val tvosSimulatorArm64Main by getting { dependsOn(darwinMain) }
