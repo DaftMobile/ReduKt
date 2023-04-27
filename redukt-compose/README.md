@@ -1,5 +1,8 @@
 # ReduKt Compose
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.daftmobile.redukt/redukt-compose)](https://mvnrepository.com/artifact/com.daftmobile.redukt/redukt-compose)
+[![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
+
 ReduKt Compose is a small set of utils to work with ReduKt store in Jetpack Compose.
 
 It depends on [compose-jb,](https://github.com/JetBrains/compose-jb) so it's possible to use it outside of Android.

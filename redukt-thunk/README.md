@@ -1,5 +1,8 @@
 # ReduKt Thunk
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.daftmobile.redukt/redukt-thunk)](https://mvnrepository.com/artifact/com.daftmobile.redukt/redukt-thunk)
+[![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
+
 Adaptation of [Redux thunk](https://redux.js.org/usage/writing-logic-thunks) in ReduKt.
 
 ### Basics

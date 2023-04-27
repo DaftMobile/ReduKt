@@ -1,5 +1,8 @@
 # ReduKt Data Ktor
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.daftmobile.redukt/redukt-data-ktor)](https://mvnrepository.com/artifact/com.daftmobile.redukt/redukt-data-ktor)
+[![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
+
 ReduKt Data Ktor provides the integration between [ReduKt Data](../redukt-data) and [Ktor Client](https://ktor.io/docs/welcome.html).
 
 ### Quick start 

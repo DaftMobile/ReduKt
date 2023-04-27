@@ -1,5 +1,8 @@
 # ReduKt Koin
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.daftmobile.redukt/redukt-koin)](https://mvnrepository.com/artifact/com.daftmobile.redukt/redukt-koin)
+[![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
+
 ReduKt integration with [Koin framework](https://github.com/InsertKoinIO/koin).
 
 ### Quick start

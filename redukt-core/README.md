@@ -1,4 +1,6 @@
 # ReduKt Core
+[![Maven Central](https://img.shields.io/maven-central/v/com.daftmobile.redukt/redukt-core)](https://mvnrepository.com/artifact/com.daftmobile.redukt/redukt-core)
+[![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
 
 ## Before you start
 

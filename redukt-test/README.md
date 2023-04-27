@@ -1,5 +1,8 @@
 # ReduKt Test
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.daftmobile.redukt/redukt-test)](https://mvnrepository.com/artifact/com.daftmobile.redukt/redukt-test)
+[![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
+
 ReduKt Test provides tools to test ReduKt components.
 
 ## Guide

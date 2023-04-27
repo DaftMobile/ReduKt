@@ -1,5 +1,8 @@
 # ReduKt Data
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.daftmobile.redukt/redukt-data)](https://mvnrepository.com/artifact/com.daftmobile.redukt/redukt-data)
+[![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
+
 ReduKt Data provides a generic flow of fetching asynchronous data.
 
 ## Guide
