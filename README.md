@@ -37,6 +37,36 @@ API reference has not been published yet. It's only available from the source co
 * [ReduKt Compose](redukt-compose) - integration with Jetpack Compose.
 * [ReduKt Swift](redukt-swift) - store wrapper that provides better experience on the Swift side.
 
+## Dependencies
+
+If you want to use more than `redukt-core` it's a good idea to add `redukt-bom`:
+
+```kotlin
+val commonMain by getting {
+  dependencies {
+    implementation(platform("com.daftmobile.redukt:redukt-bom:1.0"))
+    implementation("com.daftmobile.redukt:redukt-core")
+    implementation("com.daftmobile.redukt:redukt-compose") // in your compose project
+    implementation("com.daftmobile.redukt:redukt-data")
+    implementation("com.daftmobile.redukt:redukt-data-ktor")
+    implementation("com.daftmobile.redukt:redukt-koin")
+    implementation("com.daftmobile.redukt:redukt-thunk")
+  }
+}
+val commonTest by getting {
+  dependencies {
+    implementation(kotlin("test"))
+    implementation("com.daftmobile.redukt:redukt-test")
+    implementation("com.daftmobile.redukt:redukt-test-thunk")
+  }
+}
+val iosMain by getting {
+  dependencies {
+    implementation("com.daftmobile.redukt:redukt-swift") // in any darwin source set
+  }
+}
+```
+
 ## Overview
 
 Every Redux app starts with creating a store. In ReduKt here is how it's done:
