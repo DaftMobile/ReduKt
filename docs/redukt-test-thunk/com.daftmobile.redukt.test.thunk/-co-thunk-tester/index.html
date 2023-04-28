@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CoThunkTester</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>ReduKt</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="redukt-test-thunk::com.daftmobile.redukt.test.thunk/CoThunkTester///PointingToDeclaration//297237922">
+  <div class="breadcrumbs"><a href="../../index.html">redukt-test-thunk</a><span class="delimiter">/</span><a href="../index.html">com.daftmobile.redukt.test.thunk</a><span class="delimiter">/</span><span class="current">CoThunkTester</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Co</span><wbr><span>Thunk</span><wbr><span><span>Tester</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test-thunk:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">CoThunkTester</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>thunk<span class="token operator">: </span><a href="../../../redukt-thunk/com.daftmobile.redukt.thunk/-co-thunk/index.html">CoThunk</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>initialState<span class="token operator">: </span><a href="index.html">State</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>initialClosure<span class="token operator">: </span><a href="../../../redukt-core/com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token operator"> = </span>EmptyDispatchClosure<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>strict<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Creates a test environment for a <a href="thunk.html">thunk</a> with <a href="initial-state.html">initialState</a> and <a href="initial-closure.html">initialClosure</a>. If <a href="strict.html">strict</a> is true, every <a href="test.html">test</a> call must process all <a href="../../../redukt-test-thunk/com.daftmobile.redukt.test.thunk/-co-thunk-test-scope/unverified.html">CoThunkTestScope.unverified</a> actions.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section-body">
+      <h2 class="tabbedcontent">Constructors</h2>
+      <div class="table" data-togglable="Constructors"><a data-name="-1828598885%2FConstructors%2F297237922" anchor-label="CoThunkTester" id="-1828598885%2FConstructors%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test-thunk:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue TabbedContent">
+            <div class=""><span class="inline-flex">
+                <div><a href="-co-thunk-tester.html"><span>Co</span><wbr><span>Thunk</span><wbr><span><span>Tester</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1828598885%2FConstructors%2F297237922"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test-thunk:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt; </span><a href="-co-thunk-tester.html"><span class="token function">CoThunkTester</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">thunk<span class="token operator">: </span><a href="../../../redukt-thunk/com.daftmobile.redukt.thunk/-co-thunk/index.html">CoThunk</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">initialState<span class="token operator">: </span><a href="index.html">State</a><span class="token punctuation">, </span></span><span class="parameter ">initialClosure<span class="token operator">: </span><a href="../../../redukt-core/com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token operator"> = </span>EmptyDispatchClosure<span class="token punctuation">, </span></span><span class="parameter ">strict<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="87897513%2FFunctions%2F297237922" anchor-label="test" id="87897513%2FFunctions%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test-thunk:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="test.html"><span><span>test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="87897513%2FFunctions%2F297237922"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test-thunk:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="test.html"><span class="token function">test</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">strict<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>this.strict<span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="../-co-thunk-test-scope/index.html">CoThunkTestScope</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Runs a thunk test from a <a href="test.html">block</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="-1818702040%2FProperties%2F297237922" anchor-label="initialClosure" id="-1818702040%2FProperties%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test-thunk:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="initial-closure.html"><span>initial</span><wbr><span><span>Closure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1818702040%2FProperties%2F297237922"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test-thunk:dokkaHtmlPartial/commonMain"><a data-name="-1818702040%2FProperties%2F297237922" anchor-label="initialClosure" id="-1818702040%2FProperties%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="initial-closure.html">initialClosure</a><span class="token operator">: </span><a href="../../../redukt-core/com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="967465746%2FProperties%2F297237922" anchor-label="initialState" id="967465746%2FProperties%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test-thunk:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="initial-state.html"><span>initial</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="967465746%2FProperties%2F297237922"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test-thunk:dokkaHtmlPartial/commonMain"><a data-name="967465746%2FProperties%2F297237922" anchor-label="initialState" id="967465746%2FProperties%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="initial-state.html">initialState</a><span class="token operator">: </span><a href="index.html">State</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1904889078%2FProperties%2F297237922" anchor-label="strict" id="1904889078%2FProperties%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test-thunk:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="strict.html"><span><span>strict</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1904889078%2FProperties%2F297237922"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test-thunk:dokkaHtmlPartial/commonMain"><a data-name="1904889078%2FProperties%2F297237922" anchor-label="strict" id="1904889078%2FProperties%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="strict.html">strict</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="568099677%2FProperties%2F297237922" anchor-label="thunk" id="568099677%2FProperties%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test-thunk:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="thunk.html"><span><span>thunk</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="568099677%2FProperties%2F297237922"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test-thunk:dokkaHtmlPartial/commonMain"><a data-name="568099677%2FProperties%2F297237922" anchor-label="thunk" id="568099677%2FProperties%2F297237922" data-filterable-set=":redukt-test-thunk:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="thunk.html">thunk</a><span class="token operator">: </span><a href="../../../redukt-thunk/com.daftmobile.redukt.thunk/-co-thunk/index.html">CoThunk</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt;</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+
+</body></html>
+

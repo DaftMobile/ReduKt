@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>com.daftmobile.redukt.test.middleware</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../index.html">
+<span>ReduKt</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="redukt-test::com.daftmobile.redukt.test.middleware////PointingToDeclaration//430126899">
+  <div class="breadcrumbs"><a href="../index.html">redukt-test</a><span class="delimiter">/</span><span class="current">com.daftmobile.redukt.test.middleware</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Types</h2>
+      <div class="table" data-togglable="Types"><a data-name="-1970914286%2FClasslikes%2F430126899" anchor-label="MiddlewareTester" id="-1970914286%2FClasslikes%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="-middleware-tester/index.html"><span>Middleware</span><wbr><span><span>Tester</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1970914286%2FClasslikes%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-middleware-tester/index.html">MiddlewareTester</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-middleware-tester/index.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>middleware<span class="token operator">: </span><a href="../../redukt-core/com.daftmobile.redukt.core.middleware/-middleware/index.html">Middleware</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-middleware-tester/index.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>initialState<span class="token operator">: </span><a href="-middleware-tester/index.html">State</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>initialClosure<span class="token operator">: </span><a href="../../redukt-core/com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token operator"> = </span>EmptyDispatchClosure<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>strict<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a test environment for a <a href="-middleware-tester/middleware.html">middleware</a> with <a href="-middleware-tester/initial-state.html">initialState</a> and <a href="-middleware-tester/initial-closure.html">initialClosure</a>. If <a href="-middleware-tester/strict.html">strict</a> is true, every <a href="-middleware-tester/test.html">test</a> call must process all <a href="../../redukt-test/com.daftmobile.redukt.test.middleware/-middleware-test-scope/unverified.html">MiddlewareTestScope.unverified</a> actions.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="2029221327%2FClasslikes%2F430126899" anchor-label="MiddlewareTestScope" id="2029221327%2FClasslikes%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="-middleware-test-scope/index.html"><span>Middleware</span><wbr><span>Test</span><wbr><span><span>Scope</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2029221327%2FClasslikes%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-middleware-test-scope/index.html">MiddlewareTestScope</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-middleware-test-scope/index.html">State</a><span class="token operator">&gt;</span> : <a href="../com.daftmobile.redukt.test/-mutable-dispatch-scope/index.html">MutableDispatchScope</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-middleware-test-scope/index.html">State</a><span class="token operator">&gt; </span>, <a href="../com.daftmobile.redukt.test.assertions/-actions-assert-scope/index.html">ActionsAssertScope</a></div><div class="brief "><p class="paragraph">The scope for a middleware under test.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-1638598483%2FFunctions%2F430126899" anchor-label="MiddlewareTestScope" id="-1638598483%2FFunctions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="-middleware-test-scope.html"><span>Middleware</span><wbr><span>Test</span><wbr><span><span>Scope</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1638598483%2FFunctions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-middleware-test-scope.html">State</a><span class="token operator">&gt; </span><a href="-middleware-test-scope.html"><span class="token function">MiddlewareTestScope</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">middleware<span class="token operator">: </span><a href="../../redukt-core/com.daftmobile.redukt.core.middleware/-middleware/index.html">Middleware</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-middleware-test-scope.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">initialState<span class="token operator">: </span><a href="-middleware-test-scope.html">State</a><span class="token punctuation">, </span></span><span class="parameter ">initialClosure<span class="token operator">: </span><a href="../../redukt-core/com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token operator"> = </span>EmptyDispatchClosure<span class="token punctuation">, </span></span><span class="parameter ">initialOnDispatch<span class="token operator">: </span><span class="token keyword"></span><a href="../com.daftmobile.redukt.test/-mutable-dispatch-scope/index.html">MutableDispatchScope</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-middleware-test-scope.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{ }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-middleware-test-scope/index.html">MiddlewareTestScope</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-middleware-test-scope.html">State</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a <a href="-middleware-test-scope/index.html">MiddlewareTestScope</a> for a <a href="-middleware-test-scope.html">middleware</a> with <a href="-middleware-test-scope.html">initialState</a>, <a href="-middleware-test-scope.html">initialClosure</a> and <a href="-middleware-test-scope.html">initialOnDispatch</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1193711563%2FFunctions%2F430126899" anchor-label="testAllActions" id="-1193711563%2FFunctions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="test-all-actions.html"><span>test</span><wbr><span>All</span><wbr><span><span>Actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1193711563%2FFunctions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-middleware-test-scope/index.html">MiddlewareTestScope</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="test-all-actions.html"><span class="token function">testAllActions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>actions<span class="token operator">: </span><a href="../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls <a href="-middleware-test-scope/test-action.html">MiddlewareTestScope.testAction</a> for every action from <a href="test-all-actions.html">actions</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1120965907%2FFunctions%2F430126899" anchor-label="tester" id="1120965907%2FFunctions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="tester.html"><span><span>tester</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1120965907%2FFunctions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="tester.html">State</a><span class="token operator">&gt; </span><a href="../../redukt-core/com.daftmobile.redukt.core.middleware/-middleware/index.html">Middleware</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="tester.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="tester.html"><span class="token function">tester</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initialState<span class="token operator">: </span><a href="tester.html">State</a><span class="token punctuation">, </span></span><span class="parameter ">initialClosure<span class="token operator">: </span><a href="../../redukt-core/com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token operator"> = </span>EmptyDispatchClosure<span class="token punctuation">, </span></span><span class="parameter ">strict<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-middleware-tester/index.html">MiddlewareTester</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="tester.html">State</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates a <a href="-middleware-tester/index.html">MiddlewareTester</a> for <a href="../../redukt-test/com.daftmobile.redukt.test.middleware/index.html">this</a> middleware with <a href="tester.html">initialState</a>, <a href="tester.html">initialClosure</a> and <a href="tester.html">strict</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="179845499%2FFunctions%2F430126899" anchor-label="testJobAction" id="179845499%2FFunctions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="test-job-action.html"><span>test</span><wbr><span>Job</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="179845499%2FFunctions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="-middleware-test-scope/index.html">MiddlewareTestScope</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="test-job-action.html"><span class="token function">testJobAction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">action<span class="token operator">: </span><a href="../../redukt-core/com.daftmobile.redukt.core.coroutines/-foreground-job-action/index.html">ForegroundJobAction</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Calls middleware under test with given <a href="test-job-action.html">action</a> and joins foreground job.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1255799563%2FFunctions%2F430126899" anchor-label="testJobActionIn" id="1255799563%2FFunctions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="test-job-action-in.html"><span>test</span><wbr><span>Job</span><wbr><span>Action</span><wbr><span><span>In</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1255799563%2FFunctions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-middleware-test-scope/index.html">MiddlewareTestScope</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="test-job-action-in.html"><span class="token function">testJobActionIn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token punctuation">, </span></span><span class="parameter ">action<span class="token operator">: </span><a href="../../redukt-core/com.daftmobile.redukt.core.coroutines/-foreground-job-action/index.html">ForegroundJobAction</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/Job///PointingToDeclaration/">Job</span></div><div class="brief "><p class="paragraph">Calls middleware under test with given <a href="test-job-action-in.html">action</a> and provides a <a href="test-job-action-in.html">scope</a> for a foreground job.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+
+</body></html>
+

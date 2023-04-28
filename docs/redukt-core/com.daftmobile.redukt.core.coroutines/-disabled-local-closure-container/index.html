@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>DisabledLocalClosureContainer</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>ReduKt</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":redukt-core:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="redukt-core::com.daftmobile.redukt.core.coroutines/DisabledLocalClosureContainer///PointingToDeclaration//1014912838">
+  <div class="breadcrumbs"><a href="../../index.html">redukt-core</a><span class="delimiter">/</span><a href="../index.html">com.daftmobile.redukt.core.coroutines</a><span class="delimiter">/</span><span class="current">DisabledLocalClosureContainer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Disabled</span><wbr><span>Local</span><wbr><span>Closure</span><wbr><span><span>Container</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">DisabledLocalClosureContainer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closure<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token operator"> = </span>EmptyDispatchClosure</span></span><span class="token punctuation">)</span> : <a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/index.html">LocalClosureContainer</a></div><p class="paragraph">Provides <a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/index.html">LocalClosureContainer</a> that ignores local changes and returns <a href="../../../redukt-core/com.daftmobile.redukt.core.coroutines/-disabled-local-closure-container/closure.html">closure</a>.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Extensions">Extensions</button></div>
+    <div class="tabs-section-body">
+      <h2 class="tabbedcontent">Constructors</h2>
+      <div class="table" data-togglable="Constructors"><a data-name="854587176%2FConstructors%2F1014912838" anchor-label="DisabledLocalClosureContainer" id="854587176%2FConstructors%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue TabbedContent">
+            <div class=""><span class="inline-flex">
+                <div><a href="-disabled-local-closure-container.html"><span>Disabled</span><wbr><span>Local</span><wbr><span>Closure</span><wbr><span><span>Container</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="854587176%2FConstructors%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-disabled-local-closure-container.html"><span class="token function">DisabledLocalClosureContainer</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closure<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token operator"> = </span>EmptyDispatchClosure</span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-1723682316%2FFunctions%2F1014912838" anchor-label="applyTo" id="-1723682316%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="apply-to.html"><span>apply</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1723682316%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="apply-to.html"><span class="token function">applyTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closure<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a></div><div class="brief "><p class="paragraph">Returns <a href="apply-to.html">closure</a> with local changes applied.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1816497469%2FFunctions%2F1014912838" anchor-label="find" id="1816497469%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/find.html"><span><span>find</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1816497469%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/find.html">T</a><span class="token operator"> : </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/index.html">DispatchClosure.Element</a><span class="token operator">&gt; </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/find.html"><span class="token function">find</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-key/index.html">DispatchClosure.Key</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/find.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/find.html">T</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns <a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/index.html">Element</a> associated with the <a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/find.html">key</a> or null.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="858847468%2FFunctions%2F1014912838" anchor-label="get" id="858847468%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/get.html"><span><span>get</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="858847468%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">operator override </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/get.html">T</a><span class="token operator"> : </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/index.html">DispatchClosure.Element</a><span class="token operator">&gt; </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/get.html"><span class="token function">get</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-key/index.html">DispatchClosure.Key</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/get.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/get.html">T</a></div><div class="brief "><p class="paragraph">Returns <a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/index.html">Element</a> associated with the <a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/get.html">key</a> or throws <a href="../../../redukt-core/com.daftmobile.redukt.core.closure/-missing-closure-element-exception/index.html">MissingClosureElementException</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1403458734%2FFunctions%2F1014912838" anchor-label="minus" id="1403458734%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/minus.html"><span><span>minus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1403458734%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">operator override </span><span class="token keyword">fun </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/minus.html"><span class="token function">minus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-key/index.html">DispatchClosure.Key</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a></div><div class="brief "><p class="paragraph">Returns a closure without the element with a given <a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/minus.html">key</a></p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1586139443%2FFunctions%2F1014912838" anchor-label="plus" id="1586139443%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/plus.html"><span><span>plus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1586139443%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">operator </span><span class="token keyword">fun </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/plus.html"><span class="token function">plus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closure<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a></div><div class="brief "><p class="paragraph">Combines this closure with incoming <a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/plus.html">closure</a>. If both closures contain elements with the same keys, the ones from the incoming <a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/plus.html">closure</a> remain.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="990834113%2FFunctions%2F1014912838" anchor-label="registerNewFrame" id="990834113%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="register-new-frame.html"><span>register</span><wbr><span>New</span><wbr><span><span>Frame</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="990834113%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="register-new-frame.html"><span class="token function">registerNewFrame</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/-frame/index.html">LocalClosureContainer.Frame</a></div><div class="brief "><p class="paragraph">Registers a new frame that creates a new hierarchy of local changes.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1778347426%2FFunctions%2F1014912838" anchor-label="registerNewSlot" id="1778347426%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="register-new-slot.html"><span>register</span><wbr><span>New</span><wbr><span><span>Slot</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1778347426%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="register-new-slot.html"><span class="token function">registerNewSlot</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closure<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/-slot/index.html">LocalClosureContainer.Slot</a></div><div class="brief "><p class="paragraph">Registers local change of a closure.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1044301189%2FFunctions%2F1014912838" anchor-label="removeFrame" id="1044301189%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="remove-frame.html"><span>remove</span><wbr><span><span>Frame</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1044301189%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="remove-frame.html"><span class="token function">removeFrame</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">frame<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/-frame/index.html">LocalClosureContainer.Frame</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Removes a frame along with local changes that occurred.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="2078430691%2FFunctions%2F1014912838" anchor-label="removeSlot" id="2078430691%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="remove-slot.html"><span>remove</span><wbr><span><span>Slot</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2078430691%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="remove-slot.html"><span class="token function">removeSlot</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">slot<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/-slot/index.html">LocalClosureContainer.Slot</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Undo local change associated with a <a href="remove-slot.html">slot</a></p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-847946219%2FFunctions%2F1014912838" anchor-label="scatter" id="-847946219%2FFunctions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/scatter.html"><span><span>scatter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-847946219%2FFunctions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/scatter.html"><span class="token function">scatter</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-key/index.html">DispatchClosure.Key</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/index.html">DispatchClosure.Element</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns elements form this <a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a> as a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="-829564526%2FProperties%2F1014912838" anchor-label="key" id="-829564526%2FProperties%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/key.html"><span><span>key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-829564526%2FProperties%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><a data-name="-829564526%2FProperties%2F1014912838" anchor-label="key" id="-829564526%2FProperties%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/key.html">key</a><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/-key/index.html">LocalClosureContainer.Key</a></div><div class="brief "><a data-name="-829564526%2FProperties%2F1014912838" anchor-label="key" id="-829564526%2FProperties%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a><p class="paragraph"><a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/-key/index.html">Key</a> of this element.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="tabbedcontent">Extensions</h2>
+      <div class="table" data-togglable="Extensions"><a data-name="-999808441%2FExtensions%2F1014912838" anchor-label="findOrElse" id="-999808441%2FExtensions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.core.closure/find-or-else.html"><span>find</span><wbr><span>Or</span><wbr><span><span>Else</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-999808441%2FExtensions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/find-or-else.html">T</a><span class="token operator"> : </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-element/index.html">DispatchClosure.Element</a><span class="token operator">&gt; </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token punctuation">.</span><a href="../../com.daftmobile.redukt.core.closure/find-or-else.html"><span class="token function">findOrElse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/-key/index.html">DispatchClosure.Key</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/find-or-else.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/find-or-else.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/find-or-else.html">T</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1309831103%2FExtensions%2F1014912838" anchor-label="launchForeground" id="-1309831103%2FExtensions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../launch-foreground.html"><span>launch</span><wbr><span><span>Foreground</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1309831103%2FExtensions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token punctuation">.</span><a href="../launch-foreground.html"><span class="token function">launchForeground</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a><span class="token operator"> = </span>EmptyCoroutineContext<span class="token punctuation">, </span></span><span class="parameter ">start<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineStart///PointingToDeclaration/">CoroutineStart</span><span class="token operator"> = </span>CoroutineStart.DEFAULT<span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token keyword"></span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/Job///PointingToDeclaration/">Job</span></div><div class="brief "><p class="paragraph">Launches a <i>foreground job</i> using <a href="../../../redukt-core/com.daftmobile.redukt.core.coroutines/index.html">this</a> closure. By default, it's launched in a scope provided by <a href="../-dispatch-coroutine-scope/index.html">DispatchCoroutineScope</a>. This behaviour might be changed by <a href="../dispatch-job-in.html">dispatchJobIn</a> or <a href="../join-dispatch-job.html">joinDispatchJob</a>. Because this function uses local closure, calling it outside dispatch should not be done, because it might result in unexpected behaviour.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1338720425%2FExtensions%2F1014912838" anchor-label="local" id="-1338720425%2FExtensions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.core.closure/local.html"><span><span>local</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1338720425%2FExtensions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token punctuation">.</span><a href="../../com.daftmobile.redukt.core.closure/local.html">local</a><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a></div><div class="brief "><p class="paragraph">Returns this closure with local changes.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1983467488%2FExtensions%2F1014912838" anchor-label="registeringJob" id="1983467488%2FExtensions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../registering-job.html"><span>registering</span><wbr><span><span>Job</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1983467488%2FExtensions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token punctuation">.</span><a href="../registering-job.html"><span class="token function">registeringJob</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closure<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token operator"> = </span>EmptyDispatchClosure<span class="token punctuation">, </span></span><span class="parameter ">newFrame<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/Job///PointingToDeclaration/">Job</span></div><div class="brief "><p class="paragraph">Runs <a href="../registering-job.html">block</a> that must register a <i>foreground job</i>. It adds <a href="../-single-foreground-job-registry/index.html">SingleForegroundJobRegistry</a> to local closure to allow proper job registration. Local closure change creates a new frame if <a href="../registering-job.html">newFrame</a> is true.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-341913473%2FExtensions%2F1014912838" anchor-label="withLocalClosure" id="-341913473%2FExtensions%2F1014912838" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-core:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.core.closure/with-local-closure.html"><span>with</span><wbr><span>Local</span><wbr><span><span>Closure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-341913473%2FExtensions%2F1014912838"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/with-local-closure.html">T</a><span class="token operator">&gt; </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token punctuation">.</span><a href="../../com.daftmobile.redukt.core.closure/with-local-closure.html"><span class="token function">withLocalClosure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">closure<span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token punctuation">, </span></span><span class="parameter ">newFrame<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.core.closure/with-local-closure.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.daftmobile.redukt.core.closure/with-local-closure.html">T</a></div><div class="brief "><p class="paragraph">Changes <a href="../../com.daftmobile.redukt.core.closure/-local-closure-container/index.html">LocalClosureContainer</a> with a given <a href="../../com.daftmobile.redukt.core.closure/with-local-closure.html">closure</a> for a time of <a href="../../com.daftmobile.redukt.core.closure/with-local-closure.html">block</a> execution.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+
+</body></html>
+

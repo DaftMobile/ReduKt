@@ -1,0 +1,383 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ActionsAssertScope</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>ReduKt</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="redukt-test::com.daftmobile.redukt.test.assertions/ActionsAssertScope///PointingToDeclaration//430126899">
+  <div class="breadcrumbs"><a href="../../index.html">redukt-test</a><span class="delimiter">/</span><a href="../index.html">com.daftmobile.redukt.test.assertions</a><span class="delimiter">/</span><span class="current">ActionsAssertScope</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Actions</span><wbr><span>Assert</span><wbr><span><span>Scope</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">ActionsAssertScope</a></div><p class="paragraph">It is a core API for all assertions. It provides all actions dispatched with a spying component. If assertion verifies certain action, it is responsible for pulling it from <a href="unverified.html">unverified</a> queue. Queue enforces verifying actions from the oldest to the latest. Verifying actions is expected behaviour of every assertion, but there are assertions that check certain conditions without pulling from the queue. Also, action might be skipped. It means that it is removed from <a href="unverified.html">unverified</a> without assertion.</p><p class="paragraph">If you want to provide your own assertion check existing assertions source code.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Extensions">Extensions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="512802792%2FFunctions%2F430126899" anchor-label="clearActionsHistory" id="512802792%2FFunctions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="clear-actions-history.html"><span>clear</span><wbr><span>Actions</span><wbr><span><span>History</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="512802792%2FFunctions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="clear-actions-history.html"><span class="token function">clearActionsHistory</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clears <a href="history.html">history</a> and <a href="unverified.html">unverified</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="1241587800%2FProperties%2F430126899" anchor-label="history" id="1241587800%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="history.html"><span><span>history</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1241587800%2FProperties%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><a data-name="1241587800%2FProperties%2F430126899" anchor-label="history" id="1241587800%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="history.html">history</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a><span class="token operator">&gt;</span></div><div class="brief "><a data-name="1241587800%2FProperties%2F430126899" anchor-label="history" id="1241587800%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a><p class="paragraph">Contains all dispatched actions history.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-2107795091%2FProperties%2F430126899" anchor-label="unverified" id="-2107795091%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="unverified.html"><span><span>unverified</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2107795091%2FProperties%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><a data-name="-2107795091%2FProperties%2F430126899" anchor-label="unverified" id="-2107795091%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="unverified.html">unverified</a><span class="token operator">: </span><a href="../../com.daftmobile.redukt.test.tools/-queue/index.html">Queue</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a><span class="token operator">&gt;</span></div><div class="brief "><a data-name="-2107795091%2FProperties%2F430126899" anchor-label="unverified" id="-2107795091%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a><p class="paragraph">Contains all unverified dispatched actions queue. If action is verified, it must be pulled from this queue.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Inheritors</h2>
+      <div class="table" data-togglable="Inheritors"><a data-name="2029221327%2FInheritors%2F430126899" anchor-label="MiddlewareTestScope" id="2029221327%2FInheritors%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.test.middleware/-middleware-test-scope/index.html">MiddlewareTestScope</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2029221327%2FInheritors%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="-923852020%2FInheritors%2F430126899" anchor-label="TestDispatchScope" id="-923852020%2FInheritors%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.test.tools/-test-dispatch-scope/index.html">TestDispatchScope</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-923852020%2FInheritors%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <h2 class="tabbedcontent">Extensions</h2>
+      <div class="table" data-togglable="Extensions"><a data-name="-359674983%2FExtensions%2F430126899" anchor-label="actionStackString" id="-359674983%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../action-stack-string.html"><span>action</span><wbr><span>Stack</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-359674983%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../action-stack-string.html">actionStackString</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Returns a string that contains list of all dispatched actions. The action recently pulled form the queue is marked with '-&gt;'.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1382590039%2FExtensions%2F430126899" anchor-label="assertActionEquals" id="-1382590039%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../assert-action-equals.html"><span>assert</span><wbr><span>Action</span><wbr><span><span>Equals</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1382590039%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../assert-action-equals.html"><span class="token function">assertActionEquals</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">action<span class="token operator">: </span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts that first unverified action is equal to <a href="../assert-action-equals.html">action</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1997618920%2FExtensions%2F430126899" anchor-label="assertActionOfType" id="1997618920%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../assert-action-of-type.html"><span>assert</span><wbr><span>Action</span><wbr><span>Of</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1997618920%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../assert-action-of-type.html">T</a><span class="token operator"> : </span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a><span class="token operator">&gt; </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../assert-action-of-type.html"><span class="token function">assertActionOfType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertions<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../assert-action-of-type.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts that first unverified action is an instance of type <a href="../assert-action-of-type.html">T</a>. Also, it applies additional <a href="../assert-action-of-type.html">assertions</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="3188399%2FExtensions%2F430126899" anchor-label="assertActionSequence" id="3188399%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../assert-action-sequence.html"><span>assert</span><wbr><span>Action</span><wbr><span><span>Sequence</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="3188399%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../assert-action-sequence.html"><span class="token function">assertActionSequence</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>actions<span class="token operator">: </span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts that there are only <a href="../assert-action-sequence.html">actions</a> dispatched in given order and no more.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1452669395%2FExtensions%2F430126899" anchor-label="assertAllActionsCount" id="-1452669395%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../assert-all-actions-count.html"><span>assert</span><wbr><span>All</span><wbr><span>Actions</span><wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1452669395%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../assert-all-actions-count.html"><span class="token function">assertAllActionsCount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">count<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts that all dispatched actions count is equal to <a href="../assert-all-actions-count.html">count</a>. It does not pull any action from unverified queue.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1182953264%2FExtensions%2F430126899" anchor-label="assertEveryAction" id="-1182953264%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../assert-every-action.html"><span>assert</span><wbr><span>Every</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1182953264%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../assert-every-action.html"><span class="token function">assertEveryAction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">message<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts that every unverified action matches the <a href="../assert-every-action.html">predicate</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-289429178%2FExtensions%2F430126899" anchor-label="assertNoActions" id="-289429178%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../assert-no-actions.html"><span>assert</span><wbr><span>No</span><wbr><span><span>Actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-289429178%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../assert-no-actions.html"><span class="token function">assertNoActions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts that there is no dispatched actions.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1517320645%2FExtensions%2F430126899" anchor-label="assertNoMoreActions" id="-1517320645%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../assert-no-more-actions.html"><span>assert</span><wbr><span>No</span><wbr><span>More</span><wbr><span><span>Actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1517320645%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../assert-no-more-actions.html"><span class="token function">assertNoMoreActions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts that there is no unverified actions left.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1757130863%2FExtensions%2F430126899" anchor-label="assertSingleActionEquals" id="-1757130863%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../assert-single-action-equals.html"><span>assert</span><wbr><span>Single</span><wbr><span>Action</span><wbr><span><span>Equals</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1757130863%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../assert-single-action-equals.html"><span class="token function">assertSingleActionEquals</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">action<span class="token operator">: </span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts that first unverified action is equal to <a href="../assert-single-action-equals.html">action</a> and it is the only one dispatched action.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="2001332944%2FExtensions%2F430126899" anchor-label="assertSingleActionOfType" id="2001332944%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../assert-single-action-of-type.html"><span>assert</span><wbr><span>Single</span><wbr><span>Action</span><wbr><span>Of</span><wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2001332944%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../assert-single-action-of-type.html">T</a><span class="token operator"> : </span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a><span class="token operator">&gt; </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../assert-single-action-of-type.html"><span class="token function">assertSingleActionOfType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertions<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../assert-single-action-of-type.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts that first unverified action is an instance of <a href="../assert-single-action-of-type.html">T</a> and it is the only one dispatched action. Also, it applies additional <a href="../assert-single-action-of-type.html">assertions</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-584242003%2FExtensions%2F430126899" anchor-label="currentAction" id="-584242003%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../current-action.html"><span>current</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-584242003%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../current-action.html">currentAction</a><span class="token operator">: </span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns first unverified action.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1975071228%2FExtensions%2F430126899" anchor-label="printActionsStack" id="-1975071228%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../print-actions-stack.html"><span>print</span><wbr><span>Actions</span><wbr><span><span>Stack</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1975071228%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../print-actions-stack.html"><span class="token function">printActionsStack</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Prints information about dispatched actions based on <a href="../action-stack-string.html">actionStackString</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1387945788%2FExtensions%2F430126899" anchor-label="skipActions" id="1387945788%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../skip-actions.html"><span>skip</span><wbr><span><span>Actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1387945788%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../skip-actions.html"><span class="token function">skipActions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">n<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Skips first <a href="../skip-actions.html">n</a> unverified actions.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-806840374%2FExtensions%2F430126899" anchor-label="skipActionsWhile" id="-806840374%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../skip-actions-while.html"><span>skip</span><wbr><span>Actions</span><wbr><span><span>While</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-806840374%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../skip-actions-while.html"><span class="token function">skipActionsWhile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Skips actions while <a href="../skip-actions-while.html">predicate</a> is true.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-909803009%2FExtensions%2F430126899" anchor-label="skipOneAction" id="-909803009%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../skip-one-action.html"><span>skip</span><wbr><span>One</span><wbr><span><span>Action</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-909803009%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../skip-one-action.html"><span class="token function">skipOneAction</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Skips first unverified action.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-228805712%2FExtensions%2F430126899" anchor-label="skipOtherActions" id="-228805712%2FExtensions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../skip-other-actions.html"><span>skip</span><wbr><span>Other</span><wbr><span><span>Actions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-228805712%2FExtensions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">ActionsAssertScope</a><span class="token punctuation">.</span><a href="../skip-other-actions.html"><span class="token function">skipOtherActions</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Skips all unverified actions.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+
+</body></html>
+

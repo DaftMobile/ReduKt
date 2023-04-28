@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TestStore</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../index.html">
+<span>ReduKt</span>            </a>    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageids="redukt-test::com.daftmobile.redukt.test.tools/TestStore///PointingToDeclaration//430126899">
+  <div class="breadcrumbs"><a href="../../index.html">redukt-test</a><span class="delimiter">/</span><a href="../index.html">com.daftmobile.redukt.test.tools</a><span class="delimiter">/</span><span class="current">TestStore</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Test</span><wbr><span><span>Store</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">TestStore</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt;</span> : <a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/index.html">MutableDispatchScope</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt; </span>, <a href="../../../redukt-core/com.daftmobile.redukt.core.store/-store/index.html">Store</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt; </span></div><p class="paragraph">ReduKt store for testing purposes that registers dispatched actions.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-2041481121%2FFunctions%2F430126899" anchor-label="dispatch" id="-2041481121%2FFunctions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="index.html#-2041481121%2FFunctions%2F430126899"><span><span>dispatch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2041481121%2FFunctions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#-2041481121%2FFunctions%2F430126899"><span class="token function">dispatch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">action<span class="token operator">: </span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="107865708%2FFunctions%2F430126899" anchor-label="onDispatch" id="107865708%2FFunctions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/on-dispatch.html"><span>on</span><wbr><span><span>Dispatch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="107865708%2FFunctions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/on-dispatch.html"><span class="token function">onDispatch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/index.html">MutableDispatchScope</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../../redukt-core/com.daftmobile.redukt.core/-action/index.html">Action</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets a <a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/on-dispatch.html">block</a> that will be called on every dispatch called by component under test. Each call replaces previously provided <a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/on-dispatch.html">block</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="265185055%2FFunctions%2F430126899" anchor-label="test" id="265185055%2FFunctions%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="test.html"><span><span>test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="265185055%2FFunctions%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="test.html"><span class="token function">test</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">strict<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="../../com.daftmobile.redukt.test.assertions/-actions-assert-scope/index.html">ActionsAssertScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Runs test with <a href="test.html">block</a> that verifies dispatched actions with this store.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="-2027068819%2FProperties%2F430126899" anchor-label="closure" id="-2027068819%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/closure.html"><span><span>closure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2027068819%2FProperties%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><a data-name="-2027068819%2FProperties%2F430126899" anchor-label="closure" id="-2027068819%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">var </span><a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/closure.html">closure</a><span class="token operator">: </span><a href="../../../redukt-core/com.daftmobile.redukt.core.closure/-dispatch-closure/index.html">DispatchClosure</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-626761094%2FProperties%2F430126899" anchor-label="currentState" id="-626761094%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/current-state.html"><span>current</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-626761094%2FProperties%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><a data-name="-626761094%2FProperties%2F430126899" anchor-label="currentState" id="-626761094%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">var </span><a href="../../com.daftmobile.redukt.test/-mutable-dispatch-scope/current-state.html">currentState</a><span class="token operator">: </span><a href="index.html">State</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1982171663%2FProperties%2F430126899" anchor-label="state" id="1982171663%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="state.html"><span><span>state</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1982171663%2FProperties%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><a data-name="1982171663%2FProperties%2F430126899" anchor-label="state" id="1982171663%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="state.html">state</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/MutableStateFlow///PointingToDeclaration/">MutableStateFlow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">State</a><span class="token operator">&gt;</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1603212367%2FProperties%2F430126899" anchor-label="strict" id="-1603212367%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":redukt-test:dokkaHtmlPartial/commonMain" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="strict.html"><span><span>strict</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1603212367%2FProperties%2F430126899"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":redukt-test:dokkaHtmlPartial/commonMain"><a data-name="-1603212367%2FProperties%2F430126899" anchor-label="strict" id="-1603212367%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="strict.html">strict</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><a data-name="-1603212367%2FProperties%2F430126899" anchor-label="strict" id="-1603212367%2FProperties%2F430126899" data-filterable-set=":redukt-test:dokkaHtmlPartial/commonMain"></a><p class="paragraph">If it is true, every <a href="test.html">test</a> call must process all <a href="../../com.daftmobile.redukt.test.assertions/-actions-assert-scope/unverified.html">ActionsAssertScope.unverified</a> actions.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+
+</body></html>
+
