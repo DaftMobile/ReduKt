@@ -1,3 +1,5 @@
+import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
+
 plugins {
     alias(libs.plugins.kover)
     alias(libs.plugins.dokka)
@@ -9,6 +11,12 @@ buildscript {
         classpath(":build-redukt")
         classpath(libs.gradle.plugin.kotlinx.atomicfu)
     }
+}
+
+val dokkaHtmlMultiModule by tasks.getting(DokkaMultiModuleTask::class)
+val syncDocs by tasks.registering(Sync::class) {
+    from(dokkaHtmlMultiModule.outputDirectory)
+    into(rootProject.layout.projectDirectory.dir("docs"))
 }
 
 allprojects {
