@@ -4,6 +4,7 @@
 [![Kotlin](https://img.shields.io/badge/kotlin-1.8.20-blue.svg?logo=kotlin)](http://kotlinlang.org) 
 [![build](https://github.com/DaftMobile/ReduKt/actions/workflows/gradle.yml/badge.svg)](https://github.com/DaftMobile/ReduKt/actions/workflows/gradle.yml)
 [![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
+[![API reference](https://img.shields.io/static/v1?label=api&message=reference&labelColor=gray&color=blueviolet&logo=gitbook&logoColor=white)](https://daftmobile.github.io/ReduKt)
 
 ReduKt is a [Redux pattern](https://redux.js.org/understanding/thinking-in-redux/three-principles) adaptation in Kotlin,
 integrated with [coroutines](https://github.com/Kotlin/kotlinx.coroutines), testable and multiplatform.
@@ -15,7 +16,7 @@ If you want to see basic examples, go to [overview section](#overview).
 More in-depth guides and examples are available for each library in their corresponding README files. They are easily accessible from
 [libraries section](#libraries).
 
-API reference has not been published yet. It's only available from the source code.
+API reference is available [here](https://daftmobile.github.io/ReduKt).
 
 ## Libraries
 

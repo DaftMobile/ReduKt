@@ -2,6 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.daftmobile.redukt/redukt-test-thunk)](https://mvnrepository.com/artifact/com.daftmobile.redukt/redukt-test-thunk)
 [![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
+[![API reference](https://img.shields.io/static/v1?label=api&message=reference&labelColor=gray&color=blueviolet&logo=gitbook&logoColor=white)](https://daftmobile.github.io/ReduKt/redukt-test-thunk/index.html)
 
 ReduKt Test Thunk provides tools to test thunks. It's an extension of [ReduKt Test](../redukt-test) and
 provides very similar API.

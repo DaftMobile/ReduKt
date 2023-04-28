@@ -2,6 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.daftmobile.redukt/redukt-thunk)](https://mvnrepository.com/artifact/com.daftmobile.redukt/redukt-thunk)
 [![GitHub](https://img.shields.io/github/license/DaftMobile/ReduKt)](https://github.com/DaftMobile/ReduKt/blob/main/LICENSE)
+[![API reference](https://img.shields.io/static/v1?label=api&message=reference&labelColor=gray&color=blueviolet&logo=gitbook&logoColor=white)](https://daftmobile.github.io/ReduKt/redukt-thunk/index.html)
 
 Adaptation of [Redux thunk](https://redux.js.org/usage/writing-logic-thunks) in ReduKt.
 
